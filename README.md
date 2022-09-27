@@ -3,6 +3,7 @@
 - Auto refresh of queues every 60 seconds.
 - Create URLs to Quixy defects in cases and on queues (if you have the R&D Change Requests column visible).  
 - Creates URLs to FTS via SFTP (tested with WinSCP - https://winscp.net).  
+- Highlights Fixed defects (Planned in new release or Software update provided) in Pending Release Queue.  
 
 ## Installation
 Before installing, close any instances of Salesforce you have open.  
@@ -13,5 +14,5 @@ Before installing, close any instances of Salesforce you have open.
 4. Toggle "Developer mode"  
 5. Click 'Load unpacked'  
 6. Select the folder you created in step 1  
-7. Auto refresh, Quixy links and FTS links are now active
+7. Auto refresh, Fixed defect highlighting, Quixy links and FTS links are now active
 8. You can now turn off "Developer mode"  
