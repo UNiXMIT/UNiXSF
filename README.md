@@ -5,7 +5,8 @@
 - Highlights Fixed defects (Planned in new release or Software update provided) in Pending Release Queue.  
 - Creates URLs to FTS via SFTP (tested with WinSCP - https://winscp.net).  
    The application used depends on the default app set in the OS for SFTP Protocol:  
-    ![1](sftp.png) 
+    ![1](sftp.png)  
+    This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol  
 
 ## Installation
 Before installing, close any instances of Salesforce you have open.  
