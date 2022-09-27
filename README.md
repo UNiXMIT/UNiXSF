@@ -15,4 +15,12 @@ Before installing, close any instances of Salesforce you have open.
 5. Click 'Load unpacked'  
 6. Select the folder you created in step 1  
 7. Auto refresh, Fixed defect highlighting, Quixy links and FTS links are now active
-8. You can now turn off "Developer mode"  
+8. You can now turn off "Developer mode" 
+
+## Update
+Before updating, close any instances of Salesforce you have open.
+
+1. Download the updated extension files, overwriting the old files
+2. Open Google Chrome, Brave or Edge  
+3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser) 
+4. Click the reload icon in the Salesforce Extension tile
