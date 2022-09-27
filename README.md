@@ -8,7 +8,7 @@
 Before installing, close any instances of Salesforce you have open.  
 
 1. Extract the archive to a folder where you would like the extension to be stored on your computer  
-2. Open Google Chrome  
+2. Open Google Chrome, Brave or Edge  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser) 
 4. Toggle "Developer mode"  
 5. Click 'Load unpacked'  
