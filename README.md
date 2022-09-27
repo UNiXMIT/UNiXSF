@@ -1,9 +1,11 @@
 # Salesforce Extension
 
 - Auto refresh of queues every 60 seconds.
-- Create URLs to Quixy defects in cases and on queues (if you have the R&D Change Requests column visible).  
-- Creates URLs to FTS via SFTP (tested with WinSCP - https://winscp.net).  
+- Create URLs to Quixy defects in cases and on queues (if you have the R&D Change Requests column visible).    
 - Highlights Fixed defects (Planned in new release or Software update provided) in Pending Release Queue.  
+- Creates URLs to FTS via SFTP (tested with WinSCP - https://winscp.net).  
+   The application used depends on the default app set in the OS for SFTP Protocol:  
+    ![1](sftp.png) 
 
 ## Installation
 Before installing, close any instances of Salesforce you have open.  
