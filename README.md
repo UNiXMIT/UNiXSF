@@ -11,7 +11,7 @@
 ## Installation
 Before installing, close any instances of Salesforce you have open.  
 
-1. Extract the archive to a folder where you would like the extension to be stored on your computer  
+1. Download and execute update.cmd, which downloads the extension files, in the directory where you would like the extension to be stored
 2. Open Google Chrome, Brave or Edge  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser) 
 4. Toggle "Developer mode"  
@@ -23,7 +23,7 @@ Before installing, close any instances of Salesforce you have open.
 ## Update
 Before updating, close any instances of Salesforce you have open.
 
-1. Download the updated extension files, overwriting the old files
+1. Execute update.cmd, which downloads the updated extension files, overwriting the old files
 2. Open Google Chrome, Brave or Edge  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser) 
 4. Click the reload icon in the Salesforce Extension tile
