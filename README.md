@@ -13,4 +13,5 @@ Before installing, close any instances of Salesforce you have open.
 4. Toggle "Developer mode"  
 5. Click 'Load unpacked'  
 6. Select the folder you created in step 1  
-7. Auto refresh, Quixy links and FTS links are now active.
+7. Auto refresh, Quixy links and FTS links are now active
+8. You can now turn off "Developer mode"  

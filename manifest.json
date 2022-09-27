@@ -2,6 +2,7 @@
       "name": "Salesforce Extension",
       "version": "1.7",
       "manifest_version": 3,
+      "description": "Enable Salesforce AutoRefresh, Quixy URLs and FTS URLs.",
       "content_scripts": [
         {
           "matches": [
@@ -12,6 +13,9 @@
         }
       ],
       "icons": {
-         "128": "SF.png"
-         }
+        "16": "mf16.png",
+        "32": "mf32.png",
+        "48": "mf48.png",
+        "128": "mf128.png"
+      }
     }
