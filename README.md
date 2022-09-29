@@ -7,6 +7,8 @@
    The application used depends on the default app set in the OS for SFTP Protocol:  
     ![1](sftp.png)  
     This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol  
+- Added QuickLink buttons for the MF Translation Request page and MF Documentation page.  
+    ![2](buttons.png)
 
 ## Installation
 Before installing, close any instances of Salesforce you have open.  
@@ -17,7 +19,7 @@ Before installing, close any instances of Salesforce you have open.
 4. Toggle "Developer mode"  
 5. Click 'Load unpacked'  
 6. Select the folder you created in step 1  
-7. Auto refresh, Fixed defect highlighting, Quixy links and FTS links are now active
+7. The new features are now active
 8. You can now turn off "Developer mode" 
 
 ## Update
