@@ -68,11 +68,11 @@ window.onload = function () {
         };
     }
     function defectFixed() {
-        var fixedElement = document.evaluate("//span/span[contains(., 'Planned in new release')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        var fixedElement = document.evaluate("//td/span/span[contains(., 'Planned in new release')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         for (let i = 0, length = fixedElement.snapshotLength; i < length; ++i) {
             fixedElement.snapshotItem(i).innerHTML = '<span style="color:red">Planned in new release</span>';
         };
-        var fixedElement2 = document.evaluate("//span/span[contains(., 'Software update provided')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        var fixedElement2 = document.evaluate("//td/span/span[contains(., 'Software update provided')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         for (let i = 0, length = fixedElement2.snapshotLength; i < length; ++i) {
             fixedElement2.snapshotItem(i).innerHTML = '<span style="color:red">Software update provided</span>';
         };
