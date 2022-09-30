@@ -1,4 +1,7 @@
 window.onload = function () {
+    function queueRefresh() {
+        document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
+    }
     function MFTranslation() {
         var MFButton = document.querySelector('#oneHeader').querySelector('.trailheadTrigger');
         // Base64 Icons from https://icons8.com 
@@ -43,9 +46,6 @@ window.onload = function () {
         var style = document.createElement('style');
         style.innerHTML = '.mfbutton{cursor:pointer}';
         document.getElementsByTagName('head')[0].appendChild(style);
-    }
-    function queueRefresh() {
-        document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
     }
     function QuixyListURL() {
         var OCTCR = document.querySelectorAll('[title^="OCTCR"]');

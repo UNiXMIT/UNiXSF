@@ -1,6 +1,6 @@
 {
       "name": "Salesforce Extension",
-      "version": "1.7",
+      "version": "1.8",
       "description": "Enable Salesforce Auto Refresh, Fixed Defect Highlighting, Quixy URLs and FTS URLs.",
       "author": "Martin Turner",
       "manifest_version": 3,
