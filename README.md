@@ -13,25 +13,29 @@
 ## Install
 Before installing, close any instances of Salesforce you have open.  
 
-1. Download and execute update.cmd, which downloads the extension files, in the directory where you would like the extension to be stored
-2. Open Google Chrome, Brave or Edge  
-3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser) 
-4. Toggle "Developer mode"  
-5. Click 'Load unpacked'  
-6. Select the folder you created in step 1  
-7. The new features are now active
-8. You can now turn off "Developer mode" 
+1. Download and execute update.cmd, which downloads the extension files, in the directory where you would like the extension to be stored.  
+2. Open Google Chrome, Brave or Edge.  
+3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser).   
+4. Toggle "Developer mode".  
+5. Click 'Load unpacked'.  
+6. Select the folder you created in step 1.  
+7. The new features are now active.
+8. You can now turn off "Developer mode". 
 
 ## Update
 Before updating, close any instances of Salesforce you have open.
 
-1. Execute update.cmd, which downloads the updated extension files, overwriting the old files
-2. Open Google Chrome, Brave or Edge  
-3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser) 
-4. Click the reload icon in the Salesforce Extension tile
+1. Execute update.cmd, which downloads the updated extension files, overwriting the old files.
+2. Open Google Chrome, Brave or Edge.  
+3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser). 
+4. Click the reload icon in the Salesforce Extension tile.
 
 Alternatively you can:
 
-1. Close all instances of your browser
-2. Execute update.cm, which downloads the updated extension files, overwriting the old files
-3. The extention will now be updated when yopu start your browser again
+1. Close all instances of your browser.
+2. Execute update.cm, which downloads the updated extension files, overwriting the old files.
+3. The extention will now be updated when you start your browser again.
+
+## Limitations
+
+1. If you have multiple case tabs open, Quixy and FTS URLs will only be added to the first open case.

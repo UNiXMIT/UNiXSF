@@ -17,7 +17,28 @@ window.onload = function () {
         MFButtonNew.addEventListener('click', MFDocumentationEvent, false);
     }
     function MFDocumentationEvent () {
-        window.open('https://bit.ly/mfdocumentation', '_blank');
+        var MFProduct = document.evaluate("//div[2]/span/slot[1]/records-formula-output/slot/formula-output-formula-html/lightning-formatted-rich-text/span/a", document, null, XPathResult.ANY_TYPE, null);
+        var whichProduct = MFProduct.iterateNext();
+        console.log(whichProduct.textContent);
+        if(whichProduct == null) {
+            window.open('https://bit.ly/mfdocumentation', '_blank');
+        } else {
+            if(whichProduct.textContent.includes('ACUCOBOL-GT')) {
+                window.open('https://www.microfocus.com/documentation/extend-acucobol/', '_blank');
+            } else {
+                if(whichProduct.textContent.includes('Enterprise Developer')) {
+                    window.open('https://www.microfocus.com/documentation/enterprise-developer/', '_blank');
+                } else {
+                    if(whichProduct.textContent.includes('Visual COBOL')) {
+                        window.open('https://www.microfocus.com/documentation/visual-cobol/', '_blank');
+                    } else {
+                        if(whichProduct.textContent.includes('Net Express')) {
+                            window.open('https://www.microfocus.com/documentation/net-express/', '_blank');
+                        }
+                    }
+                }
+            }
+        }
     }
     function MFCSS () {
         var style = document.createElement('style');
