@@ -1,13 +1,17 @@
 # Salesforce Extension
 
+This is a browser extension to add useful features to Salesforce.  
+It's works in Chrome, Brave and Edge (Chromium) browsers.  
+
+## Features  
 - Auto refresh of queues every 60 seconds.
 - Create URLs to Quixy defects in cases and on queues (if you have the R&D Change Requests column visible).    
-- Highlights Fixed defects (Planned in new release or Software update provided) in Pending Release Queue.  
+- Highlights Fixed defects ('Planned in new release' or 'Software update provided' statuses) in Pending Release Queue.  
 - Creates URLs to FTS via SFTP (tested with WinSCP - https://winscp.net).  
    The application used depends on the default app set in the OS for SFTP Protocol:  
     ![1](sftp.png)  
     This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol  
-- Added QuickLink buttons for the MF Translation Request page and MF Documentation page.  
+- Added QuickLink buttons for the MF Translation Request page and MF Documentation page (removing SF links that weren't useful).  
     ![2](buttons.png)  
    If you have a case open, the product will be checked and the appropriate docs page opened (only some products are supported).  
    If no cases are opened the general docs page will be opened.  
