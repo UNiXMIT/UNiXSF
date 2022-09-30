@@ -7,7 +7,6 @@ window.onload = function () {
         xmlHttp.onreadystatechange = () => {
             if (xmlHttp.readyState === 4) {
                 if (xmlHttp.status === 200) {
-                    console.log(xmlHttp.response);
                     var latestVersion = xmlHttp.response
                     if(latestVersion > installedVersion) {
                         alert("New SF Extension version " + latestVersion + " is now available.");
