@@ -19,7 +19,6 @@ window.onload = function () {
     function MFDocumentationEvent () {
         var MFProduct = document.evaluate("//div[2]/span/slot[1]/records-formula-output/slot/formula-output-formula-html/lightning-formatted-rich-text/span/a", document, null, XPathResult.ANY_TYPE, null);
         var whichProduct = MFProduct.iterateNext();
-        console.log(whichProduct.textContent);
         if(whichProduct == null) {
             window.open('https://bit.ly/mfdocumentation', '_blank');
         } else {
