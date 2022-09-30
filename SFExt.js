@@ -1,19 +1,24 @@
 window.onload = function () {
     function updateCheck() {
-        var target = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
-        http.get(target, function(response) {
-            if (response.statusCode === 200) {
-              res.setHeader('Content-Type', 'image/png');
-              return response.pipe(res);
+        var installedVersion = "1.9"
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.responseType = 'json';
+        var url = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
+        xmlHttp.onreadystatechange = () => {
+            if (xmlHttp.readyState === 4) {
+                if (xmlHttp.status === 200) {
+                    console.log(xmlHttp.response);
+                    var latestVersion = xmlHttp.response
+                    if(latestVersion > installedVersion) {
+                        alert("New SF Extension version, " + latestVersion + ", is now available.");
+                    }
+                } else {
+                    console.log(xmlHttp.response);
+                }
             }
-          
-            // drain the response and discard it
-            response.resume();
-            res.send(response.statusCode);
-          });
-    }
-    function queueRefresh() {
-        document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
+        };
+        xmlHttp.open("GET", url, true);
+        xmlHttp.send(null);
     }
     function MFTranslation() {
         var MFButton = document.querySelector('#oneHeader').querySelector('.trailheadTrigger');
@@ -59,6 +64,9 @@ window.onload = function () {
         var style = document.createElement('style');
         style.innerHTML = '.mfbutton{cursor:pointer}';
         document.getElementsByTagName('head')[0].appendChild(style);
+    }
+    function queueRefresh() {
+        document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
     }
     function QuixyListURL() {
         var OCTCR = document.querySelectorAll('[title^="OCTCR"]');
@@ -117,6 +125,7 @@ window.onload = function () {
             fixedElement2.snapshotItem(i).innerHTML = '<span style="color:red">Software update provided</span>';
         };
     }
+    updateCheck();
     MFTranslation();
     MFDocumentation();
     MFCSS();
