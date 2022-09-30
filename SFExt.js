@@ -1,4 +1,17 @@
 window.onload = function () {
+    function updateCheck() {
+        var target = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
+        http.get(target, function(response) {
+            if (response.statusCode === 200) {
+              res.setHeader('Content-Type', 'image/png');
+              return response.pipe(res);
+            }
+          
+            // drain the response and discard it
+            response.resume();
+            res.send(response.statusCode);
+          });
+    }
     function queueRefresh() {
         document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
     }
