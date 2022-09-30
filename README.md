@@ -8,9 +8,9 @@
     ![1](sftp.png)  
     This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol  
 - Added QuickLink buttons for the MF Translation Request page and MF Documentation page.  
-    ![2](buttons.png)
-   If you have a case open, the product will be checked and the appropriate docs page opened (only some products are supported).
-   If no cases are opened the general docs page will be opened.
+    ![2](buttons.png)  
+   If you have a case open, the product will be checked and the appropriate docs page opened (only some products are supported).  
+   If no cases are opened the general docs page will be opened.  
 
 ## Install
 Before installing, close any instances of Salesforce you have open.  
@@ -40,4 +40,5 @@ Alternatively you can:
 
 ## Limitations
 
-1. If you have multiple case tabs open, Quixy, FTS and docs URLs will only work on the first open case tab.
+1. If you have multiple case tabs open, Quixy and FTS case URLs will only work on the first open case tab.  
+   ![2](sftabs.png)  
