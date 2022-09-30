@@ -3,7 +3,7 @@ window.onload = function () {
         var installedVersion = "1.9"
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.responseType = 'json';
-        var url = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
+        var URL = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
         xmlHttp.onreadystatechange = () => {
             if (xmlHttp.readyState === 4) {
                 if (xmlHttp.status === 200) {
@@ -12,12 +12,10 @@ window.onload = function () {
                     if(latestVersion > installedVersion) {
                         alert("New SF Extension version, " + latestVersion + ", is now available.");
                     }
-                } else {
-                    console.log(xmlHttp.response);
                 }
             }
         };
-        xmlHttp.open("GET", url, true);
+        xmlHttp.open("GET", URL, true);
         xmlHttp.send(null);
     }
     function MFTranslation() {
