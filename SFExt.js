@@ -10,7 +10,7 @@ window.onload = function () {
                     console.log(xmlHttp.response);
                     var latestVersion = xmlHttp.response
                     if(latestVersion > installedVersion) {
-                        alert("New SF Extension version, " + latestVersion + ", is now available.");
+                        alert("New SF Extension version " + latestVersion + " is now available.");
                     }
                 }
             }
