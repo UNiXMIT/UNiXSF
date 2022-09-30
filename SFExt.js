@@ -20,7 +20,7 @@ window.onload = function () {
         var MFProduct = document.evaluate("//div[2]/span/slot[1]/records-formula-output/slot/formula-output-formula-html/lightning-formatted-rich-text/span/a", document, null, XPathResult.ANY_TYPE, null);
         var whichProduct = MFProduct.iterateNext();
         if(whichProduct == null) {
-            window.open('https://bit.ly/mfdocumentation', '_blank');
+            window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
         } else {
             if(whichProduct.textContent.includes('ACUCOBOL-GT')) {
                 window.open('https://www.microfocus.com/documentation/extend-acucobol/', '_blank');
@@ -57,12 +57,14 @@ window.onload = function () {
     }
     function QuixyCaseURL() {
         var OCTCRcase = document.evaluate("//lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.ANY_TYPE, null);
-        var OCTCRcaseOuter = document.evaluate("//lightning-formatted-text[contains(., 'OCTCR')]", document, null, XPathResult.ANY_TYPE, null);
         var thisOCTCR = OCTCRcase.iterateNext();
-        var thisOCTCRouter = OCTCRcaseOuter.iterateNext();
-        var quixyID = thisOCTCR.textContent;
-        var finalURL = '<a target="_blank" href="https://rdapps.swinfra.net/quixy/#/viewEntity/' + quixyID + '">' + quixyID + '</a>';
-        thisOCTCRouter.innerHTML = finalURL;
+        if(thisOCTCR !== null) {
+            var OCTCRcaseOuter = document.evaluate("//lightning-formatted-text[contains(., 'OCTCR')]", document, null, XPathResult.ANY_TYPE, null);
+            var thisOCTCRouter = OCTCRcaseOuter.iterateNext();
+            var quixyID = thisOCTCR.textContent;
+            var finalURL = '<a target="_blank" href="https://rdapps.swinfra.net/quixy/#/viewEntity/' + quixyID + '">' + quixyID + '</a>';
+            thisOCTCRouter.innerHTML = finalURL;
+        };
     }
     function FTSURL() {
         var FTSAccDIV = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS AccountName')]", document, null, XPathResult.ANY_TYPE, null);
