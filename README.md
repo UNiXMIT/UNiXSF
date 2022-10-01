@@ -1,19 +1,30 @@
 # Salesforce Extension
 
 This is a browser extension to add useful features to Salesforce.  
-It's works in Chrome, Brave and Edge (Chromium) browsers.  
+It works in Chrome, Brave and Edge (Chromium) browsers.  
 
 ## Features  
-- Auto refresh of queues every 60 seconds.
-- Create URLs to Quixy defects in cases and on queues (if you have the R&D Change Requests column visible).    
+- Auto refresh of queues every 60 seconds (refreshes only the queue, not the entire website).
+
+- Create URLs to Quixy defects in cases.   
+   ![1](images/QuixyCaseLink.png)     
+
+-  Creates URLS to Quixy defects in queues (if you have the R&D Change Requests column visible).  
+   ![2](images/QuixyQueueLink.png)  
+
 - Highlights Fixed defects ('Planned in new release' or 'Software update provided' statuses) in Pending Release Queue.  
+   ![3](images/defectHighlight.png)  
+
 - Creates URLs to FTS via SFTP (tested with WinSCP - https://winscp.net).  
+   ![4](images/fts.png)  
+   ![5](images/fts2.png)  
    The application used depends on the default app set in the OS for SFTP Protocol:  
-    ![1](sftp.png)  
-    This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol  
+   ![6](images/sftp.png)  
+   This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol  
+
 - Added QuickLink buttons for the MF Translation Request page and MF Documentation page (removing SF links that weren't useful).  
-    ![2](buttons.png)  
-   If you have a case open, the product will be checked and the appropriate docs page opened (only some products are supported).  
+   ![7](images/buttons.png)  
+   If you have a case open, the product on on the case will be checked and the appropriate docs page opened (only some products are supported).  
    If no cases are opened the general docs page will be opened.  
 
 ## Install
@@ -45,4 +56,4 @@ Alternatively you can:
 ## Limitations
 
 1. If you have multiple case tabs open, Quixy and FTS case URLs will only work on the first open case tab.  
-   ![2](sftabs.png)  
+   ![8](images/sftabs.png)  
