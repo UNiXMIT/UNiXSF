@@ -24,7 +24,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 - Added QuickLink buttons for the MF Translation Request page and MF Documentation page (removing SF links that weren't useful).  
    ![7](images/buttons.png)  
-   If you have a case open, the product on on the case will be checked and the appropriate docs page opened (only some products are supported).  
+   If you have a case open, the product in the case will be checked and the appropriate docs page opened (only some products are supported).  
    If no cases are opened the general docs page will be opened.  
 
 ## Install
