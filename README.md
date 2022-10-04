@@ -57,3 +57,10 @@ Alternatively you can:
 
 1. If you have multiple case tabs open, Quixy and FTS case URLs will only work on the first open case tab.  
    ![8](images/sftabs.png)  
+
+## Donate
+
+Buy me a coffee/beer?  
+
+- PayPal: http://bit.ly/unixmitdonate  
+- BitCoin: 15B532vsNhwHMEhmRvbs3HGLth3dieNkYq  
