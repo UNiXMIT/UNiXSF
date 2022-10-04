@@ -31,8 +31,9 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 Before installing, close any instances of Salesforce you have open.  
 
 1. Download and execute update.cmd, which downloads the extension files, in the directory where you would like the extension to be stored.  
+   i.e. curl -O https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/update.cmd
 2. Open Google Chrome, Brave or Edge.  
-3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser).   
+3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser) in the browser address bar.   
 4. Toggle "Developer mode".  
 5. Click 'Load unpacked'.  
 6. Select the folder you created in step 1.  
