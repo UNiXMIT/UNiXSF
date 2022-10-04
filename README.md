@@ -63,4 +63,6 @@ Alternatively you can:
 Buy me a coffee/beer?  
 
 - PayPal: http://bit.ly/unixmitdonate  
-- BitCoin: 15B532vsNhwHMEhmRvbs3HGLth3dieNkYq  
+- Bitcoin (BTC): 15B532vsNhwHMEhmRvbs3HGLth3dieNkYq  
+- Ethereum (ETH): 0xf0CCFCEe0E2a78D54A9b7aDE8A42aff5A327D970
+- Dogecoin (DOGE): DUJapbaS6gNoa5ZpHS85nSqkNL7cLJz8gb
