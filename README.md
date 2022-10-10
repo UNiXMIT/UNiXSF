@@ -39,6 +39,8 @@ Before installing, close any instances of Salesforce you have open.
 6. Select the folder you created in step 1.  
 7. The new features are now active.
 8. You can now turn off "Developer mode". 
+9. Once you have loaded Salesforce in your browser, you can check if the extensoion as loaded correctly by checking the browser console log (ctrl + shift + J) for the message 'SFExt Loaded'.  
+![8](images/ExtLoaded.png)  
 
 ## Update
 Before updating, close any instances of Salesforce you have open.
@@ -57,7 +59,7 @@ Alternatively you can:
 ## Limitations
 
 1. If you have multiple case tabs open, Quixy and FTS case URLs will only work on the first open case tab.  
-   ![8](images/sftabs.png)  
+   ![9](images/sftabs.png)  
 
 ## Donate
 
