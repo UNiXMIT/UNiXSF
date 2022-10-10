@@ -144,4 +144,5 @@ window.onload = function () {
     setInterval(function() {
         CustomerFTSURL();
     }, 4000);
+    console.log("SFExt Loaded")
 };
