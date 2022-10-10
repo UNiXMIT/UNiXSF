@@ -53,8 +53,15 @@ Before updating, close any instances of Salesforce you have open.
 Alternatively you can:
 
 1. Close all instances of your browser.
-2. Execute update.cm, which downloads the updated extension files, overwriting the old files.
+2. Execute update.cmd, which downloads the updated extension files, overwriting the old files.
 3. The extention will now be updated when you start your browser again.
+
+## Feature Wishlist
+
+- Configurable refresh time.  
+- Allow users to add additional products to be checked when clicking the documentation button.  
+- Check for product version on a case and open the correct documentation for that version.  
+- Fix the limitation where FTS and Quixy case links only work on the first case tab open.  
 
 ## Limitations
 

@@ -1,6 +1,6 @@
 window.onload = function () {
     function updateCheck() {
-        var installedVersion = "1.9"
+        var installedVersion = "1.91"
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.responseType = 'json';
         var URL = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
