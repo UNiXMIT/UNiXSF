@@ -1,6 +1,6 @@
 window.onload = function () {
     function updateCheck() {
-        var installedVersion = "1.91"
+        var installedVersion = "2.0"
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.responseType = 'json';
         var URL = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
@@ -16,6 +16,14 @@ window.onload = function () {
         };
         xmlHttp.open("GET", URL, true);
         xmlHttp.send(null);
+    }
+    function queueRefresh() {
+        chrome.storage.sync.get({
+            savedTimeout: 60,
+        }, function(items) {
+            refreshTimeout = items.savedTimeout * 1000;
+            startRefresh(refreshTimeout);
+        });
     }
     function MFTranslation() {
         var MFButton = document.querySelector('#oneHeader').querySelector('.trailheadTrigger');
@@ -37,23 +45,29 @@ window.onload = function () {
     function MFDocumentationEvent () {
         var MFProduct = document.evaluate("//div[2]/span/slot[1]/records-formula-output/slot/formula-output-formula-html/lightning-formatted-rich-text/span/a", document, null, XPathResult.ANY_TYPE, null);
         var whichProduct = MFProduct.iterateNext();
+        chrome.storage.sync.get({
+            savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","Net Express / Server Express":"net-express"}',
+        }, function(items) {
+            try {
+                var products = JSON.parse(items.savedProducts);
+                MFDocumentationURL(products, whichProduct);
+             } catch(err) {
+                window.alert("Product list JSON format is not correct!");
+                window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
+             }
+        });
+    }
+    function MFDocumentationURL (products, whichProduct) {
         if(whichProduct == null) {
             window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
         } else {
-            if(whichProduct.textContent.includes('ACUCOBOL-GT')) {
-                window.open('https://www.microfocus.com/documentation/extend-acucobol/', '_blank');
+            var documentationURL = "https://www.microfocus.com/documentation/";
+            var productURI = products[whichProduct.textContent];
+            var finalURL = documentationURL + productURI;
+            if(productURI == undefined) {
+                window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
             } else {
-                if(whichProduct.textContent.includes('Enterprise Developer')) {
-                    window.open('https://www.microfocus.com/documentation/enterprise-developer/', '_blank');
-                } else {
-                    if(whichProduct.textContent.includes('Visual COBOL')) {
-                        window.open('https://www.microfocus.com/documentation/visual-cobol/', '_blank');
-                    } else {
-                        if(whichProduct.textContent.includes('Net Express')) {
-                            window.open('https://www.microfocus.com/documentation/net-express/', '_blank');
-                        }
-                    }
-                }
+                window.open(finalURL, '_blank');
             }
         }
     }
@@ -62,8 +76,11 @@ window.onload = function () {
         style.innerHTML = '.mfbutton{cursor:pointer}';
         document.getElementsByTagName('head')[0].appendChild(style);
     }
-    function queueRefresh() {
-        document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
+    function startRefresh(refreshTimeout) {
+        setInterval(function() {
+             document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
+        },
+        refreshTimeout);
     }
     function QuixyListURL() {
         var OCTCR = document.querySelectorAll('[title^="OCTCR"]');
@@ -126,9 +143,7 @@ window.onload = function () {
     MFTranslation();
     MFDocumentation();
     MFCSS();
-    setInterval(function() {
-        queueRefresh();
-    }, 60000);
+    queueRefresh();
     setInterval(function() {
         QuixyListURL();
     }, 2000);

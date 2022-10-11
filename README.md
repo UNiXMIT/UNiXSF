@@ -3,6 +3,14 @@
 This is a browser extension to add useful features to Salesforce.  
 It works in Chrome, Brave and Edge (Chromium) browsers.  
 
+- [Features](#features)
+- [Install](#install)
+- [Update](#update)
+- [Configuration](#configuration)
+- [Feature Wishlist](#feature-wishlist)
+- [Limitations](#limitations)
+- [Donate](#donate)
+
 ## Features  
 - Auto refresh of queues every 60 seconds (refreshes only the queue, not the entire website).
 
@@ -39,7 +47,7 @@ Before installing, close any instances of Salesforce you have open.
 6. Select the folder you created in step 1.  
 7. The new features are now active.
 8. You can now turn off "Developer mode". 
-9. Once you have loaded Salesforce in your browser, you can check if the extensoion as loaded correctly by checking the browser console log (ctrl + shift + J) for the message 'SFExt Loaded'.  
+9. Once you have loaded Salesforce in your browser, you can check if the extension has loaded correctly by checking the browser console log (ctrl + shift + J) for the message 'SFExt Loaded'.  
 ![8](images/ExtLoaded.png)  
 
 ## Update
@@ -54,19 +62,61 @@ Alternatively you can:
 
 1. Close all instances of your browser.
 2. Execute update.cmd, which downloads the updated extension files, overwriting the old files.
-3. The extention will now be updated when you start your browser again.
+3. The extension will now be updated when you start your browser again.
+
+### Troubleshooting the update
+
+If you have issues with the update, re-downloaded the update.cmd file according to Step 1 in the Install steps.
+
+## Configuration
+
+The extension can be configured via the extensions options page:  
+
+Click on detail button of the extension, then click 'Extension Options'. A new tab will open with the options page.  
+
+Alternatively:  
+
+Click on the toolbar extension menu and select Options.  
+
+![9](images/configPage.png)   
+
+### What can be configured?
+
+- The Auto Refresh time can be configured (in seconds). _Default 30 seconds_
+
+- The supported products list. This list is used to open the correct documentation page when the documentation link/icon is clicked.  
+
+  **Requirements**  
+  The list must be in JSON format.  
+  The list consists of key/value pairs, separated by , and enclosed in braces { }.  
+  The Key must exactly match the name of the product as it appears in cases:  
+  ![10](images/acuProduct.png)  
+  The Value must match the sub-domain of the documentation page for that product:  
+  i.e. for AcuCOBOL the URL is https://www.microfocus.com/documentation/extend-acucobol so the value must be:  
+  ```
+  extend-acucobol
+  ```
+  #### Example
+   To add ChangeMan ZMF to your list of supported products, add:  
+   ```
+   ,"ChangeMan ZMF":"changeman-zmf"
+   ```
+   to the list of products. It should now look like this:  
+
+   {"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","Net Express / Server Express":"net-express"**,"ChangeMan ZMF":"changeman-zmf"**}
+
+Click Save to save your configuration options.  
+
 
 ## Feature Wishlist
-
-- Configurable refresh time.  
-- Allow users to add additional products to be checked when clicking the documentation button.  
+ 
 - Check for product version on a case and open the correct documentation for that version.  
 - Fix the limitation where FTS and Quixy case links only work on the first case tab open.  
 
 ## Limitations
 
 1. If you have multiple case tabs open, Quixy and FTS case URLs will only work on the first open case tab.  
-   ![9](images/sftabs.png)  
+   ![11](images/sftabs.png)  
 
 ## Donate
 
