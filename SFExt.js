@@ -1,13 +1,13 @@
 window.onload = function () {
     function updateCheck() {
-        var installedVersion = "2.0"
+        var installedVersion = "2.0";
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.responseType = 'json';
         var URL = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
         xmlHttp.onreadystatechange = () => {
             if (xmlHttp.readyState === 4) {
                 if (xmlHttp.status === 200) {
-                    var latestVersion = xmlHttp.response
+                    var latestVersion = xmlHttp.response;
                     if(latestVersion > installedVersion) {
                         alert("New SF Extension version " + latestVersion + " is now available.");
                     }
@@ -16,14 +16,6 @@ window.onload = function () {
         };
         xmlHttp.open("GET", URL, true);
         xmlHttp.send(null);
-    }
-    function queueRefresh() {
-        chrome.storage.sync.get({
-            savedTimeout: 60,
-        }, function(items) {
-            refreshTimeout = items.savedTimeout * 1000;
-            startRefresh(refreshTimeout);
-        });
     }
     function MFTranslation() {
         var MFButton = document.querySelector('#oneHeader').querySelector('.trailheadTrigger');
@@ -43,7 +35,7 @@ window.onload = function () {
         MFButtonNew.addEventListener('click', MFDocumentationEvent, false);
     }
     function MFDocumentationEvent () {
-        var MFProduct = document.evaluate("//div[2]/span/slot[1]/records-formula-output/slot/formula-output-formula-html/lightning-formatted-rich-text/span/a", document, null, XPathResult.ANY_TYPE, null);
+        var MFProduct = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[2]/span/slot[1]/records-formula-output/slot/formula-output-formula-html/lightning-formatted-rich-text/span/a", document, null, XPathResult.ANY_TYPE, null);
         var whichProduct = MFProduct.iterateNext();
         chrome.storage.sync.get({
             savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","Net Express / Server Express":"net-express"}',
@@ -76,6 +68,14 @@ window.onload = function () {
         style.innerHTML = '.mfbutton{cursor:pointer}';
         document.getElementsByTagName('head')[0].appendChild(style);
     }
+    function queueRefresh() {
+        chrome.storage.sync.get({
+            savedTimeout: 60,
+        }, function(items) {
+            refreshTimeout = items.savedTimeout * 1000;
+            startRefresh(refreshTimeout);
+        });
+    }
     function startRefresh(refreshTimeout) {
         setInterval(function() {
              document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
@@ -91,53 +91,45 @@ window.onload = function () {
         });
     }
     function QuixyCaseURL() {
-        var OCTCRcase = document.evaluate("//lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.ANY_TYPE, null);
-        var thisOCTCR = OCTCRcase.iterateNext();
-        if(thisOCTCR !== null) {
-            var OCTCRcaseOuter = document.evaluate("//lightning-formatted-text[contains(., 'OCTCR')]", document, null, XPathResult.ANY_TYPE, null);
-            var thisOCTCRouter = OCTCRcaseOuter.iterateNext();
-            var quixyID = thisOCTCR.textContent;
+        var OCTCRcase = document.evaluate("//lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        for (let i = 0, length = OCTCRcase.snapshotLength; i < length; ++i) {
+            var OCTCRcaseOuter = document.evaluate("//lightning-formatted-text[contains(., 'OCTCR')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+            var quixyID = OCTCRcase.snapshotItem(i).textContent;
             var finalURL = '<a target="_blank" href="https://rdapps.swinfra.net/quixy/#/viewEntity/' + quixyID + '">' + quixyID + '</a>';
-            thisOCTCRouter.innerHTML = finalURL;
-        };
+            OCTCRcaseOuter.snapshotItem(i).innerHTML = finalURL;
+        }
     }
     function FTSURL() {
-        var FTSAccDIV = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS AccountName')]", document, null, XPathResult.ANY_TYPE, null);
-        var thisFTSAccDIV = FTSAccDIV.iterateNext();
-        if(thisFTSAccDIV !== null) {
-            var FTSAcc = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS AccountName')]/following-sibling::div//text()", document, null, XPathResult.ANY_TYPE, null);
-            var thisFTSAcc = FTSAcc.iterateNext();
-            var FTSPass = document.evaluate("//div/slot/records-record-layout-row[2]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS Password')]/following-sibling::div//text()", document, null, XPathResult.ANY_TYPE, null);
-            var thisFTSPass = FTSPass.iterateNext();
-            var FTSAccEncoded = (thisFTSAcc.textContent).replace(/#/g,"%23").replace(/%/g,"%25").replace(/\+/g,"%2B").replace(/\//g,"%2F").replace(/@/g,"%40").replace(/:/g,"%3A").replace(/;/g,"%3B");
-            var FTSPassEncoded = (thisFTSPass.textContent).replace(/#/g,"%23").replace(/%/g,"%25").replace(/\+/g,"%2B").replace(/\//g,"%2F").replace(/@/g,"%40").replace(/:/g,"%3A").replace(/;/g,"%3B");
+        var FTSAccDIV = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS AccountName')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        for (let i = 0, length = FTSAccDIV.snapshotLength; i < length; ++i) {
+            var FTSAcc = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS AccountName')]/following-sibling::div//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+            var FTSPass = document.evaluate("//div/slot/records-record-layout-row[2]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS Password')]/following-sibling::div//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+            var FTSAccEncoded = (FTSAcc.snapshotItem(i).textContent).replace(/#/g,"%23").replace(/%/g,"%25").replace(/\+/g,"%2B").replace(/\//g,"%2F").replace(/@/g,"%40").replace(/:/g,"%3A").replace(/;/g,"%3B");
+            var FTSPassEncoded = (FTSPass.snapshotItem(i).textContent).replace(/#/g,"%23").replace(/%/g,"%25").replace(/\+/g,"%2B").replace(/\//g,"%2F").replace(/@/g,"%40").replace(/:/g,"%3A").replace(/;/g,"%3B");
             var FTSURL = FTSAccEncoded + ':' + FTSPassEncoded;
-            thisFTSAccDIV.innerHTML = '<a href="sftp://' + FTSURL + '@ftp-pro.houston.softwaregrp.com:2222">FTS AccountName</a>';
-        };
+            FTSAccDIV.snapshotItem(i).innerHTML = '<a href="sftp://' + FTSURL + '@ftp-pro.houston.softwaregrp.com:2222">FTS AccountName</a>';
+        }
     }
     function CustomerFTSURL() {
-        var FTSAccDIV = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[1]/div/div/div[1][contains(., 'Account')]", document, null, XPathResult.ANY_TYPE, null);
-        var thisFTSAccDIV = FTSAccDIV.iterateNext();
-        if(thisFTSAccDIV !== null) {
-            var FTSAcc = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[1]/div/div/div[1][contains(., 'Account')]/following-sibling::div//text()", document, null, XPathResult.ANY_TYPE, null);
-            var thisFTSAcc = FTSAcc.iterateNext();
-            var FTSPass = document.evaluate("//div/slot/records-record-layout-row[2]/slot/records-record-layout-item[1]/div/div/div[1][contains(., 'Password')]/following-sibling::div//text()", document, null, XPathResult.ANY_TYPE, null);
-            var thisFTSPass = FTSPass.iterateNext();
-            var FTSAccEncoded = (thisFTSAcc.textContent).replace(/#/g,"%23").replace(/%/g,"%25").replace(/\+/g,"%2B").replace(/\//g,"%2F").replace(/@/g,"%40").replace(/:/g,"%3A").replace(/;/g,"%3B");
-            var FTSPassEncoded = (thisFTSPass.textContent).replace(/#/g,"%23").replace(/%/g,"%25").replace(/\+/g,"%2B").replace(/\//g,"%2F").replace(/@/g,"%40").replace(/:/g,"%3A").replace(/;/g,"%3B");
+        var FTSAccDIV = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[1]/div/div/div[1][contains(., 'Account')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        for (let i = 0, length = FTSAccDIV.snapshotLength; i < length; ++i) {
+            var FTSAcc = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[1]/div/div/div[1][contains(., 'Account')]/following-sibling::div//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+            var FTSPass = document.evaluate("//div/slot/records-record-layout-row[2]/slot/records-record-layout-item[1]/div/div/div[1][contains(., 'Password')]/following-sibling::div//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+            var FTSAccEncoded = (FTSAcc.snapshotItem(i).textContent).replace(/#/g,"%23").replace(/%/g,"%25").replace(/\+/g,"%2B").replace(/\//g,"%2F").replace(/@/g,"%40").replace(/:/g,"%3A").replace(/;/g,"%3B");
+            var FTSPassEncoded = (FTSPass.snapshotItem(i).textContent).replace(/#/g,"%23").replace(/%/g,"%25").replace(/\+/g,"%2B").replace(/\//g,"%2F").replace(/@/g,"%40").replace(/:/g,"%3A").replace(/;/g,"%3B");
             var FTSURL = FTSAccEncoded + ':' + FTSPassEncoded;
-            thisFTSAccDIV.innerHTML = '<a href="sftp://' + FTSURL + '@ftp-pro.houston.softwaregrp.com:2222">Account</a>';
-        };
+            FTSAccDIV.snapshotItem(i).innerHTML = '<a href="sftp://' + FTSURL + '@ftp-pro.houston.softwaregrp.com:2222">Account</a>';
+        }
     }
     function defectFixed() {
         var fixedElement = document.evaluate("//td/span/span[contains(., 'Planned in new release')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         for (let i = 0, length = fixedElement.snapshotLength; i < length; ++i) {
             fixedElement.snapshotItem(i).innerHTML = '<span style="color:red">Planned in new release</span>';
-        };
+        }
         var fixedElement2 = document.evaluate("//td/span/span[contains(., 'Software update provided')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         for (let i = 0, length = fixedElement2.snapshotLength; i < length; ++i) {
             fixedElement2.snapshotItem(i).innerHTML = '<span style="color:red">Software update provided</span>';
-        };
+        }
     }
     updateCheck();
     MFTranslation();
@@ -159,5 +151,5 @@ window.onload = function () {
     setInterval(function() {
         CustomerFTSURL();
     }, 4000);
-    console.log("SFExt Loaded")
+    console.log("SFExt Loaded");
 };

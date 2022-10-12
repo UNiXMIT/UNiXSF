@@ -12,7 +12,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - [Donate](#donate)
 
 ## Features  
-- Auto refresh of queues every 60 seconds (refreshes only the queue, not the entire website).
+- Auto refresh of queues every 60 seconds by default (refreshes only the queue, not the entire website).
 
 - Create URLs to Quixy defects in cases.   
    ![1](images/QuixyCaseLink.png)     
@@ -32,7 +32,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 - Added QuickLink buttons for the MF Translation Request page and MF Documentation page (removing SF links that weren't useful).  
    ![7](images/buttons.png)  
-   If you have a case open, the product in the case will be checked and the appropriate docs page opened (only some products are supported).  
+   If you have a case open and active, the product in the case will be checked and the appropriate docs page opened.  
    If no cases are opened the general docs page will be opened.  
 
 ## Install
@@ -66,7 +66,7 @@ Alternatively you can:
 
 ### Troubleshooting the update
 
-If you have issues with the update, re-downloaded the update.cmd file according to Step 1 in the Install steps.
+If you have issues with the update, re-downloaded the update.cmd file according to Step 1 in the [Install](#install) steps.
 
 ## Configuration
 
@@ -109,14 +109,12 @@ Click Save to save your configuration options.
 
 
 ## Feature Wishlist
- 
-- Check for product version on a case and open the correct documentation for that version.  
-- Fix the limitation where FTS and Quixy case links only work on the first case tab open.  
+
+N/A
 
 ## Limitations
 
-1. If you have multiple case tabs open, Quixy and FTS case URLs will only work on the first open case tab.  
-   ![11](images/sftabs.png)  
+N/A 
 
 ## Donate
 
