@@ -108,9 +108,9 @@ Click on the toolbar extension menu and select Options.
 Click Save to save your configuration options.  
 
 
-## Feature Wishlist
+## Features/Improvements Wishlist
 
-N/A
+- Improve functions to trigger only when needed.  
 
 ## Limitations
 
