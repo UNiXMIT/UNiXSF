@@ -5,7 +5,7 @@
 - Added new QuickLinks for the Support Portal and SLD.
 - Added Changelog URL to the Update alert.
 - Change SF logo to MF logo.
-- Changed Extension Loaded indicator to make it easier.
+- Changed Extension Loaded indicator to make it easier to identify.
 
 ## Version 2.0 (10/10/2022)
 
