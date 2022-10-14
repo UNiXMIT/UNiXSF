@@ -6,7 +6,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - [Features](#features)
 - [Install](#install)
 - [Update](#update)
-- [Changelog](changelog.md)
+- [Changelog](changelog)
 - [Configuration](#configuration)
 - [Feature Wishlist](#feature-wishlist)
 - [Limitations](#limitations)
