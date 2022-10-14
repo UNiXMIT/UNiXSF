@@ -1,7 +1,7 @@
 {
       "name": "Salesforce Extension",
-      "version": "2.1",
-      "description": "Enhance Salesforce with new features.",
+      "version": "2.0",
+      "description": "Enable Salesforce Auto Refresh, Add Useful QuickLinks, Fixed Defect Highlighting, Quixy URLs and FTS URLs.",
       "author": "Martin Turner",
       "manifest_version": 3,
       "options_page": "config.html",
