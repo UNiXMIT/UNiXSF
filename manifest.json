@@ -1,26 +1,26 @@
 {
-      "name": "Salesforce Extension",
-      "version": "2.0",
-      "description": "Enable Salesforce Auto Refresh, Add Useful QuickLinks, Fixed Defect Highlighting, Quixy URLs and FTS URLs.",
-      "author": "Martin Turner",
-      "manifest_version": 3,
-      "options_page": "config.html",
-      "permissions": [
-        "storage"
+  "name": "Salesforce Extension",
+  "version": "2.1",
+  "description": "Enhance Salesforce with new features.",
+  "author": "Martin Turner",
+  "manifest_version": 3,
+  "options_page": "config.html",
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.lightning.force.com/*"
       ],
-      "content_scripts": [
-        {
-          "matches": [
-            "*://*.lightning.force.com/*"
-          ],
-          "run_at": "document_end",
-          "js": ["SFExt.js"]
-        }
-      ],
-      "icons": {
-        "16": "mf16.png",
-        "32": "mf32.png",
-        "48": "mf48.png",
-        "128": "mf128.png"
-      }
+      "run_at": "document_end",
+      "js": ["SFExt.js"]
     }
+  ],
+  "icons": {
+    "16": "mf16.png",
+    "32": "mf32.png",
+    "48": "mf48.png",
+    "128": "mf128.png"
+  }
+}
