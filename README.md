@@ -6,6 +6,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - [Features](#features)
 - [Install](#install)
 - [Update](#update)
+- [Changelog](https://github.com/UNiXMIT/UNiXSF/blob/main/changelog.md)
 - [Configuration](#configuration)
 - [Feature Wishlist](#feature-wishlist)
 - [Limitations](#limitations)
@@ -30,7 +31,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
    ![6](images/sftp.png)  
    This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol  
 
-- Added QuickLink buttons for the MF Translation Request page and MF Documentation page (removing SF links that weren't useful).  
+- Added QuickLink buttons for MF Translation Request, MF Documentation, Support Portal and SLD.  
    ![7](images/buttons.png)  
    If you have a case open and active, the product in the case will be checked and the appropriate docs page opened.  
    If no cases are opened the general docs page will be opened.  
@@ -47,8 +48,7 @@ Before installing, close any instances of Salesforce you have open.
 6. Select the folder you created in step 1.  
 7. The new features are now active.
 8. You can now turn off "Developer mode". 
-9. Once you have loaded Salesforce in your browser, you can check if the extension has loaded correctly by checking the browser console log (ctrl + shift + J) for the message 'SFExt Loaded'.  
-![8](images/ExtLoaded.png)  
+9. Once you have loaded Salesforce in your browser, if the extension has loaded correctly it should say 'SFExt' in the lower right corner.  
 
 ## Update
 Before updating, close any instances of Salesforce you have open.
@@ -70,7 +70,7 @@ If you have issues with the update, re-downloaded the update.cmd file according 
 
 ## Configuration
 
-The extension can be configured via the extensions options page:  
+The extension can be configured via the extension options page:  
 
 Click on detail button of the extension, then click 'Extension Options'. A new tab will open with the options page.  
 
@@ -78,7 +78,7 @@ Alternatively:
 
 Click on the toolbar extension menu and select Options.  
 
-![9](images/configPage.png)   
+![8](images/configPage.png)   
 
 ### What can be configured?
 
@@ -90,7 +90,7 @@ Click on the toolbar extension menu and select Options.
   The list must be in JSON format.  
   The list consists of key/value pairs, separated by , and enclosed in braces { }.  
   The Key must exactly match the name of the product as it appears in cases:  
-  ![10](images/acuProduct.png)  
+  ![9](images/acuProduct.png)  
   The Value must match the sub-domain of the documentation page for that product:  
   i.e. for AcuCOBOL the URL is https://www.microfocus.com/documentation/extend-acucobol so the value must be:  
   ```
@@ -111,16 +111,17 @@ Click Save to save your configuration options.
 ## Features/Improvements Wishlist
 
 - Improve functions to trigger only when needed.  
+- Highlight keywords in Closure Summary.
 
 ## Limitations
 
-N/A 
+- Not aware of any current limitations.
 
 ## Donate
 
 Buy me a coffee/beer?  
 
-- PayPal: http://bit.ly/unixmitdonate  
+- PayPal: [http://bit.ly/unixmitdonate](http://bit.ly/unixmitdonate)  
 - Bitcoin (BTC): 15B532vsNhwHMEhmRvbs3HGLth3dieNkYq  
 - Ethereum (ETH): 0xf0CCFCEe0E2a78D54A9b7aDE8A42aff5A327D970  
 - Dogecoin (DOGE): DUJapbaS6gNoa5ZpHS85nSqkNL7cLJz8gb  
