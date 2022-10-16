@@ -98,10 +98,31 @@ window.onload = function() {
     }
 
     function startRefresh(refreshTimeout) {
-        setInterval(function() {
+        var refreshInterval
+        var confMon
+        if (refreshTimeout >= 30000) {
+            refreshInterval = setInterval(function() {
                 document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
             },
             refreshTimeout);
+        }
+        confMon = setInterval(function() { refreshConfMonitor(refreshTimeout, refreshInterval, confMon); }, 3000);
+    }
+
+    function refreshConfMonitor(refreshTimeout, refreshInterval, confMon) {
+        var refreshConf = refreshTimeout
+        var refreshID = refreshInterval
+        var confMonID = confMon
+        chrome.storage.sync.get({
+            savedTimeout: 60,
+        }, function(items) {
+            refreshTimeout = items.savedTimeout * 1000;
+            if (refreshTimeout != refreshConf) {
+                clearInterval(refreshID);
+                clearInterval(confMonID);
+                startRefresh(refreshTimeout);
+            }
+        });
     }
 
     function QuixyListURL() {
@@ -207,6 +228,7 @@ window.onload = function() {
         xmlHttp.send(null);
     }
 
+    MFInterval = 1;
     MFLogo();
     MFTranslation();
     MFDocumentation();

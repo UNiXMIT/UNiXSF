@@ -6,6 +6,8 @@
 - Change SF logo to MF logo.
 - Changed Extension Loaded indicator to make it easier to identify.
 - Less obtrusive Update notification.
+- Option to disabled Auto Refresh. Set to 0 seconds.
+- No longer need to refresh SF when chaging Auto Refresh value.
 
 ## Version 2.0 (10/10/2022)
 
