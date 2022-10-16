@@ -102,11 +102,13 @@ window.onload = function() {
         var confMon
         if (refreshTimeout >= 30000) {
             refreshInterval = setInterval(function() {
-                document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
-            },
-            refreshTimeout);
+                    document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
+                },
+                refreshTimeout);
         }
-        confMon = setInterval(function() { refreshConfMonitor(refreshTimeout, refreshInterval, confMon); }, 3000);
+        confMon = setInterval(function() {
+            refreshConfMonitor(refreshTimeout, refreshInterval, confMon);
+        }, 3000);
     }
 
     function refreshConfMonitor(refreshTimeout, refreshInterval, confMon) {
@@ -228,7 +230,6 @@ window.onload = function() {
         xmlHttp.send(null);
     }
 
-    MFInterval = 1;
     MFLogo();
     MFTranslation();
     MFDocumentation();

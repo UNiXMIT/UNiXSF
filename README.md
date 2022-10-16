@@ -82,7 +82,7 @@ Click on the toolbar extension menu and select Options.
 
 ### What can be configured?
 
-- The Auto Refresh time can be configured (in seconds). _Default 30 seconds_
+- The Auto Refresh time can be configured (in seconds). _Default 60 seconds_
 
 - The supported products list. This list is used to open the correct documentation page when the documentation link/icon is clicked.  
 
