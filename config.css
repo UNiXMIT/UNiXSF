@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,900');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Source+Code+Pro&display=swap');
 
 html {
     scroll-behavior: smooth;
@@ -32,16 +32,16 @@ h1:after {
 
 label {
     font-family: 'Roboto', sans-serif;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 16px;
     margin-top: 15px;
     margin-bottom: 5px;
     display:block;
 }
 
-input { font-family: 'Roboto', sans-serif; font-size: 14px; }
+input { font-family: 'Source Code Pro', monospace; font-size: 12px; }
 
-textarea { display:block; font-family: 'Roboto', sans-serif; font-size: 14px; }
+textarea { display:block; font-family: 'Source Code Pro', monospace; font-size: 12px; }
 
 #timeout { width:100px;}
 
