@@ -53,7 +53,7 @@ window.onload = function() {
 
     function MFDocumentation() {
         var MFButton = document.querySelector('#oneHeader').querySelector('.oneHelpAndTrainingExperience');
-        MFButton.outerHTML = '<img class="mfbutton mfdocs" alt="MF Documentation" title="MF Documentation" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAAkUlEQVRYhe2VSw7AIAhEadP7chZObFfdGD+MKZlgfGtD8DGKyIHM5TlkZgUpqqquuiIiN1I4AsjA7Ga1KY8JuoEnouh3c4+5pgEzK2jwVgkxUDc/MrFXBnqzHo2TboDewPIIZq/E+x3nNYAsnBF5DfQygJrJa2CbDNAbgEYQsaJzGPgrcC3oBuD97SXNMjrQeQH6gjRERZAsEQAAAABJRU5ErkJggg==">';
+        MFButton.innerHTML = '<img class="mfbutton mfdocs" alt="MF Documentation" title="MF Documentation" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAAkUlEQVRYhe2VSw7AIAhEadP7chZObFfdGD+MKZlgfGtD8DGKyIHM5TlkZgUpqqquuiIiN1I4AsjA7Ga1KY8JuoEnouh3c4+5pgEzK2jwVgkxUDc/MrFXBnqzHo2TboDewPIIZq/E+x3nNYAsnBF5DfQygJrJa2CbDNAbgEYQsaJzGPgrcC3oBuD97SXNMjrQeQH6gjRERZAsEQAAAABJRU5ErkJggg==">';
         var MFButtonNew = document.querySelector('#oneHeader').querySelector('.mfdocs');
         MFButtonNew.addEventListener('click', MFDocumentationEvent, false);
     }
@@ -105,8 +105,8 @@ window.onload = function() {
     }
 
     function startRefresh(refreshTimeout) {
-        var refreshInterval
-        var confMon
+        var refreshInterval;
+        var confMon;
         if (refreshTimeout >= 30000) {
             refreshInterval = setInterval(function() {
                     document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
@@ -119,9 +119,9 @@ window.onload = function() {
     }
 
     function refreshConfMonitor(refreshTimeout, refreshInterval, confMon) {
-        var refreshConf = refreshTimeout
-        var refreshID = refreshInterval
-        var confMonID = confMon
+        var refreshConf = refreshTimeout;
+        var refreshID = refreshInterval;
+        var confMonID = confMon;
         chrome.storage.sync.get({
             savedTimeout: 60,
         }, function(items) {
