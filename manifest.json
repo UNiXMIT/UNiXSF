@@ -3,6 +3,7 @@
   "version": "2.1",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
+  "homepage_url": "https://unixmit.github.io/UNiXSF",
   "manifest_version": 3,
   "options_page": "config.html",
   "permissions": [
@@ -18,9 +19,9 @@
     }
   ],
   "icons": {
-    "16": "mf16.png",
-    "32": "mf32.png",
-    "48": "mf48.png",
-    "128": "mf128.png"
+    "16": "icons/mf16.png",
+    "32": "icons/mf32.png",
+    "48": "icons/mf48.png",
+    "128": "icons/mf128.png"
   }
 }
