@@ -8,8 +8,8 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - [Update](#update)
 - [Changelog](changelog)
 - [Configuration](#configuration)
-- [Feature Wishlist](#feature-wishlist)
-- [Limitations](#limitations)
+- [Features/Improvements Wishlist](#featuresimprovements-wishlist)
+- [Issues/Limitations](#issueslimitations)
 - [Donate](#donate)
 
 ## Features  
@@ -112,10 +112,11 @@ Click Save to save your configuration options.
 
 - Improve functions to trigger only when needed.  
 - Highlight keywords in Closure Summary.
+- Error handling
 
-## Limitations
+## Issues/Limitations
 
-- Not aware of any current limitations.
+- Not aware of any current issues or limitations.
 
 ## Donate
 
