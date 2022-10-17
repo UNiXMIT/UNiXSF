@@ -225,7 +225,7 @@ window.onload = function() {
                     var latestVersion = xmlHttp.response;
                     if (latestVersion > installedVersion) {
                         var extLi = document.querySelector('.ExtLoaded');
-                        extLi.innerHTML = '<a class="ExtLoaded" target="_blank" href="https://unixmit.github.io/UNiXSF/changelog">SFExtension Update Available!</a>';
+                        extLi.innerHTML = '<a class="ExtLoaded" target="_blank" href="https://unixmit.github.io/UNiXSF/changelog">SFExtension Update Available: Version ' + latestVersion + '</a>';
                         var style = document.createElement('style');
                         style.innerHTML = 'a.ExtLoaded{text-decoration:none;color:red} a.ExtLoaded:hover{text-decoration:none;color:black}';
                         document.getElementsByTagName('head')[0].appendChild(style);
