@@ -144,7 +144,7 @@ window.onload = function() {
     }
 
     function QuixyCaseURL() {
-        var OCTCRcase = document.evaluate("//lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        var OCTCRcase = document.evaluate("//span/slot/lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         for (let i = 0, length = OCTCRcase.snapshotLength; i < length; ++i) {
             var OCTCRcaseOuter = document.evaluate("//lightning-formatted-text[contains(., 'OCTCR')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
             var quixyID = OCTCRcase.snapshotItem(i).textContent;
