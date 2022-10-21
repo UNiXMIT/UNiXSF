@@ -110,13 +110,16 @@ Click Save to save your configuration options.
 
 ## Features/Improvements Wishlist
 
-- Improve functions to trigger only when needed.  
 - Highlight keywords in Closure Summary.
-- Error handling
+- Error handling.
+- Notifications when new/updated cases appear in the queue.
+- Switch from JSON format to something simpler like a form (on the frontend).
+- Make FTS URL/Port configurable.
 
 ## Issues/Limitations
 
-- Not aware of any current issues or limitations.
+- Where there are 2 sets of documentation for one product, it's only possible to configure the docs QuickLink to re-direct to one of those URLs.
+  i.e. product 'Reflection for Secure IT' has docs in 'rsit-server-client-unix' and 'rsit-windows-client'
 
 ## Donate
 
