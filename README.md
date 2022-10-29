@@ -22,13 +22,13 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 - Quixy defect QuickLink. Uses the active case tab to formulate the Quixy URL to open. If no case is open it will open the Quixy homepage.       
 
--  Creates URLS to Quixy defects in queues (if you have the R&D Change Requests column visible).  
+-  Creates URLs to Quixy defects in queues (if you have the R&D Change Requests column visible).  
    ![2](images/QuixyQueueLink.png)  
 
 - Highlights Fixed defects ('Planned in new release' or 'Software update provided' statuses) in Pending Release Queue.  
    ![3](images/defectHighlight.png)  
 
-- FTS SFTP QuickLink. Uses the active case tab to get the FTS Account/Password details. If no case is open it will open the FTS homepage.  (tested with WinSCP - https://winscp.net).   
+- FTS SFTP QuickLink. Uses the active case tab to get the FTS Account/Password details (tested with WinSCP - https://winscp.net). If no case is open it will open the FTS homepage.   
    The application used depends on the default app set in the OS for SFTP Protocol:  
    ![6](images/sftp.png)  
    This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol  
@@ -58,12 +58,6 @@ Before updating, close any instances of Salesforce you have open.
 2. Open Google Chrome, Brave or Edge.  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser). 
 4. Click the reload icon in the Salesforce Extension tile.
-
-Alternatively you can:
-
-1. Close all instances of your browser.
-2. Download the [Latest Release UNiXSF.zip](https://github.com/UNiXMIT/UNiXSF/releases/latest), and unzip into the directory where the previous version of the SF Extension is located, overwriting the old files. 
-3. The extension will now be updated when you start your browser again.
 
 ## Configuration
 

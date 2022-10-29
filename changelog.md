@@ -4,7 +4,7 @@
 
 - Added QuickLink for the FTS Web Portal and Quixy.  
 - Allow Advanced Configuration of FTS Protocol, URL and port.  
-- Case queue monitor with Windows notifications or using Webhooks.  
+- Case queue monitor with Desktop notifications or using Webhooks.  
 - New configuration options to configure the case queue monitor and webhook notifications.  
 
 ## Version 2.1 (17/10/2022)
