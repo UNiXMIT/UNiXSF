@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="config.css" rel="stylesheet" />
+    <link crossorigin=anonymous href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU rel=stylesheet>
+    <title>Salesforce Extension Configuration</title>
+</head>
+<body>
+    <div id="Main">
+        <h1>Salesforce Extension Configuration</h1>
+        
+        <h3>Config</h3>
+        <label for="timeout">Auto Refresh Timeout (seconds). Minimum is 30. Disabled &lt; 30.</label>
+        <input id="timeout" min="30" name="timeout" type="number" />
+        <label for="products">Supported Products (JSON Format)</label>
+        <textarea id="products" name="products" rows="5"></textarea>
+        <label for="queue">Name of Queue to Monitor for Notifications</label>
+        <input id="queue" name="queue"></input>
+        <label for="qnotify">Enable Queue Windows Notifications</label>
+        <input type="checkbox" id="qnotify" name="qnotify">
+        <label for="qnotifyweb">Enable Queue Webhook Notifications (requires Webhook URL to be set)</label>
+        <input type="checkbox" id="qnotifyweb" name="qnotifyweb">
+        <label for="webhook">Webhook URL for Web Notifications</label>
+        <input id="webhook" name="webhook"></input>
+
+        <h3>Advanced</h3>
+        <label for="protocol">FTS Protocol</label>
+        <input id="protocol" name="protocol" />
+        <label for="protocol">FTS URL:PORT</label>
+        <input id="ftsurl" name="ftsurl" />
+        <div id="status"></div>
+        <button id="save">Save</button> <button id="reset">Reset</button>
+        <script src="config.js"></script>
+    </div>
+</body>
+</html>

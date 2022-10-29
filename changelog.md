@@ -1,5 +1,12 @@
 # Salesforce Extension Changelog
 
+## Version 2.2 (31/10/2022)
+
+- Added QuickLink for the FTS Web Portal and Quixy.  
+- Allow Advanced Configuration of FTS Protocol, URL and port.  
+- Case queue monitor with Windows notifications or using Webhooks.  
+- New configuration options to configure the case queue monitor and webhook notifications.  
+
 ## Version 2.1 (17/10/2022)
 
 - Added new QuickLinks for the Support Portal and SLD.
