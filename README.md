@@ -16,7 +16,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - Auto refresh of queues every 60 seconds by default (refreshes only the queue, not the entire website).
 
 - Case queue monitor and notifications when a new or updated case appears in the queue. If a case is already in a queue and then gets updated again, no notification will be generated. Only cases entering and leaving the queue are monitored, not the last modified time.   
-   Notifications via Windows and Webhooks are supported.  
+   Notifications via Desktop and Webhooks are supported.  
    The name of the case to monitor can be added on the extension config page.  
    For the Case Queue Monitor to work, 'Case Number' has to be the first column in your queue, so that the cases numbers can be identified and found.
 
@@ -41,7 +41,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 ## Install
 Before installing, close any instances of Salesforce you have open.  
 
-1. Download the [Latest Release](https://github.com/UNiXMIT/UNiXSF/releases/latest), into the directory where you would like the extension to be stored.  
+1. Download the [Latest Release UNiXSF.zip](https://github.com/UNiXMIT/UNiXSF/releases/latest), and unzip into the directory where you would like the extension to be stored.  
 2. Open Google Chrome, Brave or Edge.  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser) in the browser address bar.   
 4. Toggle "Developer mode".  
@@ -54,7 +54,7 @@ Before installing, close any instances of Salesforce you have open.
 ## Update
 Before updating, close any instances of Salesforce you have open.
 
-1. Download the [Latest Release](https://github.com/UNiXMIT/UNiXSF/releases/latest), into the directory where the previous version of the SF Extension is located, overwriting the old files. 
+1. Download the [Latest Release UNiXSF.zip](https://github.com/UNiXMIT/UNiXSF/releases/latest), and unzip into the directory where the previous version of the SF Extension is located, overwriting the old files. 
 2. Open Google Chrome, Brave or Edge.  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser). 
 4. Click the reload icon in the Salesforce Extension tile.
@@ -62,7 +62,7 @@ Before updating, close any instances of Salesforce you have open.
 Alternatively you can:
 
 1. Close all instances of your browser.
-2. Download the [Latest Release](https://github.com/UNiXMIT/UNiXSF/releases/latest), into the directory where the previous version of the SF Extension is located, overwriting the old files. 
+2. Download the [Latest Release UNiXSF.zip](https://github.com/UNiXMIT/UNiXSF/releases/latest), and unzip into the directory where the previous version of the SF Extension is located, overwriting the old files. 
 3. The extension will now be updated when you start your browser again.
 
 ## Configuration
@@ -82,7 +82,7 @@ Click on the toolbar extension menu and select Options.
 - The Auto Refresh time can be configured (in seconds). _Default 60 seconds. Minimum is 30. Disabled < 30_
 
 - The name of the case queue to monitor and URL for the webhook notifications.  
-   Windows and Web notifications can be enabled/disabled.  
+   Desktop and Web notifications can be enabled/disabled.  
    For the case queue name, either enter the name of the case queue that you want to monitor or append the name of the case queue you want to monitor with 'NOTIFY':  
    ![9](images/CaseQueueName.png) 
 
@@ -113,10 +113,6 @@ Click Save to save your configuration options.
 ## Features/Improvements Wishlist
 
 - Highlight keywords in Closure Summary.
-- Error handling.
-- Notifications when new/updated cases appear in the queue.
-- Switch from JSON format to something simpler like a form (on the frontend).
-- Make FTS URL/Port configurable.
 
 ## Issues/Limitations
 
