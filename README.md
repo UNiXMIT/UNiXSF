@@ -113,7 +113,10 @@ Click Save to save your configuration options.
 ## Features/Improvements Wishlist
 
 - Highlight keywords in Closure Summary.
+- Error handling.
+- Notifications when new/updated cases appear in the queue.
 - Switch from JSON format to something simpler like a form (on the frontend).
+- Make FTS URL/Port configurable.
 
 ## Issues/Limitations
 
