@@ -6,7 +6,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - [Features](#features)
 - [Install](#install)
 - [Update](#update)
-- [Changelog](changelog)
+- [Changelog](https://github.com/UNiXMIT/UNiXSF/releases)
 - [Configuration](#configuration)
 - [Features/Improvements Wishlist](#featuresimprovements-wishlist)
 - [Issues/Limitations](#issueslimitations)
