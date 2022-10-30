@@ -11,14 +11,24 @@ window.onload = function() {
     }
 
     function MFNav() {
-        MFSup();
-        MFSLD();
-        MFFTS();
-        MFQUIXY();
-        MFDocumentation();
-        MFTranslation();
-        QNotify();
-        extLoaded();
+        const navObserver = new MutationObserver((mutations, navobs) => {
+            const MFNavBar = document.querySelector('#oneHeader')
+            if (MFNavBar) {
+                MFSup();
+                MFSLD();
+                MFFTS();
+                MFQUIXY();
+                MFDocumentation();
+                MFTranslation();
+                navobs.disconnect();
+                return;
+            }
+        });
+          
+        navObserver.observe(document, {
+            childList: true,
+            subtree: true
+        });
     }
 
     function MFSup() {
@@ -273,9 +283,21 @@ window.onload = function() {
     }
 
     function QNotify() {
-        let QMonitorInt = setInterval(function() {
-            QMonitor();
-        }, 30000);
+        const notifyObserver = new MutationObserver((mutations, footerobs) => {
+            const caseQueue = document.querySelector('#split-left').querySelector('.listViewContainer');
+            if (caseQueue) {
+                let QMonitorInt = setInterval(function() {
+                    QMonitor();
+                }, 30000);
+                footerobs.disconnect();
+                return;
+            }
+        });
+        
+        notifyObserver.observe(document, {
+            childList: true,
+            subtree: true
+        });
     }
 
     function QMonitor() {
@@ -363,19 +385,47 @@ window.onload = function() {
     }
 
     function extLoaded() {
-        let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
-        let li = document.createElement("li");
-        li.innerHTML = '<a class="ExtLoaded" target="_blank" href="https://unixmit.github.io/UNiXSF">SFExt</a>';
-        li.className = 'ExtLoaded';
-        li.style.marginTop = '10px';
-        li.style.marginRight = '20px';
-        li.style.right = '0';
-        li.style.position = 'absolute';
-        li.style.fontWeight = 'bold';
-        footerUl.appendChild(li);
+        const footerObserver = new MutationObserver((mutations, footerobs) => {
+            const footerBar = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
+            if (footerBar) {
+                let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
+                let li = document.createElement("li");
+                li.innerHTML = '<a class="ExtLoaded" target="_blank" href="https://unixmit.github.io/UNiXSF">SFExt</a>';
+                li.className = 'ExtLoaded';
+                li.style.marginTop = '10px';
+                li.style.marginRight = '20px';
+                li.style.right = '0';
+                li.style.position = 'absolute';
+                li.style.fontWeight = 'bold';
+                footerUl.appendChild(li);
+                footerobs.disconnect();
+                return;
+            }
+          });
+        
+        footerObserver.observe(document, {
+            childList: true,
+            subtree: true
+        });
     }
 
     function updateCheck() {
+        const updateObserver = new MutationObserver((mutations, footerobs) => {
+            const updateFooter = document.querySelector('.ExtLoaded');
+            if (updateFooter) {
+                updateCheckEvent();
+                footerobs.disconnect();
+                return;
+            }
+        });
+        
+        updateObserver.observe(document, {
+            childList: true,
+            subtree: true
+        });
+    }
+
+    function updateCheckEvent() {
         let xmlHttp = new XMLHttpRequest();
         xmlHttp.responseType = 'json';
         let URL = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
@@ -385,7 +435,7 @@ window.onload = function() {
                     let latestVersion = xmlHttp.response;
                     if (latestVersion > installedVersion) {
                         let extLi = document.querySelector('.ExtLoaded');
-                        extLi.innerHTML = '<a class="ExtLoaded" target="_blank" href="https://github.com/UNiXMIT/UNiXSF/releases">SFExtension Update Available: Version ' + latestVersion + '</a>';
+                        extLi.innerHTML = '<a class="ExtLoaded" target="_blank" href="https://github.com/UNiXMIT/UNiXSF/releases/latest">SFExtension Update Available: Version ' + latestVersion + '</a>';
                         let style = document.createElement('style');
                         style.innerHTML = 'a.ExtLoaded{text-decoration:none;color:red} a.ExtLoaded:hover{text-decoration:none;color:black}';
                         document.getElementsByTagName('head')[0].appendChild(style);
@@ -425,7 +475,9 @@ window.onload = function() {
     FTSURL();
     CustomerFTSURL();
     createEvents();
-    navTimer = setTimeout(MFNav, 1000);
+    MFNav();
+    QNotify();
+    extLoaded();
     updateCheck();
     RR();
 };
