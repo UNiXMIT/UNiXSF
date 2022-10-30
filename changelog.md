@@ -1,14 +1,24 @@
 # Salesforce Extension Changelog
 
 ## IMPORTANT
-The extension is no longer updated using the update.cmd file. Updates are now downloaded from the Latest Release page as a .zip archive - https://bit.ly/3sEvWxP    
+update.cmd and download.cmd are no longer used to update the extension. An updated UNiXSF.zip archive can be found on the [Latest Release page](https://github.com/UNiXMIT/UNiXSF/releases/latest) as well as the changelog. 
 
 ## Version 2.2 (31/10/2022)
 
+### Enhancements
 - Added QuickLink for the FTS Web Portal and Quixy.  
 - Allow Advanced Configuration of FTS Protocol, URL and port.  
 - Case queue monitor with Desktop notifications or using Webhooks.  
 - New configuration options to configure the case queue monitor and webhook notifications.  
+- Error handling
+
+### Changes
+- update.cmd and download.cmd are no longer used to update the extension. An updated UNiXSF.zip archive can be found on the [Latest Release page](https://github.com/UNiXMIT/UNiXSF/releases/latest).
+- The changelog will now be on the Releases page.
+- Soon FTS links and Quixy links will only be used from the QuickLink button at the top right rather than a link added in the case itself as it was initially.
+
+### Fixes
+- Back-end fixes and improvements.
 
 ## Version 2.1 (17/10/2022)
 
