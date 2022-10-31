@@ -35,10 +35,11 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
    ![6](images/sftp.png)  
    This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol  
 
-- Added QuickLink buttons for MF Translation Request, MF Documentation, Support Portal, SLD Web Portal.  
+- Added QuickLink buttons for MF Translation Request, MF Documentation, Support Portal, SLD Web Portal and PerformPlus.  
    ![7](images/buttons.png)  
    If you have a case open and active, the product in the case will be checked and the appropriate docs page opened.  
-   If no cases are opened the general docs page will be opened.  
+   If no cases are opened the general docs page will be opened. 
+   If you have a case open and active, the case number will be used to populate the Case NUmber field of the translation page.
 
 ## Install
 Before installing, close any instances of Salesforce you have open.  
