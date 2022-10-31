@@ -39,7 +39,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
    ![7](images/buttons.png)  
    If you have a case open and active, the product in the case will be checked and the appropriate docs page opened.  
    If no cases are opened the general docs page will be opened. 
-   If you have a case open and active, the case number will be used to populate the Case NUmber field of the translation page.
+   If you have a case open and active, the case number will be used to populate the Case Number field of the translation page.
 
 ## Install
 Before installing, close any instances of Salesforce you have open.  
