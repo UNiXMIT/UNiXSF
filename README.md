@@ -17,6 +17,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 - Case queue monitor and notifications when a new or updated case appears in the queue. If a case is already in a queue and then gets updated again, no notification will be generated. Only cases entering and leaving the queue are monitored, not the last modified time.   
    Notifications via Desktop and Webhooks are supported.  
+   Case queue monitor notifications link to the case URL when clicked.  
    The name of the case to monitor can be added on the extension config page.  
    For the Case Queue Monitor to work, 'Case Number' has to be the first column in your queue, so that the cases numbers can be identified and found.
 
