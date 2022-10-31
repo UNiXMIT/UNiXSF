@@ -492,6 +492,34 @@ window.onload = function() {
         xmlHttp.send(null);
     }
 
+    function activeUsers() {
+        document.querySelector('.forceSocialPhoto').click();
+        const userObserver = new MutationObserver((mutations, activeobs) => {
+            const profileCard = document.querySelector('.profile-card-name');
+            if (profileCard) {
+                document.querySelector('.userProfilePanel').style.display = 'none';
+                let MFuser = document.querySelector('.profile-card-name').innerText;
+                let split = MFuser.split(' ');
+                let firstHalf = Math.round(split[0].length / 2);
+                let secondHalf = Math.round(split[1].length / 2);
+                let first = split[0].slice(0, firstHalf);
+                let second = split[1].slice(0, secondHalf)
+                let alias = first + second
+                activeobs.disconnect();
+                setTimeout(function(){
+                    document.querySelector('.userProfilePanel').style.display = 'block';
+                    document.querySelector('.forceSocialPhoto').click();
+                }, 1000);
+                return;
+            }
+        });
+
+        userObserver.observe(document, {
+            childList: true,
+            subtree: true
+        });
+    }
+
     function popup() {
         let myDialog = document.createElement("dialog");
         document.body.appendChild(myDialog);
@@ -524,5 +552,6 @@ window.onload = function() {
     QNotify();
     extLoaded();
     updateCheck();
+    activeUsers();
     RR();
 };
