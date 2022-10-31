@@ -7,6 +7,7 @@ function save_options() {
   let webhook = document.getElementById('webhook').value;
   let protocol = document.getElementById('protocol').value;
   let ftsurl = document.getElementById('ftsurl').value;
+  let customurls = document.getElementById('customurls').value;
   chrome.storage.sync.set({
       savedTimeout: refreshTimeout,
       savedProducts: products,
@@ -15,7 +16,8 @@ function save_options() {
       savedQNotifyWeb: qnotifyweb,
       savedWebhook: webhook,
       savedProtocol: protocol,
-      savedFTSURL: ftsurl
+      savedFTSURL: ftsurl,
+      savedURLS: customurls
   }, function() {
       let status = document.getElementById('status');
       status.textContent = 'Options Saved';
@@ -26,7 +28,7 @@ function save_options() {
 }
 
 function reset_options() {
-  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedProtocol", "savedFTSURL"], function() {
+  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedProtocol", "savedFTSURL", "savedURLS"], function() {
       let error = chrome.runtime.lastError;
       if (error) {
           console.error(error);
@@ -44,7 +46,8 @@ function restore_options() {
       savedQNotifyWeb: false,
       savedWebhook: 'https://webhookURL',
       savedProtocol: 'sftp://',
-      savedFTSURL: 'secureupload.microfocus.com:2222'
+      savedFTSURL: 'secureupload.microfocus.com:2222',
+      savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}'
   }, function(result) {
       document.getElementById('timeout').value = result.savedTimeout;
       document.getElementById('products').value = result.savedProducts;
@@ -54,6 +57,7 @@ function restore_options() {
       document.getElementById('webhook').value = result.savedWebhook;
       document.getElementById('protocol').value = result.savedProtocol;
       document.getElementById('ftsurl').value = result.savedFTSURL;
+      document.getElementById('customurls').value = result.savedURLS;
   });
 }
 document.addEventListener('DOMContentLoaded', restore_options);

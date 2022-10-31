@@ -69,6 +69,9 @@ textarea {
 #ftsurl {
     width: 400px;
 }
+#customurls {
+    width: 700px;
+}
 #status {
     font-family: "Roboto", sans-serif;
     font-weight: 700;

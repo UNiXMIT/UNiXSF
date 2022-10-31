@@ -1,6 +1,6 @@
 window.onload = function() {
 
-    const installedVersion = "2.2";
+    const installedVersion = "2.3";
     let oldArray = [];
     let newArray = [];
     let initQMon = true;
@@ -12,7 +12,7 @@ window.onload = function() {
 
     function MFNav() {
         const navObserver = new MutationObserver((mutations, navobs) => {
-            const MFNavBar = document.querySelector('#oneHeader')
+            const MFNavBar = document.querySelector('#oneHeader');
             if (MFNavBar) {
                 MFSup();
                 MFSLD();
@@ -25,7 +25,7 @@ window.onload = function() {
                 return;
             }
         });
-          
+
         navObserver.observe(document, {
             childList: true,
             subtree: true
@@ -290,10 +290,10 @@ window.onload = function() {
 
     function triggerFunctions() {
         QuixyListURL();
-        QuixyCaseURL();
+        //QuixyCaseURL();
         defectFixed();
-        FTSURL();
-        CustomerFTSURL();
+        //FTSURL();
+        //CustomerFTSURL();
     }
 
     function QNotify() {
@@ -307,7 +307,7 @@ window.onload = function() {
                 return;
             }
         });
-        
+
         notifyObserver.observe(document, {
             childList: true,
             subtree: true
@@ -336,7 +336,7 @@ window.onload = function() {
                         for (let i = 0, length = CaseIDElem.snapshotLength; i < length; ++i) {
                             if (oldArray.indexOf(CaseIDElem.snapshotItem(i).textContent) == -1) {
                                 if (result.savedQNotify) {
-                                    (async () => {
+                                    (async() => {
                                         if (!window.Notification) {
                                             console.log('Browser does not support notifications.');
                                         } else {
@@ -402,21 +402,36 @@ window.onload = function() {
         const footerObserver = new MutationObserver((mutations, footerobs) => {
             const footerBar = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
             if (footerBar) {
-                let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
-                let li = document.createElement("li");
-                li.innerHTML = '<a class="ExtLoaded" target="_blank" href="https://unixmit.github.io/UNiXSF">SFExt</a>';
-                li.className = 'ExtLoaded';
-                li.style.marginTop = '10px';
-                li.style.marginRight = '20px';
-                li.style.right = '0';
-                li.style.position = 'absolute';
-                li.style.fontWeight = 'bold';
-                footerUl.appendChild(li);
+                chrome.storage.sync.get({
+                    savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}'
+                }, function(items) {
+                    let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
+                    let newUL = document.createElement("ul");
+                    newUL.className = "newfooterul";
+                    newUL.style.float = "right";
+                    newUL.style.width = "auto";
+                    newUL.style.display = "flex";
+                    newUL.style.position = "absolute";
+                    newUL.style.right = "0";
+                    footerUl.appendChild(newUL);
+                    let URLS = JSON.parse(items.savedURLS);
+                    Object.entries(URLS).forEach(([key, value]) => {
+                        let li = document.createElement("li");
+                        liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
+                        li.innerHTML = liHTML;
+                        li.className = 'ExtLoaded';
+                        li.style.marginTop = '12px';
+                        li.style.marginRight = '20px';
+                        li.style.fontWeight = 'bold';
+                        newUL.appendChild(li);
+                    });
+
+                });
                 footerobs.disconnect();
                 return;
             }
-          });
-        
+        });
+
         footerObserver.observe(document, {
             childList: true,
             subtree: true
@@ -425,14 +440,14 @@ window.onload = function() {
 
     function updateCheck() {
         const updateObserver = new MutationObserver((mutations, footerobs) => {
-            const updateFooter = document.querySelector('.ExtLoaded');
+            const updateFooter = document.querySelector('.newfooterul');
             if (updateFooter) {
                 updateCheckEvent();
                 footerobs.disconnect();
                 return;
             }
         });
-        
+
         updateObserver.observe(document, {
             childList: true,
             subtree: true
@@ -448,8 +463,16 @@ window.onload = function() {
                 if (xmlHttp.status === 200) {
                     let latestVersion = xmlHttp.response;
                     if (latestVersion > installedVersion) {
-                        let extLi = document.querySelector('.ExtLoaded');
-                        extLi.innerHTML = '<a class="ExtLoaded" target="_blank" href="https://github.com/UNiXMIT/UNiXSF/releases/latest">SFExtension Update Available: Version ' + latestVersion + '</a>';
+                        let footerUL = document.querySelector('.newfooterul');
+                        footerUL.innerHTML = '';
+                        let li = document.createElement("li");
+                        liHTML = '<a class="ExtLoaded" target="_blank" href="https://github.com/UNiXMIT/UNiXSF/releases/latest">SFExtension Update Available: Version ' + latestVersion + '</a>';
+                        li.innerHTML = liHTML;
+                        li.className = 'ExtLoaded';
+                        li.style.marginTop = '12px';
+                        li.style.marginRight = '20px';
+                        li.style.fontWeight = 'bold';
+                        footerUL.appendChild(li);
                         let style = document.createElement('style');
                         style.innerHTML = 'a.ExtLoaded{text-decoration:none;color:red} a.ExtLoaded:hover{text-decoration:none;color:black}';
                         document.getElementsByTagName('head')[0].appendChild(style);
@@ -484,10 +507,10 @@ window.onload = function() {
     MFCSS();
     queueRefresh();
     QuixyListURL();
-    QuixyCaseURL();
+    //QuixyCaseURL();
     defectFixed();
-    FTSURL();
-    CustomerFTSURL();
+    //FTSURL();
+    //CustomerFTSURL();
     createEvents();
     MFNav();
     QNotify();
