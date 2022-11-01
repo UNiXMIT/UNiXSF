@@ -1,6 +1,7 @@
 window.onload = function() {
 
-    const installedVersion = "2.3";
+    const installedVersion = "2.1";
+    let updateAvailable = false;
     let oldArray = [];
     let newArray = [];
     let initQMon = true;
@@ -444,6 +445,7 @@ window.onload = function() {
                 if (xmlHttp.status === 200) {
                     let latestVersion = xmlHttp.response;
                     if (latestVersion > installedVersion) {
+                        updateAvailable = true;
                         let footerUL = document.querySelector('.newfooterul');
                         footerUL.innerHTML = '';
                         let li = document.createElement("li");
@@ -474,8 +476,10 @@ window.onload = function() {
     function triggerFunctions() {
         QuixyListURL();
         defectFixed();
-        updateFooter();
-        updateCheckEvent();
+        if (updateAvailable === false) {
+            updateFooter();   
+        }
+        //updateCheckEvent();
         //QuixyCaseURL();
         //FTSURL();
         //CustomerFTSURL();
