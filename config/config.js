@@ -60,6 +60,29 @@ function restore_options() {
       document.getElementById('customurls').value = result.savedURLS;
   });
 }
+
+function export_options() {
+    chrome.storage.sync.get({
+        savedTimeout: 60,
+        savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+        savedQueue: 'NOTIFY',
+        savedQNotify: false,
+        savedQNotifyWeb: false,
+        savedWebhook: 'https://webhookURL',
+        savedProtocol: 'sftp://',
+        savedFTSURL: 'secureupload.microfocus.com:2222',
+        savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}'
+    }, function(result) {
+        var items = JSON.stringify(result, null, 2);
+        var url = 'data:application/json;base64,' + btoa(items);
+        chrome.downloads.download({
+            url: url,
+            filename: 'sfext.json'   
+        });    
+    });
+}
+
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click', save_options);
 document.getElementById('reset').addEventListener('click', reset_options);
+document.getElementById('export').addEventListener('click', export_options);

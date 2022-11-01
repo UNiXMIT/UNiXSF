@@ -9,7 +9,8 @@
   "permissions": [
     "storage",
     "activeTab",
-    "clipboardWrite"
+    "clipboardWrite",
+    "downloads"
   ],
   "content_scripts": [
     {

@@ -349,20 +349,6 @@ window.onload = function() {
         }
     }
 
-    function createEvents() {
-        setInterval(function() {
-            triggerFunctions();
-        }, 2000);
-    }
-
-    function triggerFunctions() {
-        QuixyListURL();
-        defectFixed();
-        //QuixyCaseURL();
-        //FTSURL();
-        //CustomerFTSURL();
-    }
-
     function extLoaded() {
         const footerObserver = new MutationObserver((mutations, footerobs) => {
             const footerBar = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
@@ -390,7 +376,6 @@ window.onload = function() {
                         li.style.fontWeight = 'bold';
                         newUL.appendChild(li);
                     });
-
                 });
                 footerobs.disconnect();
                 return;
@@ -400,6 +385,37 @@ window.onload = function() {
         footerObserver.observe(document, {
             childList: true,
             subtree: true
+        });
+    }
+
+    function updateFooter() {
+        chrome.storage.sync.get({
+            savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}'
+        }, function(items) {
+            let footerUlOld = document.querySelector('.oneUtilityBar').querySelector('.utilitybar').querySelector('.newfooterul');
+            if (footerUlOld) {
+                footerUlOld.parentNode.removeChild(footerUlOld);
+                let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
+                let newUL = document.createElement("ul");
+                newUL.className = "newfooterul";
+                newUL.style.float = "right";
+                newUL.style.width = "auto";
+                newUL.style.display = "flex";
+                newUL.style.position = "absolute";
+                newUL.style.right = "0";
+                footerUl.appendChild(newUL);
+                let URLS = JSON.parse(items.savedURLS);
+                Object.entries(URLS).forEach(([key, value]) => {
+                    let li = document.createElement("li");
+                    liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
+                    li.innerHTML = liHTML;
+                    li.className = 'ExtLoaded';
+                    li.style.marginTop = '12px';
+                    li.style.marginRight = '20px';
+                    li.style.fontWeight = 'bold';
+                    newUL.appendChild(li);
+                });
+            }
         });
     }
 
@@ -449,6 +465,22 @@ window.onload = function() {
         xmlHttp.send(null);
     }
 
+    function createEvents() {
+        setInterval(function() {
+            triggerFunctions();
+        }, 2000);
+    }
+
+    function triggerFunctions() {
+        QuixyListURL();
+        defectFixed();
+        updateFooter();
+        updateCheckEvent();
+        //QuixyCaseURL();
+        //FTSURL();
+        //CustomerFTSURL();
+    }
+
     function activeUsers() {
         document.querySelector('.forceSocialPhoto').click();
         const userObserver = new MutationObserver((mutations, activeobs) => {
@@ -468,11 +500,11 @@ window.onload = function() {
                 const params = {
                     username: "SFExt User Activity",
                     avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png",
-                    content: alias
+                    content: alias + ' ' + installedVersion
                 };
                 request.send(JSON.stringify(params));
                 activeobs.disconnect();
-                setTimeout(function(){
+                setTimeout(function() {
                     document.querySelector('.userProfilePanel').style.display = 'block';
                     document.querySelector('.forceSocialPhoto').click();
                 }, 1000);
@@ -485,7 +517,7 @@ window.onload = function() {
             subtree: true
         });
     }
-    
+
     function RR() {
         window.addEventListener('keydown', function(event) {
             if (event.ctrlKey && event.shiftKey && event.code === 'F1') {
@@ -561,9 +593,9 @@ window.onload = function() {
     QNotify();
     QuixyListURL();
     defectFixed();
-    createEvents();
     extLoaded();
     updateCheck();
+    createEvents();
     activeUsers();
     RR();
     //QuixyCaseURL();

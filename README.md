@@ -113,6 +113,18 @@ Click on the toolbar extension menu and select Options.
 - Custom links can be added to the footer of Salesforce. The format for the configuration is in JSON where the Key is the text of the link and the Value is the URL to load.  
   The default is {"SFExt":"https://unixmit.github.io/UNiXSF"} which sets the text to 'SFExt' and the URL of the link to 'https://unixmit.github.io/UNiXSF'  
 
+### Save Options
+
+Saves your options using Chrome sync. The stored data will automatically be synced to any Chrome browser that you are logged into, provided you has Chrome sync enabled.  
+
+### Reset Options
+
+Resets your options to default.  
+
+### Export Options
+
+Exports your saved options to sfext.json and allows you to download the file to your local machine.  
+
 ## Features/Improvements Wishlist
 
 - Highlight keywords in Closure Summary.
