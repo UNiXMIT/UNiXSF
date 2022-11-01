@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Source+Code+Pro&display=swap');
 body {
-    margin: 0;
+    margin: 0 30px;
     padding: 0;
 }
 #Main {
     width: 750px;
-    margin: 75px auto;
+    margin: 30px auto;
 }
 h1 {
     font-family: "Roboto", sans-serif;
