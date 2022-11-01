@@ -74,7 +74,7 @@ function export_options() {
         savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}'
     }, function(result) {
         var items = JSON.stringify(result, null, 2);
-        var url = 'data:application/json;base64,' + btoa(items);
+        var url = 'data:application/json;,' + items;
         chrome.downloads.download({
             url: url,
             filename: 'sfext.json'   
