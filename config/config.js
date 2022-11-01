@@ -77,7 +77,7 @@ function export_options() {
         var url = 'data:application/json;base64,' + btoa(items);
         chrome.downloads.download({
             url: url,
-            filename: './sfext.json'   
+            filename: './config/sfext.json'   
         }); 
         let status = document.getElementById('status');
         status.textContent = 'Exporting Options';
