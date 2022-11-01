@@ -9,11 +9,13 @@ function MFLogo() {
     let SFLogo = document.querySelector('.slds-global-header__logo');
     SFLogo.style.backgroundImage = 'url(data:image/png;base64,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)';
 }
+
 function MFCSS() {
     let style = document.createElement('style');
     style.innerHTML = '.mfbutton{cursor:pointer;margin-left:2px} img.mfbutton:hover{-webkit-filter:brightness(70%);-webkit-filter:brightness(70%)} a.ExtLoaded{text-decoration:none;color:black} a.ExtLoaded:hover{color:red}';
     document.getElementsByTagName('head')[0].appendChild(style);
 }
+
 function queueRefresh() {
     chrome.storage.sync.get({
         savedTimeout: 60,
@@ -22,6 +24,7 @@ function queueRefresh() {
         startRefresh(refreshTimeout);
     });
 }
+
 function startRefresh(refreshTimeout) {
     let refreshInterval;
     let confMon;
@@ -35,6 +38,7 @@ function startRefresh(refreshTimeout) {
         refreshConfMonitor(refreshTimeout, refreshInterval, confMon);
     }, 3000);
 }
+
 function refreshConfMonitor(refreshTimeout, refreshInterval, confMon) {
     let refreshConf = refreshTimeout;
     let refreshID = refreshInterval;
@@ -50,6 +54,7 @@ function refreshConfMonitor(refreshTimeout, refreshInterval, confMon) {
         }
     });
 }
+
 function MFNav() {
     const navObserver = new MutationObserver((mutations, navobs) => {
         const MFNavBar = document.querySelector('#oneHeader');
@@ -70,6 +75,7 @@ function MFNav() {
         subtree: true
     });
 }
+
 function MFSup() {
     let MFButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
@@ -78,9 +84,11 @@ function MFSup() {
     let MFButtonNew = document.querySelector('#oneHeader').querySelector('.mfsup');
     MFButtonNew.addEventListener('click', MFSupEvent, false);
 }
+
 function MFSupEvent() {
     window.open('https://portal.microfocus.com/', '_blank');
 }
+
 function MFSLD() {
     let MFButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
@@ -89,9 +97,11 @@ function MFSLD() {
     let MFButtonNew = document.querySelector('#oneHeader').querySelector('.mfsld');
     MFButtonNew.addEventListener('click', MFSLDEvent, false);
 }
+
 function MFSLDEvent() {
     window.open('https://sld.microfocus.com/', '_blank');
 }
+
 function MFFTS() {
     let MFButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
@@ -100,6 +110,7 @@ function MFFTS() {
     let MFButtonNew = document.querySelector('#oneHeader').querySelector('.mffts');
     MFButtonNew.addEventListener('click', MFFTSEvent, false);
 }
+
 function MFFTSEvent() {
     let FTSAccDIV = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS AccountName')]", document, null, XPathResult.BOOLEAN_TYPE, null);
     if (FTSAccDIV.booleanValue) {
@@ -121,6 +132,7 @@ function MFFTSEvent() {
         window.open('https://secureupload.microfocus.com/mffts/', '_blank');
     }
 }
+
 function MFQUIXY() {
     let MFButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
@@ -129,6 +141,7 @@ function MFQUIXY() {
     let MFButtonNew = document.querySelector('#oneHeader').querySelector('.mfqx');
     MFButtonNew.addEventListener('click', MFQUIXYEvent, false);
 }
+
 function MFQUIXYEvent() {
     let OCTCRcase = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//span/slot/lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.BOOLEAN_TYPE, null);
     if (OCTCRcase.booleanValue) {
@@ -141,12 +154,14 @@ function MFQUIXYEvent() {
         window.open('https://rdapps.swinfra.net/quixy/#/viewEntity/', '_blank');
     }
 }
+
 function MFDocumentation() {
     let MFButton = document.querySelector('#oneHeader').querySelector('.trailheadTrigger');
     MFButton.innerHTML = '<img class="mfbutton mfdocs" alt="MF Documentation" title="MF Documentation" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAAkUlEQVRYhe2VSw7AIAhEadP7chZObFfdGD+MKZlgfGtD8DGKyIHM5TlkZgUpqqquuiIiN1I4AsjA7Ga1KY8JuoEnouh3c4+5pgEzK2jwVgkxUDc/MrFXBnqzHo2TboDewPIIZq/E+x3nNYAsnBF5DfQygJrJa2CbDNAbgEYQsaJzGPgrcC3oBuD97SXNMjrQeQH6gjRERZAsEQAAAABJRU5ErkJggg==">';
     let MFButtonNew = document.querySelector('#oneHeader').querySelector('.mfdocs');
     MFButtonNew.addEventListener('click', MFDocumentationEvent, false);
 }
+
 function MFDocumentationEvent() {
     let MFProduct = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[2]/span/slot[1]/records-formula-output/slot/formula-output-formula-html/lightning-formatted-rich-text/span/a", document, null, XPathResult.ANY_TYPE, null);
     let whichProduct = MFProduct.iterateNext();
@@ -162,6 +177,7 @@ function MFDocumentationEvent() {
         }
     });
 }
+
 function MFDocumentationURL(products, whichProduct) {
     if (whichProduct == null) {
         window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
@@ -176,6 +192,7 @@ function MFDocumentationURL(products, whichProduct) {
         }
     }
 }
+
 function MFPP() {
     let MFButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
@@ -184,15 +201,18 @@ function MFPP() {
     let MFButtonNew = document.querySelector('#oneHeader').querySelector('.mfpp');
     MFButtonNew.addEventListener('click', MFPPEvent, false);
 }
+
 function MFPPEvent() {
     window.open('https://microfocus-profile.performplus.pwc.com/login', '_blank');
 }
+
 function MFTranslation() {
     let MFButton = document.querySelector('#oneHeader').querySelector('.oneHelpAndTrainingExperience');
     // Base64 Icons https://icons8.com // Colour #919191 // Size 30px
     MFButton.innerHTML = '<img class="mfbutton mftranslation" alt="MF Translation" title="MF Translation" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAACMElEQVRIie2UPW8TQRCG33fPyC6QyxR8VFCRiorCgggkKvqIhtDZkhPvnpCud0OJdR9IgSYIEEjUICGQQIKYCCkVBf4DyQ9I4+Ls3A6FnehwfHb8BU1eaaXbndl5ZvZ2FjjTmRYkpidhGN4TkecALs6Zs6+UKtdqtY9HCyptFZFnC4ACwKV+QcdSgw4LgAIAROTyKPCgLMlbIrICwM4zkXHg91rrbdd1v5P88C/BUcb3zMqNsLW01l9zudx5AKhWq1/CMGwBuDYmZgm9grZHOY2qOCIp3W53LUmSBySF5NMxUBhjdowxzXF+WeCDTqfzWkRIcl1ENkSEcRy/AnAwxL9kjKEx5vhdSM1vTgLe8jyvTVKMMcvGmGWS4nleG8DWiSBKcUgMAADJobah/zhJks2sQEmSbDqO8yi9Zq1tBkGQhr3TWt/3ff+uiHw+NdhxnKUgCJbQuyBHp2JF5DbJrH4ukWwDeGOtfdJPYDWrgKyj/tEfabsi+Q0Zt5Xkodb6Vz6fv+667m6j0bgKYG1S8MQSkbdRFF2oVCpdAFBKXQFwmOU/qo8nUckYswMA9Xo9VywWz7mu+8n3/Tskfy4MrJRiGIZFACsi8hiAE0XRwyRJ8ll75gK21p54MKy1uxmd1Et2YL4/j0SGieReJlgpVV4EnOSeiJT/WjvNxiAIZCDQ7ziOb/Rfsqk0TTu1AazOAp0WvK61bs0CnQb8whjzclYocPp2agJQhUJhYx7Q/6o/dirFfnpZUXcAAAAASUVORK5CYII=">';
     MFButton.addEventListener('click', MFTranslationEvent, false);
 }
+
 function MFTranslationEvent() {
     let MFCaseCheck = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//records-highlights-details-item[1]/div/p[2]/slot/lightning-formatted-text", document, null, XPathResult.BOOLEAN_TYPE, null).booleanValue;
     if (MFCaseCheck) {
@@ -204,6 +224,7 @@ function MFTranslationEvent() {
         window.open('http://bit.ly/mftranslate', 'MF Translation', 'width=1150,height=700');
     }
 }
+
 function QNotify() {
     const notifyObserver = new MutationObserver((mutations, notifyobs) => {
         const caseQueue = document.querySelector('#split-left').querySelector('.listViewContainer');
@@ -220,6 +241,7 @@ function QNotify() {
         subtree: true
     });
 }
+
 function QMonitor() {
     chrome.storage.sync.get({
         savedQueue: 'NOTIFY',
@@ -303,6 +325,7 @@ function QMonitor() {
         }
     });
 }
+
 function QuixyListURL() {
     let OCTCR = document.querySelectorAll('[title^="OCTCR"]');
     OCTCR.forEach(SFelement => {
@@ -311,6 +334,7 @@ function QuixyListURL() {
         SFelement.innerHTML = finalURL;
     });
 }
+
 function defectFixed() {
     let fixedElement = document.evaluate("//td/span/span[contains(., 'Planned in new release')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
     for (let i = 0, length = fixedElement.snapshotLength; i < length; ++i) {
@@ -321,6 +345,7 @@ function defectFixed() {
         fixedElement2.snapshotItem(i).innerHTML = '<span style="color:red">Software update provided</span>';
     }
 }
+
 function extLoaded() {
     const footerObserver = new MutationObserver((mutations, footerobs) => {
         const footerBar = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
@@ -358,6 +383,7 @@ function extLoaded() {
         subtree: true
     });
 }
+
 function updateFooter() {
     chrome.storage.sync.get({
         savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}'
@@ -388,6 +414,7 @@ function updateFooter() {
         }
     });
 }
+
 function updateCheck() {
     const updateObserver = new MutationObserver((mutations, updateobs) => {
         const updateFooter = document.querySelector('.newfooterul');
@@ -402,6 +429,7 @@ function updateCheck() {
         subtree: true
     });
 }
+
 function updateCheckEvent() {
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.responseType = 'json';
@@ -432,22 +460,25 @@ function updateCheckEvent() {
     xmlHttp.open("GET", URL, true);
     xmlHttp.send(null);
 }
+
 function createEvents() {
     setInterval(function() {
         triggerFunctions();
     }, 2000);
 }
+
 function triggerFunctions() {
     QuixyListURL();
     defectFixed();
     if (updateAvailable === false) {
-        updateFooter();   
+        updateFooter();
     }
     //updateCheckEvent();
     //QuixyCaseURL();
     //FTSURL();
     //CustomerFTSURL();
 }
+
 function activeUsers() {
     document.querySelector('.forceSocialPhoto').click();
     const userObserver = new MutationObserver((mutations, activeobs) => {
@@ -483,6 +514,7 @@ function activeUsers() {
         subtree: true
     });
 }
+
 function RR() {
     window.addEventListener('keydown', function(event) {
         if (event.ctrlKey && event.shiftKey && event.code === 'F1') {
@@ -506,6 +538,7 @@ function RR() {
         }
     });
 }
+
 function QuixyCaseURL() {
     let OCTCRcase = document.evaluate("//span/slot/lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
     for (let i = 0, length = OCTCRcase.snapshotLength; i < length; ++i) {
@@ -515,6 +548,7 @@ function QuixyCaseURL() {
         OCTCRcaseOuter.snapshotItem(i).innerHTML = finalURL;
     }
 }
+
 function FTSURL() {
     let FTSAccDIV = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS AccountName')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
     for (let i = 0, length = FTSAccDIV.snapshotLength; i < length; ++i) {
@@ -531,6 +565,7 @@ function FTSURL() {
         });
     }
 }
+
 function CustomerFTSURL() {
     let FTSAccDIV = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[1]/div/div/div[1][contains(., 'Account')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
     for (let i = 0, length = FTSAccDIV.snapshotLength; i < length; ++i) {
