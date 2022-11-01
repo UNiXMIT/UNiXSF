@@ -1,5 +1,4 @@
 const installedVersion = "2.3";
-let updateAvailable = false;
 let oldArray = [];
 let newArray = [];
 let initQMon = true;
@@ -416,21 +415,6 @@ function updateFooter() {
 }
 
 function updateCheck() {
-    const updateObserver = new MutationObserver((mutations, updateobs) => {
-        const updateFooter = document.querySelector('.newfooterul');
-        if (updateFooter) {
-            updateCheckEvent();
-            updateobs.disconnect();
-            return;
-        }
-    });
-    updateObserver.observe(document, {
-        childList: true,
-        subtree: true
-    });
-}
-
-function updateCheckEvent() {
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.responseType = 'json';
     let URL = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
@@ -439,20 +423,41 @@ function updateCheckEvent() {
             if (xmlHttp.status === 200) {
                 let latestVersion = xmlHttp.response;
                 if (latestVersion > installedVersion) {
-                    updateAvailable = true;
                     let footerUL = document.querySelector('.newfooterul');
-                    footerUL.innerHTML = '';
-                    let li = document.createElement("li");
-                    liHTML = '<a class="ExtLoaded" target="_blank" href="https://github.com/UNiXMIT/UNiXSF/releases/latest">SFExtension Update Available: Version ' + latestVersion + '</a>';
-                    li.innerHTML = liHTML;
-                    li.className = 'ExtLoaded';
-                    li.style.marginTop = '12px';
-                    li.style.marginRight = '20px';
-                    li.style.fontWeight = 'bold';
-                    footerUL.appendChild(li);
-                    let style = document.createElement('style');
-                    style.innerHTML = 'a.ExtLoaded{text-decoration:none;color:red} a.ExtLoaded:hover{text-decoration:none;color:black}';
-                    document.getElementsByTagName('head')[0].appendChild(style);
+                    (async() => {
+                        let updateMessage = 'Version ' + latestVersion;
+                        if (!window.Notification) {
+                            console.log('Browser does not support notifications.');
+                        } else {
+                            if (Notification.permission === 'granted') {
+                                const QNotification = new Notification('SFExtension Update Available', {
+                                    body: updateMessage,
+                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                });
+                                QNotification.addEventListener('click', () => {
+                                    window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
+                                });
+                            } else {
+                                Notification.requestPermission()
+                                    .then(function(p) {
+                                        if (p === 'granted') {
+                                            const QNotification = new Notification('SFExtension Update Available', {
+                                                body: updateMessage,
+                                                icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                            });
+                                            QNotification.addEventListener('click', () => {
+                                                window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
+                                            });
+                                        } else {
+                                            console.log('User blocked notifications.');
+                                        }
+                                    })
+                                    .catch(function(err) {
+                                        console.error(err);
+                                    });
+                            }
+                        }
+                    })();
                 }
             }
         }
@@ -470,9 +475,7 @@ function createEvents() {
 function triggerFunctions() {
     QuixyListURL();
     defectFixed();
-    if (updateAvailable === false) {
-        updateFooter();
-    }
+    updateFooter();
     //updateCheckEvent();
     //QuixyCaseURL();
     //FTSURL();
