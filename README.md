@@ -38,8 +38,8 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - Added QuickLink buttons for MF Translation Request, MF Documentation, Support Portal, SLD Web Portal and PerformPlus.  
    ![7](images/buttons.png)  
    If you have a case open and active, the product in the case will be checked and the appropriate docs page opened.  
-   If no cases are opened the general docs page will be opened. 
-   If you have a case open and active, the case number will be used to populate the Case Number field of the translation page.
+   If no cases are opened the general docs page will be opened.  
+   If you have a case open and active, the case number will be used to populate the Case Number field of the translation page.  
 
 ## Install
 Before installing, close any instances of Salesforce you have open.  
