@@ -78,7 +78,12 @@ function export_options() {
         chrome.downloads.download({
             url: url,
             filename: 'sfext.json'   
-        });    
+        }); 
+        let status = document.getElementById('status');
+        status.textContent = 'Exporting Options';
+        setTimeout(function() {
+            status.textContent = '';
+        }, 750);   
     });
 }
 
