@@ -306,13 +306,13 @@ window.onload = function() {
     }
 
     function QNotify() {
-        const notifyObserver = new MutationObserver((mutations, footerobs) => {
+        const notifyObserver = new MutationObserver((mutations, notifyobs) => {
             const caseQueue = document.querySelector('#split-left').querySelector('.listViewContainer');
             if (caseQueue) {
                 let QMonitorInt = setInterval(function() {
                     QMonitor();
                 }, 30000);
-                footerobs.disconnect();
+                notifyobs.disconnect();
                 return;
             }
         });
@@ -448,11 +448,11 @@ window.onload = function() {
     }
 
     function updateCheck() {
-        const updateObserver = new MutationObserver((mutations, footerobs) => {
+        const updateObserver = new MutationObserver((mutations, updateobs) => {
             const updateFooter = document.querySelector('.newfooterul');
             if (updateFooter) {
                 updateCheckEvent();
-                footerobs.disconnect();
+                updateobs.disconnect();
                 return;
             }
         });
