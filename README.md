@@ -66,13 +66,15 @@ Before updating, close any instances of Salesforce you have open.
 
 The extension can be configured via the extension options page:  
 
-Click on detail button of the extension, then click 'Extension Options'. A new tab will open with the options page.  
+Click on the Salesforce Extension Icon and a popup will appear showing the config page.  
+
+![8](images/configPopup.png) 
 
 Alternatively:  
 
 Click on the toolbar extension menu and select Options.  
 
-![8](images/configPage.png)   
+![9](images/configPage.png)   
 
 ### What can be configured?
 
@@ -81,7 +83,7 @@ Click on the toolbar extension menu and select Options.
 - The name of the case queue to monitor and URL for the webhook notifications.  
    Desktop and Web notifications can be enabled/disabled.  
    For the case queue name, either enter the name of the case queue that you want to monitor or append the name of the case queue you want to monitor with 'NOTIFY':  
-   ![9](images/CaseQueueName.png) 
+   ![10](images/CaseQueueName.png) 
 
 - The supported products list. This list is used to open the correct documentation page when the documentation link/icon is clicked.  
 
@@ -89,7 +91,7 @@ Click on the toolbar extension menu and select Options.
   The list must be in JSON format.  
   The list consists of key/value pairs, separated by , and enclosed in braces { }.  
   The Key must exactly match the name of the product as it appears in cases:   
-  ![10](images/acuProduct.png)  
+  ![11](images/acuProduct.png)  
   The Value must match the sub-domain of the documentation page for that product:  
   i.e. for AcuCOBOL the URL is https://www.microfocus.com/documentation/extend-acucobol so the value must be:  
   ```

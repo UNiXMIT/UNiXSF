@@ -2,6 +2,7 @@
 body {
     margin: 0 30px;
     padding: 0;
+    overflow-x: hidden;
 }
 #Main {
     width: 750px;
