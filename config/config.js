@@ -77,7 +77,7 @@ function export_options() {
         var url = 'data:application/json;base64,' + btoa(items);
         chrome.downloads.download({
             url: url,
-            filename: 'sfext.json'   
+            filename: './sfext.json'   
         }); 
         let status = document.getElementById('status');
         status.textContent = 'Exporting Options';
@@ -87,7 +87,34 @@ function export_options() {
     });
 }
 
+function import_options() {    
+    const url = chrome.runtime.getURL('config/sfext.json');
+    fetch(url)
+        .then((response) => response.json())
+        .then((json) => 
+            chrome.storage.sync.set({
+                savedTimeout: json.savedTimeout,
+                savedProducts: json.savedProducts,
+                savedQueue: json.savedQueue,
+                savedQNotify: json.savedQNotify,
+                savedQNotifyWeb: json.savedQNotifyWeb,
+                savedWebhook: json.savedWebhook,
+                savedProtocol: json.savedProtocol,
+                savedFTSURL: json.savedFTSURL,
+                savedURLS: json.savedURLS
+            }, function() {
+                let status = document.getElementById('status');
+                status.textContent = 'Importing Options';
+                setTimeout(function() {
+                    status.textContent = '';
+                    window.location.reload();
+                }, 750);
+            }) 
+        );
+}
+
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click', save_options);
 document.getElementById('reset').addEventListener('click', reset_options);
 document.getElementById('export').addEventListener('click', export_options);
+document.getElementById('import').addEventListener('click', import_options);

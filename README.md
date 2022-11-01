@@ -115,7 +115,7 @@ Click on the toolbar extension menu and select Options.
 
 ### Save Options
 
-Saves your options using Chrome sync. The stored data will automatically be synced to any Chrome browser that you are logged into, provided you has Chrome sync enabled.  
+Saves your options using Chrome sync. The stored data will automatically be synced to any Chrome browser that you are logged into, provided you have Chrome sync enabled.  
 
 ### Reset Options
 
@@ -124,6 +124,10 @@ Resets your options to default.
 ### Export Options
 
 Exports your saved options to sfext.json and allows you to download the file to your local machine.  
+
+### Import Options
+
+Imports your exported options from the file sfext.json located in the config directory of this extension. The imported options are then saved using Chrome sync.  
 
 ## Features/Improvements Wishlist
 

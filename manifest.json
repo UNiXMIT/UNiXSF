@@ -25,6 +25,9 @@
     "default_icon": "icons/mf32.png",
     "default_popup": "config/config.html"
   },
+  "web_accessible_resources": [
+    "config/sfext.json"
+  ],
   "icons": {
     "16": "icons/mf16.png",
     "32": "icons/mf32.png",
