@@ -11,6 +11,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - [Configuration](#configuration)
 - [Features/Improvements Wishlist](#featuresimprovements-wishlist)
 - [Issues/Limitations](#issueslimitations)
+- [Optional](#optional)
 - [Donate](#donate)
 
 ## Features  
@@ -137,6 +138,14 @@ Imports your exported options from the file sfext.json located in the config dir
 
 - Where there are 2 sets of documentation for one product, it's only possible to configure the docs QuickLink to re-direct to one of those URLs.
   i.e. product 'Reflection for Secure IT' has docs in 'rsit-server-client-unix' and 'rsit-windows-client'
+
+## Optional
+
+This extension benefits from using it in conjunction with the [Lightning Extension](https://chrome.google.com/webstore/detail/lightning-extension/hfglcknhngdnhbkccblidlkljgflofgh)  
+
+When 'Link Grabber' is enabled in that extension, when you click the Desktop Notifications from the Case Queue Monitor, the cases are opened in the same Salesforce tab rather than opening a new tab.  
+
+![13](images/LinkGrabber.png) 
 
 ## Donate
 
