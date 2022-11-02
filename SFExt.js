@@ -1,4 +1,4 @@
-const installedVersion = "2.1";
+const installedVersion = "2.3";
 let oldArray = [];
 let newArray = [];
 let initQMon = true;
