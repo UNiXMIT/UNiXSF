@@ -22,6 +22,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
    Case queue monitor notifications link to the case URL when clicked.  
    The name of the case to monitor can be added on the extension config page.  
    For the Case Queue Monitor to work, 'Case Number' has to be the first column in your queue, so that the cases numbers can be identified and found.  
+   Windows (Desktop) notifications needs to be enabled and not silenced.
    Make sure Notifications are enabled, for the Saleforce website, in your browser:  
    ![0](images/EnableNotify.png)
 
