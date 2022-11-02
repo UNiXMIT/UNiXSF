@@ -1,4 +1,4 @@
-const installedVersion = "2.3";
+const installedVersion = "2.3-RC1";
 let oldArray = [];
 let newArray = [];
 let initQMon = true;
