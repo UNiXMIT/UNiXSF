@@ -21,7 +21,9 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
    Notifications via Desktop and Webhooks are supported.  
    Case queue monitor notifications link to the case URL when clicked.  
    The name of the case to monitor can be added on the extension config page.  
-   For the Case Queue Monitor to work, 'Case Number' has to be the first column in your queue, so that the cases numbers can be identified and found.
+   For the Case Queue Monitor to work, 'Case Number' has to be the first column in your queue, so that the cases numbers can be identified and found.  
+   Make sure Notifications are enabled, for the Saleforce website, in your browser:  
+   ![0](images/EnableNotify.png)
 
 - Quixy defect QuickLink. Uses the active case tab to formulate the Quixy URL to open. If no case is open it will open the Quixy homepage.     
    ![1](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABmJLR0QA/wD/AP+gvaeTAAACCUlEQVRIibWWv2tUQRSFv3v3ga9INtmHP2orOwULa1GjGBGjKewiKJgiYf+GoL24iAELFQ1K1KhgpWiiCBFsU9iIYKGlWXZX2Uh8cyzc1Qe6urvmnWrmnpn73RmYy9jMzIwnSTINHJc0yAbJzBqSHlSr1ctRkiTTkioblbwtSQB7h4eHFUk6kTGuuPs2SWPAPPAVONWh0hchhNcdvBJwFsDdxyMzG2xRU+C5pO3AmKRlM/vSCRJCWHH3Zx1OsRk4AxSAYpTxCmY2n6nm0h/v4ZdfllT+25q2XNJqNwv7laTVKI7j0TRNB/KCFAqFz9Ha2to5YCQvyPr6+tPIzA5K2p0XxMzM80qeVV8QSUvAtbwh5yW92zBIq+qVTOh9rVZ7aWYTwBvg1f9Crg8NDR2R9DEDvZkkyR5gB/C2WCzu50cL6gtyIU3TqUajccfMDrcZIYQ5Se1Wc6xer8+laXoamO0ZEkK45e47Je3LhJdLpdIH4GQmNhpF0a4QwtWeIe7+xN0l6QDwqRW+UavVjgKl1rwKjJjZN3d/3DME2Cxp0d23Ag+BZhzH98zsZ1eWdBcohhCWgC2dEkWdjJYGJD1qjW83m83YzA61TTObBCb/kaP7d2Jmi+4+0UVhv6nrDZIuApt6BfQEAfr+ZLikRr+bu1Tdgft5EiQtmCSrVCpT7j6ew79roVwuz34Had7gjIO2WZwAAAAASUVORK5CYII=)  
