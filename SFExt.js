@@ -258,28 +258,37 @@ function QMonitor() {
         savedQNotifyWeb: false,
         savedWebhook: 'https://webhookURL',
     }, function(result) {
-        let NQXPath = "//table[contains(@aria-label, " + '"' + result.savedQueue + '"' + ")]";
-        if (document.evaluate(NQXPath, document, null, XPathResult.BOOLEAN_TYPE, null).booleanValue) {
-            let QXPath = "//table[contains(@aria-label, " + '"' + result.savedQueue + '"' + ")]/tbody/tr/th/span/a";
-            if (document.evaluate(QXPath, document, null, XPathResult.BOOLEAN_TYPE, null).booleanValue) {
+        let QXPath = "//table[contains(@aria-label, " + '"' + result.savedQueue + '"' + ")]";
+        if (document.evaluate(QXPath, document, null, XPathResult.BOOLEAN_TYPE, null).booleanValue) {
+            let CaseNumber = "//table[contains(@aria-label, " + '"' + result.savedQueue + '"' + ")]/tbody/tr/th/span/a";
+            if (document.evaluate(CaseNumber, document, null, XPathResult.BOOLEAN_TYPE, null).booleanValue) {
                 if (initQMon) {
-                    let CaseIDElem = document.evaluate(QXPath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+                    let CaseIDElem = document.evaluate(CaseNumber, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
                     for (let i = 0, length = CaseIDElem.snapshotLength; i < length; ++i) {
                         oldArray.push(CaseIDElem.snapshotItem(i).textContent);
                     }
                     initQMon = false;
                 } else {
-                    let CaseIDElem = document.evaluate(QXPath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+                    let CaseIDElem = document.evaluate(CaseNumber, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+                    let caseSubject = '//div[contains(@class, "supportOutputLookupWithPreviewForSubject")]/div/div/a';
+                    let CaseSubElem = document.evaluate(caseSubject, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+                    let notifyBody = ' ';
                     for (let i = 0, length = CaseIDElem.snapshotLength; i < length; ++i) {
                         if (oldArray.indexOf(CaseIDElem.snapshotItem(i).textContent) == -1) {
+                            if (CaseSubElem.snapshotItem(i).textContent == null) {
+                                notifyBody = CaseIDElem.snapshotItem(i).textContent;
+                            } else {
+                                notifyBody = CaseIDElem.snapshotItem(i).textContent + ' - ' + CaseSubElem.snapshotItem(i).textContent;
+                            }
                             if (result.savedQNotify) {
                                 (async() => {
                                     if (!window.Notification) {
                                         console.log('Browser does not support notifications.');
                                     } else {
+                                        
                                         if (Notification.permission === 'granted') {
                                             const QNotification = new Notification('SFExtension Queue Monitor', {
-                                                body: CaseIDElem.snapshotItem(i).textContent,
+                                                body: notifyBody,
                                                 icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
                                             });
                                             QNotification.addEventListener('click', () => {
@@ -291,7 +300,7 @@ function QMonitor() {
                                                 .then(function(p) {
                                                     if (p === 'granted') {
                                                         const QNotification = new Notification('SFExtension Queue Monitor', {
-                                                            body: CaseIDElem.snapshotItem(i).textContent,
+                                                            body: notifyBody,
                                                             icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
                                                         });
                                                         QNotification.addEventListener('click', () => {
@@ -315,7 +324,7 @@ function QMonitor() {
                                     const params = {
                                         username: "SFExt Queue Monitor",
                                         avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png",
-                                        content: CaseIDElem.snapshotItem(i).textContent + ' - ' + CaseIDElem.snapshotItem(i).href
+                                        content: notifyBody + ' ' + CaseIDElem.snapshotItem(i).href
                                     };
                                     request.send(JSON.stringify(params));
                                 }
