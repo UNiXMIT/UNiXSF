@@ -284,7 +284,7 @@ function QMonitor() {
                                     if (!window.Notification) {
                                         console.log('Browser does not support notifications.');
                                     } else {
-                                        
+
                                         if (Notification.permission === 'granted') {
                                             const QNotification = new Notification('SFExtension Queue Monitor', {
                                                 body: notifyBody,
@@ -483,6 +483,14 @@ function updateCheck() {
     xmlHttp.send(null);
 }
 
+function fixMouse() {
+    document.addEventListener('mouseup', e => {
+        if (typeof e === 'object' && [3, 4].includes(e.button)) {
+            e.preventDefault();
+        }
+    });
+}
+
 function createEvents() {
     setInterval(function() {
         triggerFunctions();
@@ -571,6 +579,7 @@ window.onload = function() {
     defectFixed();
     extLoaded();
     updateCheck();
+    fixMouse();
     createEvents();
     EE();
     //QuixyCaseURL();
