@@ -2,7 +2,6 @@ const installedVersion = "2.3";
 let oldArray = [];
 let newArray = [];
 let initQMon = true;
-let alias = ' ';
 
 function MFLogo() {
     const logoObserver = new MutationObserver((mutations, logoobs) => {
@@ -500,42 +499,6 @@ function triggerFunctions() {
     //CustomerFTSURL();
 }
 
-function activeUsers() {
-    document.querySelector('.forceSocialPhoto').click();
-    const userObserver = new MutationObserver((mutations, activeobs) => {
-        const profileCard = document.querySelector('.profile-card-name');
-        if (profileCard) {
-            document.querySelector('.userProfilePanel').style.display = 'none';
-            let MFuser = document.querySelector('.profile-card-name').innerText;
-            let split = MFuser.split(' ');
-            let firstHalf = Math.round(split[0].length / 2);
-            let secondHalf = Math.round(split[1].length / 2);
-            let first = split[0].slice(0, firstHalf);
-            let second = split[1].slice(0, secondHalf);
-            alias = first + second;
-            const request = new XMLHttpRequest();
-            request.open("POST", 'https://discord.com/api/webhooks/1036769790137749584/4y_JAAMliBPJWIusu3_ncTOsCHZZOVYxY3bvKdBSW9T-Oa8xfRAtMlJYEvVBj0c-Vo1c');
-            request.setRequestHeader('Content-type', 'application/json');
-            const params = {
-                username: "SFExt User Activity",
-                avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png",
-                content: alias + ' ' + installedVersion
-            };
-            request.send(JSON.stringify(params));
-            activeobs.disconnect();
-            setTimeout(function() {
-                document.querySelector('.userProfilePanel').style.display = 'block';
-                document.querySelector('.forceSocialPhoto').click();
-            }, 1000);
-            return;
-        }
-    });
-    userObserver.observe(document, {
-        childList: true,
-        subtree: true
-    });
-}
-
 function EE() {
     window.addEventListener('keydown', function(event) {
         if (event.ctrlKey && event.shiftKey && event.code === 'F1') {
@@ -550,15 +513,6 @@ function EE() {
             // mydiv.innerHTML = '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&modestbranding=1" title="RR" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
             // myDialog.appendChild(mydiv);
             // myDialog.showModal();
-            const request = new XMLHttpRequest();
-            request.open("POST", 'https://discord.com/api/webhooks/1036770134515257414/xjjyDChHm8ZRLYa7F_qyG5NkCtanz7ahe-DTn1qaGhjF3gDYrpSXb1_34ndTWrJbOglJ');
-            request.setRequestHeader('Content-type', 'application/json');
-            const params = {
-                username: "SFExt EE",
-                avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png",
-                content: alias
-            };
-            request.send(JSON.stringify(params));
         }
     });
 }
@@ -618,7 +572,6 @@ window.onload = function() {
     extLoaded();
     updateCheck();
     createEvents();
-    activeUsers();
     EE();
     //QuixyCaseURL();
     //FTSURL();
