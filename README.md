@@ -17,7 +17,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 ## Features  
 - Auto refresh of queues every 60 seconds by default (refreshes only the queue, not the entire website).
 
-- Case queue monitor and notifications when a new or updated case appears in the queue. If a case is already in a queue and then gets updated again, no notification will be generated. Only cases entering and leaving the queue are monitored, not the last modified time. The case queue set to monitor needs to be open so that the case queue monitor can find it. The extension can only act on what it open as it cannot read backend SF data. If you do not auto/manually refresh the queue the the monitor cannot check for new cases.   
+- Case queue monitor and notifications when a new or updated case appears in the queue. If a case is already in a queue and then gets updated again, no notification will be generated. Only cases entering and leaving the queue are monitored, not the last modified time. The case queue set to monitor needs to be open so that the case queue monitor can find it. The extension can only act on what it open as it cannot read backend SF data. If you do not auto/manually refresh the queue then the monitor cannot check for new cases.   
    Notifications via Desktop and Webhooks are supported.  
    Case queue monitor notifications link to the case URL when clicked.  
    The name of the case to monitor can be added on the extension config page.  
