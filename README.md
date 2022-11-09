@@ -23,7 +23,8 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
    The name of the case to monitor can be added on the extension config page.  
    For the Case Queue Monitor to work, 'Case Number' has to be the first column in your queue, so that the cases numbers can be identified and found.  
    If the 'Subject' column is added to the queue, the case subject will also be sent in the notification.   
-   Windows (Desktop) notifications needs to be enabled and not silenced.  
+   Windows (Desktop) notifications need to be enabled and not silenced.  
+   Ensure Windows Focus Assist is set to OFF.   
    Make sure Notifications are enabled, for the Saleforce website, in your browser:  
    ![0](images/EnableNotify.png)
 
