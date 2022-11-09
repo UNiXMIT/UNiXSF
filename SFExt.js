@@ -515,10 +515,6 @@ function triggerFunctions() {
     QuixyListURL();
     defectFixed();
     updateFooter();
-    //updateCheckEvent();
-    //QuixyCaseURL();
-    //FTSURL();
-    //CustomerFTSURL();
 }
 
 function EE() {
@@ -596,7 +592,4 @@ window.onload = function() {
     fixMouse();
     createEvents();
     EE();
-    //QuixyCaseURL();
-    //FTSURL();
-    //CustomerFTSURL();
 };
