@@ -1,6 +1,6 @@
 {
   "name": "Salesforce Extension",
-  "version": "2.3",
+  "version": "2.4",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "homepage_url": "https://unixmit.github.io/UNiXSF",
@@ -10,7 +10,8 @@
     "storage",
     "activeTab",
     "clipboardWrite",
-    "downloads"
+    "downloads",
+    "tabs"
   ],
   "content_scripts": [
     {
@@ -21,6 +22,9 @@
       "js": ["SFExt.js"]
     }
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_icon": "icons/mf32.png",
     "default_popup": "config/config.html"

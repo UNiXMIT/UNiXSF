@@ -58,7 +58,6 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
    ![10](images/defectHighlight.png)  
 
 ## Install
-Before installing, close any instances of Salesforce you have open.  
 
 1. Download the [Latest Release UNiXSF.zip](https://github.com/UNiXMIT/UNiXSF/releases/latest), and unzip into the directory where you would like the extension to be stored.  
 2. Open Google Chrome, Brave or Edge.  
@@ -71,7 +70,6 @@ Before installing, close any instances of Salesforce you have open.
 9. Once you have loaded Salesforce in your browser, if the extension has loaded correctly it should say 'SFExt' in the lower right corner.  
 
 ## Update
-Before updating, close any instances of Salesforce you have open.
 
 1. Download the [Latest Release UNiXSF.zip](https://github.com/UNiXMIT/UNiXSF/releases/latest), and unzip into the directory where the previous version of the SF Extension is located, overwriting the old files. 
 2. Open Google Chrome, Brave or Edge.  
