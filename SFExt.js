@@ -20,7 +20,7 @@ function MFLogo() {
 
 function MFCSS() {
     let style = document.createElement('style');
-    style.innerHTML = '.mfbutton{cursor:pointer;margin-left:2px} img.mfbutton:hover{-webkit-filter:brightness(70%);-webkit-filter:brightness(70%)} a.ExtLoaded{text-decoration:none;color:black} a.ExtLoaded:hover{color:red}';
+    style.innerHTML = '.mfbutton{cursor:pointer;margin-left:2px} img.mfbutton:hover{-webkit-filter:brightness(70%);-webkit-filter:brightness(70%)} a.ExtLoaded{text-decoration:none;color:black} a.ExtLoaded:hover{color:red} .slds-global-header__item_search, .slds-global-header__item--search{margin-left:200px}';
     document.getElementsByTagName('head')[0].appendChild(style);
 }
 
@@ -63,6 +63,7 @@ function refreshConfMonitor(refreshTimeout, refreshInterval, confMon) {
     });
 }
 
+// Base64 Icons https://icons8.com // Colour #919191 // Size 30px
 function MFNav() {
     const navObserver = new MutationObserver((mutations, navobs) => {
         const MFNavBar = document.querySelector('#oneHeader');
@@ -74,6 +75,7 @@ function MFNav() {
             MFDocumentation();
             MFPP();
             MFTranslation();
+            AMCURLs();
             navobs.disconnect();
             return;
         }
@@ -216,7 +218,6 @@ function MFPPEvent() {
 
 function MFTranslation() {
     let MFButton = document.querySelector('#oneHeader').querySelector('.oneHelpAndTrainingExperience');
-    // Base64 Icons https://icons8.com // Colour #919191 // Size 30px
     MFButton.innerHTML = '<img class="mfbutton mftranslation" alt="MF Translation" title="MF Translation" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAACMElEQVRIie2UPW8TQRCG33fPyC6QyxR8VFCRiorCgggkKvqIhtDZkhPvnpCud0OJdR9IgSYIEEjUICGQQIKYCCkVBf4DyQ9I4+Ls3A6FnehwfHb8BU1eaaXbndl5ZvZ2FjjTmRYkpidhGN4TkecALs6Zs6+UKtdqtY9HCyptFZFnC4ACwKV+QcdSgw4LgAIAROTyKPCgLMlbIrICwM4zkXHg91rrbdd1v5P88C/BUcb3zMqNsLW01l9zudx5AKhWq1/CMGwBuDYmZgm9grZHOY2qOCIp3W53LUmSBySF5NMxUBhjdowxzXF+WeCDTqfzWkRIcl1ENkSEcRy/AnAwxL9kjKEx5vhdSM1vTgLe8jyvTVKMMcvGmGWS4nleG8DWiSBKcUgMAADJobah/zhJks2sQEmSbDqO8yi9Zq1tBkGQhr3TWt/3ff+uiHw+NdhxnKUgCJbQuyBHp2JF5DbJrH4ukWwDeGOtfdJPYDWrgKyj/tEfabsi+Q0Zt5Xkodb6Vz6fv+667m6j0bgKYG1S8MQSkbdRFF2oVCpdAFBKXQFwmOU/qo8nUckYswMA9Xo9VywWz7mu+8n3/Tskfy4MrJRiGIZFACsi8hiAE0XRwyRJ8ll75gK21p54MKy1uxmd1Et2YL4/j0SGieReJlgpVV4EnOSeiJT/WjvNxiAIZCDQ7ziOb/Rfsqk0TTu1AazOAp0WvK61bs0CnQb8whjzclYocPp2agJQhUJhYx7Q/6o/dirFfnpZUXcAAAAASUVORK5CYII=">';
     MFButton.addEventListener('click', MFTranslationEvent, false);
 }
@@ -231,6 +232,19 @@ function MFTranslationEvent() {
     } else {
         window.open('http://bit.ly/mftranslate', 'MF Translation', 'width=1150,height=700');
     }
+}
+
+function AMCURLs() {
+    let MFButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
+    let li = document.createElement("li");
+    li.innerHTML = '<img class="mfbutton amcurls" alt="AMC URLs" title="AMC URLs" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAADe0lEQVRIie2WTUhjVxTHf/e9ZyALG6O1TkQwUgKSttNFRhGyMxsXLSVZ+EEXhXYbEsksZpt9VYy67rR0ISokUFpwFbIRHBwzUCvSprUKFo0dP14WCvF9zGKSoPG9JlZ37X93D+e83z3vcM858F+TuItzMplU3G73oBCizzCM9wAkSTrWdX1XVdWNZDKpPSh4bm7uYyBhmuYnQLuN24kQ4ifDMKYnJyd/vhd4amrq3ZaWlhngc0Bq5pKAAXwvy/LTaDR6cmdwKpX6EPgB6GsSWK9d4LN4PP5L0+AKdA14519Cq1J1XQ8mEonthuCFhYUOXddfAO/fE1rVnhBiMBaL/X3deKtuuq7PPiAUwGua5tf1xhsZz87OPhZCvLK6kJUURSEQCODxeCiVSmxubqKqqpWrIYR4EovFXlUNNwCSJD1tFup0OhkbG6O/v5/j42NcLhcTExO4XC4rd8kwjNh1Qy3jSnM4AjqagUYiETRNI5PJUC6XAQiHw6iqSjabtQo7OTs7e1RtMrXs3G73YDNQgHK5zN7eHplMht7eXpxOJwDFYpHW1la7sI729vYn1UMNLIRo+F6dTieyLKPrOmtra/h8PkZGRujp6cHhcODz+Tg8PPynT9QYNbBpmp5G0EgkwtDQEAB+v5/h4WFyuRz7+/uEw2E0TSOfz9t+wzCMbiuwaRegKEqtphsbG/j9fkKhELlcjq2tLQYGBlAUhXQ6jabZzwkhRI2hXDPa/qNAIICiKKysrOD1egmFQmSzWba33zak9fV18vk8l5eXttBKcn/dyhjYswvweDwUCgXK5TIHBwesrq5SKBQIBoO1mjeCAkiStH8L7PF4XgCvrQJKpRJdXV0AXFxc1Grq9XpxOBwNgRWdnJ6evqwebnSuVCr1LfBFfURbWxvj4+MUi0WKxSI+nw9N00in001lWtHzeDz+ZfVQ37mmAb0+4vz8nMXFRVRVpbOzk52dHZaWlu4C1YGZ64Zb08ku63vqm3g8/tV1g9V0Sgghfn9A6J9XV1fP6o2Wi8DMzMwHsiyvAZYd/w6yXQQsJ1EikdiWZXkQ+PUe0D/soLZggGg0+pssy0HgO94ucM1KB57ruj5oB4Um19v5+fmPKrX/FPsJ9to0zR+FENN2C96dwVUtLy/LR0dHA0CfYRiPACRJOjIMY7e7u/vl6Ojoraf4v6p6AwEtX1nzhaNQAAAAAElFTkSuQmCC">';
+    MFButton.insertBefore(li, MFButton.children[11]);
+    let MFButtonNew = document.querySelector('#oneHeader').querySelector('.amcurls');
+    MFButtonNew.addEventListener('click', AMCURLsEvent, false);
+}
+
+function AMCURLsEvent() {
+    window.open('http://bit.ly/KimsQuickLinks', 'AMC URLs', 'width=500,height=775');
 }
 
 function QNotify() {
