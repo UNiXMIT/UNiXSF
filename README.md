@@ -37,25 +37,26 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
    ![3](images/sftp.png)  
    This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol  
 
-- QuickLink buttons for Support Portal, SLD Web Portal and PerformPlus.  
+- QuickLink buttons for Support Portal, SLD Web Portal, PerformPlus and AMC Links.  
    ![4](images/support.png)
    ![5](images/sld.png)
    ![6](images/pp.png)
+   ![7](images/amc.png)
 
 - QuickLink button for the MF Translation Request page. 
    If you have a case open and active, the case number will be used to populate the Case Number field of the translation page.  
-   ![7](images/translation.png)  
+   ![8](images/translation.png)  
 
 - QuickLink button for the MF Documentation.
    If you have a case open and active, the product in the case will be checked and the appropriate docs page opened.  
    If no cases are opened the general docs page will be opened.  
-   ![8](images/docs.png)
+   ![9](images/docs.png)
 
 -  Creates URLs to Quixy defects in queues (if you have the R&D Change Requests column visible).  
-   ![9](images/QuixyQueueLink.png)  
+   ![10](images/QuixyQueueLink.png)  
 
 - Highlights Fixed defects ('Planned in new release' or 'Software update provided' statuses) in Pending Release Queue.  
-   ![10](images/defectHighlight.png)  
+   ![11](images/defectHighlight.png)  
 
 ## Install
 
@@ -82,17 +83,17 @@ The extension can be configured via the extension options page:
 
 Click on the Salesforce Extension Icon and a popup will appear showing the config page.  
 
-![11](images/configPopup.png) 
+![12](images/configPopup.png) 
 
 or
 
-![12](images/configPopup2.png)
+![13](images/configPopup2.png)
 
 Alternatively:  
 
 Click on the toolbar extension menu and select Options.  
 
-![10](images/configPage.png)   
+![14](images/configPage.png)   
 
 ### What can be configured?
 
@@ -101,7 +102,7 @@ Click on the toolbar extension menu and select Options.
 - The name of the case queue to monitor and URL for the webhook notifications.  
    Desktop and Web notifications can be enabled/disabled.  
    For the case queue name, either enter the name of the case queue that you want to monitor or append the name of the case queue you want to monitor with 'NOTIFY':  
-   ![13](images/CaseQueueName.png) 
+   ![15](images/CaseQueueName.png) 
 
 - The supported products list. This list is used to open the correct documentation page when the documentation link/icon is clicked.  
 
@@ -109,7 +110,7 @@ Click on the toolbar extension menu and select Options.
   The list must be in JSON format.  
   The list consists of key/value pairs, separated by , and enclosed in braces { }.  
   The Key must exactly match the name of the product as it appears in cases:   
-  ![14](images/acuProduct.png)  
+  ![16](images/acuProduct.png)  
   The Value must match the sub-domain of the documentation page for that product:  
   i.e. for AcuCOBOL the URL is https://www.microfocus.com/documentation/extend-acucobol so the value must be:  
   ```
@@ -158,7 +159,7 @@ This extension benefits from using it in conjunction with the [Lightning Extensi
 
 When 'Link Grabber' is enabled in that extension, when you click the Desktop Notifications from the Case Queue Monitor, the cases are opened in the same Salesforce tab rather than opening a new tab.  
 
-![15](images/LinkGrabber.png) 
+![17](images/LinkGrabber.png) 
 
 ## Donate
 
