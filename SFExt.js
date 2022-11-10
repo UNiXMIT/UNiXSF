@@ -1,13 +1,13 @@
 const installedVersion = "2.4";
-let globalTimeout = ' ';
-let globalProducts = ' ';
-let globalQueue = ' ';
-let globalQNotify = ' ';
-let globalQNotifyWeb = ' ';
-let globalWebhook = ' ';
-let globalProtocol = ' ';
-let globalFTSURL = ' ';
-let globalURLS = ' ';
+let globalTimeout
+let globalProducts
+let globalQueue
+let globalQNotify
+let globalQNotifyWeb
+let globalWebhook
+let globalProtocol
+let globalFTSURL
+let globalURLS
 let oldArray = [];
 let newArray = [];
 
@@ -84,48 +84,14 @@ function MFCSS() {
 }
 
 function queueRefresh() {
-    if (globalTimeout >= 30) {
-        refreshTimeout = items.savedTimeout * 1000;
-        setTimeout(function(){
-            document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
-        }, refreshTimeout);
-    }
-    // chrome.storage.sync.get({
-    //     savedTimeout: 60,
-    // }, function(items) {
-    //     refreshTimeout = items.savedTimeout * 1000;
-    //     startRefresh(refreshTimeout);
-    // });
-}
-
-function startRefresh(refreshTimeout) {
-    let refreshInterval;
-    let confMon;
-    if (refreshTimeout >= 30000) {
-        refreshInterval = setInterval(function() {
+    while (true) {
+        if (globalTimeout >= 30) {
+            refreshTimeout = globalTimeout * 1000;
+            setTimeout(function(){
                 document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
-            },
-            refreshTimeout);
-    }
-    confMon = setInterval(function() {
-        refreshConfMonitor(refreshTimeout, refreshInterval, confMon);
-    }, 3000);
-}
-
-function refreshConfMonitor(refreshTimeout, refreshInterval, confMon) {
-    let refreshConf = refreshTimeout;
-    let refreshID = refreshInterval;
-    let confMonID = confMon;
-    chrome.storage.sync.get({
-        savedTimeout: 60,
-    }, function(items) {
-        refreshTimeout = items.savedTimeout * 1000;
-        if (refreshTimeout != refreshConf) {
-            clearInterval(refreshID);
-            clearInterval(confMonID);
-            startRefresh(refreshTimeout);
+            }, refreshTimeout);
         }
-    });
+    }
 }
 
 // Base64 Icons https://icons8.com // Colour #919191 // Size 30px
@@ -197,13 +163,8 @@ function MFFTSEvent() {
         let FTSAccEncoded = (whichFTSAcc.textContent).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
         let FTSPassEncoded = (whichFTSPass.textContent).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
         let FTSCred = FTSAccEncoded + ':' + FTSPassEncoded;
-        chrome.storage.sync.get({
-            savedProtocol: 'sftp://',
-            savedFTSURL: 'secureupload.microfocus.com:2222'
-        }, function(result) {
-            let FinalFTSURL = result.savedProtocol + FTSCred + '@' + result.savedFTSURL;
-            window.open(FinalFTSURL, '_parent');
-        });
+        let FinalFTSURL = globalProtocol + FTSCred + '@' + globalFTSURL;
+        window.open(FinalFTSURL, '_parent');
     } else {
         window.open('https://secureupload.microfocus.com/mffts/', '_blank');
     }
@@ -243,17 +204,13 @@ function MFDocumentation() {
 function MFDocumentationEvent() {
     let MFProduct = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[2]/span/slot[1]/records-formula-output/slot/formula-output-formula-html/lightning-formatted-rich-text/span/a", document, null, XPathResult.ANY_TYPE, null);
     let whichProduct = MFProduct.iterateNext();
-    chrome.storage.sync.get({
-        savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
-    }, function(items) {
-        try {
-            let products = JSON.parse(items.savedProducts);
-            MFDocumentationURL(products, whichProduct);
-        } catch (err) {
-            window.alert("Product list JSON format is not correct!");
-            window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
-        }
-    });
+    try {
+        let products = JSON.parse(globalProducts);
+        MFDocumentationURL(products, whichProduct);
+    } catch (err) {
+        window.alert("Product list JSON format is not correct!");
+        window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
+    }
 }
 
 function MFDocumentationURL(products, whichProduct) {
@@ -328,99 +285,88 @@ function initQMonitor() {
 }
 
 function QMonitor() {
-    chrome.storage.sync.get({
-        savedQueue: 'NOTIFY',
-    }, function(result) {
-        let observer = new MutationObserver(mutations => {
-            let caseQueue = document.querySelector('table[aria-label*="ALL NEW"]');
-            if (caseQueue) {
-                QMonitor();
-            }
-        });
-        observer.observe(document, {childList: true, subtree: true});
+    let observer = new MutationObserver(mutations => {
+        let caseQueue = "document.querySelector('table[aria-label*=" + '"' + globalQueue + '"' + "]')";
+        if (caseQueue) {
+            QMonitor();
+        }
     });
+    observer.observe(document, {childList: true, subtree: true});
 }
 
 function QNotify() {
-    chrome.storage.sync.get({
-        savedQueue: 'NOTIFY',
-        savedQNotify: false,
-        savedQNotifyWeb: false,
-        savedWebhook: 'https://webhookURL',
-    }, function(result) {
-        let CaseNumber = "//table[contains(@aria-label, " + '"' + result.savedQueue + '"' + ")]/tbody/tr/th/span/a";
-        if (document.evaluate(CaseNumber, document, null, XPathResult.BOOLEAN_TYPE, null).booleanValue) {
-            let CaseIDElem = document.evaluate(CaseNumber, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-            let caseSubject = '//div[contains(@class, "supportOutputLookupWithPreviewForSubject")]/div/div/a';
-            let CaseSubElem = document.evaluate(caseSubject, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-            let notifyBody = ' ';
-            for (let i = 0, length = CaseIDElem.snapshotLength; i < length; ++i) {
-                if (oldArray.indexOf(CaseIDElem.snapshotItem(i).textContent) == -1) {
-                    if (CaseSubElem.snapshotItem(i).textContent == null) {
-                        notifyBody = CaseIDElem.snapshotItem(i).textContent;
-                    } else {
-                        notifyBody = CaseIDElem.snapshotItem(i).textContent + ' - ' + CaseSubElem.snapshotItem(i).textContent;
-                    }
-                    if (result.savedQNotify) {
-                        (async() => {
-                            if (!window.Notification) {
-                                console.log('Browser does not support notifications.');
+    let CaseNumber = "//table[contains(@aria-label, " + '"' + globalQueue + '"' + ")]/tbody/tr/th/span/a";
+    if (document.evaluate(CaseNumber, document, null, XPathResult.BOOLEAN_TYPE, null).booleanValue) {
+        let CaseIDElem = document.evaluate(CaseNumber, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        let caseSubject = '//div[contains(@class, "supportOutputLookupWithPreviewForSubject")]/div/div/a';
+        let CaseSubElem = document.evaluate(caseSubject, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        let notifyBody = ' ';
+        for (let i = 0, length = CaseIDElem.snapshotLength; i < length; ++i) {
+            if (oldArray.indexOf(CaseIDElem.snapshotItem(i).textContent) == -1) {
+                if (CaseSubElem.snapshotItem(i).textContent == null) {
+                    notifyBody = CaseIDElem.snapshotItem(i).textContent;
+                } else {
+                    notifyBody = CaseIDElem.snapshotItem(i).textContent + ' - ' + CaseSubElem.snapshotItem(i).textContent;
+                }
+                if (globalQNotify) {
+                    (async() => {
+                        if (!window.Notification) {
+                            console.log('Browser does not support notifications.');
+                        } else {
+                            if (Notification.permission === 'granted') {
+                                const QNotification = new Notification('SFExtension Queue Monitor', {
+                                    body: notifyBody,
+                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                });
+                                QNotification.addEventListener('click', () => {
+                                    let QURL = CaseIDElem.snapshotItem(i).href;
+                                    window.open(QURL, '_blank');
+                                });
                             } else {
-                                if (Notification.permission === 'granted') {
-                                    const QNotification = new Notification('SFExtension Queue Monitor', {
-                                        body: notifyBody,
-                                        icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                Notification.requestPermission()
+                                    .then(function(p) {
+                                        if (p === 'granted') {
+                                            const QNotification = new Notification('SFExtension Queue Monitor', {
+                                                body: notifyBody,
+                                                icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                            });
+                                            QNotification.addEventListener('click', () => {
+                                                let QURL = CaseIDElem.snapshotItem(i).href;
+                                                window.open(QURL, '_blank');
+                                            });
+                                        } else {
+                                            console.log('User blocked notifications.');
+                                        }
+                                    })
+                                    .catch(function(err) {
+                                        console.error(err);
                                     });
-                                    QNotification.addEventListener('click', () => {
-                                        let QURL = CaseIDElem.snapshotItem(i).href;
-                                        window.open(QURL, '_blank');
-                                    });
-                                } else {
-                                    Notification.requestPermission()
-                                        .then(function(p) {
-                                            if (p === 'granted') {
-                                                const QNotification = new Notification('SFExtension Queue Monitor', {
-                                                    body: notifyBody,
-                                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
-                                                });
-                                                QNotification.addEventListener('click', () => {
-                                                    let QURL = CaseIDElem.snapshotItem(i).href;
-                                                    window.open(QURL, '_blank');
-                                                });
-                                            } else {
-                                                console.log('User blocked notifications.');
-                                            }
-                                        })
-                                        .catch(function(err) {
-                                            console.error(err);
-                                        });
-                                }
                             }
-                        })();
-                        if (result.savedQNotifyWeb) {
-                            const request = new XMLHttpRequest();
-                            request.open("POST", result.savedWebhook);
-                            request.setRequestHeader('Content-type', 'application/json');
-                            const params = {
-                                username: "SFExt Queue Monitor",
-                                avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png",
-                                content: notifyBody + ' ' + CaseIDElem.snapshotItem(i).href
-                            };
-                            request.send(JSON.stringify(params));
                         }
+                    })();
+                    if (globalQNotifyWeb) {
+                        const request = new XMLHttpRequest();
+                        request.open("POST", globalWebhook);
+                        request.setRequestHeader('Content-type', 'application/json');
+                        const params = {
+                            username: "SFExt Queue Monitor",
+                            avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png",
+                            content: notifyBody + ' ' + CaseIDElem.snapshotItem(i).href
+                        };
+                        request.send(JSON.stringify(params));
                     }
                 }
-                newArray.push(CaseIDElem.snapshotItem(i).textContent);
             }
-            oldArray = [];
-            oldArray = newArray;
-            newArray = [];
-        } else {
-            setTimeout(function () {
-                emptyCaseArray();
-              }, 5000);
+            newArray.push(CaseIDElem.snapshotItem(i).textContent);
         }
-    });
+        oldArray = [];
+        oldArray = newArray;
+        newArray = [];
+    } else {
+        setTimeout(function () {
+            emptyCaseArray();
+          }, 5000);
+    }
 }
 
 function emptyCaseArray() {
@@ -468,9 +414,6 @@ function extLoaded() {
     let observer = new MutationObserver(mutations => {
         let footerBar = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
         if (footerBar) {
-            chrome.storage.sync.get({
-                savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}'
-            }, function(items) {
                 let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
                 let newUL = document.createElement("ul");
                 newUL.className = "newfooterul";
@@ -480,7 +423,7 @@ function extLoaded() {
                 newUL.style.position = "absolute";
                 newUL.style.right = "0";
                 footerUl.appendChild(newUL);
-                let URLS= JSON.parse(items.savedURLS);
+                let URLS= JSON.parse(globalURLS);
                 Object.entries(URLS).forEach(([key, value]) => {
                     let li = document.createElement("li");
                     liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
@@ -491,12 +434,11 @@ function extLoaded() {
                     li.style.fontWeight = 'bold';
                     newUL.appendChild(li);
                 });
-            });
             observer.disconnect();
         }
     });
     observer.observe(document, {childList: true, subtree: true});
-}t
+}
 
 function updateFooter() {
     let footerUlOld = document.querySelector('.oneUtilityBar').querySelector('.utilitybar').querySelector('.newfooterul');
@@ -511,7 +453,7 @@ function updateFooter() {
         newUL.style.position = "absolute";
         newUL.style.right = "0";
         footerUl.appendChild(newUL);
-        let URLS = JSON.parse(items.savedURLS);
+        let URLS = JSON.parse(globalURLS);
         Object.entries(URLS).forEach(([key, value]) => {
             let li = document.createElement("li");
             liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
