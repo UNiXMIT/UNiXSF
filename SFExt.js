@@ -535,50 +535,6 @@ function EE() {
     });
 }
 
-function QuixyCaseURL() {
-    let OCTCRcase = document.evaluate("//span/slot/lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-    for (let i = 0, length = OCTCRcase.snapshotLength; i < length; ++i) {
-        let OCTCRcaseOuter = document.evaluate("//lightning-formatted-text[contains(., 'OCTCR')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        let quixyID = OCTCRcase.snapshotItem(i).textContent;
-        let finalURL = '<a target="_blank" href="https://rdapps.swinfra.net/quixy/#/viewEntity/' + quixyID + '">' + quixyID + '</a>';
-        OCTCRcaseOuter.snapshotItem(i).innerHTML = finalURL;
-    }
-}
-
-function FTSURL() {
-    let FTSAccDIV = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS AccountName')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-    for (let i = 0, length = FTSAccDIV.snapshotLength; i < length; ++i) {
-        let FTSAcc = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS AccountName')]/following-sibling::div//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        let FTSPass = document.evaluate("//div/slot/records-record-layout-row[2]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS Password')]/following-sibling::div//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        let FTSAccEncoded = (FTSAcc.snapshotItem(i).textContent).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
-        let FTSPassEncoded = (FTSPass.snapshotItem(i).textContent).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
-        let FTSURL = FTSAccEncoded + ':' + FTSPassEncoded;
-        chrome.storage.sync.get({
-            savedProtocol: 'sftp://',
-            savedFTSURL: 'secureupload.microfocus.com:2222'
-        }, function(result) {
-            FTSAccDIV.snapshotItem(i).innerHTML = '<a href="' + result.savedProtocol + FTSURL + '@' + result.savedFTSURL + '">FTS AccountName</a>';
-        });
-    }
-}
-
-function CustomerFTSURL() {
-    let FTSAccDIV = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[1]/div/div/div[1][contains(., 'Account')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-    for (let i = 0, length = FTSAccDIV.snapshotLength; i < length; ++i) {
-        let FTSAcc = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[1]/div/div/div[1][contains(., 'Account')]/following-sibling::div//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        let FTSPass = document.evaluate("//div/slot/records-record-layout-row[2]/slot/records-record-layout-item[1]/div/div/div[1][contains(., 'Password')]/following-sibling::div//text()", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        let FTSAccEncoded = (FTSAcc.snapshotItem(i).textContent).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
-        let FTSPassEncoded = (FTSPass.snapshotItem(i).textContent).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
-        let FTSURL = FTSAccEncoded + ':' + FTSPassEncoded;
-        chrome.storage.sync.get({
-            savedProtocol: 'sftp://',
-            savedFTSURL: 'secureupload.microfocus.com:2222'
-        }, function(result) {
-            FTSAccDIV.snapshotItem(i).innerHTML = '<a href="' + result.savedProtocol + FTSURL + '@' + result.savedFTSURL + '">Account</a>';
-        });
-    }
-}
-
 window.onload = function() {
     MFLogo();
     MFCSS();
