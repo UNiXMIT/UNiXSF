@@ -321,7 +321,7 @@ function initQMonitor() {
     }
 }
 
-function QNotify() {
+function QMonitor() {
     chrome.storage.sync.get({
         savedQueue: 'NOTIFY',
     }, function(result) {
@@ -335,7 +335,7 @@ function QNotify() {
     });
 }
 
-function QMonitor() {
+function QNotify() {
     chrome.storage.sync.get({
         savedQueue: 'NOTIFY',
         savedQNotify: false,
@@ -604,7 +604,7 @@ window.onload = function() {
     queueRefresh();
     MFNav();
     initQMonitor();
-    QNotify();
+    QMonitor();
     QuixyListURL();
     defectFixed();
     extLoaded();
