@@ -84,12 +84,18 @@ function MFCSS() {
 }
 
 function queueRefresh() {
-    chrome.storage.sync.get({
-        savedTimeout: 60,
-    }, function(items) {
+    if (globalTimeout >= 30) {
         refreshTimeout = items.savedTimeout * 1000;
-        startRefresh(refreshTimeout);
-    });
+        setTimeout(function(){
+            document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
+        }, refreshTimeout);
+    }
+    // chrome.storage.sync.get({
+    //     savedTimeout: 60,
+    // }, function(items) {
+    //     refreshTimeout = items.savedTimeout * 1000;
+    //     startRefresh(refreshTimeout);
+    // });
 }
 
 function startRefresh(refreshTimeout) {
