@@ -10,7 +10,6 @@ let globalFTSURL = ' ';
 let globalURLS = ' ';
 let oldArray = [];
 let newArray = [];
-let initQMon = true;
 
 function initSyncData() {
     chrome.storage.sync.get({
