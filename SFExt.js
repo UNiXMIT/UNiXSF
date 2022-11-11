@@ -1,13 +1,16 @@
 const installedVersion = "2.4";
-let globalTimeout
-let globalProducts
-let globalQueue
-let globalQNotify
-let globalQNotifyWeb
-let globalWebhook
-let globalProtocol
-let globalFTSURL
-let globalURLS
+let globalInit = 0;
+let globalTimeout;
+let globalProducts;
+let globalQueue;
+let globalQNotify;
+let globalQNotifyWeb;
+let globalWebhook;
+let globalProtocol;
+let globalFTSURL;
+let globalURLS;
+let intervalID;
+let qObserver;
 let oldArray = [];
 let newArray = [];
 
@@ -32,6 +35,7 @@ function initSyncData() {
         globalProtocol = result.savedProtocol;
         globalFTSURL = result.savedFTSURL;
         globalURLS = result.savedURLS;
+        globalInit = 1;
     });
 }
 
@@ -49,21 +53,33 @@ function getSyncData() {
                 savedFTSURL: 'secureupload.microfocus.com:2222',
                 savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}'
             }, function(result) {
-                globalTimeout = result.savedTimeout;
+                if (globalTimeout != result.savedTimeout) {
+                    globalTimeout = result.savedTimeout;
+                    clearInterval(intervalID);
+                    queueRefresh();
+                }
                 globalProducts = result.savedProducts;
-                globalQueue = result.savedQueue;
+                if (globalQueue != result.savedQueue) {
+                    globalQueue = result.savedQueue;
+                    if (qObserver) {
+                        qObserver.disconnect();
+                    }
+                    oldArray = [];
+                    newArray = [];
+                    initQMonitor();
+                }
                 globalQNotify = result.savedQNotify;
                 globalQNotifyWeb = result.savedQNotifyWeb;
                 globalWebhook = result.savedWebhook;
                 globalProtocol = result.savedProtocol;
                 globalFTSURL = result.savedFTSURL;
-                if ( !(globalURLS === result.savedURLS)) {
+                if (globalURLS != result.savedURLS) {
                     globalURLS = result.savedURLS;
                     updateFooter();
-                };
+                }
             });
         }
-      });
+    });
 }
 
 function MFLogo() {
@@ -84,13 +100,11 @@ function MFCSS() {
 }
 
 function queueRefresh() {
-    while (true) {
-        if (globalTimeout >= 30) {
-            refreshTimeout = globalTimeout * 1000;
-            setTimeout(function(){
-                document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
-            }, refreshTimeout);
-        }
+    if (globalTimeout >= 30) {
+        refreshInterval = globalTimeout * 1000;
+        intervalID = setInterval(function() {
+            document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
+        }, refreshInterval);
     }
 }
 
@@ -101,8 +115,14 @@ function MFNav() {
         let clearButton2 = document.querySelector('#oneHeader').querySelector('.oneHelpAndTrainingExperience');
         let MFNavBar = document.querySelector('#oneHeader');
         let createNAV = 0;
-        if (clearButton1) {clearButton1.parentNode.removeChild(clearButton1); createNAV = createNAV + 1;}
-        if (clearButton2) {clearButton2.parentNode.removeChild(clearButton2); createNAV = createNAV + 1;}
+        if (clearButton1) {
+            clearButton1.parentNode.removeChild(clearButton1);
+            createNAV = createNAV + 1;
+        }
+        if (clearButton2) {
+            clearButton2.parentNode.removeChild(clearButton2);
+            createNAV = createNAV + 1;
+        }
         if (MFNavBar && createNAV === 2) {
             MFSup();
             MFSLD();
@@ -276,105 +296,119 @@ function AMCURLsEvent() {
 }
 
 function initQMonitor() {
-    if (document.evaluate(CaseNumber, document, null, XPathResult.BOOLEAN_TYPE, null).booleanValue) {
-        let CaseIDElem = document.evaluate(CaseNumber, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        for (let i = 0, length = CaseIDElem.snapshotLength; i < length; ++i) {
-            oldArray.push(CaseIDElem.snapshotItem(i).textContent);
+    let caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
+    if (caseQueue) {
+        let caseElement = caseQueue.querySelectorAll("tbody tr th span a");
+        if (caseElement.length) {
+            caseElement.forEach(caseNumber => {
+                oldArray.push(caseNumber.textContent);
+            });
         }
+        QMonitor();
+    } else {
+        setTimeout(function() {
+            initQMonitor();
+        }, 5000);
     }
 }
 
 function QMonitor() {
-    let observer = new MutationObserver(mutations => {
-        let caseQueue = "document.querySelector('table[aria-label*=" + '"' + globalQueue + '"' + "]')";
+    let caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
+    qObserver = new MutationObserver(mutations => {
         if (caseQueue) {
-            QMonitor();
+            setTimeout(function() {
+                QNotify();
+            }, 2000);
         }
     });
-    observer.observe(document, {childList: true, subtree: true});
+    qObserver.observe(caseQueue, {childList: true, subtree: true});
 }
 
 function QNotify() {
-    let CaseNumber = "//table[contains(@aria-label, " + '"' + globalQueue + '"' + ")]/tbody/tr/th/span/a";
-    if (document.evaluate(CaseNumber, document, null, XPathResult.BOOLEAN_TYPE, null).booleanValue) {
-        let CaseIDElem = document.evaluate(CaseNumber, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        let caseSubject = '//div[contains(@class, "supportOutputLookupWithPreviewForSubject")]/div/div/a';
-        let CaseSubElem = document.evaluate(caseSubject, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        let notifyBody = ' ';
-        for (let i = 0, length = CaseIDElem.snapshotLength; i < length; ++i) {
-            if (oldArray.indexOf(CaseIDElem.snapshotItem(i).textContent) == -1) {
-                if (CaseSubElem.snapshotItem(i).textContent == null) {
-                    notifyBody = CaseIDElem.snapshotItem(i).textContent;
-                } else {
-                    notifyBody = CaseIDElem.snapshotItem(i).textContent + ' - ' + CaseSubElem.snapshotItem(i).textContent;
-                }
-                if (globalQNotify) {
-                    (async() => {
-                        if (!window.Notification) {
-                            console.log('Browser does not support notifications.');
-                        } else {
-                            if (Notification.permission === 'granted') {
-                                const QNotification = new Notification('SFExtension Queue Monitor', {
-                                    body: notifyBody,
-                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
-                                });
-                                QNotification.addEventListener('click', () => {
-                                    let QURL = CaseIDElem.snapshotItem(i).href;
-                                    window.open(QURL, '_blank');
-                                });
+    let caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
+    let caseArray = caseQueue.querySelectorAll("tbody tr");
+    if (caseArray.length) {
+        caseArray.forEach(caseRow => {
+            let caseNumber = caseRow.querySelector('th span a').textContent;
+            let caseSubject = caseRow.querySelector('div[class*="supportOutputLookupWithPreviewForSubject"] div div a').textContent;
+            let caseURL = caseRow.querySelector('th span a').href;
+            let notifyBody;
+                if (oldArray.indexOf(caseNumber) == -1) {
+                    if ( !(caseSubject) ) {
+                        notifyBody = caseNumber;
+                    } else {
+                        notifyBody = caseNumber + ' - ' + caseSubject;
+                    }
+                    if (globalQNotify) {
+                        (async() => {
+                            if (!window.Notification) {
+                                console.log('Browser does not support notifications.');
                             } else {
-                                Notification.requestPermission()
-                                    .then(function(p) {
-                                        if (p === 'granted') {
-                                            const QNotification = new Notification('SFExtension Queue Monitor', {
-                                                body: notifyBody,
-                                                icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
-                                            });
-                                            QNotification.addEventListener('click', () => {
-                                                let QURL = CaseIDElem.snapshotItem(i).href;
-                                                window.open(QURL, '_blank');
-                                            });
-                                        } else {
-                                            console.log('User blocked notifications.');
-                                        }
-                                    })
-                                    .catch(function(err) {
-                                        console.error(err);
+                                if (Notification.permission === 'granted') {
+                                    const QNotification = new Notification('SFExtension Queue Monitor', {
+                                        body: notifyBody,
+                                        icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
                                     });
+                                    QNotification.addEventListener('click', () => {
+                                        window.open(caseURL, '_blank');
+                                    });
+                                } else {
+                                    Notification.requestPermission()
+                                        .then(function(p) {
+                                            if (p === 'granted') {
+                                                const QNotification = new Notification('SFExtension Queue Monitor', {
+                                                    body: notifyBody,
+                                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                                });
+                                                QNotification.addEventListener('click', () => {
+                                                    window.open(caseURL, '_blank');
+                                                });
+                                            } else {
+                                                console.log('User blocked notifications.');
+                                            }
+                                        })
+                                        .catch(function(err) {
+                                            console.error(err);
+                                        });
+                                }
                             }
+                        })();
+                        if (globalQNotifyWeb) {
+                            const request = new XMLHttpRequest();
+                            request.open("POST", globalWebhook);
+                            request.setRequestHeader('Content-type', 'application/json');
+                            const params = {
+                                username: "SFExt Queue Monitor",
+                                avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png",
+                                content: notifyBody + ' ' + caseURL
+                            };
+                            request.send(JSON.stringify(params));
                         }
-                    })();
-                    if (globalQNotifyWeb) {
-                        const request = new XMLHttpRequest();
-                        request.open("POST", globalWebhook);
-                        request.setRequestHeader('Content-type', 'application/json');
-                        const params = {
-                            username: "SFExt Queue Monitor",
-                            avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png",
-                            content: notifyBody + ' ' + CaseIDElem.snapshotItem(i).href
-                        };
-                        request.send(JSON.stringify(params));
                     }
                 }
-            }
-            newArray.push(CaseIDElem.snapshotItem(i).textContent);
+            newArray.push(caseNumber);
+        });
+        if ( (caseQueue) && (caseArray.length) ) {
+            oldArray = [];
+            oldArray = newArray;
+            newArray = [];
         }
-        oldArray = [];
-        oldArray = newArray;
-        newArray = [];
     } else {
-        setTimeout(function () {
-            emptyCaseArray();
-          }, 5000);
+        if ( (caseQueue) && !(caseArray.length) ) {
+            setTimeout(function() {
+                emptyCaseArray();
+            }, 1000);
+        }
     }
 }
 
 function emptyCaseArray() {
-    let caseQueue = document.querySelector('table[aria-label*="ALL NEW"]');
-        if (caseQueue) {
-            oldArray = [];
-            newArray = [];
-        }    
+    let caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
+    let caseArray = caseQueue.querySelectorAll("tbody tr");
+    if ( (caseQueue) && !(caseArray.length) ) {
+        oldArray = [];
+        newArray = [];
+    }
 }
 
 function QuixyListURL() {
@@ -394,14 +428,14 @@ function defectFixed() {
     let observer = new MutationObserver(mutations => {
         let fixedElement = document.evaluate("//td/span/span[contains(., 'Planned in new release')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         for (let i = 0, length = fixedElement.snapshotLength; i < length; ++i) {
-            if ( !(fixedElement.snapshotItem(i).title === "Fixed")) {
+            if (fixedElement.snapshotItem(i).title != "Fixed") {
                 fixedElement.snapshotItem(i).innerHTML = '<span style="color:red">Planned in new release</span>';
                 fixedElement.snapshotItem(i).title = 'Fixed';
             }
         }
         let fixedElement2 = document.evaluate("//td/span/span[contains(., 'Software update provided')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         for (let i = 0, length = fixedElement2.snapshotLength; i < length; ++i) {
-            if ( !(fixedElement2.snapshotItem(i).title === "Fixed")) {
+            if (fixedElement2.snapshotItem(i).title != "Fixed") {
                 fixedElement2.snapshotItem(i).innerHTML = '<span style="color:red">Software update provided</span>';
                 fixedElement2.snapshotItem(i).title = 'Fixed';
             }
@@ -412,28 +446,27 @@ function defectFixed() {
 
 function extLoaded() {
     let observer = new MutationObserver(mutations => {
-        let footerBar = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
-        if (footerBar) {
-                let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
-                let newUL = document.createElement("ul");
-                newUL.className = "newfooterul";
-                newUL.style.float = "right";
-                newUL.style.width = "auto";
-                newUL.style.display = "flex";
-                newUL.style.position = "absolute";
-                newUL.style.right = "0";
-                footerUl.appendChild(newUL);
-                let URLS= JSON.parse(globalURLS);
-                Object.entries(URLS).forEach(([key, value]) => {
-                    let li = document.createElement("li");
-                    liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
-                    li.innerHTML = liHTML;
-                    li.className = 'ExtLoaded';
-                    li.style.marginTop = '12px';
-                    li.style.marginRight = '20px';
-                    li.style.fontWeight = 'bold';
-                    newUL.appendChild(li);
-                });
+        let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
+        if (footerUl) {
+            let newUL = document.createElement("ul");
+            newUL.className = "newfooterul";
+            newUL.style.float = "right";
+            newUL.style.width = "auto";
+            newUL.style.display = "flex";
+            newUL.style.position = "absolute";
+            newUL.style.right = "0";
+            footerUl.appendChild(newUL);
+            let URLS = JSON.parse(globalURLS);
+            Object.entries(URLS).forEach(([key, value]) => {
+                let li = document.createElement("li");
+                liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
+                li.innerHTML = liHTML;
+                li.className = 'ExtLoaded';
+                li.style.marginTop = '12px';
+                li.style.marginRight = '20px';
+                li.style.fontWeight = 'bold';
+                newUL.appendChild(li);
+            });
             observer.disconnect();
         }
     });
@@ -546,18 +579,23 @@ function EE() {
 
 window.onload = function() {
     initSyncData();
-    getSyncData();
-    MFLogo();
-    MFCSS();
-    queueRefresh();
-    MFNav();
-    initQMonitor();
-    QMonitor();
-    QuixyListURL();
-    defectFixed();
-    extLoaded();
-    updateCheck();
-    fixMouse();
-    createEvents();
-    EE();
+    let initInterval = setInterval(function() {
+        if (globalInit) {
+            getSyncData();
+            MFLogo();
+            MFCSS();
+            queueRefresh();
+            MFNav();
+            setTimeout(function() {
+                initQMonitor();
+            }, 10000);
+            QuixyListURL();
+            defectFixed();
+            extLoaded();
+            updateCheck();
+            fixMouse();
+            EE();
+            clearTimeout(initInterval);
+        }
+    }, 500);
 };
