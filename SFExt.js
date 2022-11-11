@@ -174,17 +174,14 @@ function MFFTS() {
 }
 
 function MFFTSEvent() {
-    let FTSAccDIV = document.evaluate("//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS AccountName')]", document, null, XPathResult.BOOLEAN_TYPE, null);
-    if (FTSAccDIV.booleanValue) {
-        let activeFTSAcc = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS AccountName')]/following-sibling::div//text()", document, null, XPathResult.ANY_TYPE, null);
-        let activeFTSPass = document.evaluate("//div/slot/records-record-layout-row[2]/slot/records-record-layout-item[2]/div/div/div[1][contains(., 'FTS Password')]/following-sibling::div//text()", document, null, XPathResult.ANY_TYPE, null);
-        let whichFTSAcc = activeFTSAcc.iterateNext();
-        let whichFTSPass = activeFTSPass.iterateNext();
-        let FTSAccEncoded = (whichFTSAcc.textContent).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
-        let FTSPassEncoded = (whichFTSPass.textContent).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
-        let FTSCred = FTSAccEncoded + ':' + FTSPassEncoded;
-        let FinalFTSURL = globalProtocol + FTSCred + '@' + globalFTSURL;
-        window.open(FinalFTSURL, '_parent');
+    let FTSAcc = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//div[1][contains(., 'FTS AccountName')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    if (FTSAcc) {
+        let FTSPass = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//div[1][contains(., 'FTS Password')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
+        let encodeFTSAcc = (FTSAcc).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
+        let encodeFTSPass = (FTSPass).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
+        let combineFTS = encodeFTSAcc + ':' + encodeFTSPass;
+        let finalFTSURL = globalProtocol + combineFTS + '@' + globalFTSURL;
+        window.open(finalFTSURL, '_parent');
     } else {
         window.open('https://secureupload.microfocus.com/mffts/', '_blank');
     }
@@ -200,11 +197,8 @@ function MFQUIXY() {
 }
 
 function MFQUIXYEvent() {
-    let OCTCRcase = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//span/slot/lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.BOOLEAN_TYPE, null);
-    if (OCTCRcase.booleanValue) {
-        let whichOCTCRcase = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//span/slot/lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.ANY_TYPE, null);
-        let OCTCRcaseItem = whichOCTCRcase.iterateNext();
-        let quixyID = OCTCRcaseItem.textContent;
+    let quixyID = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    if (quixyID) {
         let finalURL = 'https://rdapps.swinfra.net/quixy/#/viewEntity/' + quixyID;
         window.open(finalURL, '_blank');
     } else {
@@ -222,29 +216,28 @@ function MFDocumentation() {
 }
 
 function MFDocumentationEvent() {
-    let MFProduct = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//div/slot/records-record-layout-row[1]/slot/records-record-layout-item[2]/div/div/div[2]/span/slot[1]/records-formula-output/slot/formula-output-formula-html/lightning-formatted-rich-text/span/a", document, null, XPathResult.ANY_TYPE, null);
-    let whichProduct = MFProduct.iterateNext();
+    let MFProduct = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//span/a", document, null, XPathResult.STRING_TYPE, null).stringValue;
     try {
         let products = JSON.parse(globalProducts);
-        MFDocumentationURL(products, whichProduct);
+        MFDocumentationURL(products, MFProduct);
     } catch (err) {
         window.alert("Product list JSON format is not correct!");
         window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
     }
 }
 
-function MFDocumentationURL(products, whichProduct) {
-    if (whichProduct == null) {
-        window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
-    } else {
+function MFDocumentationURL(products, MFProduct) {
+    if (MFProduct) {
         let documentationURL = "https://www.microfocus.com/documentation/";
-        let productURI = products[whichProduct.textContent];
-        let finalURL = documentationURL + productURI;
-        if (productURI == undefined) {
-            window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
-        } else {
+        let productURI = products[MFProduct];
+        if (productURI) {
+            let finalURL = documentationURL + productURI;
             window.open(finalURL, '_blank');
+        } else {
+            window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
         }
+    } else {
+        window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
     }
 }
 
