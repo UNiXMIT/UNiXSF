@@ -264,12 +264,10 @@ function MFTranslation() {
 }
 
 function MFTranslationEvent() {
-    let MFCaseCheck = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//records-highlights-details-item[1]/div/p[2]/slot/lightning-formatted-text", document, null, XPathResult.BOOLEAN_TYPE, null).booleanValue;
-    if (MFCaseCheck) {
-        let MFCase = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//records-highlights-details-item[1]/div/p[2]/slot/lightning-formatted-text", document, null, XPathResult.ANY_TYPE, null);
-        let caseNumber = MFCase.iterateNext();
-        let MFURL = 'https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=' + caseNumber.innerText;
-        window.open(MFURL, 'MF Translation', 'width=1150,height=700');
+    let caseNumber = document.evaluate("//section[@class = 'tabContent active oneConsoleTab']//slot/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    if (caseNumber) {
+        let finalURL = 'https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=' + caseNumber;
+        window.open(finalURL, 'MF Translation', 'width=1150,height=700');
     } else {
         window.open('http://bit.ly/mftranslate', 'MF Translation', 'width=1150,height=700');
     }
