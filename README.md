@@ -90,17 +90,17 @@ The extension can be configured via the extension options page:
 
 Click on the Salesforce Extension Icon and a popup will appear showing the config page.  
 
-![12](images/configPopup.png) 
+![14](images/configPopup.png) 
 
 or
 
-![13](images/configPopup2.png)
+![15](images/configPopup2.png)
 
 Alternatively:  
 
 Click on the toolbar extension menu and select Options.  
 
-![14](images/configPage.png)   
+![16](images/configPage.png)   
 
 ### What can be configured?
 
@@ -109,7 +109,7 @@ Click on the toolbar extension menu and select Options.
 - The name of the case queue to monitor and URL for the webhook notifications.  
    Desktop and Web notifications can be enabled/disabled.  
    For the case queue name, either enter the name of the case queue that you want to monitor or append the name of the case queue you want to monitor with 'NOTIFY':  
-   ![15](images/CaseQueueName.png) 
+   ![17](images/CaseQueueName.png) 
 
 - The supported products list. This list is used to open the correct documentation page when the documentation link/icon is clicked.  
 
@@ -117,7 +117,7 @@ Click on the toolbar extension menu and select Options.
   The list must be in JSON format.  
   The list consists of key/value pairs, separated by , and enclosed in braces { }.  
   The Key must exactly match the name of the product as it appears in cases:   
-  ![16](images/acuProduct.png)  
+  ![18](images/acuProduct.png)  
   The Value must match the sub-domain of the documentation page for that product:  
   i.e. for AcuCOBOL the URL is https://www.microfocus.com/documentation/extend-acucobol so the value must be:  
   ```
@@ -166,7 +166,7 @@ This extension benefits from using it in conjunction with the [Lightning Extensi
 
 When 'Link Grabber' is enabled in that extension, when you click the Desktop Notifications from the Case Queue Monitor, the cases are opened in the same Salesforce tab rather than opening a new tab.  
 
-![17](images/LinkGrabber.png) 
+![19](images/LinkGrabber.png) 
 
 ## Donate
 
