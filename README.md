@@ -60,7 +60,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 - Reminders. I have not implemented this in the Extension as there is an easy way to do this natively in Salesforce.  
   With a case open, click Chatter -> New Task and enter the details in the Task as appropriate. When done, click Save.  
-  You will recieve a reminder at the default time of 8:00 AM on the date that the task is due.  
+  You will recieve a reminder at the default time of 8:00 AM on the date that the task is due to be completed.  
   The time of the reminder can be configured in the Saleforce settings page:  
   ![12](images/sfsettings1.png)   
   ![13](images/sfsettings2.png)   
