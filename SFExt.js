@@ -55,7 +55,9 @@ function getSyncData() {
             }, function(result) {
                 if (globalTimeout != result.savedTimeout) {
                     globalTimeout = result.savedTimeout;
-                    clearInterval(intervalID);
+                    if (intervalID) {
+                        clearInterval(intervalID);
+                    }
                     queueRefresh();
                 }
                 globalProducts = result.savedProducts;
