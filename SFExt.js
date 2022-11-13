@@ -1,4 +1,4 @@
-const installedVersion = "2.4";
+const installedVersion = "2.4-RC1";
 let globalInit = 0;
 let globalTimeout;
 let globalProducts;
@@ -314,8 +314,8 @@ function initQMonitor() {
                 }
             }, 5000);
         });
-        let sfQueue = document.querySelector('.listViewContent');
-        observer.observe(sfQueue, {childList: true, subtree: true});
+        let caseQueue = document.querySelector('.listViewContent');
+        observer.observe(caseQueue, {childList: true, subtree: true});
     }
 }
 
