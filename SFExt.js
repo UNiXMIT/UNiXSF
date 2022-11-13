@@ -309,7 +309,6 @@ function initQMonitor() {
                 }
                 caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
                 if (caseQueue) {
-                    console.log("QUEUE Initialized");
                     qMonitor();
                     observer.disconnect();
                 }
