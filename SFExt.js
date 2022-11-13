@@ -323,6 +323,7 @@ function initQMonitor() {
 function qMonitor() {
     let caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
     qObserver = new MutationObserver(mutations => {
+        caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
         if (caseQueue) {
             setTimeout(function() {
                 qNotify();
