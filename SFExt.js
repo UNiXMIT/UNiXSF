@@ -1,4 +1,4 @@
-const installedVersion = "2.4-RC1";
+const installedVersion = "2.4";
 let globalInit = 0;
 let globalTimeout;
 let globalProducts;
