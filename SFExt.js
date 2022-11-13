@@ -290,26 +290,34 @@ function amcURLsEvent() {
 
 function initQMonitor() {
     let caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
-    let loopCount = 0;
-    if (loopCount < 9999) {
-        if (caseQueue) {
-            let caseElement = caseQueue.querySelectorAll("tbody tr th span a");
-            if (caseElement.length) {
-                caseElement.forEach(caseNumber => {
-                    oldArray.push(caseNumber.textContent);
-                });
-            }
-            qMonitor();
-        } else {
-            loopCount = loopCount + 1;
-            setTimeout(function() {
-                initQMonitor();
-            }, 5000);
+    if (caseQueue) {
+        let caseElement = document.querySelectorAll("table[aria-label*="+globalQueue+"] tbody tr th span a");
+        if (caseElement) {
+            caseElement.forEach(caseNumber => {
+                oldArray.push(caseNumber.textContent);
+            });
         }
+        qMonitor();
     } else {
-        console.log('Unable to initialize Case Queue Monitor.');
+        let observer = new MutationObserver(mutations => {
+            setTimeout(function() {
+                let caseElement = document.querySelectorAll("table[aria-label*="+globalQueue+"] tbody tr th span a");
+                if (caseElement) {
+                    caseElement.forEach(caseNumber => {
+                        oldArray.push(caseNumber.textContent);
+                    });
+                }
+                caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
+                if (caseQueue) {
+                    console.log("QUEUE Initialized");
+                    qMonitor();
+                    observer.disconnect();
+                }
+            }, 5000);
+        });
+        let sfQueue = document.querySelector('.listViewContent');
+        observer.observe(sfQueue, {childList: true, subtree: true});
     }
-    
 }
 
 function qMonitor() {
@@ -326,8 +334,8 @@ function qMonitor() {
 
 function qNotify() {
     let caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
-    let caseArray = caseQueue.querySelectorAll("tbody tr");
-    if (caseArray.length) {
+    let caseArray = document.querySelectorAll("table[aria-label*="+globalQueue+"] tbody tr");
+    if (caseArray) {
         caseArray.forEach(caseRow => {
             let caseNumber = caseRow.querySelector('th span a').textContent;
             let caseSubject = caseRow.querySelector('div[class*="supportOutputLookupWithPreviewForSubject"] div div a').textContent;
@@ -388,13 +396,13 @@ function qNotify() {
                 }
             newArray.push(caseNumber);
         });
-        if ( (caseQueue) && (caseArray.length) ) {
+        if ( (caseQueue) && (caseArray) ) {
             oldArray = [];
             oldArray = newArray;
             newArray = [];
         }
     } else {
-        if ( (caseQueue) && !(caseArray.length) ) {
+        if ( (caseQueue) && !(caseArray) ) {
             setTimeout(function() {
                 emptyCaseArray();
             }, 1000);
@@ -405,7 +413,7 @@ function qNotify() {
 function emptyCaseArray() {
     let caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
     let caseArray = caseQueue.querySelectorAll("tbody tr");
-    if ( (caseQueue) && !(caseArray.length) ) {
+    if ( (caseQueue) && !(caseArray) ) {
         oldArray = [];
         newArray = [];
     }
