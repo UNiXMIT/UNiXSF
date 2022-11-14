@@ -464,18 +464,23 @@ function extLoaded() {
             newUL.style.position = "absolute";
             newUL.style.right = "0";
             footerUl.appendChild(newUL);
-            let URLS = JSON.parse(globalURLS);
-            Object.entries(URLS).forEach(([key, value]) => {
-                let li = document.createElement("li");
-                liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
-                li.innerHTML = liHTML;
-                li.className = 'ExtLoaded';
-                li.style.marginTop = '12px';
-                li.style.marginRight = '20px';
-                li.style.fontWeight = 'bold';
-                newUL.appendChild(li);
-            });
-            observer.disconnect();
+            try {
+                let URLS = JSON.parse(globalURLS);
+                Object.entries(URLS).forEach(([key, value]) => {
+                    let li = document.createElement("li");
+                    liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
+                    li.innerHTML = liHTML;
+                    li.className = 'ExtLoaded';
+                    li.style.marginTop = '12px';
+                    li.style.marginRight = '20px';
+                    li.style.fontWeight = 'bold';
+                    newUL.appendChild(li);
+                });
+                observer.disconnect();
+            } catch (err) {
+                window.alert("Footer URL list JSON format is not correct!");
+                window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
+            }
         }
     });
     observer.observe(document, {childList: true, subtree: true});
@@ -494,17 +499,22 @@ function updateFooter() {
         newUL.style.position = "absolute";
         newUL.style.right = "0";
         footerUl.appendChild(newUL);
-        let URLS = JSON.parse(globalURLS);
-        Object.entries(URLS).forEach(([key, value]) => {
-            let li = document.createElement("li");
-            liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
-            li.innerHTML = liHTML;
-            li.className = 'ExtLoaded';
-            li.style.marginTop = '12px';
-            li.style.marginRight = '20px';
-            li.style.fontWeight = 'bold';
-            newUL.appendChild(li);
-        });
+        try {
+            let URLS = JSON.parse(globalURLS);
+            Object.entries(URLS).forEach(([key, value]) => {
+                let li = document.createElement("li");
+                liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
+                li.innerHTML = liHTML;
+                li.className = 'ExtLoaded';
+                li.style.marginTop = '12px';
+                li.style.marginRight = '20px';
+                li.style.fontWeight = 'bold';
+                newUL.appendChild(li);
+            });
+        } catch (err) {
+            window.alert("Footer URL list JSON format is not correct!");
+            window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
+        }
     }
 }
 
