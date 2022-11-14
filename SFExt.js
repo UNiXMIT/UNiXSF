@@ -289,9 +289,9 @@ function amcURLsEvent() {
 }
 
 function initQMonitor() {
-    let caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
+    let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
     if (caseQueue) {
-        let caseElement = document.querySelectorAll("table[aria-label*="+globalQueue+"] tbody tr th span a");
+        let caseElement = document.querySelectorAll("table[aria-label*='"+globalQueue+"'] tbody tr th span a");
         if (caseElement) {
             caseElement.forEach(caseNumber => {
                 oldArray.push(caseNumber.textContent);
@@ -301,13 +301,13 @@ function initQMonitor() {
     } else {
         let observer = new MutationObserver(mutations => {
             setTimeout(function() {
-                let caseElement = document.querySelectorAll("table[aria-label*="+globalQueue+"] tbody tr th span a");
+                let caseElement = document.querySelectorAll("table[aria-label*='"+globalQueue+"'] tbody tr th span a");
                 if (caseElement) {
                     caseElement.forEach(caseNumber => {
                         oldArray.push(caseNumber.textContent);
                     });
                 }
-                caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
+                caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
                 if (caseQueue) {
                     qMonitor();
                     observer.disconnect();
@@ -320,9 +320,8 @@ function initQMonitor() {
 }
 
 function qMonitor() {
-    let caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
+    let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
     qObserver = new MutationObserver(mutations => {
-        caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
         if (caseQueue) {
             setTimeout(function() {
                 qNotify();
@@ -333,8 +332,8 @@ function qMonitor() {
 }
 
 function qNotify() {
-    let caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
-    let caseArray = document.querySelectorAll("table[aria-label*="+globalQueue+"] tbody tr");
+    let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
+    let caseArray = document.querySelectorAll("table[aria-label*='"+globalQueue+"'] tbody tr");
     if (caseArray) {
         caseArray.forEach(caseRow => {
             let caseNumber = caseRow.querySelector('th span a').textContent;
@@ -411,7 +410,7 @@ function qNotify() {
 }
 
 function emptyCaseArray() {
-    let caseQueue = document.querySelector("table[aria-label*="+globalQueue+"]");
+    let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
     let caseArray = caseQueue.querySelectorAll("tbody tr");
     if ( (caseQueue) && !(caseArray) ) {
         oldArray = [];
