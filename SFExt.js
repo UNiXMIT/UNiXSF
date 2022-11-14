@@ -404,7 +404,7 @@ function qNotify() {
         if ( (caseQueue) && !(caseArray) ) {
             setTimeout(function() {
                 emptyCaseArray();
-            }, 1000);
+            }, 2000);
         }
     }
 }
