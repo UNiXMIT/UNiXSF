@@ -150,7 +150,7 @@ Imports your exported options from the file sfext.json located in the config dir
 
 ## Features/Improvements Wishlist
 
-- Highlight keywords in Closure Summary.
+- Create a dropdown menu instead of adding more and more QuickLinks to the Header Bar.
 
 ## Issues/Limitations
 
