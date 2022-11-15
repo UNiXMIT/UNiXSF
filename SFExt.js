@@ -279,7 +279,7 @@ function addReminderEvent() {
     let calendarURL = "https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose";
     let finalQuery = [];
     Object.entries(userQuery).forEach(([key, value]) => {
-        finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(userQuery[key]));
+        finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
     });
     let finalURL = calendarURL + (finalQuery.length ? '?' + finalQuery.join('&') : '');
     window.open(finalURL, 'Add Reminder', 'width=1200,height=700');
@@ -311,7 +311,7 @@ function mfTranslationEvent() {
     let caseNumber = document.evaluate("//section[@class = 'tabContent active oneConsoleTab']//records-highlights-details-item[1]//slot/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
     let caseSeverity = document.evaluate("//section[@class = 'tabContent active oneConsoleTab']//records-highlights-details-item[3]//slot/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
     if (caseNumber) {
-        let finalURL = 'https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=' + caseNumber + '&Severity=' + caseSeverity;
+        let finalURL = 'https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=' + encodeURIComponent(caseNumber) + '&Severity=' + encodeURIComponent(caseSeverity);
         window.open(finalURL, 'MF Translation', 'width=1150,height=700');
     } else {
         window.open('http://bit.ly/mftranslate', 'MF Translation', 'width=1150,height=700');
