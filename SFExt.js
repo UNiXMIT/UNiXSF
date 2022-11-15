@@ -133,7 +133,8 @@ function mfNav() {
             mfDocumentation();
             mfPP();
             mfTranslation();
-            amcURLs();
+            addReminder();
+            // amcURLs();
             observer.disconnect();
         }
     });
@@ -243,11 +244,50 @@ function mfDocumentationURL(products, mfProduct) {
     }
 }
 
+function addReminder() {
+    let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');    
+    let li = document.createElement("li");
+    li.innerHTML = '<img class="mfbutton mfreminder" alt="Add Reminder" title="Add Reminder" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABmJLR0QA/wD/AP+gvaeTAAAA80lEQVRIie2VvW7CQBCEv7FoUvI2CSRdnsfrDkrooPO9T0orfpy8gTfNISGyOYyCTZOpbjVzM7rb+xEB2rbtJK2BzszeIs0t+iqaJGltZgJerwWM0S8AUko98BwJUko+JijSS+rrul6dVhIG/BXu/gKgy/R7w8wU9uTeWAC4+3HykKqqviYPcffDhBnH+XoS4axPpwvWAUjalLibQpqm2QKklHYAZrbL9abERV6zbNdjL6OZKT96e2B/Vhe5CI/dLklbAHd/z/VHrg8l7tLHzPTr6RqGYZmHT9lgmQ2LXIT/Izwas/0n84VI6ify/5zI9ye+AXQJiD3EA61wAAAAAElFTkSuQmCC">';
+    mfButton.insertBefore(li, mfButton.children[9]);
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfreminder');
+    mfButtonNew.addEventListener('click', addReminderEvent, false);
+}
+
+function addReminderEvent() {
+    let querySubject;
+    let today = new Date();
+    let future = today.setDate(today.getDate() + 3);
+    let reminderDate = new Date(future).toJSON();
+    let caseNumber = document.evaluate("//section[@class = 'tabContent active oneConsoleTab']//slot/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let caseSubject = document.evaluate("//section[@class = 'tabContent active oneConsoleTab']//support-output-case-subject-field/div/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    if ((caseNumber) && (caseSubject)) {
+        querySubject = caseNumber + " - " + caseSubject;
+    } else {
+        if ((caseNumber) && !(caseSubject)) {
+            querySubject = caseNumber;
+        }
+    }
+    let caseURL = "<a title='" + caseNumber + "'href='" + document.querySelector('a.tabHeader[aria-selected="true"]').href + "'>" + caseNumber + "</a>";
+    let userQuery = {
+        "rru" : "addevent",
+        "startdt" : reminderDate,
+        "subject" : querySubject,
+        "body" : caseURL
+    };
+    let calendarURL = "https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose";
+    let finalQuery = [];
+    for (let key in userQuery) {
+        finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(userQuery[key]));
+    }
+    let finalURL = calendarURL + (finalQuery.length ? '?' + finalQuery.join('&') : '');
+    window.open(finalURL, 'Add Reminder', 'width=1200,height=700');
+}
+
 function mfPP() {
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
     li.innerHTML = '<img class="mfbutton mfpp" alt="PerformPlus" title="PerformPlus" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAEI0lEQVRIie2WXYhUZRjHf885+zEsrIgtUWJUuNHFEkZeCF7kRYERRpla9kF1twTtOXPWBPvQtguzbJudc2a3VRG7qUhstS+puyIIE4QgL7JQkaz2ooI1+piZ3fP+u3BWj7MzsxbRTT1weM887/P8/+f/Pu887wv/279k1moyjuOtwAoz+x34Q1IZ+DgMw7eycUmSPCZpUZqm+wcHB7+/HOK2eeYDoEdS1rcRuIRY0giw0Pf9nXEcvz4zM7N106ZNZ1sBe/MQH27g2zYHxPPWmNkBIAUebWtrO14sFje0Am661MVi8REz2wf4GfdEEAQbzEyNckZGRq7zPK8ArAUkKcjn86OXTZwkyXpJ+zm/IkeBFcCpXC63vL+//1wrJbX8vKQCgJndFwTB2/MSDw8P97S3t38F9ABPVavVUkdHR+D7/oSkX51zA2Z2l6SltZSvgQ+cc2NRFE3O4hSLxcjMCsAvZtYXBMF3WZ45NW5vbx+ukR4Ow/DFzZs3/xaG4Y40TW9xzp0AtkjqA3K1ZxnwjOd5J+I43jiLk8/nR4BDwAJgez3PJcSjo6PXAg8DFedckPn6DcCbQHc9QMYWAG9kyYE8MC3pwVKptLgpcZqm9wO+mX0YRdFpgEKhsMjMxqkri3NupaRVDYTsGRsbuwogDMNvzewg0Jam6QNNiYHbAGobCwDf9wPginp5URQdyefznzZQ3j0zM/NE5ve7AJ7n3dqKuA/AzL7M+O5oAD6frQGI4/gVSbsAJN2eJMlHxWJxHcztXD21MbsDb5p9cc6tjKLoSDYhDEOrkawEPqu5Z3f8Ms7XHqBL0mozqwIT9YoF0N3dXc340tkX3/c7mkl0zmXnXG3cWx8maTvUKTazHyVdMzU1tRg4XXOfAm4GkPRJHMf1Sud0MTM7CZDL5SbK5fIkcHVtalc+nz8KdTWWdLymrC/jfr+ZymYm6X2A/v7+aWBPzT2Zy+Weno25RLFz7mXf93+qVqsX6mhmJUkhF2sFQJIkq9I0bdRyz01PT1/oz2Y2Blyfpulr2Xbb8jzOkNwr6QDzn2bOObcuiqJ35sOcDwiAIAgOAuuBVgfE1OWStiQeGhryxsfHr5RkAGEYHvJ9fykwJOkYMAVMSTpmZs/5vt+bJR0ZGVk4m9vImk7EcbwD2AJUgDNmdkbSF7lcbltt0zQ0SVYqlZ6U9ALwUhiGz/4lxcDPtbETuFHSamBLpVK5oVlCoVDoTZLkkKSdgCfpm2axTRXv3r27q1wun+TifxDOL+2Ac+7zNE0nu7q6zDm3RNJy4G5J9wDtwDkzeygIgkZXp9bEAEmSPC7p1VYxdTYD7PM87/mBgYEfWgW2vGV2dnburVQqg5J6gU2SymZ2J9ALLKmFnQVOSzrsed579TeNv21JkiyN43jtPwL2n7Y/AV3byB9Mdkm4AAAAAElFTkSuQmCC">';
-    mfButton.insertBefore(li, mfButton.children[9]);
+    mfButton.insertBefore(li, mfButton.children[10]);
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfpp');
     mfButtonNew.addEventListener('click', mfPPEvent, false);
 }
@@ -260,7 +300,7 @@ function mfTranslation() {
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
     li.innerHTML = '<img class="mfbutton mftranslation" alt="MF Translation" title="MF Translation" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAACMElEQVRIie2UPW8TQRCG33fPyC6QyxR8VFCRiorCgggkKvqIhtDZkhPvnpCud0OJdR9IgSYIEEjUICGQQIKYCCkVBf4DyQ9I4+Ls3A6FnehwfHb8BU1eaaXbndl5ZvZ2FjjTmRYkpidhGN4TkecALs6Zs6+UKtdqtY9HCyptFZFnC4ACwKV+QcdSgw4LgAIAROTyKPCgLMlbIrICwM4zkXHg91rrbdd1v5P88C/BUcb3zMqNsLW01l9zudx5AKhWq1/CMGwBuDYmZgm9grZHOY2qOCIp3W53LUmSBySF5NMxUBhjdowxzXF+WeCDTqfzWkRIcl1ENkSEcRy/AnAwxL9kjKEx5vhdSM1vTgLe8jyvTVKMMcvGmGWS4nleG8DWiSBKcUgMAADJobah/zhJks2sQEmSbDqO8yi9Zq1tBkGQhr3TWt/3ff+uiHw+NdhxnKUgCJbQuyBHp2JF5DbJrH4ukWwDeGOtfdJPYDWrgKyj/tEfabsi+Q0Zt5Xkodb6Vz6fv+667m6j0bgKYG1S8MQSkbdRFF2oVCpdAFBKXQFwmOU/qo8nUckYswMA9Xo9VywWz7mu+8n3/Tskfy4MrJRiGIZFACsi8hiAE0XRwyRJ8ll75gK21p54MKy1uxmd1Et2YL4/j0SGieReJlgpVV4EnOSeiJT/WjvNxiAIZCDQ7ziOb/Rfsqk0TTu1AazOAp0WvK61bs0CnQb8whjzclYocPp2agJQhUJhYx7Q/6o/dirFfnpZUXcAAAAASUVORK5CYII=">';
-    mfButton.insertBefore(li, mfButton.children[10]);
+    mfButton.insertBefore(li, mfButton.children[11]);
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mftranslation');
     mfButtonNew.addEventListener('click', mfTranslationEvent, false);
 }
@@ -275,18 +315,18 @@ function mfTranslationEvent() {
     }
 }
 
-function amcURLs() {
-    let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
-    let li = document.createElement("li");
-    li.innerHTML = '<img class="mfbutton amcurls" alt="AMC URLs" title="AMC URLs" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAADe0lEQVRIie2WTUhjVxTHf/e9ZyALG6O1TkQwUgKSttNFRhGyMxsXLSVZ+EEXhXYbEsksZpt9VYy67rR0ISokUFpwFbIRHBwzUCvSprUKFo0dP14WCvF9zGKSoPG9JlZ37X93D+e83z3vcM858F+TuItzMplU3G73oBCizzCM9wAkSTrWdX1XVdWNZDKpPSh4bm7uYyBhmuYnQLuN24kQ4ifDMKYnJyd/vhd4amrq3ZaWlhngc0Bq5pKAAXwvy/LTaDR6cmdwKpX6EPgB6GsSWK9d4LN4PP5L0+AKdA14519Cq1J1XQ8mEonthuCFhYUOXddfAO/fE1rVnhBiMBaL/X3deKtuuq7PPiAUwGua5tf1xhsZz87OPhZCvLK6kJUURSEQCODxeCiVSmxubqKqqpWrIYR4EovFXlUNNwCSJD1tFup0OhkbG6O/v5/j42NcLhcTExO4XC4rd8kwjNh1Qy3jSnM4AjqagUYiETRNI5PJUC6XAQiHw6iqSjabtQo7OTs7e1RtMrXs3G73YDNQgHK5zN7eHplMht7eXpxOJwDFYpHW1la7sI729vYn1UMNLIRo+F6dTieyLKPrOmtra/h8PkZGRujp6cHhcODz+Tg8PPynT9QYNbBpmp5G0EgkwtDQEAB+v5/h4WFyuRz7+/uEw2E0TSOfz9t+wzCMbiuwaRegKEqtphsbG/j9fkKhELlcjq2tLQYGBlAUhXQ6jabZzwkhRI2hXDPa/qNAIICiKKysrOD1egmFQmSzWba33zak9fV18vk8l5eXttBKcn/dyhjYswvweDwUCgXK5TIHBwesrq5SKBQIBoO1mjeCAkiStH8L7PF4XgCvrQJKpRJdXV0AXFxc1Grq9XpxOBwNgRWdnJ6evqwebnSuVCr1LfBFfURbWxvj4+MUi0WKxSI+nw9N00in001lWtHzeDz+ZfVQ37mmAb0+4vz8nMXFRVRVpbOzk52dHZaWlu4C1YGZ64Zb08ku63vqm3g8/tV1g9V0Sgghfn9A6J9XV1fP6o2Wi8DMzMwHsiyvAZYd/w6yXQQsJ1EikdiWZXkQ+PUe0D/soLZggGg0+pssy0HgO94ucM1KB57ruj5oB4Um19v5+fmPKrX/FPsJ9to0zR+FENN2C96dwVUtLy/LR0dHA0CfYRiPACRJOjIMY7e7u/vl6Ojoraf4v6p6AwEtX1nzhaNQAAAAAElFTkSuQmCC">';
-    mfButton.insertBefore(li, mfButton.children[11]);
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.amcurls');
-    mfButtonNew.addEventListener('click', amcURLsEvent, false);
-}
+// function amcURLs() {
+//     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
+//     let li = document.createElement("li");
+//     li.innerHTML = '<img class="mfbutton amcurls" alt="AMC URLs" title="AMC URLs" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAADe0lEQVRIie2WTUhjVxTHf/e9ZyALG6O1TkQwUgKSttNFRhGyMxsXLSVZ+EEXhXYbEsksZpt9VYy67rR0ISokUFpwFbIRHBwzUCvSprUKFo0dP14WCvF9zGKSoPG9JlZ37X93D+e83z3vcM858F+TuItzMplU3G73oBCizzCM9wAkSTrWdX1XVdWNZDKpPSh4bm7uYyBhmuYnQLuN24kQ4ifDMKYnJyd/vhd4amrq3ZaWlhngc0Bq5pKAAXwvy/LTaDR6cmdwKpX6EPgB6GsSWK9d4LN4PP5L0+AKdA14519Cq1J1XQ8mEonthuCFhYUOXddfAO/fE1rVnhBiMBaL/X3deKtuuq7PPiAUwGua5tf1xhsZz87OPhZCvLK6kJUURSEQCODxeCiVSmxubqKqqpWrIYR4EovFXlUNNwCSJD1tFup0OhkbG6O/v5/j42NcLhcTExO4XC4rd8kwjNh1Qy3jSnM4AjqagUYiETRNI5PJUC6XAQiHw6iqSjabtQo7OTs7e1RtMrXs3G73YDNQgHK5zN7eHplMht7eXpxOJwDFYpHW1la7sI729vYn1UMNLIRo+F6dTieyLKPrOmtra/h8PkZGRujp6cHhcODz+Tg8PPynT9QYNbBpmp5G0EgkwtDQEAB+v5/h4WFyuRz7+/uEw2E0TSOfz9t+wzCMbiuwaRegKEqtphsbG/j9fkKhELlcjq2tLQYGBlAUhXQ6jabZzwkhRI2hXDPa/qNAIICiKKysrOD1egmFQmSzWba33zak9fV18vk8l5eXttBKcn/dyhjYswvweDwUCgXK5TIHBwesrq5SKBQIBoO1mjeCAkiStH8L7PF4XgCvrQJKpRJdXV0AXFxc1Grq9XpxOBwNgRWdnJ6evqwebnSuVCr1LfBFfURbWxvj4+MUi0WKxSI+nw9N00in001lWtHzeDz+ZfVQ37mmAb0+4vz8nMXFRVRVpbOzk52dHZaWlu4C1YGZ64Zb08ku63vqm3g8/tV1g9V0Sgghfn9A6J9XV1fP6o2Wi8DMzMwHsiyvAZYd/w6yXQQsJ1EikdiWZXkQ+PUe0D/soLZggGg0+pssy0HgO94ucM1KB57ruj5oB4Um19v5+fmPKrX/FPsJ9to0zR+FENN2C96dwVUtLy/LR0dHA0CfYRiPACRJOjIMY7e7u/vl6Ojoraf4v6p6AwEtX1nzhaNQAAAAAElFTkSuQmCC">';
+//     mfButton.insertBefore(li, mfButton.children[11]);
+//     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.amcurls');
+//     mfButtonNew.addEventListener('click', amcURLsEvent, false);
+// }
 
-function amcURLsEvent() {
-    window.open('http://bit.ly/KimsQuickLinks', 'AMC URLs', 'width=500,height=775');
-}
+// function amcURLsEvent() {
+//     window.open('http://bit.ly/KimsQuickLinks', 'AMC URLs', 'width=500,height=775');
+// }
 
 function initQMonitor() {
     let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
