@@ -215,26 +215,27 @@ function mfDocumentation() {
 }
 
 function mfDocumentationEvent() {
-    let mfProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('span > a').textContent;
-    try {
-        let products = JSON.parse(globalProducts);
-        mfDocumentationURL(products, mfProduct);
-    } catch (err) {
-        window.alert("Product list JSON format is not correct!");
-        window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
+    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (caseCheck) {
+        let mfProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('span > a').textContent;
+        try {
+            let products = JSON.parse(globalProducts);
+            mfDocumentationURL(products, mfProduct);
+        } catch (err) {
+            window.alert("Product list JSON format is not correct!");
+            window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
+        }
+    } else {
+        window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
     }
 }
 
 function mfDocumentationURL(products, mfProduct) {
-    if (mfProduct) {
-        let documentationURL = "https://www.microfocus.com/documentation/";
-        let productURI = products[mfProduct];
-        if (productURI) {
-            let finalURL = documentationURL + productURI;
-            window.open(finalURL, '_blank');
-        } else {
-            window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
-        }
+    let documentationURL = "https://www.microfocus.com/documentation/";
+    let productURI = products[mfProduct];
+    if (productURI) {
+        let finalURL = documentationURL + productURI;
+        window.open(finalURL, '_blank');
     } else {
         window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
     }
@@ -252,14 +253,19 @@ function addReminder() {
 function addReminderEvent() {
     let querySubject;
     let caseURL;
+    let caseNumber;
+    let caseSubject;
     let today = new Date();
     let future = today.setDate(today.getDate() + 3);
     let reminderDate = new Date(future).toJSON();
-    let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
-    let caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text').innerText;
+    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (caseCheck) {
+        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
+        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text').innerText;
+    }
     if ((caseNumber) && (caseSubject)) {
         querySubject = caseNumber + " - " + caseSubject;
-        caseURL = "<a title='" + caseNumber + "'href='" + document.querySelector('a.tabHeader[aria-selected="true"]').href + "'>" + caseNumber + "</a>";
+        caseURL = "<a title='" + caseNumber + "'href='" + document.querySelector('a.tabHeader[aria-selected="true"]').href + "'>" + caseNumber + " - " + caseSubject + "</a>";
     } else {
         if ((caseNumber) && !(caseSubject)) {
             querySubject = caseNumber;
@@ -307,13 +313,23 @@ function mfTranslation() {
 }
 
 function mfTranslationEvent() {
-    let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
-    let caseSeverity = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(3) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
-    if (caseNumber) {
+    let caseNumber;
+    let caseSeverity;
+    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (caseCheck) {
+        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
+        caseSeverity = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(3) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
+    }
+    if ( (caseNumber) && (caseSeverity) ) {
         let finalURL = 'https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=' + encodeURIComponent(caseNumber) + '&Severity=' + encodeURIComponent(caseSeverity);
         window.open(finalURL, 'MF Translation', 'width=1150,height=700');
     } else {
-        window.open('http://bit.ly/mftranslate', 'MF Translation', 'width=1150,height=700');
+        if ( (caseNumber) && !(caseSeverity) ) {
+            let finalURL = 'https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=' + encodeURIComponent(caseNumber);
+        window.open(finalURL, 'MF Translation', 'width=1150,height=700');
+        } else {
+            window.open('http://bit.ly/mftranslate', 'MF Translation', 'width=1150,height=700');
+        }
     }
 }
 
