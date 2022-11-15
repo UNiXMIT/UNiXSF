@@ -1,5 +1,4 @@
 const installedVersion = "2.4";
-const activeTab = 'div.split-right > .tabContent.active.oneConsoleTab';
 let globalInit = 0;
 let globalTimeout;
 let globalProducts;
@@ -18,7 +17,7 @@ let newArray = [];
 function initSyncData() {
     chrome.storage.sync.get({
         savedTimeout: 60,
-        savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+        savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
         savedQueue: 'NOTIFY',
         savedQNotify: false,
         savedQNotifyWeb: false,
@@ -45,7 +44,7 @@ function getSyncData() {
         if (area === 'sync') {
             chrome.storage.sync.get({
                 savedTimeout: 60,
-                savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+                savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
                 savedQueue: 'NOTIFY',
                 savedQNotify: false,
                 savedQNotifyWeb: false,
@@ -178,7 +177,7 @@ function mfFTS() {
 }
 
 function mfFTSEvent() {
-    let ftsAcc = document.evaluate("//div/*[@class='tabContent active oneConsoleTab']//div[1][contains(., 'FTS AccountName')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let ftsAcc = document.evaluate("//div[@class='split-right']/*[@class='tabContent active oneConsoleTab']//div[1][contains(., 'FTS AccountName')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
     if (ftsAcc) {
         let ftsPass = document.evaluate("//div/*[@class='tabContent active oneConsoleTab']//div[1][contains(., 'FTS Password')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
         let encodeFTSAcc = (ftsAcc).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
@@ -201,7 +200,7 @@ function mfQuixy() {
 }
 
 function mfQuixyEvent() {
-    let quixyID = document.evaluate("//div[@class='split-right']/*[@class='tabContent active oneConsoleTab']//lightning-formatted-text[contains(., 'OCTCR')]", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let quixyID = document.evaluate("//div[@class='split-right']/*[@class='tabContent active oneConsoleTab']//lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
     let finalURL = 'https://rdapps.swinfra.net/quixy/#/viewEntity/' + quixyID;
     window.open(finalURL, '_blank');
 }
@@ -252,21 +251,24 @@ function addReminder() {
 
 function addReminderEvent() {
     let querySubject;
+    let caseURL;
     let today = new Date();
     let future = today.setDate(today.getDate() + 3);
     let reminderDate = new Date(future).toJSON();
-    let caseNumber = document.evaluate("//section[@class='tabContent active oneConsoleTab']//slot/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
-    let caseSubject = document.evaluate("//section[@class='tabContent active oneConsoleTab']//support-output-case-subject-field/div/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
+    let caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text').innerText;
     if ((caseNumber) && (caseSubject)) {
         querySubject = caseNumber + " - " + caseSubject;
+        caseURL = "<a title='" + caseNumber + "'href='" + document.querySelector('a.tabHeader[aria-selected="true"]').href + "'>" + caseNumber + "</a>";
     } else {
         if ((caseNumber) && !(caseSubject)) {
             querySubject = caseNumber;
+            caseURL = "<a title='" + caseNumber + "'href='" + document.querySelector('a.tabHeader[aria-selected="true"]').href + "'>" + caseNumber + "</a>";
         } else {
             querySubject = "";
+            caseURL = "";
         }
     }
-    let caseURL = "<a title='" + caseNumber + "'href='" + document.querySelector('a.tabHeader[aria-selected="true"]').href + "'>" + caseNumber + "</a>";
     let userQuery = {
         "rru" : "addevent",
         "startdt" : reminderDate,
