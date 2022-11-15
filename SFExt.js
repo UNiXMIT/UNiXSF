@@ -265,6 +265,8 @@ function addReminderEvent() {
     } else {
         if ((caseNumber) && !(caseSubject)) {
             querySubject = caseNumber;
+        } else {
+            querySubject = "";
         }
     }
     let caseURL = "<a title='" + caseNumber + "'href='" + document.querySelector('a.tabHeader[aria-selected="true"]').href + "'>" + caseNumber + "</a>";
