@@ -1,4 +1,5 @@
 const installedVersion = "2.4";
+const activeTab = 'div.split-right > .tabContent.active.oneConsoleTab';
 let globalInit = 0;
 let globalTimeout;
 let globalProducts;
@@ -219,7 +220,7 @@ function mfDocumentation() {
 }
 
 function mfDocumentationEvent() {
-    let mfProduct = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//span/a", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let mfProduct = document.evaluate("//div[@class = 'tabContent active oneConsoleTab']//span/a", document, null, XPathResult.STRING_TYPE, null).stringValue;
     try {
         let products = JSON.parse(globalProducts);
         mfDocumentationURL(products, mfProduct);
@@ -308,8 +309,8 @@ function mfTranslation() {
 }
 
 function mfTranslationEvent() {
-    let caseNumber = document.evaluate("//section[@class = 'tabContent active oneConsoleTab']//records-highlights-details-item[1]//slot/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
-    let caseSeverity = document.evaluate("//section[@class = 'tabContent active oneConsoleTab']//records-highlights-details-item[3]//slot/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
+    let caseSeverity = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(3) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
     if (caseNumber) {
         let finalURL = 'https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=' + encodeURIComponent(caseNumber) + '&Severity=' + encodeURIComponent(caseSeverity);
         window.open(finalURL, 'MF Translation', 'width=1150,height=700');
