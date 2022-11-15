@@ -327,7 +327,7 @@ function amcURLs() {
 }
 
 function amcURLsEvent() {
-    window.open('http://bit.ly/KimsQuickLinks', 'AMC URLs', 'width=500,height=775');
+    window.open('http://bit.ly/KimsQuickLinks', 'AMC URLs', 'width=400,height=750');
 }
 
 function initQMonitor() {
