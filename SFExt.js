@@ -179,7 +179,7 @@ function mfFTS() {
 function mfFTSEvent() {
     let ftsAcc = document.evaluate("//div[@class='split-right']/*[@class='tabContent active oneConsoleTab']//div[1][contains(., 'FTS AccountName')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
     if (ftsAcc) {
-        let ftsPass = document.evaluate("//div/*[@class='tabContent active oneConsoleTab']//div[1][contains(., 'FTS Password')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
+        let ftsPass = document.evaluate("//div[@class='split-right']/*[@class='tabContent active oneConsoleTab']//div[1][contains(., 'FTS Password')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
         let encodeFTSAcc = (ftsAcc).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
         let encodeFTSPass = (ftsPass).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
         let combineFTS = encodeFTSAcc + ':' + encodeFTSPass;
