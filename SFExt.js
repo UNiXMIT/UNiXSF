@@ -178,9 +178,9 @@ function mfFTS() {
 }
 
 function mfFTSEvent() {
-    let ftsAcc = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//div[1][contains(., 'FTS AccountName')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let ftsAcc = document.evaluate("//div/*[@class='tabContent active oneConsoleTab']//div[1][contains(., 'FTS AccountName')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
     if (ftsAcc) {
-        let ftsPass = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//div[1][contains(., 'FTS Password')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
+        let ftsPass = document.evaluate("//div/*[@class='tabContent active oneConsoleTab']//div[1][contains(., 'FTS Password')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
         let encodeFTSAcc = (ftsAcc).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
         let encodeFTSPass = (ftsPass).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
         let combineFTS = encodeFTSAcc + ':' + encodeFTSPass;
@@ -201,13 +201,9 @@ function mfQuixy() {
 }
 
 function mfQuixyEvent() {
-    let quixyID = document.evaluate("//div/*[@class = 'tabContent active oneConsoleTab']//lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
-    if (quixyID) {
-        let finalURL = 'https://rdapps.swinfra.net/quixy/#/viewEntity/' + quixyID;
-        window.open(finalURL, '_blank');
-    } else {
-        window.open('https://rdapps.swinfra.net/quixy/#/viewEntity/', '_blank');
-    }
+    let quixyID = document.evaluate("//div[@class='split-right']/*[@class='tabContent active oneConsoleTab']//lightning-formatted-text[contains(., 'OCTCR')]", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let finalURL = 'https://rdapps.swinfra.net/quixy/#/viewEntity/' + quixyID;
+    window.open(finalURL, '_blank');
 }
 
 function mfDocumentation() {
@@ -220,7 +216,7 @@ function mfDocumentation() {
 }
 
 function mfDocumentationEvent() {
-    let mfProduct = document.evaluate("//div[@class = 'tabContent active oneConsoleTab']//span/a", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let mfProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('span > a').textContent;
     try {
         let products = JSON.parse(globalProducts);
         mfDocumentationURL(products, mfProduct);
@@ -259,8 +255,8 @@ function addReminderEvent() {
     let today = new Date();
     let future = today.setDate(today.getDate() + 3);
     let reminderDate = new Date(future).toJSON();
-    let caseNumber = document.evaluate("//section[@class = 'tabContent active oneConsoleTab']//slot/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
-    let caseSubject = document.evaluate("//section[@class = 'tabContent active oneConsoleTab']//support-output-case-subject-field/div/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let caseNumber = document.evaluate("//section[@class='tabContent active oneConsoleTab']//slot/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let caseSubject = document.evaluate("//section[@class='tabContent active oneConsoleTab']//support-output-case-subject-field/div/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
     if ((caseNumber) && (caseSubject)) {
         querySubject = caseNumber + " - " + caseSubject;
     } else {
