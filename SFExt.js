@@ -308,9 +308,10 @@ function mfTranslation() {
 }
 
 function mfTranslationEvent() {
-    let caseNumber = document.evaluate("//section[@class = 'tabContent active oneConsoleTab']//slot/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let caseNumber = document.evaluate("//section[@class = 'tabContent active oneConsoleTab']//records-highlights-details-item[1]//slot/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
+    let caseSeverity = document.evaluate("//section[@class = 'tabContent active oneConsoleTab']//records-highlights-details-item[3]//slot/lightning-formatted-text", document, null, XPathResult.STRING_TYPE, null).stringValue;
     if (caseNumber) {
-        let finalURL = 'https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=' + caseNumber;
+        let finalURL = 'https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=' + caseNumber + '&Severity=' + caseSeverity;
         window.open(finalURL, 'MF Translation', 'width=1150,height=700');
     } else {
         window.open('http://bit.ly/mftranslate', 'MF Translation', 'width=1150,height=700');

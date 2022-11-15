@@ -25,7 +25,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
    If the 'Subject' column is added to the queue, the case subject will also be sent in the notification.   
    Windows (Desktop) notifications need to be enabled and not silenced.  
    Ensure Windows Focus Assist is set to OFF.   
-   Make sure Notifications are enabled, for the Saleforce website, in your browser:  
+   Make sure Notifications are enabled, for the Salesforce website, in your browser:  
    ![0](images/EnableNotify.png)
 
 - Quixy defect QuickLink. Uses the active case tab to formulate the Quixy URL to open. If no case is open it will open the Quixy homepage.     
@@ -44,7 +44,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
    ![7](images/amc.png)
 
 - QuickLink button for the MF Translation Request page. 
-   If you have a case open and active, the case number will be used to populate the Case Number field of the translation page.  
+   If you have a case open and active, the case number and severity will be used to populate the corresponding fields of the translation page.  
    ![8](images/translation.png)  
 
 - QuickLink button for the MF Documentation.
