@@ -13,6 +13,7 @@ let intervalID;
 let qObserver;
 let oldArray = [];
 let newArray = [];
+let activeUser;
 
 function initSyncData() {
     chrome.storage.sync.get({
@@ -559,6 +560,35 @@ function updateFooter() {
     }
 }
 
+function activeUsers() {
+    let observer = new MutationObserver(mutations => {
+        let userProfile = document.querySelector('img[title="User"]');
+        if (userProfile) {
+            observer.disconnect();
+            userProfile.click();
+            setTimeout(function() {
+            document.querySelector('.userProfilePanel').style.display = "none";
+                setTimeout(function() {
+                    activeUser = document.querySelector('a.profile-link-label').textContent;
+                    userProfile.click();
+                }, 1000);
+            }, 1000);
+        }
+    });
+    observer.observe(document, {childList: true, subtree: true});
+}
+
+function resetWidths() {
+    let observer = new MutationObserver(mutations => {
+        document.querySelector('button[title="List View Controls"').click();
+        document.querySelector("li.slds-dropdown__item.listViewSettingsMenuResetWidths a").click();
+        document.querySelector('button[title="List View Controls"').click();
+        observer.disconnect();
+    });
+    let caseQueue = document.querySelector('.listViewContent');
+    observer.observe(caseQueue, {childList: true, subtree: true});
+}
+
 function updateCheck() {
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.responseType = 'json';
@@ -652,6 +682,8 @@ window.onload = function() {
             defectFixed();
             extLoaded();
             updateCheck();
+            // activeUsers();
+            resetWidths();
             fixMouse();
             EE();
             clearTimeout(initInterval);
