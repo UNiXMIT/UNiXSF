@@ -118,7 +118,7 @@ function mfCSS() {
                         ul.mflist { list-style-type: none; } \
                         .dropdown-content { right: -20px; display: none; position: absolute; background-color: #f1f1f1; width: 220px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); z-index: 1; } \
                         .dropdown-content li { font-family: "Roboto", sans-serif; font-size: 16px; font-weight: 700; color: #505050; padding: 12px 20px; text-decoration: none; margin-left: 0px; cursor: pointer; } \
-                        .fa-solid { width:30px; margin-right: 10px; } \
+                        .fa-solid { text-align: center; width:30px; margin-right: 10px; } \
                         .dropdown-content li:hover { background-color: #ddd; } \
                         .mfdropdown:hover .dropdown-content { display: block; } \
                         .mfdropdown:hover .dropbtn { opacity: 0.6; }';
