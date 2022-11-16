@@ -28,29 +28,21 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
    Make sure Notifications are enabled, for the Salesforce website, in your browser:  
    ![0](images/EnableNotify.png)
 
-- Quixy defect QuickLink. Uses the active case tab to formulate the Quixy URL to open. If no case is open it will open the Quixy homepage.     
-   ![1](images/quixy.png)  
+- Quixy defect QuickLink. Uses the active case tab to formulate the Quixy URL to open. If no case is open it will open the Quixy homepage.      
 
 - FTS SFTP QuickLink. Uses the active case tab to get the FTS Account/Password details (tested with WinSCP - https://winscp.net). If no case is open it will open the FTS homepage.   
-   ![2](images/fts.png)   
    The application used depends on the default app set in the OS for SFTP Protocol:  
    ![3](images/sftp.png)  
    This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol  
 
 - QuickLink buttons for Support Portal, SLD Web Portal, PerformPlus and AMC Links.  
-   ![4](images/support.png)
-   ![5](images/sld.png)
-   ![6](images/pp.png)
-   ![7](images/amc.png)
 
 - QuickLink button for the MF Translation Request page. 
-   If you have a case open and active, the case number and severity will be used to populate the corresponding fields of the translation page.  
-   ![8](images/translation.png)  
+   If you have a case open and active, the case number and severity will be used to populate the corresponding fields of the translation page.   
 
 - QuickLink button for the MF Documentation.
    If you have a case open and active, the product in the case will be checked and the appropriate docs page opened.  
    If no cases are opened the general docs page will be opened.  
-   ![9](images/docs.png)
 
 -  Creates URLs to Quixy defects in queues (if you have the R&D Change Requests column visible).  
    ![10](images/QuixyQueueLink.png)  
@@ -60,7 +52,6 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 - Reminders/Follow-Up QuickLink. Gets the case number, subject and URL from the active, open case and opens a new window to create an Outlook Calendar event with reminder set.  
   By default the calendar event start date is 3 days in the future but this can be changed, by the user, in the new window.  
-  ![12](images/reminder.png)
 
 ## Install
 
@@ -150,7 +141,7 @@ Imports your exported options from the file sfext.json located in the config dir
 
 ## Features/Improvements Wishlist
 
-- Create a dropdown menu instead of adding more and more QuickLinks to the Header Bar.
+- I need ideas.
 
 ## Issues/Limitations
 
