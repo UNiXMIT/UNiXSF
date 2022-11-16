@@ -108,7 +108,20 @@ function modifyHead() {
 
 function mfCSS() {
     let style = document.createElement('style');
-    style.innerHTML = 'html{font-family:"Roboto",sans-serif;} .mfbutton{color:#919191;cursor:pointer;margin-left:10px} .mfbutton:hover{-webkit-filter:brightness(70%);-webkit-filter:brightness(70%)} a.ExtLoaded{text-decoration:none;color:black} a.ExtLoaded:hover{color:red} .dropbtn {background-color: #fff;width: 25px;height: 25px;border: none;background-image: url("https://www.brand.microfocus.com/s/symbol.svg");background-size: 25px;opacity: 0.5;margin: 0 10px;}.mfdropdown {position: relative;display: inline-block;}ul.mflist {list-style-type: none;}.dropdown-content {right:0; display: none;position: absolute;background-color: #f1f1f1;width: 215px;box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);z-index: 1;}.dropdown-content li {font-family: "Roboto", sans-serif;font-size: 16px;font-weight: 700;color: #505050;padding: 12px 20px;text-decoration: none;margin-left: 0px;cursor: pointer;}.fa-solid {margin-right: 10px;}.dropdown-content li:hover {background-color: #ddd;}.mfdropdown:hover .dropdown-content {display: block;}.mfdropdown:hover .dropbtn {opacity: 0.6;}';
+    style.innerHTML =   'html { font-family: "Roboto",sans-serif; } \
+                        .mfbutton { color: #919191; cursor: pointer; margin-left: 10px } \
+                        .mfbutton:hover { -webkit-filter: brightness(70%); -webkit-filter: brightness(70%) } \
+                        a.ExtLoaded { text-decoration: none; color: black } \
+                        a.ExtLoaded:hover { color: red } \
+                        .dropbtn { background-color: #fff; width: 25px; height: 25px; border: none; background-image: url("https://www.brand.microfocus.com/s/symbol.svg"); background-size: 25px; opacity: 0.5; } \
+                        .mfdropdown { position: relative; display: inline-block; } \
+                        ul.mflist { list-style-type: none; } \
+                        .dropdown-content { right: -20px; display: none; position: absolute; background-color: #f1f1f1; width: 220px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); z-index: 1; } \
+                        .dropdown-content li { font-family: "Roboto", sans-serif; font-size: 16px; font-weight: 700; color: #505050; padding: 12px 20px; text-decoration: none; margin-left: 0px; cursor: pointer; } \
+                        .fa-solid { width:30px; margin-right: 10px; } \
+                        .dropdown-content li:hover { background-color: #ddd; } \
+                        .mfdropdown:hover .dropdown-content { display: block; } \
+                        .mfdropdown:hover .dropbtn { opacity: 0.6; }';
     document.getElementsByTagName('head')[0].appendChild(style);
 }
 
@@ -161,7 +174,15 @@ function mfDropDown() {
     div2.setAttribute('class','dropdown-content');
     let ul = document.createElement('ul');
     ul.setAttribute('class','mflist');
-    ul.innerHTML = '<li class=mfsup href=#><i class="fa-solid fa-xl fa-headset"></i>Support Portal<li class=mfsld href=#><i class="fa-solid fa-xl fa-cloud-arrow-down"></i>SLD<li class=mffts href=#><i class="fa-solid fa-xl fa-cloud-arrow-up"></i>FTS<li class=mfqx href=#><i class="fa-solid fa-xl fa-code"></i>Quixy<li class=mfdocs href=#><i class="fa-solid fa-xl fa-book"></i>MF Documentation<li class=mfreminder href=#><i class="fa-solid fa-xl fa-calendar"></i>Add Reminder<li class=mfpp href=#><i class="fa-solid fa-xl fa-circle-plus"></i>PerformPlus<li class=mftranslation href=#><i class="fa-solid fa-xl fa-language"></i>MF Translation<li class=amcurls href=#><i class="fa-solid fa-xl fa-link"></i>AMC URLs</li>'
+    ul.innerHTML = '<li class=mfsup href=#><i class="fa-solid fa-xl fa-headset"></i>Support Portal</li> \
+                    <li class=mfsld href=#><i class="fa-solid fa-xl fa-cloud-arrow-down"></i>SLD</li> \
+                    <li class=mffts href=#><i class="fa-solid fa-xl fa-cloud-arrow-up"></i>FTS</li> \
+                    <li class=mfqx href=#><i class="fa-solid fa-xl fa-code"></i>Quixy</li> \
+                    <li class=mfdocs href=#><i class="fa-solid fa-xl fa-book"></i>MF Documentation</li> \
+                    <li class=mfreminder href=#><i class="fa-solid fa-xl fa-calendar"></i>Add Reminder</li> \
+                    <li class=mfpp href=#><i class="fa-solid fa-xl fa-circle-plus"></i>PerformPlus</li> \
+                    <li class=mftranslation href=#><i class="fa-solid fa-xl fa-language"></i>MF Translation</li> \
+                    <li class=amcurls href=#><i class="fa-solid fa-xl fa-link"></i>AMC URLs</li>'
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     mfButton.insertBefore(div1, mfButton.children[4]);
     let dropdown = document.querySelector('.mfdropdown');
