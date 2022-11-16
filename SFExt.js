@@ -319,7 +319,11 @@ function mfTranslationEvent() {
     if (caseCheck) {
         caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
         let fullCaseSeverity = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(3) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
-        caseSeverity = fullCaseSeverity.substring(4).toUpperCase();
+        caseSeverity = fullCaseSeverity.substring(4);
+        if (caseSeverity === 'Critical') {
+            let tempSeverity = caseSeverity.toUpperCase();
+            caseSeverity = tempSeverity;
+        }
     }
     if ( (caseNumber) && (caseSeverity) ) {
         let finalURL = 'https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=' + encodeURIComponent(caseNumber) + '&Severity=' + encodeURIComponent(caseSeverity);
