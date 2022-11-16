@@ -95,9 +95,29 @@ function mfLogo() {
     observer.observe(document, {childList: true, subtree: true});
 }
 
+function modifyHead() {
+    let link = document.createElement('link');
+    link.rel = "stylesheet" 
+    link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css";
+    document.getElementsByTagName('head')[0].appendChild(link);
+    // let linkBS = document.createElement('link');
+    // linkBS.rel = "stylesheet";
+    // linkBS.href = "https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css";
+    // document.getElementsByTagName('head')[0].appendChild(linkBS);
+    // let script1 = document.createElement('script');
+    // script1.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js";
+    // document.getElementsByTagName('head')[0].appendChild(script1);
+    // let script2 = document.createElement('script');
+    // script2.src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js";
+    // document.getElementsByTagName('head')[0].appendChild(script2);
+    // let script3 = document.createElement('script');
+    // script3.src = "https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js";
+    // document.getElementsByTagName('head')[0].appendChild(script3);
+}
+
 function mfCSS() {
     let style = document.createElement('style');
-    style.innerHTML = '.mfbutton{cursor:pointer;margin-left:5px} img.mfbutton:hover{-webkit-filter:brightness(70%);-webkit-filter:brightness(70%)} a.ExtLoaded{text-decoration:none;color:black} a.ExtLoaded:hover{color:red} .slds-global-header__item_search, .slds-global-header__item--search{margin-left:300px}';
+    style.innerHTML = '.mfbutton{color:#919191;cursor:pointer;margin-left:10px} .mfbutton:hover{-webkit-filter:brightness(70%);-webkit-filter:brightness(70%)} a.ExtLoaded{text-decoration:none;color:black} a.ExtLoaded:hover{color:red} .slds-global-header__item_search, .slds-global-header__item--search{margin-left:300px}';
     document.getElementsByTagName('head')[0].appendChild(style);
 }
 
@@ -110,7 +130,10 @@ function queueRefresh() {
     }
 }
 
-// Base64 Icons https://icons8.com // Colour #919191 // Size 30px
+// Font Awesome Icons // Colour #919191 // Size 30px
+
+// data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAE2SURBVEhLYxhxgBFKYwXd3d3r/v//rw3lUgz+/v37+/79+06zZs16hdfiiRMnngdSBhAe5QBk8bNnzxR7enqeMkHF6A5GnsXwOAYlJDY2NkUoFwx+/vx5ARgvp6BckgAwUUpyc3PXQrlggBzHLFAxkEJQ6lWD8CAAqHBWZWXldCiXJFBVVaWHbjEyGE1cdAOjFtMNjFpMD/AfRAyExeBiejSo6QHAQQ2vFru6um6ys7Oj1E7fvn3L4eLimgHlkgRevXqlKyYmBmo6wQFytYjXYmBV+YaRkfETlEsqYAbiUiD+DOYBwb9///6+fPnyYEdHxy+8FlMIfgOxeH5+/nsIFxWMqFQNBnCLQRFPbQw0Fpx1sAF4HKelpYnx8fGxQrmkApAFMLNg7P+ysrLPgXGM0/IBAAwMAN24yCYX5z+oAAAAAElFTkSuQmCC
+
 function mfNav() {
     let observer = new MutationObserver(mutations => {
         let clearButton1 = document.querySelector('#oneHeader').querySelector('.trailheadTrigger');
@@ -144,7 +167,8 @@ function mfNav() {
 function mfSup() {
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
-    li.innerHTML = '<img class="mfbutton mfsup" alt="Support Portal" title="Support Portal" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAADJ0lEQVRIieWVT2hcVRTGf9+diakQkFRaJZbGlkIqgouCRUUXFVeiG6EiuBEriot57yUQCm1ohyIUspi89ybZScZF/QOuSq0IXSiCduFCcBXFGjc6pi4ySWpNOzP3uHACSZPOe+lk1293ud/5fpxz73sX7jfpXoqq1eph7/0RSQfN7DHAmdlqFEXhjoNrtdqupaWl9yWFwPCWYdKhIAiu5clzeUyVSmX38vLy15Iqd4MCmNnxPHm5wc65aeCZHNaTaZq+lyczc9TT09PD7XZ7Po+3o3/N7EAURQvdTMWslFar9ZIkAT8BP5rZIUkPA3sAA66b2V/OuWtm9jbwoKRjwGc9gSXtA/Deh6Ojo9908yZJcgMYBUaycvOc8UOAFQqFq1lGM/toXU1vYDMTsBAEwa0sb6PRmAPanZrewGuZeUzlcvk28IekF6empp7oFTwi6WYecEc3gaecc5/cM7hcLjtJx7z3XUPu0NqYD/cC9sCKpAN5iDMzMwPA/s7yz27ezM8JmAQm4zi+GEXRFYA0TfvNrCRpELhULBZ/brfbj7RarUngAWDOzIJuoZm3z8yUpulVM2uFYfiCJEuS5A3g0y3sDeCtMAwvZuVmXi5JJumkpGer1eppAOfct8AV4AdJZ83sdefcy6urq/vzQGEbz2KSJB8ApyS9EwTB7Pq9OI6flvRcu92+PDY29muevDxnDIBz7jvvvczswziOh4eGhs4B1Ov1s8AEoL6+vl+AnQWb2W4ASeeB0/V6/d3O1h5J583s1JonVyN5jcAQ0CyVShPe+6OSZiXNeu+PlkqlCaDZ8eRS1zOuVCpPFgqF48ArwBHgehiGj27ljeN4QdJe4Dcz+0LS54uLi993/gWbtGHUtVpt18rKyvPe+1clvQbsu8O/eNcOpEVgL3BQUgAEg4ODfydJ8pWZXWo2m1+Oj4//s6njOI5HJZ0DBroM4RZwAbgs6XcAM3uc/yfyJtDfpfaGmZ2JomhqQ8eSChlQOsEngBNmlmHdpIEOA1h3ubz3HwPz203bhuaLxeKFtcWGy5Wmab/3fkRS304SzazZaDTmOu/1far/AN+NOS2RjAonAAAAAElFTkSuQmCC">';
+    li.innerHTML = '<i class="fa-solid fa-headset fa-xl"></i>';
+    li.setAttribute('class', 'mfbutton mfsup');
     mfButton.insertBefore(li, mfButton.children[4]);
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfsup');
     mfButtonNew.addEventListener('click', mfSupEvent, false);
@@ -157,7 +181,8 @@ function mfSupEvent() {
 function mfSLD() {
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
-    li.innerHTML = '<img class="mfbutton mfsld" alt="SLD" title="SLD" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABmJLR0QA/wD/AP+gvaeTAAAB3klEQVRYhe2WsYsTQRjF3ze7xVU5QYvNH3KFHAoHh50WClqIQvqMk0pERVJESKU7s62NdqbzWrHT7v4Aq4Nck4CxUQKiYZ+FEY91yW0ms+jBvmbYN7tvfsx8OzNAozMgCRmWpullpdQ1EXmhtf647vdxKJDRaBRNJpMDktskdwFcXDdDhYIZj8dbALaXj4lPRjCYEPqvYFbWjHPuCsk7WDHtrVbraqfT+VawE2vt24I3Jfmq1+sV/dNhrLUDko9WwQLAbDaLSuwtAPtFU0RuW2sHxpgnZVmly+ScuwTg4WkgHhIAj7Ms260MA+AmAu9BJ4HyPL9VGSbP8/M1gQAASF6oDPOv5AOTA7iulNoBcFToO1JK7YjIjeV7tcN8abfbB1rrQwB78/n8BwAs2z2t9WGSJG8AfF032OdsOjedTlOS90Tk+LfZ7/e/AzgmKVmWpfhzNFSWV82Q7DrnnpP8649zzg1Jdn1yNylgY619dtJI03QI4L5v4EZXCBHpOefixWIxjOP4ge+MBIEBfi1ZFEVdkptGnf19pjaVwiilPtc87qfScctMkq8BbF4E5cqjKBpVhjHGvCf5tAYgkhxorT+Uda68Jjjn9kneBdAOADIB8NIY8y5AVqNGjRp56Sd11aisaN1EbAAAAABJRU5ErkJggg==">';
+    li.innerHTML = '<i class="fa-solid fa-cloud-arrow-down fa-xl"></i>';
+    li.setAttribute('class', 'mfbutton mfsld');
     mfButton.insertBefore(li, mfButton.children[5]);
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfsld');
     mfButtonNew.addEventListener('click', mfSLDEvent, false);
@@ -170,7 +195,8 @@ function mfSLDEvent() {
 function mfFTS() {
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
-    li.innerHTML = '<img class="mfbutton mffts" alt="FTS" title="FTS" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABmJLR0QA/wD/AP+gvaeTAAAB4UlEQVRYhe2Wv0scQRiG3/d0PbAwmFQBUwWxCuI/ECNJmyba2ASbdMfcbJRcJ+mTYna6bUISAglXp0khIhaSPyKFmOJIICjCeeI6n4Un/mBH7vZ2iQn7lPMt7zzMfMt8wA2CeYREUTRJcrFSqXyo1Wrbf03GGDNFch3AXQA/ST5SSv3IklXJUQQAJgCsW2vvZ8nLfDIpIueh5A6AuX5PKNPJxHE8SnKtK+IASLfkAIiI3BORb81mc6hwmXa7PQLgFgBH8gWA425pl6Tuyo23Wq3hwmXCMNx1zk2TfKCUenexppSyJGcAzCilDvvJzevXPgIwDOBPvV6/kzXnWhlr7VPn3BLJsbR6p9N51mg09i/IHAHY8MTtich7rfVX337eO7XWvhWRZdLvGwRBcHUJwBPf9yTnjTFvtNav0uqpPRNF0ZyIvPRaDADJFWvtbM8yAOaRUz+l+QBY6FlGRG4XJAIAcM6lNvlAz0HelDI+BpKpVqsjcRwHg+ac0dfbcZUkST4lSXJwI2QAPM5D4oz/p2fyppTx4ZP5XeSmJH+lrfvepi84nWeLwInI555lwjDcAvAa54N2XgiAVa3197TitWOCMeYhyeckJ0Skr0n/0ibksYjskPyolNrMmlNSUvJPcgJyI5mltRc+jAAAAABJRU5ErkJggg==">';
+    li.innerHTML = '<i class="fa-solid fa-cloud-arrow-up fa-xl"></i>';
+    li.setAttribute('class', 'mfbutton mffts');
     mfButton.insertBefore(li, mfButton.children[6]);
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mffts');
     mfButtonNew.addEventListener('click', mfFTSEvent, false);
@@ -195,7 +221,8 @@ function mfFTSEvent() {
 function mfQuixy() {
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
-    li.innerHTML = '<img class="mfbutton mfqx" alt="Quixy" title="Quixy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABmJLR0QA/wD/AP+gvaeTAAACCUlEQVRIibWWv2tUQRSFv3v3ga9INtmHP2orOwULa1GjGBGjKewiKJgiYf+GoL24iAELFQ1K1KhgpWiiCBFsU9iIYKGlWXZX2Uh8cyzc1Qe6urvmnWrmnpn73RmYy9jMzIwnSTINHJc0yAbJzBqSHlSr1ctRkiTTkioblbwtSQB7h4eHFUk6kTGuuPs2SWPAPPAVONWh0hchhNcdvBJwFsDdxyMzG2xRU+C5pO3AmKRlM/vSCRJCWHH3Zx1OsRk4AxSAYpTxCmY2n6nm0h/v4ZdfllT+25q2XNJqNwv7laTVKI7j0TRNB/KCFAqFz9Ha2to5YCQvyPr6+tPIzA5K2p0XxMzM80qeVV8QSUvAtbwh5yW92zBIq+qVTOh9rVZ7aWYTwBvg1f9Crg8NDR2R9DEDvZkkyR5gB/C2WCzu50cL6gtyIU3TqUajccfMDrcZIYQ5Se1Wc6xer8+laXoamO0ZEkK45e47Je3LhJdLpdIH4GQmNhpF0a4QwtWeIe7+xN0l6QDwqRW+UavVjgKl1rwKjJjZN3d/3DME2Cxp0d23Ag+BZhzH98zsZ1eWdBcohhCWgC2dEkWdjJYGJD1qjW83m83YzA61TTObBCb/kaP7d2Jmi+4+0UVhv6nrDZIuApt6BfQEAfr+ZLikRr+bu1Tdgft5EiQtmCSrVCpT7j6ew79roVwuz34Had7gjIO2WZwAAAAASUVORK5CYII=">';
+    li.innerHTML = '<i class="fa-solid fa-code fa-xl"></i>';
+    li.setAttribute('class', 'mfbutton mfqx');
     mfButton.insertBefore(li, mfButton.children[7]);
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfqx');
     mfButtonNew.addEventListener('click', mfQuixyEvent, false);
@@ -214,7 +241,8 @@ function mfQuixyEvent() {
 function mfDocumentation() {
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
-    li.innerHTML = '<img class="mfbutton mfdocs" alt="MF Documentation" title="MF Documentation" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAAkUlEQVRYhe2VSw7AIAhEadP7chZObFfdGD+MKZlgfGtD8DGKyIHM5TlkZgUpqqquuiIiN1I4AsjA7Ga1KY8JuoEnouh3c4+5pgEzK2jwVgkxUDc/MrFXBnqzHo2TboDewPIIZq/E+x3nNYAsnBF5DfQygJrJa2CbDNAbgEYQsaJzGPgrcC3oBuD97SXNMjrQeQH6gjRERZAsEQAAAABJRU5ErkJggg==">';
+    li.innerHTML = '<i class="fa-solid fa-book fa-xl"></i>';
+    li.setAttribute('class', 'mfbutton mfdocs');
     mfButton.insertBefore(li, mfButton.children[8]);
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfdocs');
     mfButtonNew.addEventListener('click', mfDocumentationEvent, false);
@@ -250,7 +278,8 @@ function mfDocumentationURL(products, mfProduct) {
 function addReminder() {
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');    
     let li = document.createElement("li");
-    li.innerHTML = '<img class="mfbutton mfreminder" alt="Add Reminder" title="Add Reminder" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABmJLR0QA/wD/AP+gvaeTAAAA80lEQVRIie2VvW7CQBCEv7FoUvI2CSRdnsfrDkrooPO9T0orfpy8gTfNISGyOYyCTZOpbjVzM7rb+xEB2rbtJK2BzszeIs0t+iqaJGltZgJerwWM0S8AUko98BwJUko+JijSS+rrul6dVhIG/BXu/gKgy/R7w8wU9uTeWAC4+3HykKqqviYPcffDhBnH+XoS4axPpwvWAUjalLibQpqm2QKklHYAZrbL9abERV6zbNdjL6OZKT96e2B/Vhe5CI/dLklbAHd/z/VHrg8l7tLHzPTr6RqGYZmHT9lgmQ2LXIT/Izwas/0n84VI6ify/5zI9ye+AXQJiD3EA61wAAAAAElFTkSuQmCC">';
+    li.innerHTML = '<i class="fa-solid fa-calendar fa-xl"></i>';
+    li.setAttribute('class', 'mfbutton mfreminder');
     mfButton.insertBefore(li, mfButton.children[9]);
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfreminder');
     mfButtonNew.addEventListener('click', addReminderEvent, false);
@@ -299,7 +328,8 @@ function addReminderEvent() {
 function mfPP() {
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
-    li.innerHTML = '<img class="mfbutton mfpp" alt="PerformPlus" title="PerformPlus" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAEI0lEQVRIie2WXYhUZRjHf885+zEsrIgtUWJUuNHFEkZeCF7kRYERRpla9kF1twTtOXPWBPvQtguzbJudc2a3VRG7qUhstS+puyIIE4QgL7JQkaz2ooI1+piZ3fP+u3BWj7MzsxbRTT1weM887/P8/+f/Pu887wv/279k1moyjuOtwAoz+x34Q1IZ+DgMw7eycUmSPCZpUZqm+wcHB7+/HOK2eeYDoEdS1rcRuIRY0giw0Pf9nXEcvz4zM7N106ZNZ1sBe/MQH27g2zYHxPPWmNkBIAUebWtrO14sFje0Am661MVi8REz2wf4GfdEEAQbzEyNckZGRq7zPK8ArAUkKcjn86OXTZwkyXpJ+zm/IkeBFcCpXC63vL+//1wrJbX8vKQCgJndFwTB2/MSDw8P97S3t38F9ABPVavVUkdHR+D7/oSkX51zA2Z2l6SltZSvgQ+cc2NRFE3O4hSLxcjMCsAvZtYXBMF3WZ45NW5vbx+ukR4Ow/DFzZs3/xaG4Y40TW9xzp0AtkjqA3K1ZxnwjOd5J+I43jiLk8/nR4BDwAJgez3PJcSjo6PXAg8DFedckPn6DcCbQHc9QMYWAG9kyYE8MC3pwVKptLgpcZqm9wO+mX0YRdFpgEKhsMjMxqkri3NupaRVDYTsGRsbuwogDMNvzewg0Jam6QNNiYHbAGobCwDf9wPginp5URQdyefznzZQ3j0zM/NE5ve7AJ7n3dqKuA/AzL7M+O5oAD6frQGI4/gVSbsAJN2eJMlHxWJxHcztXD21MbsDb5p9cc6tjKLoSDYhDEOrkawEPqu5Z3f8Ms7XHqBL0mozqwIT9YoF0N3dXc340tkX3/c7mkl0zmXnXG3cWx8maTvUKTazHyVdMzU1tRg4XXOfAm4GkPRJHMf1Sud0MTM7CZDL5SbK5fIkcHVtalc+nz8KdTWWdLymrC/jfr+ZymYm6X2A/v7+aWBPzT2Zy+Weno25RLFz7mXf93+qVqsX6mhmJUkhF2sFQJIkq9I0bdRyz01PT1/oz2Y2Blyfpulr2Xbb8jzOkNwr6QDzn2bOObcuiqJ35sOcDwiAIAgOAuuBVgfE1OWStiQeGhryxsfHr5RkAGEYHvJ9fykwJOkYMAVMSTpmZs/5vt+bJR0ZGVk4m9vImk7EcbwD2AJUgDNmdkbSF7lcbltt0zQ0SVYqlZ6U9ALwUhiGz/4lxcDPtbETuFHSamBLpVK5oVlCoVDoTZLkkKSdgCfpm2axTRXv3r27q1wun+TifxDOL+2Ac+7zNE0nu7q6zDm3RNJy4G5J9wDtwDkzeygIgkZXp9bEAEmSPC7p1VYxdTYD7PM87/mBgYEfWgW2vGV2dnburVQqg5J6gU2SymZ2J9ALLKmFnQVOSzrsed579TeNv21JkiyN43jtPwL2n7Y/AV3byB9Mdkm4AAAAAElFTkSuQmCC">';
+    li.innerHTML = '<i class="fa-solid fa-circle-plus fa-xl"></i>';
+    li.setAttribute('class', 'mfbutton mfpp');
     mfButton.insertBefore(li, mfButton.children[10]);
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfpp');
     mfButtonNew.addEventListener('click', mfPPEvent, false);
@@ -312,7 +342,8 @@ function mfPPEvent() {
 function mfTranslation() {
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
-    li.innerHTML = '<img class="mfbutton mftranslation" alt="MF Translation" title="MF Translation" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAACMElEQVRIie2UPW8TQRCG33fPyC6QyxR8VFCRiorCgggkKvqIhtDZkhPvnpCud0OJdR9IgSYIEEjUICGQQIKYCCkVBf4DyQ9I4+Ls3A6FnehwfHb8BU1eaaXbndl5ZvZ2FjjTmRYkpidhGN4TkecALs6Zs6+UKtdqtY9HCyptFZFnC4ACwKV+QcdSgw4LgAIAROTyKPCgLMlbIrICwM4zkXHg91rrbdd1v5P88C/BUcb3zMqNsLW01l9zudx5AKhWq1/CMGwBuDYmZgm9grZHOY2qOCIp3W53LUmSBySF5NMxUBhjdowxzXF+WeCDTqfzWkRIcl1ENkSEcRy/AnAwxL9kjKEx5vhdSM1vTgLe8jyvTVKMMcvGmGWS4nleG8DWiSBKcUgMAADJobah/zhJks2sQEmSbDqO8yi9Zq1tBkGQhr3TWt/3ff+uiHw+NdhxnKUgCJbQuyBHp2JF5DbJrH4ukWwDeGOtfdJPYDWrgKyj/tEfabsi+Q0Zt5Xkodb6Vz6fv+667m6j0bgKYG1S8MQSkbdRFF2oVCpdAFBKXQFwmOU/qo8nUckYswMA9Xo9VywWz7mu+8n3/Tskfy4MrJRiGIZFACsi8hiAE0XRwyRJ8ll75gK21p54MKy1uxmd1Et2YL4/j0SGieReJlgpVV4EnOSeiJT/WjvNxiAIZCDQ7ziOb/Rfsqk0TTu1AazOAp0WvK61bs0CnQb8whjzclYocPp2agJQhUJhYx7Q/6o/dirFfnpZUXcAAAAASUVORK5CYII=">';
+    li.innerHTML = '<i class="fa-solid fa-language fa-xl"></i>';
+    li.setAttribute('class', 'mfbutton mftranslation');
     mfButton.insertBefore(li, mfButton.children[11]);
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mftranslation');
     mfButtonNew.addEventListener('click', mfTranslationEvent, false);
@@ -347,7 +378,8 @@ function mfTranslationEvent() {
 function amcURLs() {
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
     let li = document.createElement("li");
-    li.innerHTML = '<img class="mfbutton amcurls" alt="AMC URLs" title="AMC URLs" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAADe0lEQVRIie2WTUhjVxTHf/e9ZyALG6O1TkQwUgKSttNFRhGyMxsXLSVZ+EEXhXYbEsksZpt9VYy67rR0ISokUFpwFbIRHBwzUCvSprUKFo0dP14WCvF9zGKSoPG9JlZ37X93D+e83z3vcM858F+TuItzMplU3G73oBCizzCM9wAkSTrWdX1XVdWNZDKpPSh4bm7uYyBhmuYnQLuN24kQ4ifDMKYnJyd/vhd4amrq3ZaWlhngc0Bq5pKAAXwvy/LTaDR6cmdwKpX6EPgB6GsSWK9d4LN4PP5L0+AKdA14519Cq1J1XQ8mEonthuCFhYUOXddfAO/fE1rVnhBiMBaL/X3deKtuuq7PPiAUwGua5tf1xhsZz87OPhZCvLK6kJUURSEQCODxeCiVSmxubqKqqpWrIYR4EovFXlUNNwCSJD1tFup0OhkbG6O/v5/j42NcLhcTExO4XC4rd8kwjNh1Qy3jSnM4AjqagUYiETRNI5PJUC6XAQiHw6iqSjabtQo7OTs7e1RtMrXs3G73YDNQgHK5zN7eHplMht7eXpxOJwDFYpHW1la7sI729vYn1UMNLIRo+F6dTieyLKPrOmtra/h8PkZGRujp6cHhcODz+Tg8PPynT9QYNbBpmp5G0EgkwtDQEAB+v5/h4WFyuRz7+/uEw2E0TSOfz9t+wzCMbiuwaRegKEqtphsbG/j9fkKhELlcjq2tLQYGBlAUhXQ6jabZzwkhRI2hXDPa/qNAIICiKKysrOD1egmFQmSzWba33zak9fV18vk8l5eXttBKcn/dyhjYswvweDwUCgXK5TIHBwesrq5SKBQIBoO1mjeCAkiStH8L7PF4XgCvrQJKpRJdXV0AXFxc1Grq9XpxOBwNgRWdnJ6evqwebnSuVCr1LfBFfURbWxvj4+MUi0WKxSI+nw9N00in001lWtHzeDz+ZfVQ37mmAb0+4vz8nMXFRVRVpbOzk52dHZaWlu4C1YGZ64Zb08ku63vqm3g8/tV1g9V0Sgghfn9A6J9XV1fP6o2Wi8DMzMwHsiyvAZYd/w6yXQQsJ1EikdiWZXkQ+PUe0D/soLZggGg0+pssy0HgO94ucM1KB57ruj5oB4Um19v5+fmPKrX/FPsJ9to0zR+FENN2C96dwVUtLy/LR0dHA0CfYRiPACRJOjIMY7e7u/vl6Ojoraf4v6p6AwEtX1nzhaNQAAAAAElFTkSuQmCC">';
+    li.innerHTML = '<i class="fa-solid fa-link fa-xl"></i>';
+    li.setAttribute('class', 'mfbutton amcurls');
     mfButton.insertBefore(li, mfButton.children[12]);
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.amcurls');
     mfButtonNew.addEventListener('click', amcURLsEvent, false);
@@ -704,6 +736,7 @@ window.onload = function() {
         if (globalInit) {
             getSyncData();
             mfLogo();
+            modifyHead();
             mfCSS();
             queueRefresh();
             mfNav();
