@@ -113,15 +113,18 @@ function mfCSS() {
                         .mfbutton:hover { -webkit-filter: brightness(70%); -webkit-filter: brightness(70%) } \
                         a.ExtLoaded { text-decoration: none; color: black } \
                         a.ExtLoaded:hover { color: red } \
-                        .dropbtn { background-color: #fff; width: 25px; height: 25px; border: none; background-image: url("https://www.brand.microfocus.com/s/symbol.svg"); background-size: 25px; opacity: 0.5; } \
+                        .dropbtn { background-color: #fff; width: 25px; height: 25px; border: none; background-image: url("https://www.brand.microfocus.com/s/symbol.svg"); background-size: 25px; opacity: 0.4; } \
                         .mfdropdown { position: relative; display: inline-block; } \
                         ul.mflist { list-style-type: none; } \
                         .dropdown-content { right: -20px; display: none; position: absolute; background-color: #f1f1f1; width: 220px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); z-index: 1; } \
                         .dropdown-content li { font-family: "Roboto", sans-serif; font-size: 16px; font-weight: 700; color: #505050; padding: 12px 20px; text-decoration: none; margin-left: 0px; cursor: pointer; } \
                         .fa-solid { text-align: center; width:30px; margin-right: 10px; } \
+                        .fa-caret-down { opacity: 0.4; margin-left: -8px; } \
                         .dropdown-content li:hover { background-color: #ddd; } \
                         .mfdropdown:hover .dropdown-content { display: block; } \
-                        .mfdropdown:hover .dropbtn { opacity: 0.6; }';
+                        .mfdropdown:hover .dropbtn { opacity: 0.6; } \
+                        .mfdropdown:hover .fa-caret-down {opacity: 0.6; } \
+                        .fa-caret-down { margin-right: -10px; }'; 
     document.getElementsByTagName('head')[0].appendChild(style);
 }
 
@@ -166,12 +169,14 @@ function mfNav() {
 }
 
 function mfDropDown() {
-    let div1 = document.createElement('div');
-    div1.setAttribute('class','mfdropdown');
+    let divOuter = document.createElement('div');
+    divOuter.setAttribute('class','mfdropdown');
     let button = document.createElement('button');
     button.setAttribute('class','dropbtn');
-    let div2 = document.createElement('div');
-    div2.setAttribute('class','dropdown-content');
+    let i = document.createElement('i');
+    i.setAttribute('class','fa-solid fa-caret-down fa-lg');
+    let divInner = document.createElement('div');
+    divInner.setAttribute('class','dropdown-content');
     let ul = document.createElement('ul');
     ul.setAttribute('class','mflist');
     ul.innerHTML = '<li class=mfsup href=#><i class="fa-solid fa-xl fa-headset"></i>Support Portal</li> \
@@ -184,10 +189,11 @@ function mfDropDown() {
                     <li class=mftranslation href=#><i class="fa-solid fa-xl fa-language"></i>MF Translation</li> \
                     <li class=amcurls href=#><i class="fa-solid fa-xl fa-link"></i>AMC URLs</li>'
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
-    mfButton.insertBefore(div1, mfButton.children[4]);
+    mfButton.insertBefore(divOuter, mfButton.children[4]);
     let dropdown = document.querySelector('.mfdropdown');
     dropdown.appendChild(button);
-    dropdown.appendChild(div2);
+    dropdown.appendChild(i);
+    dropdown.appendChild(divInner);
     let dropdownContent = document.querySelector('.dropdown-content');
     dropdownContent.appendChild(ul);
 }
