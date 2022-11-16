@@ -1,4 +1,4 @@
-const installedVersion = "2.4";
+const installedVersion = "2.5";
 let globalInit = 0;
 let globalTimeout;
 let globalProducts;
@@ -177,11 +177,13 @@ function mfFTS() {
 }
 
 function mfFTSEvent() {
-    let ftsAcc = document.evaluate("//div[@class='split-right']/*[@class='tabContent active oneConsoleTab']//div[1][contains(., 'FTS AccountName')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
-    if (ftsAcc) {
-        let ftsPass = document.evaluate("//div[@class='split-right']/*[@class='tabContent active oneConsoleTab']//div[1][contains(., 'FTS Password')]/following-sibling::div//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
-        let encodeFTSAcc = (ftsAcc).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
-        let encodeFTSPass = (ftsPass).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
+    let ftsAccountTitle = activeCaseContains('records-record-layout-item > div > div > div', 'FTS AccountName');
+    if (ftsAccountTitle.length) {
+        let ftsAccount = ftsAccountTitle[0].parentNode.querySelector('div + lightning-helptext + div > span > slot').innerText;
+        let ftsPasswordTitle = activeCaseContains('records-record-layout-item > div > div > div', 'FTS Password');
+        let ftsPassword = ftsPasswordTitle[0].parentNode.querySelector('div + lightning-helptext + div > span > slot').innerText;
+        let encodeFTSAcc = (ftsAccount).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
+        let encodeFTSPass = (ftsPassword).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
         let combineFTS = encodeFTSAcc + ':' + encodeFTSPass;
         let finalFTSURL = globalProtocol + combineFTS + '@' + globalFTSURL;
         window.open(finalFTSURL, '_parent');
@@ -200,9 +202,13 @@ function mfQuixy() {
 }
 
 function mfQuixyEvent() {
-    let quixyID = document.evaluate("//div[@class='split-right']/*[@class='tabContent active oneConsoleTab']//lightning-formatted-text[contains(., 'OCTCR')]//text()", document, null, XPathResult.STRING_TYPE, null).stringValue;
-    let finalURL = 'https://rdapps.swinfra.net/quixy/#/viewEntity/' + quixyID;
-    window.open(finalURL, '_blank');
+    let quixyID = activeCaseContains('lightning-formatted-text','OCTCR'); 
+    if (quixyID.length) {
+        let finalURL = 'https://rdapps.swinfra.net/quixy/#/viewEntity/' + quixyID[0].innerText;
+        window.open(finalURL, '_blank');
+    } else {
+        window.open('https://rdapps.swinfra.net/quixy/#/viewEntity/', '_blank');
+    }
 }
 
 function mfDocumentation() {
@@ -496,18 +502,18 @@ function quixyListURL() {
 
 function defectFixed() {
     let observer = new MutationObserver(mutations => {
-        let fixedElement = document.evaluate("//td/span/span[contains(., 'Planned in new release')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        for (let i = 0, length = fixedElement.snapshotLength; i < length; ++i) {
-            if (fixedElement.snapshotItem(i).title != "Fixed") {
-                fixedElement.snapshotItem(i).innerHTML = '<span style="color:red">Planned in new release</span>';
-                fixedElement.snapshotItem(i).title = 'Fixed';
+        let fixedElement = activeQueueContains('td > span > span','Planned in new release');
+        for (let i = 0, length = fixedElement.length; i < length; ++i) {
+            if (fixedElement[i].title != "Fixed") {
+                fixedElement[i].style.color = 'red';
+                fixedElement[i].title = 'Fixed';
             }
         }
-        let fixedElement2 = document.evaluate("//td/span/span[contains(., 'Software update provided')]", document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        for (let i = 0, length = fixedElement2.snapshotLength; i < length; ++i) {
-            if (fixedElement2.snapshotItem(i).title != "Fixed") {
-                fixedElement2.snapshotItem(i).innerHTML = '<span style="color:red">Software update provided</span>';
-                fixedElement2.snapshotItem(i).title = 'Fixed';
+        let fixedElement2 = activeQueueContains('td > span > span','Software update provided');
+        for (let i = 0, length = fixedElement2.length; i < length; ++i) {
+            if (fixedElement2[i].title != "Fixed") {
+                fixedElement2[i].style.color = 'red';
+                fixedElement2[i].title = 'Fixed';
             }
         }
     });
@@ -630,6 +636,41 @@ function updateCheck() {
     xmlHttp.open("GET", URL, true);
     xmlHttp.send(null);
 }
+
+function contains(selector, text) {
+    let elements = document.querySelectorAll(selector);
+    return Array.prototype.filter.call(elements, function(element){
+      return RegExp(text).test(element.innerText);
+    });
+}
+
+function activeQueueContains(selector, text) {
+    let activeQueue = document.querySelector('table.uiVirtualDataTable');
+    if (activeQueue) {
+        let elements = activeQueue.querySelectorAll(selector);
+        return Array.prototype.filter.call(elements, function(element){
+        return RegExp(text).test(element.innerText);
+        });
+    } else {
+        return[];
+    }
+}
+
+function activeCaseContains(selector, text) {
+    let activeCase = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (activeCase) {
+        let elements = activeCase.querySelectorAll(selector);
+        return Array.prototype.filter.call(elements, function(element){
+        return RegExp(text).test(element.innerText);
+        });
+    } else {
+        return[];
+    }
+}
+
+// contains('div', 'sometext');     find "div" that contain "sometext"
+// contains('div', /^sometext/);    find "div" that start with "sometext"
+// contains('div', /sometext$/i);   find "div" that end with "sometext", case-insensitive
 
 function fixMouse() {
     document.addEventListener('mouseup', e => {
