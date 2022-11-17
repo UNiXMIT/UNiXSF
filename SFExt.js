@@ -112,8 +112,6 @@ function modifyHead() {
 function mfCSS() {
     const addCSS = css => document.head.appendChild(document.createElement("style")).innerHTML = css;
     addCSS( 'html { font-family: "Roboto",sans-serif; } ' 
-            +'.mfbutton { color: #919191; cursor: pointer; margin-left: 10px } ' 
-            +'.mfbutton:hover { -webkit-filter: brightness(70%); -webkit-filter: brightness(70%) } '
             +'a.ExtLoaded { text-decoration: none; color: black } '
             +'a.ExtLoaded:hover { color: red } '
             +'.dropbtn { background-color: #fff; width: 25px; height: 25px; border: none; background-image: url("https://www.brand.microfocus.com/s/symbol.svg"); background-size: 25px; opacity: 0.4; } '
