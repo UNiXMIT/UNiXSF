@@ -1,5 +1,7 @@
-const installedVersion = "2.5";
+const installedVersion = "2.3";
 let globalInit = 0;
+let navInit = 1;
+let initDropDown = 1;
 let globalTimeout;
 let globalProducts;
 let globalQueue;
@@ -101,32 +103,32 @@ function modifyHead() {
     let link = document.createElement('link');
     link.rel = "stylesheet" 
     link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css";
-    document.getElementsByTagName('head')[0].appendChild(link);
+    document.head.appendChild(link);
     let style = document.createElement('style');
     style.innerHTML = "@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');"
+    document.head.appendChild(style);
 }
 
 function mfCSS() {
-    let style = document.createElement('style');
-    style.innerHTML =   'html { font-family: "Roboto",sans-serif; } \
-                        .mfbutton { color: #919191; cursor: pointer; margin-left: 10px } \
-                        .mfbutton:hover { -webkit-filter: brightness(70%); -webkit-filter: brightness(70%) } \
-                        a.ExtLoaded { text-decoration: none; color: black } \
-                        a.ExtLoaded:hover { color: red } \
-                        .dropbtn { background-color: #fff; width: 25px; height: 25px; border: none; background-image: url("https://www.brand.microfocus.com/s/symbol.svg"); background-size: 25px; opacity: 0.4; } \
-                        .mfdropdown { margin: 0 5px 0 10px; position: relative; display: inline-block; } \
-                        .mfdropmain {  } \
-                        ul.mflist { list-style-type: none; } \
-                        .dropdown-content { right: -20px; display: none; position: absolute; background-color: #f1f1f1; width: 210px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); z-index: 1; } \
-                        .dropdown-content li { font-family: "Roboto", sans-serif; font-size: 14px; font-weight: 700; color: #505050; padding: 12px 20px; text-decoration: none; margin-left: 0px; cursor: pointer; } \
-                        .fa-solid { text-align: center; width:30px; margin-right: 10px; } \
-                        .fa-caret-down { opacity: 0.4; margin-left: -8px; } \
-                        .dropdown-content li:hover { background-color: #ddd; } \
-                        .mfdropdown:hover .dropdown-content { display: block; } \
-                        .mfdropdown:hover .dropbtn { opacity: 0.6; } \
-                        .mfdropdown:hover .fa-caret-down {opacity: 0.6; } \
-                        .fa-caret-down { margin-right: -10px; }'; 
-    document.getElementsByTagName('head')[0].appendChild(style);
+    const addCSS = css => document.head.appendChild(document.createElement("style")).innerHTML = css;
+    addCSS( 'html { font-family: "Roboto",sans-serif; } ' 
+            +'.mfbutton { color: #919191; cursor: pointer; margin-left: 10px } ' 
+            +'.mfbutton:hover { -webkit-filter: brightness(70%); -webkit-filter: brightness(70%) } '
+            +'a.ExtLoaded { text-decoration: none; color: black } '
+            +'a.ExtLoaded:hover { color: red } '
+            +'.dropbtn { background-color: #fff; width: 25px; height: 25px; border: none; background-image: url("https://www.brand.microfocus.com/s/symbol.svg"); background-size: 25px; opacity: 0.4; } '
+            +'.mfdropdown { margin: 0 5px 0 10px; position: relative; display: inline-block; } '
+            +'ul.mflist { list-style-type: none; } '
+            +'.dropdown-content { right: -20px; display: none; position: absolute; background-color: #f1f1f1; width: 210px; box-shadow: 0px 8px 16px 0px rgba(0,0, 0, 0.2); z-index: 1; } '
+            +'.dropdown-content li { font-family: "Roboto", sans-serif; font-size: 14px; font-weight: 700; color: #505050; padding: 12px 20px; text-decoration: none; margin-left: 0px; cursor: pointer; } '
+            +'.fa-solid { text-align: center; width:30px; margin-right: 10px; } '
+            +'.fa-caret-down { opacity: 0.4; margin-left: -8px; } '
+            +'.dropdown-content li:hover { background-color: #ddd; } '
+            +'.mfdropdown:hover .dropdown-content { display: block; } '
+            +'.mfdropdown:hover .dropbtn { opacity: 0.6; } '
+            +'.mfdropdown:hover .fa-caret-down {opacity: 0.6; } '
+            +'.fa-caret-down { margin-right: -10px; }'
+            +'li.mfupdate { color: red; }' );               
 }
 
 function queueRefresh() {
@@ -141,7 +143,8 @@ function queueRefresh() {
 function mfNav() {
     let observer = new MutationObserver(mutations => {
         let mfButton = document.querySelector('#oneHeader').querySelector('ul.slds-global-actions');
-        if (mfButton) {
+        if ( (mfButton) && (navInit) ) {
+            navInit = 0
             mfButton.removeChild(mfButton.children[3]);
             mfButton.removeChild(mfButton.children[3]);
             mfButton.removeChild(mfButton.children[3]);
@@ -163,33 +166,42 @@ function mfNav() {
 }
 
 function mfDropDown() {
-    let divOuter = document.createElement('div');
-    divOuter.setAttribute('class','mfdropdown mfdropmain');
-    let button = document.createElement('button');
-    button.setAttribute('class','dropbtn');
-    let i = document.createElement('i');
-    i.setAttribute('class','fa-solid fa-caret-down fa-lg');
-    let divInner = document.createElement('div');
-    divInner.setAttribute('class','dropdown-content');
-    let ul = document.createElement('ul');
-    ul.setAttribute('class','mflist');
-    ul.innerHTML = '<li class=mfsup href=#><i class="fa-solid fa-xl fa-headset"></i>Support Portal</li> \
-                    <li class=mfsld href=#><i class="fa-solid fa-xl fa-cloud-arrow-down"></i>SLD</li> \
-                    <li class=mffts href=#><i class="fa-solid fa-xl fa-cloud-arrow-up"></i>FTS</li> \
-                    <li class=mfqx href=#><i class="fa-solid fa-xl fa-code"></i>Quixy</li> \
-                    <li class=mfdocs href=#><i class="fa-solid fa-xl fa-book"></i>MF Documentation</li> \
-                    <li class=mfreminder href=#><i class="fa-solid fa-xl fa-calendar"></i>Add Reminder</li> \
-                    <li class=mfpp href=#><i class="fa-solid fa-xl fa-circle-plus"></i>PerformPlus</li> \
-                    <li class=mftranslation href=#><i class="fa-solid fa-xl fa-language"></i>MF Translation</li> \
-                    <li class=amcurls href=#><i class="fa-solid fa-xl fa-link"></i>AMC URLs</li>'
-    let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
-    mfButton.insertBefore(divOuter, mfButton.children[3]);
-    let dropdown = document.querySelector('.mfdropdown');
-    dropdown.appendChild(button);
-    dropdown.appendChild(i);
-    dropdown.appendChild(divInner);
-    let dropdownContent = document.querySelector('.dropdown-content');
-    dropdownContent.appendChild(ul);
+    let mfButton = document.querySelector('#oneHeader').querySelector('ul.slds-global-actions');
+    do {
+        if (mfButton) {
+            let divOuter = document.createElement('div');
+            divOuter.classList.add('mfdropdown', 'mfdropmain');
+            let button = divOuter.appendChild(document.createElement('button'));
+            button.classList.add('dropbtn');
+            let i = divOuter.appendChild(document.createElement('i'));
+            i.classList.add('fa-solid', 'fa-caret-down', 'fa-lg');
+            let divInner = divOuter.appendChild(document.createElement('div'));
+            divInner.classList.add('dropdown-content');
+            let ul = divInner.appendChild(document.createElement('ul'));
+            ul.classList.add('mflist');
+            mfButton.insertBefore(divOuter, mfButton.children[3]);
+            createMFList('mfsup', 'fa-headset', 'Support Portal');
+            createMFList('mfsld', 'fa-cloud-arrow-down', 'SLD');
+            createMFList('mffts', 'fa-cloud-arrow-up', 'FTS');
+            createMFList('mfqx', 'fa-code', 'Quixy');
+            createMFList('mfdocs', 'fa-book', 'MF Documentation');
+            createMFList('mfreminder', 'fa-calendar', 'Add Reminder');
+            createMFList('mfpp', 'fa-circle-plus', 'PerformPlus');
+            createMFList('mftranslation', 'fa-language', 'MF Translation');
+            createMFList('amcurls', 'fa-link', 'AMC URLs');
+            initDropDown = 0;
+        }
+    } while (initDropDown);
+}
+
+function createMFList(liClass, faClass, liText) {
+    let ul = document.querySelector('.mflist');
+    let li = ul.appendChild(document.createElement('li'));
+    li.classList.add(liClass);
+    let fa = li.appendChild(document.createElement('i'));
+    fa.classList.add('fa-solid', 'fa-xl');
+    fa.classList.add(faClass);
+    li.appendChild(document.createTextNode(liText));
 }
 
 function mfSup() {
@@ -601,6 +613,32 @@ function updateFooter() {
     }
 }
 
+function fixMouse() {
+    document.addEventListener('mouseup', e => {
+        if (typeof e === 'object' && [3, 4].includes(e.button)) {
+            e.preventDefault();
+        }
+    });
+}
+
+function EE() {
+    window.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.shiftKey && event.code === 'F1') {
+            let sfLogo = document.querySelector('.slds-global-header__logo');
+            sfLogo.style.display = 'inline-flex';
+            // sfLogo.style.backgroundImage = 'url()';
+            let sfHeader = document.querySelector("#oneHeader > div.slds-global-header.slds-grid.slds-grid--align-spread > div:nth-child(1)");
+            sfHeader.innerHTML += '<img src="https://imgprx.livejournal.net/195f55e88efa127e0a7ff3daede4197cd83b9c02/Sk6fQP1Y1d9EobSkBEXtzDqj5WjpPdQS_x-VymigADYOBYpYprMR65akp4kkSONyhL8WMYNC7aLdA1fNHuOzqQrW04ZzNhQtbpXlGDclNjo" style=" display: inline-flex; margin: -30px 10px 0 0;padding: 5px;height: 55px;"><img src="https://imgprx.livejournal.net/440a47d8c3ee88e767ea43a9aa50560a8ca2d786/Sk6fQP1Y1d9EobSkBEXtzDqj5WjpPdQS_x-VymigADYOBYpYprMR65akp4kkSONyAdEBRLCVcPmQVSTuW2texfgxiG5019gWzKYVTrBNius" style="display: inline-flex;margin: -30px 0 0 0;padding: 5px;height: 60px;"><img src="https://imgprx.livejournal.net/c4c953d6fd46369c19e93ae3f47b5fdd82598972/Sk6fQP1Y1d9EobSkBEXtzDqj5WjpPdQS_x-VymigADYOBYpYprMR65akp4kkSONyHFj9lDxzmhiIakS6lstnUnDp-OD2YXJJrEFSf6fUCzM" style="display: inline-flex;margin: -30px 0 0 0;padding: 5px;height: 60px;"><img src="https://imgprx.livejournal.net/36f6c4d4c5d888b14471b1ed1db5f00020b58d52/Sk6fQP1Y1d9EobSkBEXtzDqj5WjpPdQS_x-VymigADYOBYpYprMR65akp4kkSONy_lO9UouALUlpP9vZxhukR0qY_nGO1RSHoBuHIMCUc0k" style="display: inline-flex;margin: -30px 0 0 10px;padding: 5px;height: 60px;-webkit-transform: scaleX(-1);transform: scaleX(-1);">';
+            // let myDialog = document.createElement("dialog");
+            // document.body.appendChild(myDialog);
+            // let mydiv = document.createElement("div");
+            // mydiv.innerHTML = '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&modestbranding=1" title="RR" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+            // myDialog.appendChild(mydiv);
+            // myDialog.showModal();
+        }
+    });
+}
+
 function updateCheck() {
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.responseType = 'json';
@@ -644,12 +682,21 @@ function updateCheck() {
                             }
                         }
                     })();
+                    if ( !(initDropDown) ) {
+                        createMFList('mfupdate', 'fa-arrows-rotate', 'SFExt Update!');
+                        let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfupdate');
+                        mfButtonNew.addEventListener('click', mfUpdateEvent, false);
+                    }
                 }
             }
         }
     };
     xmlHttp.open("GET", URL, true);
     xmlHttp.send(null);
+}
+
+function mfUpdateEvent() {
+    window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
 }
 
 function contains(selector, text) {
@@ -687,32 +734,6 @@ function activeCaseContains(selector, text) {
 // contains('div', /^sometext/);    find "div" that start with "sometext"
 // contains('div', /sometext$/i);   find "div" that end with "sometext", case-insensitive
 
-function fixMouse() {
-    document.addEventListener('mouseup', e => {
-        if (typeof e === 'object' && [3, 4].includes(e.button)) {
-            e.preventDefault();
-        }
-    });
-}
-
-function EE() {
-    window.addEventListener('keydown', function(event) {
-        if (event.ctrlKey && event.shiftKey && event.code === 'F1') {
-            let sfLogo = document.querySelector('.slds-global-header__logo');
-            sfLogo.style.display = 'inline-flex';
-            // sfLogo.style.backgroundImage = 'url()';
-            let sfHeader = document.querySelector("#oneHeader > div.slds-global-header.slds-grid.slds-grid--align-spread > div:nth-child(1)");
-            sfHeader.innerHTML += '<img src="https://imgprx.livejournal.net/195f55e88efa127e0a7ff3daede4197cd83b9c02/Sk6fQP1Y1d9EobSkBEXtzDqj5WjpPdQS_x-VymigADYOBYpYprMR65akp4kkSONyhL8WMYNC7aLdA1fNHuOzqQrW04ZzNhQtbpXlGDclNjo" style=" display: inline-flex; margin: -30px 10px 0 0;padding: 5px;height: 55px;"><img src="https://imgprx.livejournal.net/440a47d8c3ee88e767ea43a9aa50560a8ca2d786/Sk6fQP1Y1d9EobSkBEXtzDqj5WjpPdQS_x-VymigADYOBYpYprMR65akp4kkSONyAdEBRLCVcPmQVSTuW2texfgxiG5019gWzKYVTrBNius" style="display: inline-flex;margin: -30px 0 0 0;padding: 5px;height: 60px;"><img src="https://imgprx.livejournal.net/c4c953d6fd46369c19e93ae3f47b5fdd82598972/Sk6fQP1Y1d9EobSkBEXtzDqj5WjpPdQS_x-VymigADYOBYpYprMR65akp4kkSONyHFj9lDxzmhiIakS6lstnUnDp-OD2YXJJrEFSf6fUCzM" style="display: inline-flex;margin: -30px 0 0 0;padding: 5px;height: 60px;"><img src="https://imgprx.livejournal.net/36f6c4d4c5d888b14471b1ed1db5f00020b58d52/Sk6fQP1Y1d9EobSkBEXtzDqj5WjpPdQS_x-VymigADYOBYpYprMR65akp4kkSONy_lO9UouALUlpP9vZxhukR0qY_nGO1RSHoBuHIMCUc0k" style="display: inline-flex;margin: -30px 0 0 10px;padding: 5px;height: 60px;-webkit-transform: scaleX(-1);transform: scaleX(-1);">';
-            // let myDialog = document.createElement("dialog");
-            // document.body.appendChild(myDialog);
-            // let mydiv = document.createElement("div");
-            // mydiv.innerHTML = '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&modestbranding=1" title="RR" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-            // myDialog.appendChild(mydiv);
-            // myDialog.showModal();
-        }
-    });
-}
-
 window.onload = function() {
     initSyncData();
     let initInterval = setInterval(function() {
@@ -729,9 +750,11 @@ window.onload = function() {
             quixyListURL();
             defectFixed();
             extLoaded();
-            updateCheck();
             fixMouse();
             EE();
+            setTimeout(function() {
+                updateCheck();
+            }, 20000);
             clearTimeout(initInterval);
         }
     }, 500);
