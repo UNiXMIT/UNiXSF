@@ -116,7 +116,7 @@ function mfCSS() {
                         .dropbtn { background-color: #fff; width: 25px; height: 25px; border: none; background-image: url("https://www.brand.microfocus.com/s/symbol.svg"); background-size: 25px; opacity: 0.4; } \
                         .mfdropdown { position: relative; display: inline-block; } \
                         ul.mflist { list-style-type: none; } \
-                        .dropdown-content { right: -20px; display: none; position: absolute; background-color: #f1f1f1; width: 200px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); z-index: 1; } \
+                        .dropdown-content { right: -20px; display: none; position: absolute; background-color: #f1f1f1; width: 210px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); z-index: 1; } \
                         .dropdown-content li { font-family: "Roboto", sans-serif; font-size: 14px; font-weight: 700; color: #505050; padding: 12px 20px; text-decoration: none; margin-left: 0px; cursor: pointer; } \
                         .fa-solid { text-align: center; width:30px; margin-right: 10px; } \
                         .fa-caret-down { opacity: 0.4; margin-left: -8px; } \
