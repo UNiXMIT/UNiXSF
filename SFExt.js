@@ -114,7 +114,8 @@ function mfCSS() {
                         a.ExtLoaded { text-decoration: none; color: black } \
                         a.ExtLoaded:hover { color: red } \
                         .dropbtn { background-color: #fff; width: 25px; height: 25px; border: none; background-image: url("https://www.brand.microfocus.com/s/symbol.svg"); background-size: 25px; opacity: 0.4; } \
-                        .mfdropdown { position: relative; display: inline-block; } \
+                        .mfdropdown { margin: 0 5px 0 10px; position: relative; display: inline-block; } \
+                        .mfdropmain {  } \
                         ul.mflist { list-style-type: none; } \
                         .dropdown-content { right: -20px; display: none; position: absolute; background-color: #f1f1f1; width: 210px; box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); z-index: 1; } \
                         .dropdown-content li { font-family: "Roboto", sans-serif; font-size: 14px; font-weight: 700; color: #505050; padding: 12px 20px; text-decoration: none; margin-left: 0px; cursor: pointer; } \
@@ -139,19 +140,12 @@ function queueRefresh() {
 
 function mfNav() {
     let observer = new MutationObserver(mutations => {
-        let clearButton1 = document.querySelector('#oneHeader').querySelector('.trailheadTrigger');
-        let clearButton2 = document.querySelector('#oneHeader').querySelector('.oneHelpAndTrainingExperience');
-        let mfNavBar = document.querySelector('#oneHeader');
-        let createNAV = 0;
-        if (clearButton1) {
-            clearButton1.parentNode.removeChild(clearButton1);
-            createNAV = createNAV + 1;
-        }
-        if (clearButton2) {
-            clearButton2.parentNode.removeChild(clearButton2);
-            createNAV = createNAV + 1;
-        }
-        if (mfNavBar && createNAV === 2) {
+        let mfButton = document.querySelector('#oneHeader').querySelector('ul.slds-global-actions');
+        if (mfButton) {
+            mfButton.removeChild(mfButton.children[3]);
+            mfButton.removeChild(mfButton.children[3]);
+            mfButton.removeChild(mfButton.children[3]);
+            mfButton.removeChild(mfButton.children[3]);
             mfDropDown();
             mfSup();
             mfSLD();
@@ -170,7 +164,7 @@ function mfNav() {
 
 function mfDropDown() {
     let divOuter = document.createElement('div');
-    divOuter.setAttribute('class','mfdropdown');
+    divOuter.setAttribute('class','mfdropdown mfdropmain');
     let button = document.createElement('button');
     button.setAttribute('class','dropbtn');
     let i = document.createElement('i');
@@ -189,7 +183,7 @@ function mfDropDown() {
                     <li class=mftranslation href=#><i class="fa-solid fa-xl fa-language"></i>MF Translation</li> \
                     <li class=amcurls href=#><i class="fa-solid fa-xl fa-link"></i>AMC URLs</li>'
     let mfButton = document.querySelector('#oneHeader').querySelector('.slds-global-actions');
-    mfButton.insertBefore(divOuter, mfButton.children[4]);
+    mfButton.insertBefore(divOuter, mfButton.children[3]);
     let dropdown = document.querySelector('.mfdropdown');
     dropdown.appendChild(button);
     dropdown.appendChild(i);
