@@ -12,7 +12,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - [Features/Improvements Wishlist](#featuresimprovements-wishlist)
 - [Issues/Limitations](#issueslimitations)
 - [Optional](#optional)
-- [Donate](#donate)
+- [Donate](#donate) 
 
 ## Features  
 - Auto refresh of queues every 60 seconds by default (refreshes only the queue, not the entire website).
