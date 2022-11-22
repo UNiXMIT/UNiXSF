@@ -752,7 +752,8 @@ function updateCheck() {
                         }
                     })();
                     if ( !(initDropDown) ) {
-                        createMFList('mfupdate', 'fa-arrows-rotate', 'SFExt Update!');
+                        updateLabel = "SFExt Update " + latestVersion;
+                        createMFList('mfupdate', 'fa-arrows-rotate', updateLabel);
                         let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfupdate');
                         mfButtonNew.addEventListener('click', mfUpdateEvent, false);
                     }
