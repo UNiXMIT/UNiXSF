@@ -145,10 +145,9 @@ function mfNav() {
         let mfButton = document.querySelector('#oneHeader').querySelector('ul.slds-global-actions');
         if ( (mfButton) && (navInit) ) {
             navInit = 0
-            mfButton.removeChild(mfButton.children[3]);
-            mfButton.removeChild(mfButton.children[3]);
-            mfButton.removeChild(mfButton.children[3]);
-            mfButton.removeChild(mfButton.children[3]);
+            for (i = 0; i < 4 ; ++i) {
+                mfButton.removeChild(mfButton.children[3]);
+            }
             mfDropDown();
             mfSup();
             mfSLD();
@@ -180,21 +179,12 @@ function mfDropDown() {
             let ul = divInner.appendChild(document.createElement('ul'));
             ul.classList.add('mflist');
             mfButton.insertBefore(divOuter, mfButton.children[3]);
-            createMFList('mfsup', 'fa-headset', 'Support Portal');
-            createMFList('mfsld', 'fa-cloud-arrow-down', 'SLD');
-            createMFList('mffts', 'fa-cloud-arrow-up', 'FTS');
-            createMFList('mfqx', 'fa-code', 'Quixy');
-            createMFList('mfdocs', 'fa-book', 'MF Documentation');
-            createMFList('mfreminder', 'fa-calendar', 'Add Reminder');
-            createMFList('mfpp', 'fa-circle-plus', 'PerformPlus');
-            createMFList('mftranslation', 'fa-language', 'MF Translation');
-            createMFList('amcurls', 'fa-link', 'AMC URLs');
             initDropDown = 0;
         }
     } while (initDropDown);
 }
 
-function createMFList(liClass, faClass, liText) {
+function createMFMenu(liClass, faClass, liText) {
     let ul = document.querySelector('.mflist');
     let li = ul.appendChild(document.createElement('li'));
     li.classList.add(liClass);
@@ -205,6 +195,7 @@ function createMFList(liClass, faClass, liText) {
 }
 
 function mfSup() {
+    createMFMenu('mfsup', 'fa-headset', 'Support Portal');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfsup');
     mfButtonNew.addEventListener('click', mfSupEvent, false);
 }
@@ -214,6 +205,7 @@ function mfSupEvent() {
 }
 
 function mfSLD() {
+    createMFMenu('mfsld', 'fa-cloud-arrow-down', 'SLD');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfsld');
     mfButtonNew.addEventListener('click', mfSLDEvent, false);
 }
@@ -223,6 +215,7 @@ function mfSLDEvent() {
 }
 
 function mfFTS() {
+    createMFMenu('mffts', 'fa-cloud-arrow-up', 'FTS');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mffts');
     mfButtonNew.addEventListener('click', mfFTSEvent, false);
 }
@@ -244,6 +237,7 @@ function mfFTSEvent() {
 }
 
 function mfQuixy() {
+    createMFMenu('mfqx', 'fa-code', 'Quixy');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfqx');
     mfButtonNew.addEventListener('click', mfQuixyEvent, false);
 }
@@ -259,6 +253,7 @@ function mfQuixyEvent() {
 }
 
 function mfDocumentation() {
+    createMFMenu('mfdocs', 'fa-book', 'MF Documentation');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfdocs');
     mfButtonNew.addEventListener('click', mfDocumentationEvent, false);
 }
@@ -291,6 +286,7 @@ function mfDocumentationURL(products, mfProduct) {
 }
 
 function addReminder() {
+    createMFMenu('mfreminder', 'fa-calendar', 'Add Reminder');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfreminder');
     mfButtonNew.addEventListener('click', addReminderEvent, false);
 }
@@ -336,6 +332,7 @@ function addReminderEvent() {
 }
 
 function mfPP() {
+    createMFMenu('mfpp', 'fa-circle-plus', 'PerformPlus');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfpp');
     mfButtonNew.addEventListener('click', mfPPEvent, false);
 }
@@ -345,6 +342,7 @@ function mfPPEvent() {
 }
 
 function mfTranslation() {
+    createMFMenu('mftranslation', 'fa-language', 'MF Translation');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mftranslation');
     mfButtonNew.addEventListener('click', mfTranslationEvent, false);
 }
@@ -376,6 +374,7 @@ function mfTranslationEvent() {
 }
 
 function amcURLs() {
+    createMFMenu('amcurls', 'fa-link', 'AMC URLs');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.amcurls');
     mfButtonNew.addEventListener('click', amcURLsEvent, false);
 }
@@ -753,7 +752,7 @@ function updateCheck() {
                     })();
                     if ( !(initDropDown) ) {
                         updateLabel = "SFExt Update " + latestVersion;
-                        createMFList('mfupdate', 'fa-arrows-rotate', updateLabel);
+                        createMFMenu('mfupdate', 'fa-arrows-rotate', updateLabel);
                         let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfupdate');
                         mfButtonNew.addEventListener('click', mfUpdateEvent, false);
                     }
