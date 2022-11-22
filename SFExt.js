@@ -1,4 +1,4 @@
-const installedVersion = "2.5";
+const installedVersion = "2.6";
 let globalInit = 0;
 let navInit = 1;
 let initDropDown = 1;
@@ -13,8 +13,10 @@ let globalFTSURL;
 let globalURLS;
 let intervalID;
 let qObserver;
-let oldArray = [];
-let newArray = [];
+let oldCaseArray = [];
+let newCaseArray = [];
+let oldActivityArray = [];
+let newActivityArray = [];
 
 function initSyncData() {
     chrome.storage.sync.get({
@@ -68,8 +70,8 @@ function getSyncData() {
                     if (qObserver) {
                         qObserver.disconnect();
                     }
-                    oldArray = [];
-                    newArray = [];
+                    oldCaseArray = [];
+                    newCaseArray = [];
                     initQMonitor();
                 }
                 globalQNotify = result.savedQNotify;
@@ -384,24 +386,34 @@ function amcURLsEvent() {
 
 function initQMonitor() {
     let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
-    if (caseQueue) {
-        let caseElement = document.querySelectorAll("table[aria-label*='"+globalQueue+"'] tbody tr th span a");
-        if (caseElement) {
-            caseElement.forEach(caseNumber => {
-                oldArray.push(caseNumber.textContent);
-            });
-        }
+    let caseTable = document.querySelectorAll("table[aria-label*='"+globalQueue+"'] tbody tr");
+    if ( (caseQueue) && (caseTable) ) {
+        caseTable.forEach(caseRow => {
+            let caseNumber = caseRow.querySelector('th span a').textContent;
+            oldCaseArray.push(caseNumber);
+            let newActivity = monitoredQueueContains(caseRow, 'td > span > span', 'New Activity');
+            if (newActivity.length) {
+                oldActivityArray.push(caseNumber);
+            }
+        });
+        qMonitor();
+    } else if (caseQueue) {
         qMonitor();
     } else {
         let observer = new MutationObserver(mutations => {
             setTimeout(function() {
-                let caseElement = document.querySelectorAll("table[aria-label*='"+globalQueue+"'] tbody tr th span a");
-                if (caseElement) {
-                    caseElement.forEach(caseNumber => {
-                        oldArray.push(caseNumber.textContent);
+                let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
+                let caseTable = document.querySelectorAll("table[aria-label*='"+globalQueue+"'] tbody tr");
+                if ( (caseQueue) && (caseTable) ) {
+                    caseTable.forEach(caseRow => {
+                        let caseNumber = caseRow.querySelector('th span a').textContent;
+                        oldCaseArray.push(caseNumber);
+                        let newActivity = monitoredQueueContains(caseRow, 'td > span > span', 'New Activity');
+                        if (newActivity.length) {
+                            oldActivityArray.push(caseNumber);
+                        }
                     });
                 }
-                caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
                 if (caseQueue) {
                     qMonitor();
                     observer.disconnect();
@@ -427,26 +439,78 @@ function qMonitor() {
 
 function qNotify() {
     let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
-    let caseArray = document.querySelectorAll("table[aria-label*='"+globalQueue+"'] tbody tr");
-    if (caseArray) {
-        caseArray.forEach(caseRow => {
+    let caseTable = document.querySelectorAll("table[aria-label*='"+globalQueue+"'] tbody tr");
+    if (caseTable) {
+        caseTable.forEach(caseRow => {
             let caseNumber = caseRow.querySelector('th span a').textContent;
             let caseSubject = caseRow.querySelector('div[class*="supportOutputLookupWithPreviewForSubject"] div div a').textContent;
             let caseURL = caseRow.querySelector('th span a').href;
+            let newActivity = monitoredQueueContains(caseRow, 'td > span > span', 'New Activity');
             let notifyBody;
-                if (oldArray.indexOf(caseNumber) == -1) {
-                    if ( !(caseSubject) ) {
-                        notifyBody = caseNumber;
-                    } else {
-                        notifyBody = caseNumber + ' - ' + caseSubject;
+            if ( !(caseSubject) ) {
+                notifyBody = caseNumber;
+            } else {
+                notifyBody = caseNumber + ' - ' + caseSubject;
+            }
+            if (oldCaseArray.indexOf(caseNumber) == -1) {
+                if (globalQNotify) {
+                    (async() => {
+                        if (!window.Notification) {
+                            console.log('Browser does not support notifications.');
+                        } else {
+                            if (Notification.permission === 'granted') {
+                                const qNotification = new Notification('SFExtension Queue Monitor', {
+                                    body: notifyBody,
+                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                });
+                                qNotification.addEventListener('click', () => {
+                                    window.open(caseURL, '_blank');
+                                });
+                            } else {
+                                Notification.requestPermission()
+                                    .then(function(p) {
+                                        if (p === 'granted') {
+                                            const qNotification = new Notification('SFExtension Queue Monitor', {
+                                                body: notifyBody,
+                                                icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                            });
+                                            qNotification.addEventListener('click', () => {
+                                                window.open(caseURL, '_blank');
+                                            });
+                                        } else {
+                                            console.log('User blocked notifications.');
+                                        }
+                                    })
+                                    .catch(function(err) {
+                                        console.error(err);
+                                    });
+                            }
+                        }
+                    })();
+                    if (globalQNotifyWeb) {
+                        const request = new XMLHttpRequest();
+                        request.open("POST", globalWebhook);
+                        request.setRequestHeader('Content-type', 'application/json');
+                        const params = {
+                            username: "SFExt Queue Monitor",
+                            avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png",
+                            content: notifyBody + ' ' + caseURL
+                        };
+                        request.send(JSON.stringify(params));
                     }
+                }
+                if (newActivity.length) {
+                    newActivityArray.push(caseNumber);
+                }
+            } else if (newActivity.length) {
+                if (oldActivityArray.indexOf(caseNumber) == -1) {
                     if (globalQNotify) {
                         (async() => {
                             if (!window.Notification) {
                                 console.log('Browser does not support notifications.');
                             } else {
                                 if (Notification.permission === 'granted') {
-                                    const qNotification = new Notification('SFExtension Queue Monitor', {
+                                    const qNotification = new Notification('SFExtension New Activity', {
                                         body: notifyBody,
                                         icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
                                     });
@@ -457,7 +521,7 @@ function qNotify() {
                                     Notification.requestPermission()
                                         .then(function(p) {
                                             if (p === 'granted') {
-                                                const qNotification = new Notification('SFExtension Queue Monitor', {
+                                                const qNotification = new Notification('SFExtension New Activity', {
                                                     body: notifyBody,
                                                     icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
                                                 });
@@ -479,7 +543,7 @@ function qNotify() {
                             request.open("POST", globalWebhook);
                             request.setRequestHeader('Content-type', 'application/json');
                             const params = {
-                                username: "SFExt Queue Monitor",
+                                username: "SFExt New Activity",
                                 avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png",
                                 content: notifyBody + ' ' + caseURL
                             };
@@ -487,28 +551,35 @@ function qNotify() {
                         }
                     }
                 }
-            newArray.push(caseNumber);
+                newActivityArray.push(caseNumber);
+            }
+            newCaseArray.push(caseNumber);
         });
-        if ( (caseQueue) && (caseArray) ) {
-            oldArray = [];
-            oldArray = newArray;
-            newArray = [];
+        if ( (caseQueue) && (caseTable) ) {
+            oldCaseArray = [];
+            oldCaseArray = newCaseArray;
+            newCaseArray = [];
+            oldActivityArray = [];
+            oldActivityArray = newActivityArray;
+            newActivityArray = [];
         }
     } else {
-        if ( (caseQueue) && !(caseArray) ) {
+        if ( (caseQueue) && !(caseTable) ) {
             setTimeout(function() {
-                emptyCaseArray();
+                emptyArrays();
             }, 2000);
         }
     }
 }
 
-function emptyCaseArray() {
+function emptyArrays() {
     let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
-    let caseArray = caseQueue.querySelectorAll("tbody tr");
-    if ( (caseQueue) && !(caseArray) ) {
-        oldArray = [];
-        newArray = [];
+    let caseTable = caseQueue.querySelectorAll("tbody tr");
+    if ( (caseQueue) && !(caseTable) ) {
+        oldCaseArray = [];
+        newCaseArray = [];
+        oldActivityArray = [];
+        newActivityArray = [];
     }
 }
 
@@ -714,6 +785,13 @@ function activeQueueContains(selector, text) {
     } else {
         return[];
     }
+}
+
+function monitoredQueueContains(caseRow, selector, text) {
+    let elements = caseRow.querySelectorAll(selector);
+    return Array.prototype.filter.call(elements, function(element){
+    return RegExp(text).test(element.innerText);
+    });
 }
 
 function activeCaseContains(selector, text) {
