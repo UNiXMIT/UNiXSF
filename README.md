@@ -27,25 +27,25 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 - **QuickLink Menu**
 
-  - QuickLink menu item for FTS SFTP.   
+  - FTS SFTP.   
     Uses the active case tab to get the FTS Account/Password details (tested with WinSCP - https://winscp.net).  
     If no case is open it will open the FTS homepage.  
 
-  - QuickLink menu item for Quixy Defects.  
+  - Quixy Defects.  
     Uses the active case tab to formulate the Quixy URL to open. If no case is open it will open the Quixy homepage
 
-  - QuickLink menu item for the MF Translation Request page. 
+  - MF Translation Request page. 
     If you have a case open and active, the case number and severity will be used to populate the corresponding fields of the translation page.   
 
-  - QuickLink menu item for the MF Documentation.
+  - MF Documentation.
     If you have a case open and active, the product in the case will be checked and the appropriate docs page opened.  
     If no cases are opened the general docs page will be opened.  
 
-  - QuickLink menu item for Reminders/Follow-Up in Outlook Calendar.  
+  - Reminders/Follow-Up in Outlook Calendar.  
     Gets the case number, subject and URL from the active, open case and opens a new window to create an Outlook Calendar event with reminder set.  
     By default the calendar event start date is 3 days in the future but this can be changed, by the user, in the new window.  
 
-  - QuickLink menu items for Support Portal, SLD Web Portal, PerformPlus and AMC Links.  
+  - Additional menu items for Support Portal, SLD Web Portal, PerformPlus and AMC Links.  
 
 - **Quixy URLs**  
   Creates URLs to Quixy defects in queues (if you have the 'R&D Change Requests' column visible).  
