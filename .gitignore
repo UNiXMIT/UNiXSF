@@ -1,2 +1,4 @@
 *.zip
 sfext.json
+*.pem
+*.crx
