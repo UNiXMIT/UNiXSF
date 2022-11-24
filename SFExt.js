@@ -88,47 +88,12 @@ function getSyncData() {
     });
 }
 
-function mfLogo() {
-    let observer = new MutationObserver(mutations => {
-        let sfLogo = document.querySelector('.slds-global-header__logo');
-        if (sfLogo) {
-            sfLogo.style.backgroundImage = 'url(https://www.brand.microfocus.com/s/symbol-text.svg';
-            sfLogo.style.backgroundSize = 'auto 40px';
-            sfLogo.style.width = '235px';
-            observer.disconnect();
-        }
-    });
-    observer.observe(document, {childList: true, subtree: true});
-}
-
 function modifyHead() {
+    const urlFACSS = chrome.runtime.getURL('css/all.css')
     let link = document.createElement('link');
     link.rel = "stylesheet" 
-    link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css";
+    link.href = urlFACSS;
     document.head.appendChild(link);
-    let style = document.createElement('style');
-    style.innerHTML = "@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');"
-    document.head.appendChild(style);
-}
-
-function mfCSS() {
-    const addCSS = css => document.head.appendChild(document.createElement("style")).innerHTML = css;
-    addCSS( 'html { font-family: "Roboto",sans-serif; } ' 
-            +'a.ExtLoaded { text-decoration: none; color: black } '
-            +'a.ExtLoaded:hover { color: red } '
-            +'.dropbtn { background-color: #fff; width: 25px; height: 25px; border: none; background-image: url("https://www.brand.microfocus.com/s/symbol.svg"); background-size: 25px; opacity: 0.4; } '
-            +'.mfdropdown { margin: 0 5px 0 10px; position: relative; display: inline-block; } '
-            +'ul.mflist { list-style-type: none; } '
-            +'.dropdown-content { right: -20px; display: none; position: absolute; background-color: #f1f1f1; width: 210px; box-shadow: 0px 8px 16px 0px rgba(0,0, 0, 0.2); z-index: 1; } '
-            +'.dropdown-content li { font-family: "Roboto", sans-serif; font-size: 14px; font-weight: 700; color: #505050; padding: 12px 20px; text-decoration: none; margin-left: 0px; cursor: pointer; } '
-            +'.fa-solid { text-align: center; width:30px; margin-right: 10px; } '
-            +'.fa-caret-down { opacity: 0.4; margin-left: -8px; } '
-            +'.dropdown-content li:hover { background-color: #ddd; } '
-            +'.mfdropdown:hover .dropdown-content { display: block; } '
-            +'.mfdropdown:hover .dropbtn { opacity: 0.6; } '
-            +'.mfdropdown:hover .fa-caret-down {opacity: 0.6; } '
-            +'.fa-caret-down { margin-right: -10px; }'
-            +'li.mfupdate { color: red; }' );               
 }
 
 function queueRefresh() {
@@ -621,11 +586,6 @@ function extLoaded() {
         if (footerUl) {
             let newUL = document.createElement("ul");
             newUL.className = "newfooterul";
-            newUL.style.float = "right";
-            newUL.style.width = "auto";
-            newUL.style.display = "flex";
-            newUL.style.position = "absolute";
-            newUL.style.right = "0";
             footerUl.appendChild(newUL);
             try {
                 let URLS = JSON.parse(globalURLS);
@@ -634,9 +594,6 @@ function extLoaded() {
                     liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
                     li.innerHTML = liHTML;
                     li.className = 'ExtLoaded';
-                    li.style.marginTop = '12px';
-                    li.style.marginRight = '20px';
-                    li.style.fontWeight = 'bold';
                     newUL.appendChild(li);
                 });
                 observer.disconnect();
@@ -656,11 +613,6 @@ function updateFooter() {
         let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
         let newUL = document.createElement("ul");
         newUL.className = "newfooterul";
-        newUL.style.float = "right";
-        newUL.style.width = "auto";
-        newUL.style.display = "flex";
-        newUL.style.position = "absolute";
-        newUL.style.right = "0";
         footerUl.appendChild(newUL);
         try {
             let URLS = JSON.parse(globalURLS);
@@ -669,9 +621,6 @@ function updateFooter() {
                 liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
                 li.innerHTML = liHTML;
                 li.className = 'ExtLoaded';
-                li.style.marginTop = '12px';
-                li.style.marginRight = '20px';
-                li.style.fontWeight = 'bold';
                 newUL.appendChild(li);
             });
         } catch (err) {
@@ -815,9 +764,7 @@ window.onload = function() {
     let initInterval = setInterval(function() {
         if (globalInit) {
             getSyncData();
-            mfLogo();
             modifyHead();
-            mfCSS();
             queueRefresh();
             mfNav();
             setTimeout(function() {

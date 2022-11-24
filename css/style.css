@@ -1,0 +1,118 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Roboto-Regular.ttf'); 
+}
+
+html { 
+    font-family: "Roboto",sans-serif !important; 
+}  
+
+.newfooterul {
+    float: right !important;
+    width: auto !important;
+    display: flex !important;
+    position: absolute !important;
+    right: 0 !important;
+}
+
+a.ExtLoaded {
+    text-decoration: none !important;
+}
+
+.ExtLoaded {
+    margin-top: 12px !important;
+    margin-right: 10px !important;
+    font-weight: bold !important;
+}
+
+.slds-global-header__logo {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/icons/mflong.svg') !important;
+    background-size: auto 40px !important;
+    width: 235px !important;
+}
+
+a.ExtLoaded { 
+    text-decoration: none; 
+    color: black 
+} 
+
+a.ExtLoaded:hover { 
+    color: red 
+} 
+
+.dropbtn { 
+    background-color: #fff; 
+    width: 25px; 
+    height: 25px; 
+    border: none; 
+    background-image: url("chrome-extension://__MSG_@@extension_id__/icons/mf.svg");
+    background-size: 25px; 
+    opacity: 0.4; 
+} 
+
+.mfdropdown { 
+    margin: 0 5px 0 10px; 
+    position: relative; 
+    display: inline-block; 
+} 
+
+ul.mflist { 
+    list-style-type: none; 
+} 
+
+.dropdown-content { 
+    right: -20px; 
+    display: none; 
+    position: absolute; 
+    background-color: #f1f1f1; 
+    width: 210px; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0, 0, 0.2); 
+    z-index: 1; 
+} 
+
+.dropdown-content li { 
+    font-family: "Roboto", 
+    sans-serif; 
+    font-size: 14px; 
+    font-weight: 700; 
+    color: #505050; 
+    padding: 12px 20px; 
+    text-decoration: none;
+    margin-left: 0px; 
+    cursor: pointer; 
+} 
+
+.fa-solid { 
+    text-align: center; 
+    width:30px; 
+    margin-right: 10px; 
+} 
+
+.fa-caret-down { 
+    opacity: 0.4; 
+    margin-left: -8px; 
+} 
+
+.dropdown-content li:hover { 
+    background-color: #ddd; 
+} 
+
+.mfdropdown:hover .dropdown-content { 
+    display: block; 
+} 
+
+.mfdropdown:hover .dropbtn { 
+    opacity: 0.6; 
+} 
+
+.mfdropdown:hover .fa-caret-down {
+    opacity: 0.6; 
+} 
+
+.fa-caret-down { 
+    margin-right: -10px; 
+}
+
+li.mfupdate { 
+    color: red; 
+}

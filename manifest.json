@@ -19,7 +19,14 @@
         "*://*.lightning.force.com/*"
       ],
       "run_at": "document_end",
-      "js": ["SFExt.js"]
+      "js": ["SFExt.js"],
+      "css": ["css/style.css"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [ "fonts/*", "css/*", "icons/*" ],
+      "matches": [ "*://*.lightning.force.com/*" ]
     }
   ],
   "background": {
