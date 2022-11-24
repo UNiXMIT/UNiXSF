@@ -20,7 +20,7 @@
       ],
       "run_at": "document_end",
       "js": ["js/SFExt.js"],
-      "css": ["css/style.css"]
+      "css": ["css/style.css","css/all.css"]
     }
   ],
   "web_accessible_resources": [

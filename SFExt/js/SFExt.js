@@ -88,14 +88,6 @@ function getSyncData() {
     });
 }
 
-function modifyHead() {
-    const urlFACSS = chrome.runtime.getURL('css/all.css')
-    let link = document.createElement('link');
-    link.rel = "stylesheet" 
-    link.href = urlFACSS;
-    document.head.appendChild(link);
-}
-
 function queueRefresh() {
     if (globalTimeout >= 30) {
         refreshInterval = globalTimeout * 1000;
@@ -764,7 +756,6 @@ window.onload = function() {
     let initInterval = setInterval(function() {
         if (globalInit) {
             getSyncData();
-            modifyHead();
             queueRefresh();
             mfNav();
             setTimeout(function() {
