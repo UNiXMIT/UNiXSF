@@ -1,4 +1,4 @@
-const installedVersion = "2.6";
+const installedVersion = "2.7";
 let globalInit = 0;
 let navInit = 1;
 let initDropDown = 1;

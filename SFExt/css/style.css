@@ -7,6 +7,14 @@ html {
     font-family: "Roboto",sans-serif !important; 
 }  
 
+.slds-rich-text-editor__textarea.slds-grid.ql-container {
+    height: 200px;
+}
+
+textarea {
+    height: 400px;
+}
+
 .newfooterul {
     float: right !important;
     width: auto !important;
