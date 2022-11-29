@@ -12,7 +12,7 @@ html {
 }
 
 div.uiInput.uiInputTextArea.uiInput--default.uiInput--textarea textarea {
-    height: 400px;
+    height: 150px;
 }
 
 .newfooterul {
@@ -40,8 +40,13 @@ a.ExtLoaded {
 }
 
 a.ExtLoaded { 
-    text-decoration: none; 
-    color: black 
+    text-decoration: none !important; 
+    color: black; 
+} 
+
+a.ExtLoaded:visited { 
+    text-decoration: none !important; 
+    color: black; 
 } 
 
 a.ExtLoaded:hover { 
