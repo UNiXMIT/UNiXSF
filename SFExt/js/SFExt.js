@@ -559,6 +559,7 @@ function defectFixed() {
             if (fixedElement[i].title != "Fixed") {
                 fixedElement[i].style.color = 'red';
                 fixedElement[i].title = 'Fixed';
+                fixedElement[i].parentNode.parentNode.parentNode.style.backgroundColor = '#f1f1f1';
             }
         }
         let fixedElement2 = activeQueueContains('td > span > span','Software update provided');
@@ -566,6 +567,7 @@ function defectFixed() {
             if (fixedElement2[i].title != "Fixed") {
                 fixedElement2[i].style.color = 'red';
                 fixedElement2[i].title = 'Fixed';
+                fixedElement2[i].parentNode.parentNode.parentNode.style.backgroundColor = '#f1f1f1';
             }
         }
     });
