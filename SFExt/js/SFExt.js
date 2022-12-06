@@ -93,6 +93,7 @@ function queueRefresh() {
         refreshInterval = globalTimeout * 1000;
         intervalID = setInterval(function() {
             document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
+            window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'f15'}));
         }, refreshInterval);
     }
 }
