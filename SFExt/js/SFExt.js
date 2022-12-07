@@ -81,7 +81,7 @@ function getSyncData() {
                 globalFTSURL = result.savedFTSURL;
                 if (globalURLS != result.savedURLS) {
                     globalURLS = result.savedURLS;
-                    updateFooter();
+                    updateCustomURLs();
                 }
             });
         }
@@ -103,7 +103,7 @@ function mfNav() {
         let mfButton = document.querySelector('#oneHeader').querySelector('ul.slds-global-actions');
         if ( (mfButton) && (navInit) ) {
             navInit = 0
-            for (i = 0; i < 4 ; ++i) {
+            for (let i = 0; i < 4 ; ++i) {
                 mfButton.removeChild(mfButton.children[3]);
             }
             mfDropDown();
@@ -116,6 +116,7 @@ function mfNav() {
             mfPP();
             mfTranslation();
             amcURLs();
+            customURLs();
             observer.disconnect();
         }
     });
@@ -339,6 +340,47 @@ function amcURLs() {
 
 function amcURLsEvent() {
     window.open('http://bit.ly/KimsQuickLinks', 'AMC URLs', 'width=400,height=750');
+}
+
+function customURLs() {
+    try {
+        let URLS = JSON.parse(globalURLS);
+        let countURLs = 1
+        Object.entries(URLS).forEach(([key, value]) => {
+            let urlClass = 'custom' + countURLs;
+            createMFMenu(urlClass, 'fa-bolt', key);
+            let urlElement = document.getElementsByClassName(urlClass);
+            urlElement[0].addEventListener('click', function(){window.open(value, '_blank'), false});
+            countURLs = countURLs + 1;
+        });
+    } catch (err) {
+        window.alert("Footer URL list JSON format is not correct!");
+        window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
+    }
+}
+
+function updateCustomURLs() {
+    let customCount = document.querySelectorAll('.fa-bolt').length;
+    for (let i = 0; i < customCount; ++i) {
+        let customCount = i + 1;
+        let urlClass = 'custom' + customCount;
+        let removeURL = document.getElementsByClassName(urlClass);
+        removeURL[0].parentNode.removeChild(removeURL[0]);
+    }
+    try {
+        let URLS = JSON.parse(globalURLS);
+        let countURLs = 1
+        Object.entries(URLS).forEach(([key, value]) => {
+            let urlClass = 'custom' + countURLs;
+            createMFMenu(urlClass, 'fa-bolt', key);
+            let urlElement = document.getElementsByClassName(urlClass);
+            urlElement[0].addEventListener('click', function(){window.open(value, '_blank'), false});
+            countURLs = countURLs + 1;
+        });
+    } catch (err) {
+        window.alert("Footer URL list JSON format is not correct!");
+        window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
+    }
 }
 
 function initQMonitor() {
@@ -582,47 +624,14 @@ function extLoaded() {
             let newUL = document.createElement("ul");
             newUL.className = "newfooterul";
             footerUl.appendChild(newUL);
-            try {
-                let URLS = JSON.parse(globalURLS);
-                Object.entries(URLS).forEach(([key, value]) => {
-                    let li = document.createElement("li");
-                    liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
-                    li.innerHTML = liHTML;
-                    li.className = 'ExtLoaded';
-                    newUL.appendChild(li);
-                });
-                observer.disconnect();
-            } catch (err) {
-                window.alert("Footer URL list JSON format is not correct!");
-                window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
-            }
+            let li = document.createElement("li");
+            li.innerHTML = '<a class="ExtLoaded" target="_blank" href="https://unixmit.github.io/UNiXSF">SFExt</a>';
+            li.className = 'ExtLoaded';
+            newUL.appendChild(li);
+            observer.disconnect();
         }
     });
     observer.observe(document, {childList: true, subtree: true});
-}
-
-function updateFooter() {
-    let footerUlOld = document.querySelector('.oneUtilityBar').querySelector('.utilitybar').querySelector('.newfooterul');
-    if (footerUlOld) {
-        footerUlOld.parentNode.removeChild(footerUlOld);
-        let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
-        let newUL = document.createElement("ul");
-        newUL.className = "newfooterul";
-        footerUl.appendChild(newUL);
-        try {
-            let URLS = JSON.parse(globalURLS);
-            Object.entries(URLS).forEach(([key, value]) => {
-                let li = document.createElement("li");
-                liHTML = '<a class="ExtLoaded" target="_blank" href="' + value + '">' + key + '</a>';
-                li.innerHTML = liHTML;
-                li.className = 'ExtLoaded';
-                newUL.appendChild(li);
-            });
-        } catch (err) {
-            window.alert("Footer URL list JSON format is not correct!");
-            window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
-        }
-    }
 }
 
 function fixMouse() {
