@@ -3,6 +3,11 @@
     src: url('chrome-extension://__MSG_@@extension_id__/fonts/Roboto-Regular.ttf'); 
 }
 
+@font-face {
+    font-family: 'RobotoBold';
+    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Roboto-Bold.ttf'); 
+}
+
 html { 
     font-family: "Roboto",sans-serif !important; 
 }  
@@ -42,6 +47,7 @@ a.ExtLoaded {
 a.ExtLoaded { 
     text-decoration: none !important; 
     color: black; 
+    font-family: "RobotoBold",sans-serif !important;
 } 
 
 a.ExtLoaded:visited { 
