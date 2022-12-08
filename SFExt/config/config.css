@@ -57,6 +57,7 @@ textarea {
 }
 #products {
     width: 700px;
+    height: 150px;
 }
 #queue {
     width: 300px;
@@ -72,6 +73,7 @@ textarea {
 }
 #customurls {
     width: 700px;
+    height: 100px;
 }
 #status {
     font-family: "Roboto", sans-serif;
