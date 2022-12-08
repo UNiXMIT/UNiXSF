@@ -460,7 +460,7 @@ function qNotify() {
                             if (Notification.permission === 'granted') {
                                 const qNotification = new Notification('SFExtension Queue Monitor', {
                                     body: notifyBody,
-                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png'
                                 });
                                 qNotification.addEventListener('click', () => {
                                     window.open(caseURL, '_blank');
@@ -471,7 +471,7 @@ function qNotify() {
                                         if (p === 'granted') {
                                             const qNotification = new Notification('SFExtension Queue Monitor', {
                                                 body: notifyBody,
-                                                icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                                icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png'
                                             });
                                             qNotification.addEventListener('click', () => {
                                                 window.open(caseURL, '_blank');
@@ -492,7 +492,7 @@ function qNotify() {
                         request.setRequestHeader('Content-type', 'application/json');
                         const params = {
                             username: "SFExt Queue Monitor",
-                            avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png",
+                            avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png",
                             content: notifyBody + ' ' + caseURL
                         };
                         request.send(JSON.stringify(params));
@@ -511,7 +511,7 @@ function qNotify() {
                                 if (Notification.permission === 'granted') {
                                     const qNotification = new Notification('SFExtension New Activity', {
                                         body: notifyBody,
-                                        icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                        icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png'
                                     });
                                     qNotification.addEventListener('click', () => {
                                         window.open(caseURL, '_blank');
@@ -522,7 +522,7 @@ function qNotify() {
                                             if (p === 'granted') {
                                                 const qNotification = new Notification('SFExtension New Activity', {
                                                     body: notifyBody,
-                                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png'
                                                 });
                                                 qNotification.addEventListener('click', () => {
                                                     window.open(caseURL, '_blank');
@@ -543,7 +543,7 @@ function qNotify() {
                             request.setRequestHeader('Content-type', 'application/json');
                             const params = {
                                 username: "SFExt New Activity",
-                                avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png",
+                                avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png",
                                 content: notifyBody + ' ' + caseURL
                             };
                             request.send(JSON.stringify(params));
@@ -677,7 +677,7 @@ function updateCheck() {
                             if (Notification.permission === 'granted') {
                                 const UpdateNofity = new Notification('SFExtension Update Available', {
                                     body: updateMessage,
-                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png'
                                 });
                                 UpdateNofity.addEventListener('click', () => {
                                     window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
@@ -688,7 +688,7 @@ function updateCheck() {
                                         if (p === 'granted') {
                                             const UpdateNofity = new Notification('SFExtension Update Available', {
                                                 body: updateMessage,
-                                                icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/icons/mf128.png'
+                                                icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png'
                                             });
                                             UpdateNofity.addEventListener('click', () => {
                                                 window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
