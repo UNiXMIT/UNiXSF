@@ -106,6 +106,42 @@ function queueRefresh() {
     }
 }
 
+function createStatusModal() {
+    const caseStatusJSON = '{"suspended":"Suspended","closed":"Closed","internal":"Pending Internal","solution":"Solution Suggested","support":"Pending Support","development":"Pending Development","release":"Pending Release"}';
+    let myDialog = document.createElement("dialog");
+    myDialog.className = 'statusDialog';
+    document.body.appendChild(myDialog);
+    let statusDiv = document.createElement("div");
+    statusDiv.className = "caseStatus";
+    let statusTitle = statusDiv.appendChild(document.createElement('h3'));
+    statusTitle.innerText = "Case Status";
+    myDialog.appendChild(statusDiv);
+    let caseStatusParse = JSON.parse(caseStatusJSON);
+    Object.entries(caseStatusParse).forEach(([key, value]) => {
+        let statusGroup = document.createElement("div");
+        statusGroup.className = "statusGroup";
+        let input = statusGroup.appendChild(document.createElement('input'));
+        input.type = "radio";
+        input.id = key;
+        input.name = "status";
+        input.value = value;
+        input.className = 'statusRadioMF';
+        let label = statusGroup.appendChild(document.createElement('label'));
+        label.className = "statusLabel";
+        label.setAttribute("for", key);
+        label.innerText = value;
+        statusDiv.appendChild(statusGroup);
+    });
+    let cancelStatus = statusDiv.appendChild(document.createElement('button'));
+    cancelStatus.textContent = "Cancel";
+    cancelStatus.className = "statusButton";
+    cancelStatus.addEventListener('click', function(){myDialog.close();}, false);
+    let saveStatus = statusDiv.appendChild(document.createElement('button'));
+    saveStatus.textContent = "Save";
+    saveStatus.className = "statusButton";
+    saveStatus.addEventListener('click', saveCaseStatus, false);
+}
+
 function sendObserver() {
     let observer = new MutationObserver(mutations => {
         const sendButton = document.querySelector('.split-right').querySelector('.LARGE.send.uiButton');
@@ -121,50 +157,13 @@ function awaitSend() {
     let observer = new MutationObserver(mutations => {
         const emailSent = contains('span', 'Email sent'); 
         if (emailSent.length) {
-            statusModal();
+            if (globalStatus) {
+                document.querySelector('.statusDialog').showModal();
+            }
             observer.disconnect();
         }
     });
     observer.observe(document, {childList: true, subtree: true});
-}
-
-function statusModal() {
-    if (globalStatus) {
-        const caseStatusJSON = '{"suspended":"Suspended","closed":"Closed","internal":"Pending Internal","solution":"Solution Suggested","support":"Pending Support","development":"Pending Development","release":"Pending Release"}';
-        let myDialog = document.createElement("dialog");
-        myDialog.className = 'statusDialog';
-        document.body.appendChild(myDialog);
-        let statusDiv = document.createElement("div");
-        statusDiv.className = "caseStatus";
-        let statusTitle = statusDiv.appendChild(document.createElement('h3'));
-        statusTitle.innerText = "Case Status";
-        myDialog.appendChild(statusDiv);
-        let caseStatusParse = JSON.parse(caseStatusJSON);
-        Object.entries(caseStatusParse).forEach(([key, value]) => {
-            let statusGroup = document.createElement("div");
-            statusGroup.className = "statusGroup";
-            let input = statusGroup.appendChild(document.createElement('input'));
-            input.type = "radio";
-            input.id = key;
-            input.name = "status";
-            input.value = value;
-            input.className = 'statusRadioMF';
-            let label = statusGroup.appendChild(document.createElement('label'));
-            label.className = "statusLabel";
-            label.setAttribute("for", key);
-            label.innerText = value;
-            statusDiv.appendChild(statusGroup);
-        });
-        let cancelStatus = statusDiv.appendChild(document.createElement('button'));
-        cancelStatus.textContent = "Cancel";
-        cancelStatus.className = "statusButton";
-        cancelStatus.addEventListener('click', function(){myDialog.close();}, false);
-        let saveStatus = statusDiv.appendChild(document.createElement('button'));
-        saveStatus.textContent = "Save";
-        saveStatus.className = "statusButton";
-        saveStatus.addEventListener('click', saveCaseStatus, false);
-        myDialog.showModal();
-    }
 }
 
 function saveCaseStatus() {
@@ -886,6 +885,7 @@ window.onload = function() {
         if (globalInit) {
             getSyncData();
             queueRefresh();
+            createStatusModal();
             sendObserver();
             mfNav();
             setTimeout(function() {
