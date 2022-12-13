@@ -4,6 +4,7 @@ This is a browser extension to add useful features to Salesforce.
 It works in Chrome, Brave and Edge (Chromium) browsers.  
 
 - [Features](#features)
+  - [Experimental](#experimental)
 - [Install](#install)
 - [Update](#update)
 - [Latest Release](https://github.com/UNiXMIT/UNiXSF/releases/latest)
@@ -54,6 +55,12 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - **Highlight Fixed Defects**  
   Highlights 'Planned in new release' or 'Software update provided' Close Codes in your Pending Release Queue.  
   ![02](images/defectHighlight.png)  
+
+### Experimental
+
+- **Modify Case Status after Send**  
+  After the 'Send' button is clicked and the email is sent from a case, a popup will appear leting you change the case status from the default of 'Pending Customer' to another status.  
+  If you want to keep the status as 'Pending Customer' just click 'Cancel' on the popup.  
 
 ## Install
 
