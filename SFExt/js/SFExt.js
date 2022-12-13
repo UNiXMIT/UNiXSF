@@ -808,8 +808,8 @@ function mfUpdateEvent() {
 }
 
 const sleep = (milliseconds) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds))
-}
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+};
 
 // (async ()=>{
 //     console.log('foo');
