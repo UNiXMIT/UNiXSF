@@ -179,7 +179,7 @@ function saveCaseStatus() {
                     await sleep(100);
                     document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('button.test-id__inline-edit-trigger').click();
                     await sleep(500);
-                    document.querySelector('div.split-right .tabContent.active.oneConsoleTab').querySelector('.slds-form__row:nth-child(1) slot records-record-layout-item:nth-child(2) button').click();
+                    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.slds-form__row:nth-child(1) slot records-record-layout-item:nth-child(2) button').click();
                     await sleep(300);
                     document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[data-value^="' + userSelected + '"]').click();
                     await sleep(200);
