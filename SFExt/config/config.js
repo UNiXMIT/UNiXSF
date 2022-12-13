@@ -8,6 +8,7 @@ function save_options() {
   let protocol = document.getElementById('protocol').value;
   let ftsurl = document.getElementById('ftsurl').value;
   let customurls = document.getElementById('customurls').value;
+  let caseStatus = document.getElementById('caseStatus').checked;
   chrome.storage.sync.set({
       savedTimeout: refreshTimeout,
       savedProducts: products,
@@ -17,7 +18,8 @@ function save_options() {
       savedWebhook: webhook,
       savedProtocol: protocol,
       savedFTSURL: ftsurl,
-      savedURLS: customurls
+      savedURLS: customurls,
+      savedStatus: caseStatus
   }, function() {
       let status = document.getElementById('status');
       status.textContent = 'Options Saved';
@@ -47,7 +49,8 @@ function restore_options() {
       savedWebhook: 'https://webhookURL',
       savedProtocol: 'sftp://',
       savedFTSURL: 'secureupload.microfocus.com:2222',
-      savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}'
+      savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
+      savedStatus: false,
   }, function(result) {
       document.getElementById('timeout').value = result.savedTimeout;
       document.getElementById('products').value = result.savedProducts;
@@ -58,6 +61,7 @@ function restore_options() {
       document.getElementById('protocol').value = result.savedProtocol;
       document.getElementById('ftsurl').value = result.savedFTSURL;
       document.getElementById('customurls').value = result.savedURLS;
+      document.getElementById('caseStatus').checked = result.savedStatus;
   });
 }
 
@@ -71,7 +75,8 @@ function export_options() {
         savedWebhook: 'https://webhookURL',
         savedProtocol: 'sftp://',
         savedFTSURL: 'secureupload.microfocus.com:2222',
-        savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}'
+        savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
+        savedStatus: false
     }, function(result) {
         var items = JSON.stringify(result, null, 2);
         var url = 'data:application/json;base64,' + btoa(items);
@@ -101,7 +106,8 @@ function import_options() {
                 savedWebhook: json.savedWebhook,
                 savedProtocol: json.savedProtocol,
                 savedFTSURL: json.savedFTSURL,
-                savedURLS: json.savedURLS
+                savedURLS: json.savedURLS,
+                savedStatus: json.savedStatus
             }, function() {
                 let status = document.getElementById('status');
                 status.textContent = 'Importing Options';

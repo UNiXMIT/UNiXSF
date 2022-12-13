@@ -11,6 +11,7 @@ let globalWebhook;
 let globalProtocol;
 let globalFTSURL;
 let globalURLS;
+let globalStatus;
 let intervalID;
 let qObserver;
 let oldCaseArray = [];
@@ -28,7 +29,8 @@ function initSyncData() {
         savedWebhook: 'https://webhookURL',
         savedProtocol: 'sftp://',
         savedFTSURL: 'secureupload.microfocus.com:2222',
-        savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}'
+        savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
+        savedStatus: false
     }, function(result) {
         globalTimeout = result.savedTimeout;
         globalProducts = result.savedProducts;
@@ -39,6 +41,7 @@ function initSyncData() {
         globalProtocol = result.savedProtocol;
         globalFTSURL = result.savedFTSURL;
         globalURLS = result.savedURLS;
+        globalStatus = result.savedStatus;
         globalInit = 1;
     });
 }
@@ -55,7 +58,8 @@ function getSyncData() {
                 savedWebhook: 'https://webhookURL',
                 savedProtocol: 'sftp://',
                 savedFTSURL: 'secureupload.microfocus.com:2222',
-                savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}'
+                savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
+                savedStatus: false
             }, function(result) {
                 if (globalTimeout != result.savedTimeout) {
                     globalTimeout = result.savedTimeout;
@@ -83,6 +87,7 @@ function getSyncData() {
                     globalURLS = result.savedURLS;
                     updateCustomURLs();
                 }
+                globalStatus = result.savedStatus;
             });
         }
     });
@@ -92,9 +97,98 @@ function queueRefresh() {
     if (globalTimeout >= 30) {
         refreshInterval = globalTimeout * 1000;
         intervalID = setInterval(function() {
-            document.querySelector('#split-left').querySelector('button[name="refreshButton"]').click();
+            let refreshButton = document.querySelector('#split-left').querySelector('button[name="refreshButton"]');
+            if (refreshButton) {
+                refreshButton.click();
+            }
             window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'f15'}));
         }, refreshInterval);
+    }
+}
+
+function sendObserver() {
+    let observer = new MutationObserver(mutations => {
+        const sendButton = document.querySelector('.split-right').querySelector('.LARGE.send.uiButton');
+        if ( (sendButton) && (sendButton.title != 'sendEvent') ) {
+            sendButton.title = 'sendEvent';
+            sendButton.addEventListener('click', awaitSend, false);
+        }
+    });
+    observer.observe(document, {childList: true, subtree: true});
+}
+
+function awaitSend() {
+    let observer = new MutationObserver(mutations => {
+        const emailSent = contains('span', 'Email sent'); 
+        if (emailSent.length) {
+            statusModal();
+            observer.disconnect();
+        }
+    });
+    observer.observe(document, {childList: true, subtree: true});
+}
+
+function statusModal() {
+    if (globalStatus) {
+        const caseStatusJSON = '{"suspended":"Suspended","closed":"Closed","internal":"Pending Internal","solution":"Solution Suggested","support":"Pending Support","development":"Pending Development","release":"Pending Release"}';
+        let myDialog = document.createElement("dialog");
+        myDialog.className = 'statusDialog';
+        document.body.appendChild(myDialog);
+        let statusDiv = document.createElement("div");
+        statusDiv.className = "caseStatus";
+        let statusTitle = statusDiv.appendChild(document.createElement('h3'));
+        statusTitle.innerText = "Case Status";
+        myDialog.appendChild(statusDiv);
+        let caseStatusParse = JSON.parse(caseStatusJSON);
+        Object.entries(caseStatusParse).forEach(([key, value]) => {
+            let statusGroup = document.createElement("div");
+            statusGroup.className = "statusGroup";
+            let input = statusGroup.appendChild(document.createElement('input'));
+            input.type = "radio";
+            input.id = key;
+            input.name = "status";
+            input.value = value;
+            input.className = 'statusRadioMF';
+            let label = statusGroup.appendChild(document.createElement('label'));
+            label.className = "statusLabel";
+            label.setAttribute("for", key);
+            label.innerText = value;
+            statusDiv.appendChild(statusGroup);
+        });
+        let cancelStatus = statusDiv.appendChild(document.createElement('button'));
+        cancelStatus.textContent = "Cancel";
+        cancelStatus.className = "statusButton";
+        cancelStatus.addEventListener('click', function(){myDialog.close();}, false);
+        let saveStatus = statusDiv.appendChild(document.createElement('button'));
+        saveStatus.textContent = "Save";
+        saveStatus.className = "statusButton";
+        saveStatus.addEventListener('click', saveCaseStatus, false);
+        myDialog.showModal();
+    }
+}
+
+function saveCaseStatus() {
+    let userSelection = document.querySelectorAll('.statusRadioMF');
+    for (i = 0; i < userSelection.length; i++) {
+        if(userSelection[i].checked) {
+            let userSelected = userSelection[i].value;
+            const detailsTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[title="Details"]');
+            if (detailsTab) {
+                (async ()=>{
+                    await sleep(100);
+                    detailsTab.click();
+                    await sleep(100);
+                    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('button.test-id__inline-edit-trigger').click();
+                    await sleep(500);
+                    document.querySelector('div.split-right .tabContent.active.oneConsoleTab').querySelector('.slds-form__row:nth-child(1) slot records-record-layout-item:nth-child(2) button').click();
+                    await sleep(300);
+                    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[data-value^="' + userSelected + '"]').click();
+                    await sleep(200);
+                    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[name="SaveEdit"]').click();
+                })();
+            }
+        document.querySelector('.statusDialog').close();
+        }
     }
 }
 
@@ -102,7 +196,7 @@ function mfNav() {
     let observer = new MutationObserver(mutations => {
         let mfButton = document.querySelector('#oneHeader').querySelector('ul.slds-global-actions');
         if ( (mfButton) && (navInit) ) {
-            navInit = 0
+            navInit = 0;
             for (let i = 0; i < 4 ; ++i) {
                 mfButton.removeChild(mfButton.children[3]);
             }
@@ -345,12 +439,12 @@ function amcURLsEvent() {
 function customURLs() {
     try {
         let URLS = JSON.parse(globalURLS);
-        let countURLs = 1
+        let countURLs = 1;
         Object.entries(URLS).forEach(([key, value]) => {
             let urlClass = 'custom' + countURLs;
             createMFMenu(urlClass, 'fa-bolt', key);
             let urlElement = document.getElementsByClassName(urlClass);
-            urlElement[0].addEventListener('click', function(){window.open(value, '_blank'), false});
+            urlElement[0].addEventListener('click', function(){window.open(value, '_blank');}, false);
             countURLs = countURLs + 1;
         });
     } catch (err) {
@@ -369,12 +463,12 @@ function updateCustomURLs() {
     }
     try {
         let URLS = JSON.parse(globalURLS);
-        let countURLs = 1
+        let countURLs = 1;
         Object.entries(URLS).forEach(([key, value]) => {
             let urlClass = 'custom' + countURLs;
             createMFMenu(urlClass, 'fa-bolt', key);
             let urlElement = document.getElementsByClassName(urlClass);
-            urlElement[0].addEventListener('click', function(){window.open(value, '_blank'), false});
+            urlElement[0].addEventListener('click', function(){window.open(value, '_blank');}, false);
             countURLs = countURLs + 1;
         });
     } catch (err) {
@@ -647,15 +741,8 @@ function EE() {
         if (event.ctrlKey && event.shiftKey && event.code === 'F1') {
             let sfLogo = document.querySelector('.slds-global-header__logo');
             sfLogo.style.display = 'inline-flex';
-            // sfLogo.style.backgroundImage = 'url()';
             let sfHeader = document.querySelector("#oneHeader > div.slds-global-header.slds-grid.slds-grid--align-spread > div:nth-child(1)");
             sfHeader.innerHTML += '<img src="https://imgprx.livejournal.net/195f55e88efa127e0a7ff3daede4197cd83b9c02/Sk6fQP1Y1d9EobSkBEXtzDqj5WjpPdQS_x-VymigADYOBYpYprMR65akp4kkSONyhL8WMYNC7aLdA1fNHuOzqQrW04ZzNhQtbpXlGDclNjo" style=" display: inline-flex; margin: -30px 10px 0 0;padding: 5px;height: 55px;"><img src="https://imgprx.livejournal.net/440a47d8c3ee88e767ea43a9aa50560a8ca2d786/Sk6fQP1Y1d9EobSkBEXtzDqj5WjpPdQS_x-VymigADYOBYpYprMR65akp4kkSONyAdEBRLCVcPmQVSTuW2texfgxiG5019gWzKYVTrBNius" style="display: inline-flex;margin: -30px 0 0 0;padding: 5px;height: 60px;"><img src="https://imgprx.livejournal.net/c4c953d6fd46369c19e93ae3f47b5fdd82598972/Sk6fQP1Y1d9EobSkBEXtzDqj5WjpPdQS_x-VymigADYOBYpYprMR65akp4kkSONyHFj9lDxzmhiIakS6lstnUnDp-OD2YXJJrEFSf6fUCzM" style="display: inline-flex;margin: -30px 0 0 0;padding: 5px;height: 60px;"><img src="https://imgprx.livejournal.net/36f6c4d4c5d888b14471b1ed1db5f00020b58d52/Sk6fQP1Y1d9EobSkBEXtzDqj5WjpPdQS_x-VymigADYOBYpYprMR65akp4kkSONy_lO9UouALUlpP9vZxhukR0qY_nGO1RSHoBuHIMCUc0k" style="display: inline-flex;margin: -30px 0 0 10px;padding: 5px;height: 60px;-webkit-transform: scaleX(-1);transform: scaleX(-1);">';
-            // let myDialog = document.createElement("dialog");
-            // document.body.appendChild(myDialog);
-            // let mydiv = document.createElement("div");
-            // mydiv.innerHTML = '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&modestbranding=1" title="RR" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-            // myDialog.appendChild(mydiv);
-            // myDialog.showModal();
         }
     });
 }
@@ -721,6 +808,16 @@ function mfUpdateEvent() {
     window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
 }
 
+const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
+// (async ()=>{
+//     console.log('foo');
+//     await sleep(2000);
+//     console.log('bar');
+// })();
+
 function contains(selector, text) {
     let elements = document.querySelectorAll(selector);
     return Array.prototype.filter.call(elements, function(element){
@@ -763,12 +860,33 @@ function activeCaseContains(selector, text) {
 // contains('div', /^sometext/);    find "div" that start with "sometext"
 // contains('div', /sometext$/i);   find "div" that end with "sometext", case-insensitive
 
+function waitActiveElm(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                resolve(document.querySelector(selector));
+                observer.disconnect();
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
+
 window.onload = function() {
     initSyncData();
     let initInterval = setInterval(function() {
         if (globalInit) {
             getSyncData();
             queueRefresh();
+            sendObserver();
             mfNav();
             setTimeout(function() {
                 initQMonitor();

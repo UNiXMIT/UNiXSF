@@ -135,3 +135,50 @@ ul.mflist {
 li.mfupdate { 
     color: red; 
 }
+
+.caseStatus {
+    width: 200px;
+    margin: 10px auto;
+}
+
+.caseStatus h3 {
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+    width: 120px;
+    margin: 10px auto;
+}
+
+.statusGroup {
+    width: 150px;
+    margin: 15px auto;
+}
+
+.statusLabel {
+    margin-left: 10px;
+    vertical-align: top;
+    font-weight: 700;
+}
+
+.statusButton {
+    font-size: 20px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    line-height: 1rem;
+    padding: 15px;
+    background: #0d0d0d;
+    color: #fff;
+    display: block;
+    width: 130px;
+    margin: 20px auto;
+    text-align: center;
+    border: 1px solid #0d0d0d;
+    transition: color 0.3s, background 0.3s;
+    text-decoration: none;
+}
+
+.statusButton:hover {
+    background: #fff;
+    color: #0d0d0d;
+    cursor: pointer;
+}
