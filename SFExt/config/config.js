@@ -78,17 +78,30 @@ function export_options() {
         savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
         savedStatus: false
     }, function(result) {
+        chrome.downloads.onChanged.addListener(function(downloadDelta) {
+            if (downloadDelta.state && downloadDelta.state.current === "complete") {
+                let status = document.getElementById('status');
+                status.textContent = 'Options Exported';
+                setTimeout(function() {
+                    status.textContent = '';
+                }, 750);
+            } else {
+                if (downloadDelta.state && downloadDelta.state.current === "interrupted") {
+                    let status = document.getElementById('status');
+                    status.textContent = 'Export Failed!';
+                    setTimeout(function() {
+                        status.textContent = '';
+                    }, 750);
+                }
+            }
+        });
         var items = JSON.stringify(result, null, 2);
         var url = 'data:application/json;base64,' + btoa(items);
         chrome.downloads.download({
             url: url,
-            filename: 'sfext.json'   
+            filename: 'sfext.json'  ,
+            saveAs: true 
         }); 
-        let status = document.getElementById('status');
-        status.textContent = 'Exporting Options';
-        setTimeout(function() {
-            status.textContent = '';
-        }, 750);   
     });
 }
 
@@ -113,12 +126,21 @@ function import_options() {
             savedURLS: json.savedURLS,
             savedStatus: json.savedStatus
         }, function() {
-            let status = document.getElementById('status');
-            status.textContent = 'Importing Options';
-            setTimeout(function() {
-                status.textContent = '';
-                window.location.reload();
-            }, 750);
+            try {
+                let status = document.getElementById('status');
+                status.textContent = 'Options Imported';
+                setTimeout(function() {
+                    status.textContent = '';
+                    window.location.reload();
+                }, 750);
+            } catch (error) {
+                let status = document.getElementById('status');
+                status.textContent = 'Import Failed!';
+                setTimeout(function() {
+                    status.textContent = '';
+                    window.location.reload();
+                }, 750);
+            }
         }) 
       });
       reader.readAsText(file);
