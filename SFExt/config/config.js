@@ -30,7 +30,7 @@ function save_options() {
 }
 
 function reset_options() {
-  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedProtocol", "savedFTSURL", "savedURLS"], function() {
+  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus"], function() {
       let error = chrome.runtime.lastError;
       if (error) {
           console.error(error);
@@ -50,7 +50,7 @@ function restore_options() {
       savedProtocol: 'sftp://',
       savedFTSURL: 'secureupload.microfocus.com:2222',
       savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
-      savedStatus: false,
+      savedStatus: false
   }, function(result) {
       document.getElementById('timeout').value = result.savedTimeout;
       document.getElementById('products').value = result.savedProducts;
@@ -93,30 +93,37 @@ function export_options() {
 }
 
 function import_options() {    
-    const url = chrome.runtime.getURL('config/sfext.json');
-    fetch(url)
-        .then((response) => response.json())
-        .then((json) => 
-            chrome.storage.sync.set({
-                savedTimeout: json.savedTimeout,
-                savedProducts: json.savedProducts,
-                savedQueue: json.savedQueue,
-                savedQNotify: json.savedQNotify,
-                savedQNotifyWeb: json.savedQNotifyWeb,
-                savedWebhook: json.savedWebhook,
-                savedProtocol: json.savedProtocol,
-                savedFTSURL: json.savedFTSURL,
-                savedURLS: json.savedURLS,
-                savedStatus: json.savedStatus
-            }, function() {
-                let status = document.getElementById('status');
-                status.textContent = 'Importing Options';
-                setTimeout(function() {
-                    status.textContent = '';
-                    window.location.reload();
-                }, 750);
-            }) 
-        );
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.addEventListener("load", (event) => {
+        const contents = event.target.result;
+        const json = JSON.parse(contents);
+        chrome.storage.sync.set({
+            savedTimeout: json.savedTimeout,
+            savedProducts: json.savedProducts,
+            savedQueue: json.savedQueue,
+            savedQNotify: json.savedQNotify,
+            savedQNotifyWeb: json.savedQNotifyWeb,
+            savedWebhook: json.savedWebhook,
+            savedProtocol: json.savedProtocol,
+            savedFTSURL: json.savedFTSURL,
+            savedURLS: json.savedURLS,
+            savedStatus: json.savedStatus
+        }, function() {
+            let status = document.getElementById('status');
+            status.textContent = 'Importing Options';
+            setTimeout(function() {
+                status.textContent = '';
+                window.location.reload();
+            }, 750);
+        }) 
+      });
+      reader.readAsText(file);
+    });
+    fileInput.click();
 }
 
 document.addEventListener('DOMContentLoaded', restore_options);

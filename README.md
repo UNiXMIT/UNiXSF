@@ -146,7 +146,7 @@ Exports your saved options to sfext.json and allows you to download the file to 
 
 ### Import Options
 
-Imports your exported options from the file sfext.json located in the config directory of this extension. The imported options are then saved using Chrome sync.  
+Imports your exported options from the previously exported JSON file. The imported options are then saved using Chrome sync.  
 
 ## Features/Improvements Wishlist
 
