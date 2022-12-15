@@ -738,6 +738,9 @@ function fixMouse() {
 function EE() {
     window.addEventListener('keydown', function(event) {
         if (event.ctrlKey && event.shiftKey && event.code === 'F1') {
+            if (intervalID) {
+                clearInterval(intervalID);
+            }
             var img = document.createElement('img');
             img.src = 'https://imgprx.livejournal.net/f2af41423dbd192d90d4b896339a142cf22bb0e8/ugF-F4YE2NKBa8_i7tfMF9fqXqSDq6K2D_SHZTxd5I-10cr809Qo0ozoVYUfVWbwzqLPoUfECXON0Og0sik2kNnv8JBiubUpzpyBf3z06hA';
             img.style.position = 'absolute';
