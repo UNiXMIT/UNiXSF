@@ -736,46 +736,53 @@ function fixMouse() {
 }
 
 function EE() {
-    var img = document.createElement('img');
-    img.src = 'https://imgprx.livejournal.net/f2af41423dbd192d90d4b896339a142cf22bb0e8/ugF-F4YE2NKBa8_i7tfMF9fqXqSDq6K2D_SHZTxd5I-10cr809Qo0ozoVYUfVWbwzqLPoUfECXON0Og0sik2kNnv8JBiubUpzpyBf3z06hA';
-    img.style.position = 'absolute';
-    img.style.zIndex = 9999;
-    img.style.width = '125px';
-    document.body.appendChild(img);
-    var elements = document.querySelectorAll("*");
-    elements.forEach(function(element) {
-        element.classList.add("explode");
-    });
-    var x = 200;
-    var y = 200;
-    var dx = 1;
-    var dy = 1;
-    setInterval(function() {
-        x += dx;
-        y += dy;
-        if (x >= window.innerWidth - 150 || x <= 0) dx = -dx;
-        if (y >= window.innerHeight - 150 || y <= 0) dy = -dy;
-        img.style.top = y + 'px';
-        img.style.left = x + 'px';
-        img.style.transform = dx > 0 ? 'scaleX(1)' : 'scaleX(-1)';
-        var elements = document.querySelectorAll('table.slds-table *');
-        if ( (elements.length < 10) ) {
-            return;
-        }
-        var randomIndex = Math.floor(Math.random() * elements.length);
-        var element = elements[randomIndex];
-        var explosion = document.createElement("img");
-        explosion.src = "https://i.gifer.com/origin/d7/d7ac4f38b77abe73165d85edf2cbdb9e_w200.gif";
-        explosion.classList.add("explosion-graphic");
-        explosion.style.zIndex = 9998;
-        if (element) {
-            element.style.display = "none";
-            let parentExplosion = element.parentNode
-            if (element.class != "explosion-graphic") {
-                parentExplosion.appendChild(explosion);
+    window.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.shiftKey && event.code === 'F1') {
+            if (intervalID) {
+                clearInterval(intervalID);
             }
+            let img = document.createElement('img');
+            img.src = 'https://imgprx.livejournal.net/f2af41423dbd192d90d4b896339a142cf22bb0e8/ugF-F4YE2NKBa8_i7tfMF9fqXqSDq6K2D_SHZTxd5I-10cr809Qo0ozoVYUfVWbwzqLPoUfECXON0Og0sik2kNnv8JBiubUpzpyBf3z06hA';
+            img.style.position = 'absolute';
+            img.style.zIndex = 9999;
+            img.style.width = '125px';
+            document.body.appendChild(img);
+            let elements = document.querySelectorAll("*");
+            elements.forEach(function(element) {
+                element.classList.add("explode");
+            });
+            let x = 200;
+            let y = 200;
+            let dx = 1;
+            let dy = 1;
+            setInterval(function() {
+                x += dx;
+                y += dy;
+                if (x >= window.innerWidth - 150 || x <= 0) dx = -dx;
+                if (y >= window.innerHeight - 150 || y <= 0) dy = -dy;
+                img.style.top = y + 'px';
+                img.style.left = x + 'px';
+                img.style.transform = dx > 0 ? 'scaleX(1)' : 'scaleX(-1)';
+                let elements = document.querySelectorAll('table.slds-table *');
+                if ( (elements.length < 10) ) {
+                    return;
+                }
+                let randomIndex = Math.floor(Math.random() * elements.length);
+                let element = elements[randomIndex];
+                let explosion = document.createElement("img");
+                explosion.src = "https://i.gifer.com/origin/d7/d7ac4f38b77abe73165d85edf2cbdb9e_w200.gif";
+                explosion.classList.add("explosion-graphic");
+                explosion.style.zIndex = 9998;
+                if (element) {
+                    element.style.display = "none";
+                    let parentExplosion = element.parentNode
+                    if (element.class != "explosion-graphic") {
+                        parentExplosion.appendChild(explosion);
+                    }
+                }
+            }, 1);
         }
-    }, 1);
+    });
 }
 
 function updateCheck() {
