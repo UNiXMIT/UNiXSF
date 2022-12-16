@@ -104,3 +104,29 @@ button:hover {
     color: #0d0d0d;
     cursor: pointer;
 }
+
+body::-webkit-scrollbar {
+    width: 12px;
+}
+   
+body::-webkit-scrollbar-track {
+    background: #ddd;
+}
+   
+body::-webkit-scrollbar-thumb {
+    background-color: #f1f1f1;
+    border-radius: 20px;
+}
+
+textarea::-webkit-scrollbar {
+    width: 12px;
+}
+   
+textarea::-webkit-scrollbar-track {
+    background: #ddd;
+}
+   
+textarea::-webkit-scrollbar-thumb {
+    background-color: #f1f1f1;
+    border-radius: 20px;
+}
