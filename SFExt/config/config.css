@@ -130,3 +130,7 @@ textarea::-webkit-scrollbar-thumb {
     background-color: #f1f1f1;
     border-radius: 20px;
 }
+
+iframe[title="Article Body Text Editor Container"] {
+    max-height: 70vh;
+}
