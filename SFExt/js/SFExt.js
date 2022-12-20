@@ -209,6 +209,7 @@ function mfNav() {
             mfPP();
             mfTranslation();
             amcURLs();
+            fullScreenKCS()
             customURLs();
             observer.disconnect();
         }
@@ -474,6 +475,31 @@ function updateCustomURLs() {
         window.alert("Footer URL list JSON format is not correct!");
         window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
     }
+}
+
+function fullScreenKCS() {
+    createMFMenu('kcsfull', 'fa-expand', 'KCS Fullscreen');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.kcsfull');
+    mfButtonNew.addEventListener('click', fullScreenKCSEvent, false);
+}
+
+function makeIframeFullscreen(iframe) {
+    if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+    } else {
+        if (iframe.mozRequestFullScreen) {
+            iframe.mozRequestFullScreen();
+        } else if (iframe.webkitRequestFullscreen) {
+            iframe.webkitRequestFullscreen();
+        }
+    }
+}
+
+function fullScreenKCSEvent() {
+    let kcsFrame = document.querySelector('.split-right').querySelector('div.content.iframe-parent > iframe[title="Article Body Text Editor Container"]'); 
+    if (kcsFrame) {
+        makeIframeFullscreen(kcsFrame);
+    }  
 }
 
 function initQMonitor() {
