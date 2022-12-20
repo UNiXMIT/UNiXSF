@@ -45,6 +45,9 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
   - Reminders/Follow-Up in Outlook Calendar.  
     Gets the case number, subject and URL from the active, open case and opens a new window to create an Outlook Calendar event with reminder set.  
     By default the calendar event start date is 3 days in the future but this can be changed, by the user, in the new window.  
+  
+  - Full Screen KCS Editor.  
+    Make the KCS editor fullscreen to allow easier creation/editing of the article body.
 
   - Additional menu items for Support Portal, SLD Web Portal, PerformPlus and AMC Links.  
 
@@ -55,6 +58,9 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - **Highlight Fixed Defects**  
   Highlights 'Planned in new release' or 'Software update provided' Close Codes in your Pending Release Queue.  
   ![02](images/defectHighlight.png)  
+
+- **Character Counter**  
+  Added character counts to 'textarea' fields.  
 
 ### Experimental
 
