@@ -710,6 +710,29 @@ function defectFixed() {
     observer.observe(document, {childList: true, subtree: true});
 }
 
+function addCharacterCounter() {
+    let observer = new MutationObserver(mutations => {
+        let textareas = document.querySelector('.split-right').querySelectorAll('.slds-textarea, .textarea');
+        textareas.forEach(function(textarea) {
+            let checkCounter = textarea.nextSibling
+            let existingCounter;
+            if (checkCounter) {
+                existingCounter = checkCounter.classList.contains('character-counter');
+            }
+            if (!existingCounter) {        
+            let counter = document.createElement('div');
+            counter.classList.add('character-counter');
+            textarea.parentNode.insertBefore(counter, textarea.nextSibling);
+            textarea.addEventListener('input', function() {
+                counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
+            });
+            counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
+            }
+        });
+    });
+    observer.observe(document, {childList: true, subtree: true});
+}
+
 function extLoaded() {
     let observer = new MutationObserver(mutations => {
         let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
@@ -932,6 +955,7 @@ window.onload = function() {
             }, 10000);
             quixyListURL();
             defectFixed();
+            addCharacterCounter()
             extLoaded();
             fixMouse();
             EE();
