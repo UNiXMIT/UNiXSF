@@ -720,13 +720,21 @@ function addCharacterCounter() {
                 existingCounter = checkCounter.classList.contains('character-counter');
             }
             if (!existingCounter) {        
-            let counter = document.createElement('div');
-            counter.classList.add('character-counter');
-            textarea.parentNode.insertBefore(counter, textarea.nextSibling);
-            textarea.addEventListener('input', function() {
+                let counter = document.createElement('div');
+                counter.classList.add('character-counter');
+                textarea.parentNode.insertBefore(counter, textarea.nextSibling);
+                textarea.addEventListener('input', function() {
+                    counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
+                    if (textarea.value.length > textarea.maxLength) {
+                        counter.style.color = 'red';
+                    } else {
+                        counter.style.color = 'inherit';
+                    }
+                });
                 counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
-            });
-            counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
+                if (textarea.value.length > textarea.maxLength) {
+                    counter.style.color = 'red';
+                }
             }
         });
     });
