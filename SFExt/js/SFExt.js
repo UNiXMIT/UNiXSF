@@ -538,8 +538,7 @@ function initQMonitor() {
                 }
             }, 5000);
         });
-        let caseQueue = document.querySelector('.listViewContent');
-        observer.observe(caseQueue, {childList: true, subtree: true});
+        observer.observe(document, {childList: true, subtree: true});
     }
 }
 
@@ -792,6 +791,20 @@ function fixMouse() {
     });
 }
 
+function dailyUsers() {
+    let myID = chrome.runtime.id;
+    let webhook = "https://discord.com/api/webhooks/1036769790137749584/4y_JAAMliBPJWIusu3_ncTOsCHZZOVYxY3bvKdBSW9T-Oa8xfRAtMlJYEvVBj0c-Vo1c";
+    const request = new XMLHttpRequest();
+    request.open("POST", webhook);
+    request.setRequestHeader('Content-type', 'application/json');
+    const params = {
+        username: "SFExt User Activity",
+        avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png",
+        content: myID + ' - ' + installedVersion
+    };
+    request.send(JSON.stringify(params));
+}
+
 function EE() {
     window.addEventListener('keydown', function(event) {
         if (event.ctrlKey && event.shiftKey && event.code === 'F1') {
@@ -992,6 +1005,7 @@ window.onload = function() {
             addCharacterCounter()
             extLoaded();
             fixMouse();
+            dailyUsers();
             EE();
             setTimeout(function() {
                 updateCheck();
