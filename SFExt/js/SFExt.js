@@ -181,7 +181,7 @@ function saveCaseStatus() {
                     await sleep(500);
                     document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.slds-form__row:nth-child(1) slot records-record-layout-item:nth-child(2) button').click();
                     await sleep(300);
-                    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[data-value^="' + userSelected + '"]').click();
+                    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector(`[data-value^="${userSelected}"]`).click();
                     await sleep(200);
                     document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[name="SaveEdit"]').click();
                 })();
@@ -298,7 +298,7 @@ function mfQuixy() {
 function mfQuixyEvent() {
     let quixyID = activeCaseContains('lightning-formatted-text','OCTCR'); 
     if (quixyID.length) {
-        let finalURL = 'https://rdapps.swinfra.net/quixy/#/viewEntity/' + quixyID[0].innerText;
+        let finalURL = `https://rdapps.swinfra.net/quixy/#/viewEntity/${quixyID[0].innerText}`;
         window.open(finalURL, '_blank');
     } else {
         window.open('https://rdapps.swinfra.net/quixy/#/viewEntity/', '_blank');
@@ -359,11 +359,13 @@ function addReminderEvent() {
     }
     if ((caseNumber) && (caseSubject)) {
         querySubject = caseNumber + " - " + caseSubject;
-        caseURL = "<a title='" + caseNumber + "'href='" + document.querySelector('a.tabHeader[aria-selected="true"]').href + "'>" + caseNumber + " - " + caseSubject + "</a>";
+        let defectURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+        caseURL = `<a title="${caseNumber}" href="${defectURL}">${querySubject}</a>`;
     } else {
         if ((caseNumber) && !(caseSubject)) {
             querySubject = caseNumber;
-            caseURL = "<a title='" + caseNumber + "'href='" + document.querySelector('a.tabHeader[aria-selected="true"]').href + "'>" + caseNumber + "</a>";
+            let defectURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+            caseURL = `<a title="${caseNumber}" href="${defectURL}">${querySubject}</a>`;
         } else {
             querySubject = "";
             caseURL = "";
@@ -414,11 +416,11 @@ function mfTranslationEvent() {
         }
     }
     if ( (caseNumber) && (caseSeverity) ) {
-        let finalURL = 'https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=' + encodeURIComponent(caseNumber) + '&Severity=' + encodeURIComponent(caseSeverity);
+        let finalURL = `https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=${encodeURIComponent(caseNumber)}&Severity=${encodeURIComponent(caseSeverity)}`;
         window.open(finalURL, 'MF Translation', 'width=1150,height=700');
     } else {
         if ( (caseNumber) && !(caseSeverity) ) {
-            let finalURL = 'https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=' + encodeURIComponent(caseNumber);
+            let finalURL = `https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=${encodeURIComponent(caseNumber)}`;
         window.open(finalURL, 'MF Translation', 'width=1150,height=700');
         } else {
             window.open('http://bit.ly/mftranslate', 'MF Translation', 'width=1150,height=700');
@@ -441,7 +443,7 @@ function customURLs() {
         let URLS = JSON.parse(globalURLS);
         let countURLs = 1;
         Object.entries(URLS).forEach(([key, value]) => {
-            let urlClass = 'custom' + countURLs;
+            let urlClass = `custom${countURLs}`;
             createMFMenu(urlClass, 'fa-bolt', key);
             let urlElement = document.getElementsByClassName(urlClass);
             urlElement[0].addEventListener('click', function(){window.open(value, '_blank');}, false);
@@ -457,7 +459,7 @@ function updateCustomURLs() {
     let customCount = document.querySelectorAll('.fa-bolt').length;
     for (let i = 0; i < customCount; ++i) {
         let customCount = i + 1;
-        let urlClass = 'custom' + customCount;
+        let urlClass = `custom${customCount}`;
         let removeURL = document.getElementsByClassName(urlClass);
         removeURL[0].parentNode.removeChild(removeURL[0]);
     }
@@ -465,7 +467,7 @@ function updateCustomURLs() {
         let URLS = JSON.parse(globalURLS);
         let countURLs = 1;
         Object.entries(URLS).forEach(([key, value]) => {
-            let urlClass = 'custom' + countURLs;
+            let urlClass = `custom${countURLs}`;
             createMFMenu(urlClass, 'fa-bolt', key);
             let urlElement = document.getElementsByClassName(urlClass);
             urlElement[0].addEventListener('click', function(){window.open(value, '_blank');}, false);
@@ -503,8 +505,8 @@ function fullScreenKCSEvent() {
 }
 
 function initQMonitor() {
-    let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
-    let caseTable = document.querySelectorAll("table[aria-label*='"+globalQueue+"'] tbody tr");
+    let caseQueue = document.querySelector(`table[aria-label*="${globalQueue}"]`);
+    let caseTable = document.querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
     if ( (caseQueue) && (caseTable) ) {
         caseTable.forEach(caseRow => {
             let caseNumber = caseRow.querySelector('th span a').textContent;
@@ -520,8 +522,8 @@ function initQMonitor() {
     } else {
         let observer = new MutationObserver(mutations => {
             setTimeout(function() {
-                let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
-                let caseTable = document.querySelectorAll("table[aria-label*='"+globalQueue+"'] tbody tr");
+                let caseQueue = document.querySelector(`table[aria-label*="${globalQueue}"]`);
+                let caseTable = document.querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
                 if ( (caseQueue) && (caseTable) ) {
                     caseTable.forEach(caseRow => {
                         let caseNumber = caseRow.querySelector('th span a').textContent;
@@ -543,7 +545,7 @@ function initQMonitor() {
 }
 
 function qMonitor() {
-    let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
+    let caseQueue = document.querySelector(`table[aria-label*="${globalQueue}"]`);
     qObserver = new MutationObserver(mutations => {
         if (caseQueue) {
             setTimeout(function() {
@@ -555,8 +557,8 @@ function qMonitor() {
 }
 
 function qNotify() {
-    let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
-    let caseTable = document.querySelectorAll("table[aria-label*='"+globalQueue+"'] tbody tr");
+    let caseQueue = document.querySelector(`table[aria-label*="${globalQueue}"]`);
+    let caseTable = document.querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
     if (caseTable) {
         caseTable.forEach(caseRow => {
             let caseNumber = caseRow.querySelector('th span a').textContent;
@@ -690,7 +692,7 @@ function qNotify() {
 }
 
 function emptyArrays() {
-    let caseQueue = document.querySelector("table[aria-label*='"+globalQueue+"']");
+    let caseQueue = document.querySelector(`table[aria-label*="${globalQueue}"]`);
     let caseTable = caseQueue.querySelectorAll("tbody tr");
     if ( (caseQueue) && !(caseTable) ) {
         oldCaseArray = [];
@@ -705,7 +707,7 @@ function quixyListURL() {
         let allDefects = document.querySelectorAll('[title^="OCTCR"]');
         allDefects.forEach(defectElem => {
             let quixyID = defectElem.textContent;
-            let finalURL = '<a target="_blank" href="https://rdapps.swinfra.net/quixy/#/viewEntity/' + quixyID + '">' + quixyID + '</a>';
+            let finalURL = `<a target="_blank" href="https://rdapps.swinfra.net/quixy/#/viewEntity/${quixyID}">${quixyID}</a>`;
             defectElem.innerHTML = finalURL;
             defectElem.title = "Quixy";
         });
@@ -774,7 +776,7 @@ function extLoaded() {
             newUL.className = "newfooterul";
             footerUl.appendChild(newUL);
             let li = document.createElement("li");
-            li.innerHTML = '<a class="ExtLoaded" target="_blank" href="https://unixmit.github.io/UNiXSF">SFExt ' + installedVersion + '</a>';
+            li.innerHTML = `<a class="ExtLoaded" target="_blank" href="https://unixmit.github.io/UNiXSF">SFExt ${installedVersion}</a>`;
             li.className = 'ExtLoaded';
             newUL.appendChild(li);
             observer.disconnect();
@@ -865,7 +867,7 @@ function updateCheck() {
                 let latestVersion = xmlHttp.response;
                 if (latestVersion > installedVersion) {
                     (async() => {
-                        let updateMessage = 'Version ' + latestVersion;
+                        let updateMessage = `Version ${latestVersion}`;
                         if (!window.Notification) {
                             console.log('Browser does not support notifications.');
                         } else {
@@ -901,7 +903,7 @@ function updateCheck() {
                         }
                     })();
                     if ( !(initDropDown) ) {
-                        updateLabel = "SFExt Update " + latestVersion;
+                        updateLabel = `SFExt Update ${latestVersion}`;
                         createMFMenu('mfupdate', 'fa-arrows-rotate', updateLabel);
                         let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfupdate');
                         mfButtonNew.addEventListener('click', mfUpdateEvent, false);
