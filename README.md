@@ -70,7 +70,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 ## Install
 
-1. Download the [Latest Release UNiXSF.zip](https://github.com/UNiXMIT/UNiXSF/releases/latest), and unzip into the directory where you would like the extension to be stored.  
+1. Download the [Latest Release UNiXSF.zip](https://unixmit.github.io/UNiXSF/SFExt.zip), and unzip into the directory where you would like the extension to be stored.  
 2. Open Google Chrome, Brave or Edge.  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser) in the browser address bar.   
 4. Toggle "Developer mode".  
@@ -82,7 +82,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 ## Update
 
-1. Download the [Latest Release UNiXSF.zip](https://github.com/UNiXMIT/UNiXSF/releases/latest), and unzip into the directory where the previous version of the SF Extension is located, overwriting the old files. 
+1. Download the [Latest Release UNiXSF.zip](https://unixmit.github.io/UNiXSF/SFExt.zip), and unzip into the directory where the previous version of the SF Extension is located, overwriting the old files. 
 2. Open Google Chrome, Brave or Edge.  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser). 
 4. Click the reload icon in the Salesforce Extension tile.

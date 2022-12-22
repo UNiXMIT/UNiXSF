@@ -25,7 +25,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": [ "config/*", "css/*", "fonts/*", "icons/*", "js/*" ],
+      "resources": [ "*" ],
       "matches": [ "*://*.lightning.force.com/*" ]
     }
   ],

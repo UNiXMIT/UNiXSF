@@ -95,11 +95,11 @@ function export_options() {
                 }
             }
         });
-        var items = JSON.stringify(result, null, 2);
-        var url = 'data:application/json;base64,' + btoa(items);
+        let items = JSON.stringify(result, null, 2);
+        let url = 'data:application/json;base64,' + btoa(items);
         chrome.downloads.download({
             url: url,
-            filename: 'sfext.json'  ,
+            filename: 'sfext.json',
             saveAs: true 
         }); 
     });

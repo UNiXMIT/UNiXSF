@@ -1,4 +1,4 @@
-const installedVersion = "2.8";
+const installedVersion = chrome.runtime.getManifest().version;
 let globalInit = 0;
 let navInit = 1;
 let initDropDown = 1;
@@ -774,7 +774,7 @@ function extLoaded() {
             newUL.className = "newfooterul";
             footerUl.appendChild(newUL);
             let li = document.createElement("li");
-            li.innerHTML = '<a class="ExtLoaded" target="_blank" href="https://unixmit.github.io/UNiXSF">SFExt</a>';
+            li.innerHTML = '<a class="ExtLoaded" target="_blank" href="https://unixmit.github.io/UNiXSF">SFExt ' + installedVersion + '</a>';
             li.className = 'ExtLoaded';
             newUL.appendChild(li);
             observer.disconnect();
@@ -876,6 +876,7 @@ function updateCheck() {
                                 });
                                 UpdateNofity.addEventListener('click', () => {
                                     window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
+                                    window.open('https://github.com/UNiXMIT/UNiXSF/raw/main/SFExt.zip', '_blank');
                                 });
                             } else {
                                 Notification.requestPermission()
@@ -887,6 +888,7 @@ function updateCheck() {
                                             });
                                             UpdateNofity.addEventListener('click', () => {
                                                 window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
+                                                window.open('https://github.com/UNiXMIT/UNiXSF/raw/main/SFExt.zip', '_blank');
                                             });
                                         } else {
                                             console.log('User blocked notifications.');
@@ -914,6 +916,7 @@ function updateCheck() {
 
 function mfUpdateEvent() {
     window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
+    window.open('https://github.com/UNiXMIT/UNiXSF/raw/main/SFExt.zip', '_blank');
 }
 
 const sleep = (milliseconds) => {
