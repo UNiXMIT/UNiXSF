@@ -62,6 +62,9 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - **Character Counter**  
   Added character counts to 'textarea' fields.  
 
+- **Copy to clipboard buttons for Case Number and Subject**  
+  Added buttons next to the Case Number and Subject to copy that information to the clipboard.  
+
 ### Experimental
 
 - **Modify Case Status after Send**  

@@ -768,6 +768,85 @@ function addCharacterCounter() {
     observer.observe(document, {childList: true, subtree: true});
 }
 
+function addCopyButton() {
+    let observer = new MutationObserver(mutations => {
+        let caseNumberButtonCheck = document.querySelector('div.split-right').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > .copyButton')
+        if (caseNumberButtonCheck === null) {
+            let field = document.querySelector('div.split-right').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text');
+            let button = document.createElement('button');
+            button.innerHTML = '[COPY]';
+            button.style.border = 'none';
+            button.style.backgroundColor = 'transparent';
+            button.style.color = '#0570f6';
+            button.style.cursor = 'pointer';
+            button.style.fontWeight = '700';
+            button.style.fontSize = '10px';
+            button.style.display = 'block';
+            button.className = 'copyButton';
+            (async ()=>{
+                if (field && field.parentNode) {
+                    field.parentNode.appendChild(button);
+                    button.addEventListener('click', async () => {
+                        let selectedText = window.getSelection().toString();
+                        if (!selectedText) {
+                            if (field.type === 'lightning-formatted-text') {
+                            field.select();
+                            } else if (field.tagName.toLowerCase() === 'textarea') {
+                            field.focus();
+                            field.setSelectionRange(0, field.value.length);
+                            }
+                            selectedText = field.innerText;
+                        }
+                        try {
+                            await navigator.clipboard.writeText(selectedText);
+                        } catch (error) {
+                            console.error('Failed to copy: ', error);
+                        }
+                    });
+                }
+                await sleep(500);
+            })();
+        }
+        let caseSubjectButtonCheck = document.querySelector('div.split-right').querySelector('support-output-case-subject-field > div > .copyButton');
+        if (caseSubjectButtonCheck === null) {
+            let field  = document.querySelector('div.split-right').querySelector('support-output-case-subject-field > div > lightning-formatted-text');
+            let button = document.createElement('button');
+            button.innerHTML = '[COPY]';
+            button.style.border = 'none';
+            button.style.backgroundColor = 'transparent';
+            button.style.color = '#0570f6';
+            button.style.cursor = 'pointer';
+            button.style.fontWeight = '700';
+            button.style.fontSize = '10px';
+            button.className = 'copyButton';
+            (async ()=>{
+                if (field && field.parentNode) {
+                    field.parentNode.appendChild(button);
+                    button.addEventListener('click', async () => {
+                        let selectedText = window.getSelection().toString();
+                        if (!selectedText) {
+                            if (field.type === 'lightning-formatted-text') {
+                            field.select();
+                            } else if (field.tagName.toLowerCase() === 'textarea') {
+                            field.focus();
+                            field.setSelectionRange(0, field.value.length);
+                            }
+                            selectedText = field.innerText;
+                        }
+                        try {
+                            await navigator.clipboard.writeText(selectedText);
+                        } catch (error) {
+                            console.error('Failed to copy: ', error);
+                        }
+                    });
+                }
+                await sleep(500);
+            })();
+        }
+    });
+    observer.observe(document, {childList: true, subtree: true});
+}
+
 function extLoaded() {
     let observer = new MutationObserver(mutations => {
         let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
@@ -1007,7 +1086,8 @@ window.onload = function() {
             }, 10000);
             quixyListURL();
             defectFixed();
-            addCharacterCounter()
+            addCharacterCounter();
+            addCopyButton();
             extLoaded();
             fixMouse();
             dailyUsers();
