@@ -209,7 +209,7 @@ function mfNav() {
             mfPP();
             mfTranslation();
             amcURLs();
-            fullScreenKCS()
+            fullScreenKCS();
             customURLs();
             observer.disconnect();
         }
@@ -741,7 +741,7 @@ function addCharacterCounter() {
     let observer = new MutationObserver(mutations => {
         let textareas = document.querySelector('.split-right').querySelectorAll('.slds-textarea, .textarea');
         textareas.forEach(function(textarea) {
-            let checkCounter = textarea.nextSibling
+            let checkCounter = textarea.nextSibling;
             let existingCounter;
             if (checkCounter) {
                 existingCounter = checkCounter.classList.contains('character-counter');
@@ -770,7 +770,7 @@ function addCharacterCounter() {
 
 function addCopyButton() {
     let observer = new MutationObserver(mutations => {
-        let caseNumberButtonCheck = document.querySelector('div.split-right').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > .copyButton')
+        let caseNumberButtonCheck = document.querySelector('div.split-right').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > .copyButton');
         if (caseNumberButtonCheck === null) {
             let field = document.querySelector('div.split-right').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text');
             let button = document.createElement('button');
@@ -926,7 +926,7 @@ function EE() {
                 explosion.style.zIndex = 9998;
                 if (element) {
                     element.style.display = "none";
-                    let parentExplosion = element.parentNode
+                    let parentExplosion = element.parentNode;
                     if (element.class != "explosion-graphic") {
                         parentExplosion.appendChild(explosion);
                     }
