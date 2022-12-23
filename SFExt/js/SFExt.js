@@ -774,17 +774,16 @@ function addCopyButton() {
         if (caseNumberButtonCheck === null) {
             let field = document.querySelector('div.split-right').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text');
             let button = document.createElement('button');
-            button.innerHTML = '[COPY]';
             button.style.border = 'none';
             button.style.backgroundColor = 'transparent';
             button.style.color = '#0570f6';
             button.style.cursor = 'pointer';
             button.style.fontWeight = '700';
-            button.style.fontSize = '10px';
-            button.style.display = 'block';
-            button.className = 'copyButton';
+            button.style.fontSize = '14px';
+            button.className = 'copyButton fa-solid fa-copy';
             (async ()=>{
                 if (field && field.parentNode) {
+                    field.parentNode.parentNode.parentNode.parentNode.style.paddingRight = '0';
                     field.parentNode.appendChild(button);
                     button.addEventListener('click', async () => {
                         let selectedText = window.getSelection().toString();
@@ -811,14 +810,13 @@ function addCopyButton() {
         if (caseSubjectButtonCheck === null) {
             let field  = document.querySelector('div.split-right').querySelector('support-output-case-subject-field > div > lightning-formatted-text');
             let button = document.createElement('button');
-            button.innerHTML = '[COPY]';
             button.style.border = 'none';
             button.style.backgroundColor = 'transparent';
             button.style.color = '#0570f6';
             button.style.cursor = 'pointer';
             button.style.fontWeight = '700';
-            button.style.fontSize = '10px';
-            button.className = 'copyButton';
+            button.style.fontSize = '16px';
+            button.className = 'copyButton fa-solid fa-copy';
             (async ()=>{
                 if (field && field.parentNode) {
                     field.parentNode.appendChild(button);

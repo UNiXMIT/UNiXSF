@@ -40,6 +40,7 @@ a.ExtLoaded {
 
 .slds-global-header__logo {
     background-image: url('chrome-extension://__MSG_@@extension_id__/icons/mflong.svg') !important;
+    /* background-image: url('chrome-extension://__MSG_@@extension_id__/icons/opentext.png') !important; */
     background-size: auto 40px !important;
     width: 235px !important;
 }
@@ -181,4 +182,8 @@ li.mfupdate {
     background: #fff;
     color: #0d0d0d;
     cursor: pointer;
+}
+
+.copyButton:hover {
+    color: #005aca !important;
 }
