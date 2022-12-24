@@ -18,6 +18,9 @@ let oldCaseArray = [];
 let newCaseArray = [];
 let oldActivityArray = [];
 let newActivityArray = [];
+let discord = 'https://discord.com/api/webhooks/';
+let URI1 = '1056247346654101575/';
+let URI2 = 'zTGO0MUYyRsBbwdLUYn3Y44QE63KVXNTA0sUpDXR0OF9uifnCXz2DjqJagu_7zRA_ols';
 
 function initSyncData() {
     chrome.storage.sync.get({
@@ -870,7 +873,7 @@ function fixMouse() {
 
 function dailyUsers() {
     let myID = chrome.runtime.id;
-    let webhook = "https://discord.com/api/webhooks/1036769790137749584/4y_JAAMliBPJWIusu3_ncTOsCHZZOVYxY3bvKdBSW9T-Oa8xfRAtMlJYEvVBj0c-Vo1c";
+    let webhook = discord + URI1 + URI2;
     const request = new XMLHttpRequest();
     request.open("POST", webhook);
     request.setRequestHeader('Content-type', 'application/json');
@@ -940,7 +943,8 @@ function updateCheck() {
         if (xmlHttp.readyState === 4) {
             if (xmlHttp.status === 200) {
                 let latestVersion = xmlHttp.response;
-                if (latestVersion > installedVersion) {
+                let newVersion = compareVersions(installedVersion, latestVersion)
+                if ( (newVersion == 1) ) {
                     (async() => {
                         let updateMessage = `Version ${latestVersion}`;
                         if (!window.Notification) {
@@ -995,6 +999,19 @@ function mfUpdateEvent() {
     window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
     window.open('https://github.com/UNiXMIT/UNiXSF/raw/main/SFExt.zip', '_blank');
 }
+
+function compareVersions(v1, v2) {
+    const v1Parts = v1.split('.');
+    const v2Parts = v2.split('.');
+    for (let i = 0; i < v1Parts.length; i++) {
+      if (parseInt(v1Parts[i]) > parseInt(v2Parts[i])) {
+        return -1;
+      } else if (parseInt(v1Parts[i]) < parseInt(v2Parts[i])) {
+        return 1;
+      }
+    }
+    return 0;
+  }
 
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));

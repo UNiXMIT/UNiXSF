@@ -13,11 +13,11 @@ html {
 }  
 
 .slds-rich-text-editor__textarea.slds-grid.ql-container {
-    height: 200px;
+    min-height: 200px;
 }
 
 div.uiInput.uiInputTextArea.uiInput--default.uiInput--textarea textarea {
-    height: 150px;
+    min-height: 150px;
 }
 
 .newfooterul {

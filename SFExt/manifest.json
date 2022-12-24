@@ -1,6 +1,6 @@
 {
   "name": "Salesforce Extension",
-  "version": "2.9",
+  "version": "2.9.0",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "homepage_url": "https://unixmit.github.io/UNiXSF",
