@@ -785,6 +785,7 @@ function addCopyButton() {
                 button.style.cursor = 'pointer';
                 button.style.fontWeight = '700';
                 button.style.fontSize = '14px';
+                button.title = 'Copy Case Number';
                 button.className = 'copyButton fa-solid fa-copy';
                 (async ()=>{
                     if (field && field.parentNode) {
@@ -810,6 +811,7 @@ function addCopyButton() {
                 button.style.cursor = 'pointer';
                 button.style.fontWeight = '700';
                 button.style.fontSize = '16px';
+                button.title = 'Copy Case Subject';
                 button.className = 'copyButton fa-solid fa-copy';
                 (async ()=>{
                     if (field && field.parentNode) {
@@ -831,6 +833,8 @@ function addCopyButton() {
                     if (field) {
                         field.className = 'highlights-icon-container slds-avatar slds-m-right_small icon copyButton';
                         field.style.cursor = 'pointer';
+                        let fieldTitle = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.highlights-icon-container.slds-avatar.slds-m-right_small.icon > img');
+                        fieldTitle.title = 'Copy Case Number & Subject';
                         field.addEventListener('click', async () => {
                             let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text');
                             let caseSubject  = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text');
