@@ -1007,15 +1007,20 @@ function mfUpdateEvent() {
 function compareVersions(v1, v2) {
     const v1Parts = v1.split('.');
     const v2Parts = v2.split('.');
-    for (let i = 0; i < v1Parts.length; i++) {
-      if (parseInt(v1Parts[i]) > parseInt(v2Parts[i])) {
-        return -1;
-      } else if (parseInt(v1Parts[i]) < parseInt(v2Parts[i])) {
-        return 1;
-      }
+    for (let i = 0; i < v1Parts.length || i < v2Parts.length; i++) {
+        if (i >= v1Parts.length) {
+            return 1;
+        } else if (i >= v2Parts.length) {
+            return -1;
+        }
+        if (parseInt(v1Parts[i]) > parseInt(v2Parts[i])) {
+            return -1;
+        } else if (parseInt(v1Parts[i]) < parseInt(v2Parts[i])) {
+            return 1;
+        }
     }
     return 0;
-  }
+}  
 
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
