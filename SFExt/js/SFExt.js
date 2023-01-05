@@ -180,13 +180,25 @@ function saveCaseStatus() {
                     await sleep(100);
                     detailsTab.click();
                     await sleep(100);
-                    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('button.test-id__inline-edit-trigger').click();
+                    let modifyButton = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('button.test-id__inline-edit-trigger');
+                    if (modifyButton) {
+                        modifyButton.click();
+                    }
                     await sleep(500);
-                    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.slds-form__row:nth-child(1) slot records-record-layout-item:nth-child(2) button').click();
+                    let openStatusCombo = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.slds-form__row:nth-child(1) slot records-record-layout-item:nth-child(2) button');
+                    if (openStatusCombo) {
+                        openStatusCombo.click();
+                    }
                     await sleep(300);
-                    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector(`[data-value^="${userSelected}"]`).click();
+                    let selectStatusValue = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector(`[data-value^="${userSelected}"]`);
+                    if (selectStatusValue) {
+                        selectStatusValue.click();
+                    }
                     await sleep(200);
-                    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[name="SaveEdit"]').click();
+                    let SaveEdit = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[name="SaveEdit"]');
+                    if (SaveEdit) {
+                        SaveEdit.click();
+                    }
                 })();
             }
         document.querySelector('.statusDialog').close();
