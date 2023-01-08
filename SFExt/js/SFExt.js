@@ -805,7 +805,18 @@ function addCopyButton() {
                         field.parentNode.appendChild(button);
                         button.addEventListener('click', async () => {
                             let selectedText = field.innerText;
-                            await navigator.clipboard.writeText(selectedText);
+                            let defectURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+                            const clipboardItem = new ClipboardItem({
+                                "text/plain": new Blob(
+                                    [selectedText],
+                                    { type: "text/plain" }
+                                ),
+                                "text/html": new Blob(
+                                    [`<a href="${defectURL}">${selectedText}</a>`],
+                                    { type: "text/html" }
+                                ),
+                            });
+                            await navigator.clipboard.write([clipboardItem]);
                         });
                     }
                     await sleep(500);
@@ -830,7 +841,18 @@ function addCopyButton() {
                         field.parentNode.appendChild(button);
                         button.addEventListener('click', async () => {
                             let selectedText = field.innerText;
-                            await navigator.clipboard.writeText(selectedText);
+                            let defectURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+                            const clipboardItem = new ClipboardItem({
+                                "text/plain": new Blob(
+                                    [selectedText],
+                                    { type: "text/plain" }
+                                ),
+                                "text/html": new Blob(
+                                    [`<a href="${defectURL}">${selectedText}</a>`],
+                                    { type: "text/html" }
+                                ),
+                            });
+                            await navigator.clipboard.write([clipboardItem]);
                         });
                     }
                     await sleep(500);
