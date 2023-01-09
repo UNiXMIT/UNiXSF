@@ -374,13 +374,13 @@ function addReminderEvent() {
     }
     if ((caseNumber) && (caseSubject)) {
         querySubject = caseNumber + " - " + caseSubject;
-        let defectURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-        caseURL = `<a title="${caseNumber}" href="${defectURL}">${querySubject}</a>`;
+        let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+        caseURL = `<a title="${caseNumber}" href="${caseURL}">${querySubject}</a>`;
     } else {
         if ((caseNumber) && !(caseSubject)) {
             querySubject = caseNumber;
-            let defectURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-            caseURL = `<a title="${caseNumber}" href="${defectURL}">${querySubject}</a>`;
+            let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+            caseURL = `<a title="${caseNumber}" href="${caseURL}">${querySubject}</a>`;
         } else {
             querySubject = "";
             caseURL = "";
@@ -805,14 +805,14 @@ function addCopyButton() {
                         field.parentNode.appendChild(button);
                         button.addEventListener('click', async () => {
                             let selectedText = field.innerText;
-                            let defectURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+                            let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
                             const clipboardItem = new ClipboardItem({
                                 "text/plain": new Blob(
                                     [selectedText],
                                     { type: "text/plain" }
                                 ),
                                 "text/html": new Blob(
-                                    [`<a href="${defectURL}">${selectedText}</a>`],
+                                    [`<a href="${caseURL}">${selectedText}</a>`],
                                     { type: "text/html" }
                                 ),
                             });
@@ -841,14 +841,14 @@ function addCopyButton() {
                         field.parentNode.appendChild(button);
                         button.addEventListener('click', async () => {
                             let selectedText = field.innerText;
-                            let defectURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+                            let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
                             const clipboardItem = new ClipboardItem({
                                 "text/plain": new Blob(
                                     [selectedText],
                                     { type: "text/plain" }
                                 ),
                                 "text/html": new Blob(
-                                    [`<a href="${defectURL}">${selectedText}</a>`],
+                                    [`<a href="${caseURL}">${selectedText}</a>`],
                                     { type: "text/html" }
                                 ),
                             });
@@ -873,14 +873,14 @@ function addCopyButton() {
                             let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text');
                             let caseSubject  = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text');
                             selectedText = caseNumber.innerText + ' - ' + caseSubject.innerText;
-                            let defectURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+                            let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
                             const clipboardItem = new ClipboardItem({
                                 "text/plain": new Blob(
                                     [selectedText],
                                     { type: "text/plain" }
                                 ),
                                 "text/html": new Blob(
-                                    [`<a href="${defectURL}">${selectedText}</a>`],
+                                    [`<a href="${caseURL}">${selectedText}</a>`],
                                     { type: "text/html" }
                                 ),
                             });
