@@ -173,7 +173,8 @@ Imports your exported options from the previously exported JSON file. The import
 - If the FTS button does not open with your local SFTP client, it may not be supported.
   The SFTP Client application used, depends on the default app set in the OS for SFTP Protocol:  
   ![09](images/sftp.png)  
-  This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol  
+  This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol.  
+  To register WinSCP to handle URL addresses use the [WinSCP installer](https://winscp.net/eng/docs/ui_installer_selecttasks) or go to [Preferences dialog](https://winscp.net/eng/docs/ui_pref_integration).  
 
 ## Limitations  
 
