@@ -978,7 +978,7 @@ function EE() {
                 clearInterval(intervalID);
             }
             let img = document.createElement('img');
-            img.src = 'https://imgprx.livejournal.net/f2af41423dbd192d90d4b896339a142cf22bb0e8/ugF-F4YE2NKBa8_i7tfMF9fqXqSDq6K2D_SHZTxd5I-10cr809Qo0ozoVYUfVWbwzqLPoUfECXON0Og0sik2kNnv8JBiubUpzpyBf3z06hA';
+            img.src = 'https://unixmit.uk/ramona.gif';
             img.style.position = 'absolute';
             img.style.zIndex = 9999;
             img.style.width = '125px';
