@@ -62,7 +62,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - **Character Counter**  
   Added character counts to 'textarea' fields.  
 
-- **Copy to clipboard buttons for Case Number and Subject**  
+- **Copy to clipboard buttons for Case Number, Subject and Defect Number**  
   Added buttons next to the Case Number, Subject and Defect Number (if present) to copy that information to the clipboard.  
   The main case icon copies the Case Number and Subject at the same time.   
 
