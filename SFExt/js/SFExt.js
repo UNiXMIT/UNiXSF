@@ -891,6 +891,43 @@ function addCopyButton() {
                 })();
             }
         }
+        if (activeTab) {
+            let field = activeCaseContains('lightning-formatted-text','OCTCR'); 
+            if (field.length) {
+                if (!field[0].className) {
+                    field[0].className = "copyButtonAdded";
+                    let button = document.createElement('button');
+                    button.style.border = 'none';
+                    button.style.backgroundColor = 'transparent';
+                    button.style.color = '#0570f6';
+                    button.style.cursor = 'pointer';
+                    button.style.fontWeight = '700';
+                    button.style.fontSize = '14px';
+                    button.title = 'Copy Defect Number';
+                    button.className = 'copyButton fa-solid fa-copy';
+                    (async ()=>{
+                        if (field[0] && field[0].parentNode) {
+                            field[0].parentNode.appendChild(button);
+                            button.addEventListener('click', async () => {
+                                let selectedText = field[0].innerText;
+                                const clipboardItem = new ClipboardItem({
+                                    "text/plain": new Blob(
+                                        [selectedText],
+                                        { type: "text/plain" }
+                                    ),
+                                    "text/html": new Blob(
+                                        [`<a target="_blank" href="https://rdapps.swinfra.net/quixy/#/viewEntity/${selectedText}">${selectedText}</a>`],
+                                        { type: "text/html" }
+                                    ),
+                                });
+                                await navigator.clipboard.write([clipboardItem]);
+                            });
+                        }
+                        await sleep(500);
+                    })();
+                }
+            }
+        }
     });
     observer.observe(document, {childList: true, subtree: true});
 }
