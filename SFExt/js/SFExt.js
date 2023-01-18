@@ -322,10 +322,10 @@ function mfQuixy() {
 function mfQuixyEvent() {
     let quixyID = activeCaseContains('lightning-formatted-text','OCTCR'); 
     if (quixyID.length) {
-        let finalURL = `${globalQuixyURL}/${quixyID[0].innerText}`;
+        let finalURL = `${globalQuixyURL.replace(/\/$/, "")}/${quixyID[0].innerText}`;
         window.open(finalURL, '_blank');
     } else {
-        window.open(globalQuixyURL, '_blank');
+        window.open(globalQuixyURL.replace(/\/$/, ""), '_blank');
     }
 }
 
@@ -722,7 +722,7 @@ function quixyListURL() {
         let allDefects = document.querySelectorAll('[title^="OCTCR"]');
         allDefects.forEach(defectElem => {
             let quixyID = defectElem.textContent;
-            let finalURL = `<a target="_blank" href="${globalQuixyURL}/${quixyID}">${quixyID}</a>`;
+            let finalURL = `<a target="_blank" href="${globalQuixyURL.replace(/\/$/, "")}/${quixyID}">${quixyID}</a>`;
             defectElem.innerHTML = finalURL;
             defectElem.title = "Quixy";
         });
@@ -916,7 +916,7 @@ function addCopyButton() {
                                         { type: "text/plain" }
                                     ),
                                     "text/html": new Blob(
-                                        [`<a target="_blank" href="${globalQuixyURL}/${selectedText}">${selectedText}</a>`],
+                                        [`<a target="_blank" href="${globalQuixyURL.replace(/\/$/, "")}/${selectedText}">${selectedText}</a>`],
                                         { type: "text/html" }
                                     ),
                                 });
