@@ -1,10 +1,12 @@
 function save_options() {
   let refreshTimeout = document.getElementById('timeout').value;
   let products = document.getElementById('products').value;
+  let quixy = document.getElementById('quixy').value;
   let queue = document.getElementById('queue').value;
   let qnotify = document.getElementById('qnotify').checked;
   let qnotifyweb = document.getElementById('qnotifyweb').checked;
   let webhook = document.getElementById('webhook').value;
+  let translation = document.getElementById('translation').value;
   let protocol = document.getElementById('protocol').value;
   let ftsurl = document.getElementById('ftsurl').value;
   let customurls = document.getElementById('customurls').value;
@@ -12,10 +14,12 @@ function save_options() {
   chrome.storage.sync.set({
       savedTimeout: refreshTimeout,
       savedProducts: products,
+      savedQuixy: quixy,
       savedQueue: queue,
       savedQNotify: qnotify,
       savedQNotifyWeb: qnotifyweb,
       savedWebhook: webhook,
+      savedTranslation: translation,
       savedProtocol: protocol,
       savedFTSURL: ftsurl,
       savedURLS: customurls,
@@ -30,7 +34,7 @@ function save_options() {
 }
 
 function reset_options() {
-  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus"], function() {
+  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedQuixy", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedTranslation", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus"], function() {
       let error = chrome.runtime.lastError;
       if (error) {
           console.error(error);
@@ -43,21 +47,25 @@ function restore_options() {
   chrome.storage.sync.get({
       savedTimeout: 60,
       savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+      savedQuixy: '',
       savedQueue: 'NOTIFY',
       savedQNotify: false,
       savedQNotifyWeb: false,
-      savedWebhook: 'https://webhookURL',
+      savedWebhook: '',
+      savedTranslation: '',
       savedProtocol: 'sftp://',
-      savedFTSURL: 'secureupload.microfocus.com:2222',
+      savedFTSURL: '',
       savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
       savedStatus: false
   }, function(result) {
       document.getElementById('timeout').value = result.savedTimeout;
       document.getElementById('products').value = result.savedProducts;
+      document.getElementById('quixy').value = result.savedQuixy;
       document.getElementById('queue').value = result.savedQueue;
       document.getElementById('qnotify').checked = result.savedQNotify;
       document.getElementById('qnotifyweb').checked = result.savedQNotifyWeb;
       document.getElementById('webhook').value = result.savedWebhook;
+      document.getElementById('translation').value = result.savedTranslation;
       document.getElementById('protocol').value = result.savedProtocol;
       document.getElementById('ftsurl').value = result.savedFTSURL;
       document.getElementById('customurls').value = result.savedURLS;
@@ -69,12 +77,14 @@ function export_options() {
     chrome.storage.sync.get({
         savedTimeout: 60,
         savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+        savedQuixy: '',
         savedQueue: 'NOTIFY',
         savedQNotify: false,
         savedQNotifyWeb: false,
-        savedWebhook: 'https://webhookURL',
+        savedWebhook: '',
+        savedTranslation: '',
         savedProtocol: 'sftp://',
-        savedFTSURL: 'secureupload.microfocus.com:2222',
+        savedFTSURL: '',
         savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
         savedStatus: false
     }, function(result) {
@@ -117,10 +127,12 @@ function import_options() {
         chrome.storage.sync.set({
             savedTimeout: json.savedTimeout,
             savedProducts: json.savedProducts,
+            savedQuixy: json.savedQuixy,
             savedQueue: json.savedQueue,
             savedQNotify: json.savedQNotify,
             savedQNotifyWeb: json.savedQNotifyWeb,
             savedWebhook: json.savedWebhook,
+            savedTranslation: json.savedTranslation,
             savedProtocol: json.savedProtocol,
             savedFTSURL: json.savedFTSURL,
             savedURLS: json.savedURLS,

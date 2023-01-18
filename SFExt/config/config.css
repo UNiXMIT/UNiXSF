@@ -59,11 +59,17 @@ textarea {
     width: 700px;
     height: 150px;
 }
+#quixy {
+    width: 400px;
+}
 #queue {
     width: 300px;
 }
 #webhook {
     width: 600px;
+}
+#translation {
+    width: 400px;
 }
 #protocol {
     width: 100px;

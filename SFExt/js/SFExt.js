@@ -12,6 +12,8 @@ let globalProtocol;
 let globalFTSURL;
 let globalURLS;
 let globalStatus;
+let globalQuixyURL;
+let globalTranslationURL;
 let intervalID;
 let qObserver;
 let oldCaseArray = [];
@@ -26,21 +28,25 @@ function initSyncData() {
     chrome.storage.sync.get({
         savedTimeout: 60,
         savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+        savedQuixy: '',
         savedQueue: 'NOTIFY',
         savedQNotify: false,
         savedQNotifyWeb: false,
-        savedWebhook: 'https://webhookURL',
+        savedWebhook: '',
+        savedTranslation: '',
         savedProtocol: 'sftp://',
-        savedFTSURL: 'secureupload.microfocus.com:2222',
+        savedFTSURL: '',
         savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
         savedStatus: false
     }, function(result) {
         globalTimeout = result.savedTimeout;
         globalProducts = result.savedProducts;
+        globalQuixyURL = result.savedQuixy;
         globalQueue = result.savedQueue;
         globalQNotify = result.savedQNotify;
         globalQNotifyWeb = result.savedQNotifyWeb;
         globalWebhook = result.savedWebhook;
+        globalTranslationURL = result.savedTranslation;
         globalProtocol = result.savedProtocol;
         globalFTSURL = result.savedFTSURL;
         globalURLS = result.savedURLS;
@@ -55,12 +61,14 @@ function getSyncData() {
             chrome.storage.sync.get({
                 savedTimeout: 60,
                 savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+                savedQuixy: '',
                 savedQueue: 'NOTIFY',
                 savedQNotify: false,
                 savedQNotifyWeb: false,
-                savedWebhook: 'https://webhookURL',
+                savedWebhook: '',
+                savedTranslation: '',
                 savedProtocol: 'sftp://',
-                savedFTSURL: 'secureupload.microfocus.com:2222',
+                savedFTSURL: '',
                 savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
                 savedStatus: false
             }, function(result) {
@@ -72,6 +80,7 @@ function getSyncData() {
                     queueRefresh();
                 }
                 globalProducts = result.savedProducts;
+                globalQuixyURL = result.savedQuixy;
                 if (globalQueue != result.savedQueue) {
                     globalQueue = result.savedQueue;
                     if (qObserver) {
@@ -84,6 +93,7 @@ function getSyncData() {
                 globalQNotify = result.savedQNotify;
                 globalQNotifyWeb = result.savedQNotifyWeb;
                 globalWebhook = result.savedWebhook;
+                globalTranslationURL = result.savedTranslation;
                 globalProtocol = result.savedProtocol;
                 globalFTSURL = result.savedFTSURL;
                 if (globalURLS != result.savedURLS) {
@@ -223,7 +233,6 @@ function mfNav() {
             addReminder();
             mfPP();
             mfTranslation();
-            amcURLs();
             fullScreenKCS();
             customURLs();
             observer.disconnect();
@@ -313,10 +322,10 @@ function mfQuixy() {
 function mfQuixyEvent() {
     let quixyID = activeCaseContains('lightning-formatted-text','OCTCR'); 
     if (quixyID.length) {
-        let finalURL = `https://rdapps.swinfra.net/quixy/#/viewEntity/${quixyID[0].innerText}`;
+        let finalURL = `${globalQuixyURL}/${quixyID[0].innerText}`;
         window.open(finalURL, '_blank');
     } else {
-        window.open('https://rdapps.swinfra.net/quixy/#/viewEntity/', '_blank');
+        window.open(globalQuixyURL, '_blank');
     }
 }
 
@@ -362,6 +371,7 @@ function addReminder() {
 function addReminderEvent() {
     let querySubject;
     let caseURL;
+    let caseLink;
     let caseNumber;
     let caseSubject;
     let today = new Date();
@@ -374,23 +384,23 @@ function addReminderEvent() {
     }
     if ((caseNumber) && (caseSubject)) {
         querySubject = caseNumber + " - " + caseSubject;
-        let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-        caseURL = `<a title="${caseNumber}" href="${caseURL}">${querySubject}</a>`;
+        caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+        caseLink = `<a title="${caseNumber}" href="${caseURL}">${querySubject}</a>`;
     } else {
         if ((caseNumber) && !(caseSubject)) {
             querySubject = caseNumber;
-            let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-            caseURL = `<a title="${caseNumber}" href="${caseURL}">${querySubject}</a>`;
+            caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+            caseLink = `<a title="${caseNumber}" href="${caseURL}">${querySubject}</a>`;
         } else {
             querySubject = "";
-            caseURL = "";
+            caseLink = "";
         }
     }
     let userQuery = {
         "rru" : "addevent",
         "startdt" : reminderDate,
         "subject" : querySubject,
-        "body" : caseURL
+        "body" : caseLink
     };
     let calendarURL = "https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose";
     let finalQuery = [];
@@ -431,26 +441,16 @@ function mfTranslationEvent() {
         }
     }
     if ( (caseNumber) && (caseSeverity) ) {
-        let finalURL = `https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=${encodeURIComponent(caseNumber)}&Severity=${encodeURIComponent(caseSeverity)}`;
+        let finalURL = `${globalTranslationURL}?CaseNumber=${encodeURIComponent(caseNumber)}&Severity=${encodeURIComponent(caseSeverity)}`;
         window.open(finalURL, 'MF Translation', 'width=1150,height=700');
     } else {
         if ( (caseNumber) && !(caseSeverity) ) {
-            let finalURL = `https://apps.powerapps.com/play/e/default-856b813c-16e5-49a5-85ec-6f081e13b527/a/075dcd4f-25ea-43fb-8c97-bd6e2182a7f1?tenantId=856b813c-16e5-49a5-85ec-6f081e13b527&source=portal&screenColor=RGBA%280%2C176%2C240%2C1%29&skipAppMetadata=true?CaseNumber=${encodeURIComponent(caseNumber)}`;
+            let finalURL = `${globalTranslationURL}?CaseNumber=${encodeURIComponent(caseNumber)}`;
         window.open(finalURL, 'MF Translation', 'width=1150,height=700');
         } else {
-            window.open('http://bit.ly/mftranslate', 'MF Translation', 'width=1150,height=700');
+            window.open(globalTranslationURL, 'MF Translation', 'width=1150,height=700');
         }
     }
-}
-
-function amcURLs() {
-    createMFMenu('amcurls', 'fa-link', 'AMC URLs');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.amcurls');
-    mfButtonNew.addEventListener('click', amcURLsEvent, false);
-}
-
-function amcURLsEvent() {
-    window.open('http://bit.ly/KimsQuickLinks', 'AMC URLs', 'width=400,height=750');
 }
 
 function customURLs() {
@@ -722,7 +722,7 @@ function quixyListURL() {
         let allDefects = document.querySelectorAll('[title^="OCTCR"]');
         allDefects.forEach(defectElem => {
             let quixyID = defectElem.textContent;
-            let finalURL = `<a target="_blank" href="https://rdapps.swinfra.net/quixy/#/viewEntity/${quixyID}">${quixyID}</a>`;
+            let finalURL = `<a target="_blank" href="${globalQuixyURL}/${quixyID}">${quixyID}</a>`;
             defectElem.innerHTML = finalURL;
             defectElem.title = "Quixy";
         });
@@ -916,7 +916,7 @@ function addCopyButton() {
                                         { type: "text/plain" }
                                     ),
                                     "text/html": new Blob(
-                                        [`<a target="_blank" href="https://rdapps.swinfra.net/quixy/#/viewEntity/${selectedText}">${selectedText}</a>`],
+                                        [`<a target="_blank" href="${globalQuixyURL}/${selectedText}">${selectedText}</a>`],
                                         { type: "text/html" }
                                     ),
                                 });

@@ -49,15 +49,13 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
   - Full Screen KCS Editor.  
     Make the KCS editor fullscreen to allow easier creation/editing of the article body.
 
-  - Additional menu items for Support Portal, SLD Web Portal, PerformPlus and AMC Links.  
+  - Additional menu items for Support Portal, SLD Web Portal and PerformPlus.  
 
 - **Quixy URLs**  
   Creates URLs to Quixy defects in queues (if you have the 'R&D Change Requests' column visible).  
-  ![01](images/QuixyQueueLink.png)  
 
 - **Highlight Fixed Defects**  
   Highlights 'Planned in new release' or 'Software update provided' Close Codes in your Pending Release Queue.  
-  ![02](images/defectHighlight.png)  
 
 - **Character Counter**  
   Added character counts to 'textarea' fields.  
@@ -115,16 +113,14 @@ Click on the toolbar extension menu and select Options.
 
 - The name of the case queue to monitor and URL for the webhook notifications.  
   Desktop and Web notifications can be enabled/disabled.  
-  For the case queue name, either enter the name of the case queue that you want to monitor or append the name of the case queue you want to monitor with 'NOTIFY':  
-  ![06](images/CaseQueueName.png) 
+  For the case queue name, either enter the name of the case queue that you want to monitor or append the name of the case queue you want to monitor with 'NOTIFY'.  
 
 - The supported products list. This list is used to open the correct documentation page when the documentation link/icon is clicked.  
 
   **Requirements**  
   The list must be in JSON format.  
   The list consists of key/value pairs, separated by , and enclosed in braces { }.  
-  The Key must exactly match the name of the product as it appears in cases:   
-  ![07](images/acuProduct.png)  
+  The Key must exactly match the name of the product as it appears in cases.   
   The Value must match the sub-domain of the documentation page for that product:  
   i.e. for AcuCOBOL the URL is https://www.microfocus.com/documentation/extend-acucobol so the value must be:  
   ```
@@ -139,7 +135,7 @@ Click on the toolbar extension menu and select Options.
 
    {"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","Net Express / Server Express":"net-express"**,"ChangeMan ZMF":"changeman-zmf"**}
 
-- Custom links can be added to the footer of Salesforce. The format for the configuration is in JSON where the Key is the text of the link and the Value is the URL to load.  
+- Custom links can be added to the QuickLink Menu. The format for the configuration is in JSON where the Key is the text of the link and the Value is the URL to load.  
   The default is {"SFExt":"https://unixmit.github.io/UNiXSF"} which sets the text to 'SFExt' and the URL of the link to 'https://unixmit.github.io/UNiXSF'  
 
 ### Save Options
