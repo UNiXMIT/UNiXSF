@@ -1050,7 +1050,7 @@ function updateCheck() {
         if (xmlHttp.readyState === 4) {
             if (xmlHttp.status === 200) {
                 let latestVersion = xmlHttp.response;
-                let newVersion = compareVersions(installedVersion, latestVersion.toString())
+                let newVersion = compareVersions(installedVersion, latestVersion.toString());
                 if ( (newVersion == 1) ) {
                     (async() => {
                         let updateMessage = `Version ${latestVersion}`;
