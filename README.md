@@ -46,7 +46,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
     By default the calendar event start date is 3 days in the future but this can be changed, by the user, in the new window.  
   
   - Full Screen KCS Editor.  
-    Make the KCS editor fullscreen to allow easier creation/editing of the article body.
+    Make the KCS editor full screen to allow easier creation/editing of the article body.
 
   - Additional menu items for Support Portal, SLD Web Portal and PerformPlus.  
 

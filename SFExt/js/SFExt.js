@@ -15,7 +15,7 @@ let globalURLS;
 let globalStatus;
 let globalQuixyURL;
 let globalTranslationURL;
-let iconURL= `chrome.runtime.getURL('icons/mf128.png')`;
+let iconURL= chrome.runtime.getURL('icons/mf128.png');
 let intervalID;
 let qObserver;
 let oldCaseArray = [];
@@ -988,7 +988,6 @@ function dailyUsers() {
     request.setRequestHeader('Content-type', 'application/json');
     const params = {
         username: "SFExt User Activity",
-        avatar_url: iconURL,
         content: myID + ' - ' + installedVersion
     };
     request.send(JSON.stringify(params));
@@ -1046,8 +1045,7 @@ function EE() {
 
 function updateCheck() {
     let xmlHttp = new XMLHttpRequest();
-    xmlHttp.responseType = 'json';
-    let URL = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
+    let URL = 'https://gist.githubusercontent.com/UNiXMIT/debc0afb977069647d01cfdd0aae79a8/raw/latestVersion';
     xmlHttp.onreadystatechange = () => {
         if (xmlHttp.readyState === 4) {
             if (xmlHttp.status === 200) {
@@ -1100,7 +1098,7 @@ function updateCheck() {
             }
         }
     };
-    xmlHttp.open("GET", URL, true);
+    xmlHttp.open("GET", URL);
     xmlHttp.send(null);
 }
 
