@@ -4,6 +4,7 @@ let navInit = 1;
 let initDropDown = 1;
 let globalTimeout;
 let globalProducts;
+let globalPenCust;
 let globalQueue;
 let globalQNotify;
 let globalQNotifyWeb;
@@ -14,6 +15,7 @@ let globalURLS;
 let globalStatus;
 let globalQuixyURL;
 let globalTranslationURL;
+let iconURL= `chrome.runtime.getURL('icons/mf128.png')`;
 let intervalID;
 let qObserver;
 let oldCaseArray = [];
@@ -28,6 +30,7 @@ function initSyncData() {
     chrome.storage.sync.get({
         savedTimeout: 60,
         savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+        savedPenCust: false,
         savedQuixy: '',
         savedQueue: 'NOTIFY',
         savedQNotify: false,
@@ -36,11 +39,12 @@ function initSyncData() {
         savedTranslation: '',
         savedProtocol: 'sftp://',
         savedFTSURL: '',
-        savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
+        savedURLS: '{"SFExt":"https://github.com/UNiXMIT/UNiXSF"}',
         savedStatus: false
     }, function(result) {
         globalTimeout = result.savedTimeout;
         globalProducts = result.savedProducts;
+        globalPenCust = result.savedPenCust;
         globalQuixyURL = result.savedQuixy;
         globalQueue = result.savedQueue;
         globalQNotify = result.savedQNotify;
@@ -61,6 +65,7 @@ function getSyncData() {
             chrome.storage.sync.get({
                 savedTimeout: 60,
                 savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+                savedPenCust: false,
                 savedQuixy: '',
                 savedQueue: 'NOTIFY',
                 savedQNotify: false,
@@ -69,7 +74,7 @@ function getSyncData() {
                 savedTranslation: '',
                 savedProtocol: 'sftp://',
                 savedFTSURL: '',
-                savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
+                savedURLS: '{"SFExt":"https://github.com/UNiXMIT/UNiXSF"}',
                 savedStatus: false
             }, function(result) {
                 if (globalTimeout != result.savedTimeout) {
@@ -80,6 +85,7 @@ function getSyncData() {
                     queueRefresh();
                 }
                 globalProducts = result.savedProducts;
+                globalPenCust = result.savedPenCust;
                 globalQuixyURL = result.savedQuixy;
                 if (globalQueue != result.savedQueue) {
                     globalQueue = result.savedQueue;
@@ -120,7 +126,7 @@ function queueRefresh() {
 }
 
 function createStatusModal() {
-    const caseStatusJSON = '{"suspended":"Suspended","closed":"Closed","internal":"Pending Internal","solution":"Solution Suggested","support":"Pending Support","development":"Pending Development","release":"Pending Release"}';
+    const caseStatusJSON = '{"suspended":"Suspended","closed":"Closed","customer":"Pending Customer","internal":"Pending Internal","solution":"Solution Suggested","support":"Pending Support","development":"Pending Development","release":"Pending Release"}';
     let myDialog = document.createElement("dialog");
     myDialog.className = 'statusDialog';
     document.body.appendChild(myDialog);
@@ -344,7 +350,7 @@ function mfDocumentationEvent() {
             mfDocumentationURL(products, mfProduct);
         } catch (err) {
             window.alert("Product list JSON format is not correct!");
-            window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
+            window.open('https://github.com/UNiXMIT/UNiXSF#configuration', 'Salesforce Extension README', 'width=1450,height=850');
         }
     } else {
         window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
@@ -466,7 +472,7 @@ function customURLs() {
         });
     } catch (err) {
         window.alert("Footer URL list JSON format is not correct!");
-        window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
+        window.open('https://github.com/UNiXMIT/UNiXSF#configuration', 'Salesforce Extension README', 'width=1450,height=850');
     }
 }
 
@@ -490,7 +496,7 @@ function updateCustomURLs() {
         });
     } catch (err) {
         window.alert("Footer URL list JSON format is not correct!");
-        window.open('https://github.com/UNiXMIT/UNiXSF/blob/main/README.md#configuration', 'Salesforce Extension README', 'width=1450,height=850');
+        window.open('https://github.com/UNiXMIT/UNiXSF#configuration', 'Salesforce Extension README', 'width=1450,height=850');
     }
 }
 
@@ -595,7 +601,7 @@ function qNotify() {
                             if (Notification.permission === 'granted') {
                                 const qNotification = new Notification('SFExtension Queue Monitor', {
                                     body: notifyBody,
-                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png'
+                                    icon: iconURL
                                 });
                                 qNotification.addEventListener('click', () => {
                                     window.open(caseURL, '_blank');
@@ -606,7 +612,7 @@ function qNotify() {
                                         if (p === 'granted') {
                                             const qNotification = new Notification('SFExtension Queue Monitor', {
                                                 body: notifyBody,
-                                                icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png'
+                                                icon: iconURL
                                             });
                                             qNotification.addEventListener('click', () => {
                                                 window.open(caseURL, '_blank');
@@ -627,7 +633,7 @@ function qNotify() {
                         request.setRequestHeader('Content-type', 'application/json');
                         const params = {
                             username: "SFExt Queue Monitor",
-                            avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png",
+                            avatar_url: iconURL,
                             content: notifyBody + ' ' + caseURL
                         };
                         request.send(JSON.stringify(params));
@@ -646,7 +652,7 @@ function qNotify() {
                                 if (Notification.permission === 'granted') {
                                     const qNotification = new Notification('SFExtension New Activity', {
                                         body: notifyBody,
-                                        icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png'
+                                        icon: iconURL
                                     });
                                     qNotification.addEventListener('click', () => {
                                         window.open(caseURL, '_blank');
@@ -657,7 +663,7 @@ function qNotify() {
                                             if (p === 'granted') {
                                                 const qNotification = new Notification('SFExtension New Activity', {
                                                     body: notifyBody,
-                                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png'
+                                                    icon: iconURL
                                                 });
                                                 qNotification.addEventListener('click', () => {
                                                     window.open(caseURL, '_blank');
@@ -678,7 +684,7 @@ function qNotify() {
                             request.setRequestHeader('Content-type', 'application/json');
                             const params = {
                                 username: "SFExt New Activity",
-                                avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png",
+                                avatar_url: iconURL,
                                 content: notifyBody + ' ' + caseURL
                             };
                             request.send(JSON.stringify(params));
@@ -932,6 +938,23 @@ function addCopyButton() {
     observer.observe(document, {childList: true, subtree: true});
 }
 
+function defPenCust() {
+    let observer = new MutationObserver(mutations => {
+        let activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+        if (activeTab) {
+            (async ()=>{
+                let checkbox = document.querySelector('.split-right > .tabContent.active.oneConsoleTab').querySelector('.supportPublisherQuickSendEmail input[type="checkbox"]');
+                if (checkbox && checkbox.className != 'done') {
+                    document.querySelector('.split-right > .tabContent.active.oneConsoleTab').querySelector('.supportPublisherQuickSendEmail input[type="checkbox"]').checked = globalPenCust;
+                    checkbox.className = 'done';
+                }
+                await sleep(500);
+            })();
+        }
+    });
+    observer.observe(document, {childList: true, subtree: true});
+}
+
 function extLoaded() {
     let observer = new MutationObserver(mutations => {
         let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
@@ -940,7 +963,7 @@ function extLoaded() {
             newUL.className = "newfooterul";
             footerUl.appendChild(newUL);
             let li = document.createElement("li");
-            li.innerHTML = `<a class="ExtLoaded" target="_blank" href="https://unixmit.github.io/UNiXSF">SFExt ${installedVersion}</a>`;
+            li.innerHTML = `<a class="ExtLoaded" target="_blank" href="https://github.com/UNiXMIT/UNiXSF">SFExt ${installedVersion}</a>`;
             li.className = 'ExtLoaded';
             newUL.appendChild(li);
             observer.disconnect();
@@ -965,7 +988,7 @@ function dailyUsers() {
     request.setRequestHeader('Content-type', 'application/json');
     const params = {
         username: "SFExt User Activity",
-        avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png",
+        avatar_url: iconURL,
         content: myID + ' - ' + installedVersion
     };
     request.send(JSON.stringify(params));
@@ -1039,7 +1062,7 @@ function updateCheck() {
                             if (Notification.permission === 'granted') {
                                 const UpdateNofity = new Notification('SFExtension Update Available', {
                                     body: updateMessage,
-                                    icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png'
+                                    icon: iconURL
                                 });
                                 UpdateNofity.addEventListener('click', () => {
                                     window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
@@ -1051,7 +1074,7 @@ function updateCheck() {
                                         if (p === 'granted') {
                                             const UpdateNofity = new Notification('SFExtension Update Available', {
                                                 body: updateMessage,
-                                                icon: 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/mf128.png'
+                                                icon: iconURL
                                             });
                                             UpdateNofity.addEventListener('click', () => {
                                                 window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
@@ -1192,6 +1215,7 @@ window.onload = function() {
             defectFixed();
             addCharacterCounter();
             addCopyButton();
+            defPenCust();
             extLoaded();
             fixMouse();
             dailyUsers();

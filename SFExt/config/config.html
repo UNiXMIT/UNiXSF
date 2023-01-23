@@ -13,6 +13,10 @@
         <input id="timeout" min="30" name="timeout" type="number" />
         <label for="products">Supported Products (JSON Format)</label>
         <textarea id="products" name="products" rows="5"></textarea>
+        <label for="pendingCust">Pending Customer as Default</label>
+        <input type="checkbox" id="pendingCust" name="pendingCust">
+        <label for="caseStatus">Modify Case Status after Send</label>
+        <input type="checkbox" id="caseStatus" name="caseStatus">
         <label for="quixy">Quixy Defect URL (The URL before the defect number 'OCTCR')</label>
         <input id="quixy" name="quixy"></input>
         <label for="queue">Name of Queue to Monitor for Notifications (case sensistive)</label>
@@ -33,10 +37,6 @@
         <input id="ftsurl" name="ftsurl" />
         <label for="customurls">Custom URLs (JSON Format)</label>
         <textarea id="customurls" name="customurls" rows="5"></textarea>
-
-        <h3>Experimental</h3>
-        <label for="caseStatus">Modify Case Status after Send</label>
-        <input type="checkbox" id="caseStatus" name="caseStatus">
 
         <div id="status"></div>
         <button id="save">Save</button>

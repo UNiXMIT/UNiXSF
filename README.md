@@ -4,7 +4,6 @@ This is a browser extension to add useful features to Salesforce.
 It works in Chrome, Brave and Edge (Chromium) browsers.  
 
 - [Features](#features)
-  - [Experimental](#experimental)
 - [Install](#install)
 - [Update](#update)
 - [Latest Release](https://github.com/UNiXMIT/UNiXSF/releases/latest)
@@ -64,15 +63,17 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
   Added buttons next to the Case Number, Subject and Defect Number (if present) to copy that information to the clipboard.  
   The main case icon copies the Case Number and Subject at the same time.   
 
-### Experimental
+- **Enable the 'Set Pending Customer' checkbox as default**  
+  Add option to enable the 'Set Pending Customer' checkbox as default when sending an email.  
 
 - **Modify Case Status after Send**  
   After the 'Send' button is clicked and the email is sent from a case, a popup will appear leting you change the case status from the default of 'Pending Customer' to another status.  
   If you want to keep the status as 'Pending Customer' just click 'Cancel' on the popup.  
+  This can be enabled in the extension options.  
 
 ## Install
 
-1. Download the [Latest Release UNiXSF.zip](https://unixmit.github.io/UNiXSF/SFExt.zip), and unzip into the directory where you would like the extension to be stored.  
+1. Download the [Latest Release UNiXSF.zip](https://github.com/UNiXMIT/UNiXSF/raw/main/SFExt.zip), and unzip into the directory where you would like the extension to be stored.  
 2. Open Google Chrome, Brave or Edge.  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser) in the browser address bar.   
 4. Toggle "Developer mode".  
@@ -84,7 +85,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 ## Update
 
-1. Download the [Latest Release UNiXSF.zip](https://unixmit.github.io/UNiXSF/SFExt.zip), and unzip into the directory where the previous version of the SF Extension is located, overwriting the old files. 
+1. Download the [Latest Release UNiXSF.zip](https://github.com/UNiXMIT/UNiXSF/raw/main/SFExt.zip), and unzip into the directory where the previous version of the SF Extension is located, overwriting the old files. 
 2. Open Google Chrome, Brave or Edge.  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser). 
 4. Click the reload icon in the Salesforce Extension tile.

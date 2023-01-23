@@ -1,6 +1,7 @@
 function save_options() {
   let refreshTimeout = document.getElementById('timeout').value;
   let products = document.getElementById('products').value;
+  let pendingCust = document.getElementById('pendingCust').checked;
   let quixy = document.getElementById('quixy').value;
   let queue = document.getElementById('queue').value;
   let qnotify = document.getElementById('qnotify').checked;
@@ -14,6 +15,7 @@ function save_options() {
   chrome.storage.sync.set({
       savedTimeout: refreshTimeout,
       savedProducts: products,
+      savedPenCust: pendingCust,
       savedQuixy: quixy,
       savedQueue: queue,
       savedQNotify: qnotify,
@@ -34,7 +36,7 @@ function save_options() {
 }
 
 function reset_options() {
-  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedQuixy", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedTranslation", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus"], function() {
+  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedPenCust", "savedQuixy", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedTranslation", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus"], function() {
       let error = chrome.runtime.lastError;
       if (error) {
           console.error(error);
@@ -47,6 +49,7 @@ function restore_options() {
   chrome.storage.sync.get({
       savedTimeout: 60,
       savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+      savedPenCust: false,
       savedQuixy: '',
       savedQueue: 'NOTIFY',
       savedQNotify: false,
@@ -60,6 +63,7 @@ function restore_options() {
   }, function(result) {
       document.getElementById('timeout').value = result.savedTimeout;
       document.getElementById('products').value = result.savedProducts;
+      document.getElementById('pendingCust').checked = result.savedPenCust;
       document.getElementById('quixy').value = result.savedQuixy;
       document.getElementById('queue').value = result.savedQueue;
       document.getElementById('qnotify').checked = result.savedQNotify;
@@ -77,6 +81,7 @@ function export_options() {
     chrome.storage.sync.get({
         savedTimeout: 60,
         savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+        savedPenCust: false,
         savedQuixy: '',
         savedQueue: 'NOTIFY',
         savedQNotify: false,
@@ -127,6 +132,7 @@ function import_options() {
         chrome.storage.sync.set({
             savedTimeout: json.savedTimeout,
             savedProducts: json.savedProducts,
+            savedPenCust: json.savedPenCust,
             savedQuixy: json.savedQuixy,
             savedQueue: json.savedQueue,
             savedQNotify: json.savedQNotify,
