@@ -437,7 +437,7 @@ function thirdLineRefEvent() {
         userQuery = {
         "to" : globalRefEmail,
         "subject" : caseName + " - 3rd Line assistance request for Case - " + caseNumber,
-        "body" : "**When entering a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
+        "body" : "**When sending a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
                + "CUSTOMER: " + caseName + " - " + caseAccount + "\n\n"
                + "CASE SUMMARY: \n\n"
                + "• Summary of the issue\n" 
@@ -453,7 +453,7 @@ function thirdLineRefEvent() {
         userQuery = {
         "to" : globalRefEmail,
         "subject" : "[Customer Name]" + " - 3rd Line assistance request for Case - " + "[Case Number]",
-        "body" : "**When entering a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
+        "body" : "**When sending a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
                + "CUSTOMER: " + "[Customer Name]" + " - " + "[Account Name]" + "\n\n"
                + "CASE SUMMARY: \n\n"
                + "• Summary of the issue\n" 
