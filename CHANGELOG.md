@@ -8,6 +8,7 @@
 - 'Modify Case Status after Send' is no longer Experimental.
 - Remove links to GitHub Pages.
 - Changed URL source for latestVersion check.
+- Use local icons only.
 
 # 2.9.1
 ### WARNING
