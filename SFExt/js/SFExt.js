@@ -481,7 +481,7 @@ function thirdLineRefEvent() {
                + caseDescription +"\n\n"
                + "• Summary of diagnostics\n"
                + "• Hypothesis and other details\n"
-               + "• FTS Attachments - https://secureupload.microfocus.com/mffts/\n"
+               + `• FTS Attachments\n`
                + "<FTS credentials can be found in the case>\n\n"
     };
     let calendarURL = "https://outlook.office.com/mail/0/deeplink/compose";
