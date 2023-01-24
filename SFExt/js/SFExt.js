@@ -241,11 +241,11 @@ function mfNav() {
             mfFTS();
             mfQuixy();
             mfDocumentation();
+            thirdLineRef();
             addReminder();
             mfPP();
             mfTranslation();
             fullScreenKCS();
-            thirdLineRef();
             customURLs();
             observer.disconnect();
         }
@@ -342,7 +342,7 @@ function mfQuixyEvent() {
 }
 
 function mfDocumentation() {
-    createMFMenu('mfdocs', 'fa-book', 'MF Documentation');
+    createMFMenu('mfdocs', 'fa-book', 'Documentation');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfdocs');
     mfButtonNew.addEventListener('click', mfDocumentationEvent, false);
 }
@@ -372,71 +372,6 @@ function mfDocumentationURL(products, mfProduct) {
     } else {
         window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
     }
-}
-
-function addReminder() {
-    createMFMenu('mfreminder', 'fa-calendar', 'Add Reminder');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfreminder');
-    mfButtonNew.addEventListener('click', addReminderEvent, false);
-}
-
-function addReminderEvent() {
-    let querySubject;
-    let caseURL;
-    let caseLink;
-    let caseNumber;
-    let caseSubject;
-    let today = new Date();
-    let future = today.setDate(today.getDate() + 3);
-    let reminderDate = new Date(future).toJSON();
-    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-    if (caseCheck) {
-        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
-        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text').innerText;
-    }
-    if ((caseNumber) && (caseSubject)) {
-        querySubject = caseNumber + " - " + caseSubject;
-        caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-        caseLink = `<a title="${caseNumber}" href="${caseURL}">${querySubject}</a>`;
-    } else {
-        if ((caseNumber) && !(caseSubject)) {
-            querySubject = caseNumber;
-            caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-            caseLink = `<a title="${caseNumber}" href="${caseURL}">${querySubject}</a>`;
-        } else {
-            querySubject = "";
-            caseLink = "";
-        }
-    }
-    let userQuery = {
-        "rru" : "addevent",
-        "startdt" : reminderDate,
-        "subject" : querySubject,
-        "body" : caseLink
-    };
-    let calendarURL = "https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose";
-    let finalQuery = [];
-    Object.entries(userQuery).forEach(([key, value]) => {
-        finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
-    });
-    let finalURL = calendarURL + (finalQuery.length ? '?' + finalQuery.join('&') : '');
-    window.open(finalURL, 'Add Reminder', 'width=1200,height=700');
-}
-
-function mfPP() {
-    createMFMenu('mfpp', 'fa-circle-plus', 'PerformPlus');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfpp');
-    mfButtonNew.addEventListener('click', mfPPEvent, false);
-}
-
-function mfPPEvent() {
-    window.open('https://microfocus-profile.performplus.pwc.com/login', '_blank');
-}
-
-function mfTranslation() {
-    createMFMenu('mftranslation', 'fa-language', 'MF Translation');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mftranslation');
-    mfButtonNew.addEventListener('click', mfTranslationEvent, false);
 }
 
 function thirdLineRef() {
@@ -503,6 +438,71 @@ function thirdLineRefEvent() {
     });
     let finalURL = outlookURL + (finalQuery.length ? '?' + finalQuery.join('&') : '');
     window.open(finalURL, '3rd Line Referral', 'width=1600,height=900');
+}
+
+function addReminder() {
+    createMFMenu('mfreminder', 'fa-calendar', 'Add Reminder');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfreminder');
+    mfButtonNew.addEventListener('click', addReminderEvent, false);
+}
+
+function addReminderEvent() {
+    let querySubject;
+    let caseURL;
+    let caseLink;
+    let caseNumber;
+    let caseSubject;
+    let today = new Date();
+    let future = today.setDate(today.getDate() + 3);
+    let reminderDate = new Date(future).toJSON();
+    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (caseCheck) {
+        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
+        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text').innerText;
+    }
+    if ((caseNumber) && (caseSubject)) {
+        querySubject = caseNumber + " - " + caseSubject;
+        caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+        caseLink = `<a title="${caseNumber}" href="${caseURL}">${querySubject}</a>`;
+    } else {
+        if ((caseNumber) && !(caseSubject)) {
+            querySubject = caseNumber;
+            caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+            caseLink = `<a title="${caseNumber}" href="${caseURL}">${querySubject}</a>`;
+        } else {
+            querySubject = "";
+            caseLink = "";
+        }
+    }
+    let userQuery = {
+        "rru" : "addevent",
+        "startdt" : reminderDate,
+        "subject" : querySubject,
+        "body" : caseLink
+    };
+    let calendarURL = "https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose";
+    let finalQuery = [];
+    Object.entries(userQuery).forEach(([key, value]) => {
+        finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+    });
+    let finalURL = calendarURL + (finalQuery.length ? '?' + finalQuery.join('&') : '');
+    window.open(finalURL, 'Add Reminder', 'width=1200,height=700');
+}
+
+function mfPP() {
+    createMFMenu('mfpp', 'fa-circle-plus', 'PerformPlus');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfpp');
+    mfButtonNew.addEventListener('click', mfPPEvent, false);
+}
+
+function mfPPEvent() {
+    window.open('https://microfocus-profile.performplus.pwc.com/login', '_blank');
+}
+
+function mfTranslation() {
+    createMFMenu('mftranslation', 'fa-language', 'Translation');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mftranslation');
+    mfButtonNew.addEventListener('click', mfTranslationEvent, false);
 }
 
 function mfTranslationEvent() {
