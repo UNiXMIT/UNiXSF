@@ -69,6 +69,9 @@ textarea {
     width: 600px;
 }
 #translation {
+    width: 600px;
+}
+#refemail {
     width: 400px;
 }
 #protocol {

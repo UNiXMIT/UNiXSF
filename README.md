@@ -48,6 +48,9 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
   - Full Screen KCS Editor.  
     Make the KCS editor full screen to allow easier creation/editing of the article body.
 
+  - 3rd Line Referral.
+    Generates an email, using a set template and information from the case.  
+
   - Additional menu items for Support Portal, SLD Web Portal and PerformPlus.  
 
 - **Quixy URLs**  
@@ -115,6 +118,14 @@ Click on the toolbar extension menu and select Options.
 - The name of the case queue to monitor and URL for the webhook notifications.  
   Desktop and Web notifications can be enabled/disabled.  
   For the case queue name, either enter the name of the case queue that you want to monitor or append the name of the case queue you want to monitor with 'NOTIFY'.  
+
+- The Quixy defect URL.  
+
+- The translation request URL.  
+
+- The 3rd line referral email address.  
+
+- FTS protocol, URL and port.  
 
 - The supported products list. This list is used to open the correct documentation page when the documentation link/icon is clicked.  
 

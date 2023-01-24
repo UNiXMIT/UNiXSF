@@ -15,6 +15,7 @@ let globalURLS;
 let globalStatus;
 let globalQuixyURL;
 let globalTranslationURL;
+let globalRefEmail;
 let iconURL= chrome.runtime.getURL('icons/mf128.png');
 let intervalID;
 let qObserver;
@@ -37,6 +38,7 @@ function initSyncData() {
         savedQNotifyWeb: false,
         savedWebhook: '',
         savedTranslation: '',
+        savedRefEmail: '',
         savedProtocol: 'sftp://',
         savedFTSURL: '',
         savedURLS: '{"SFExt":"https://github.com/UNiXMIT/UNiXSF"}',
@@ -51,6 +53,7 @@ function initSyncData() {
         globalQNotifyWeb = result.savedQNotifyWeb;
         globalWebhook = result.savedWebhook;
         globalTranslationURL = result.savedTranslation;
+        globalRefEmail = result.savedRefEmail;
         globalProtocol = result.savedProtocol;
         globalFTSURL = result.savedFTSURL;
         globalURLS = result.savedURLS;
@@ -72,6 +75,7 @@ function getSyncData() {
                 savedQNotifyWeb: false,
                 savedWebhook: '',
                 savedTranslation: '',
+                savedRefEmail: '',
                 savedProtocol: 'sftp://',
                 savedFTSURL: '',
                 savedURLS: '{"SFExt":"https://github.com/UNiXMIT/UNiXSF"}',
@@ -100,6 +104,7 @@ function getSyncData() {
                 globalQNotifyWeb = result.savedQNotifyWeb;
                 globalWebhook = result.savedWebhook;
                 globalTranslationURL = result.savedTranslation;
+                globalRefEmail = result.savedRefEmail;
                 globalProtocol = result.savedProtocol;
                 globalFTSURL = result.savedFTSURL;
                 if (globalURLS != result.savedURLS) {
@@ -240,6 +245,7 @@ function mfNav() {
             mfPP();
             mfTranslation();
             fullScreenKCS();
+            thirdLineRef();
             customURLs();
             observer.disconnect();
         }
@@ -431,6 +437,60 @@ function mfTranslation() {
     createMFMenu('mftranslation', 'fa-language', 'MF Translation');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mftranslation');
     mfButtonNew.addEventListener('click', mfTranslationEvent, false);
+}
+
+function thirdLineRef() {
+    createMFMenu('thirdLineRef', 'fa-paper-plane', '3rd Line Referral');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.thirdLineRef');
+    mfButtonNew.addEventListener('click', thirdLineRefEvent, false);
+}
+
+function thirdLineRefEvent() {
+    let querySubject;
+    let caseURL;
+    let caseLink;
+    let caseNumber;
+    let caseSubject;
+    let caseName;
+    let caseAccount;
+    let caseDescriptionElem;
+    let caseDescription;
+    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (caseCheck) {
+        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
+        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text').innerText;
+        caseName = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(5) > div > p.fieldComponent > slot div span').innerText;
+        caseAccount = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(6) > div > p.fieldComponent div slot').innerText;
+        caseDescriptionElem = activeCaseContains('.slds-form-element__label','Description'); 
+        caseDescription = caseDescriptionElem[0].nextSibling.nextSibling.firstChild.innerText
+    }
+    if ((caseNumber) && (caseSubject) && (caseName) && (caseDescription)) {
+        querySubject = caseName + " - 3rd Line assistance request for Case - " + caseNumber;
+        caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+        caseLink = `<a title="${caseNumber}" href="${caseURL}">${caseNumber} - ${caseSubject}</a>`;
+    }
+    let userQuery = {
+        "to" : globalRefEmail,
+        "subject" : querySubject,
+        "body" : "**When entering a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
+               + "CUSTOMER: " + caseName + " - " + caseAccount + "\n\n"
+               + "CASE SUMMARY: \n\n"
+               + "• Summary of the issue\n" 
+               + caseNumber + " - " + caseSubject + "\n" 
+               + caseURL + "\n\n" 
+               + caseDescription +"\n\n"
+               + "• Summary of diagnostics\n"
+               + "• Hypothesis and other details\n"
+               + "• FTS Attachments - https://secureupload.microfocus.com/mffts/\n"
+               + "<FTS credentials can be found in the case>\n\n"
+    };
+    let calendarURL = "https://outlook.office.com/mail/0/deeplink/compose";
+    let finalQuery = [];
+    Object.entries(userQuery).forEach(([key, value]) => {
+        finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+    });
+    let finalURL = calendarURL + (finalQuery.length ? '?' + finalQuery.join('&') : '');
+    window.open(finalURL, '3rd Line Referral', 'width=1600,height=900');
 }
 
 function mfTranslationEvent() {

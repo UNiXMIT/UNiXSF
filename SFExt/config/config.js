@@ -8,6 +8,7 @@ function save_options() {
   let qnotifyweb = document.getElementById('qnotifyweb').checked;
   let webhook = document.getElementById('webhook').value;
   let translation = document.getElementById('translation').value;
+  let refEmail = document.getElementById('refemail').value;
   let protocol = document.getElementById('protocol').value;
   let ftsurl = document.getElementById('ftsurl').value;
   let customurls = document.getElementById('customurls').value;
@@ -22,6 +23,7 @@ function save_options() {
       savedQNotifyWeb: qnotifyweb,
       savedWebhook: webhook,
       savedTranslation: translation,
+      savedRefEmail: refEmail,
       savedProtocol: protocol,
       savedFTSURL: ftsurl,
       savedURLS: customurls,
@@ -36,7 +38,7 @@ function save_options() {
 }
 
 function reset_options() {
-  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedPenCust", "savedQuixy", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedTranslation", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus"], function() {
+  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedPenCust", "savedQuixy", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedTranslation", "savedRefEmail", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus"], function() {
       let error = chrome.runtime.lastError;
       if (error) {
           console.error(error);
@@ -56,6 +58,7 @@ function restore_options() {
       savedQNotifyWeb: false,
       savedWebhook: '',
       savedTranslation: '',
+      savedRefEmail: '',
       savedProtocol: 'sftp://',
       savedFTSURL: '',
       savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
@@ -70,6 +73,7 @@ function restore_options() {
       document.getElementById('qnotifyweb').checked = result.savedQNotifyWeb;
       document.getElementById('webhook').value = result.savedWebhook;
       document.getElementById('translation').value = result.savedTranslation;
+      document.getElementById('refemail').value = result.savedRefEmail;
       document.getElementById('protocol').value = result.savedProtocol;
       document.getElementById('ftsurl').value = result.savedFTSURL;
       document.getElementById('customurls').value = result.savedURLS;
@@ -88,6 +92,7 @@ function export_options() {
         savedQNotifyWeb: false,
         savedWebhook: '',
         savedTranslation: '',
+        savedRefEmail: '',
         savedProtocol: 'sftp://',
         savedFTSURL: '',
         savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
@@ -139,6 +144,7 @@ function import_options() {
             savedQNotifyWeb: json.savedQNotifyWeb,
             savedWebhook: json.savedWebhook,
             savedTranslation: json.savedTranslation,
+            savedRefEmail: json.savedRefEmail,
             savedProtocol: json.savedProtocol,
             savedFTSURL: json.savedFTSURL,
             savedURLS: json.savedURLS,
