@@ -81,7 +81,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 6. Select the folder you created in step 1.  
 7. The new features are now active.
 8. You can now turn off "Developer mode". 
-9. Once you have loaded Salesforce in your browser, if the extension has loaded correctly it should say 'SFExt' in the lower right corner.  
+9. Once you have loaded Salesforce in your browser, if the extension has loaded correctly, it should say 'SFExt' in the lower right corner.  
 
 ## Update
 
