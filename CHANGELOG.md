@@ -9,6 +9,7 @@
 - Remove links to GitHub Pages.
 - Changed URL source for latestVersion check.
 - Use local icons only.
+- Rearrange functions and QuickLinks.
 
 # 2.9.1
 ### WARNING

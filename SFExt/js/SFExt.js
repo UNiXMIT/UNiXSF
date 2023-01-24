@@ -241,10 +241,10 @@ function mfNav() {
             mfFTS();
             mfQuixy();
             mfDocumentation();
+            mfTranslation();
             thirdLineRef();
             addReminder();
             mfPP();
-            mfTranslation();
             fullScreenKCS();
             customURLs();
             observer.disconnect();
@@ -374,6 +374,38 @@ function mfDocumentationURL(products, mfProduct) {
     }
 }
 
+function mfTranslation() {
+    createMFMenu('mftranslation', 'fa-language', 'Translation');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mftranslation');
+    mfButtonNew.addEventListener('click', mfTranslationEvent, false);
+}
+
+function mfTranslationEvent() {
+    let caseNumber;
+    let caseSeverity;
+    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (caseCheck) {
+        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
+        let fullCaseSeverity = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(3) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
+        caseSeverity = fullCaseSeverity.substring(4);
+        if (caseSeverity === 'Critical') {
+            let tempSeverity = caseSeverity.toUpperCase();
+            caseSeverity = tempSeverity;
+        }
+    }
+    if ( (caseNumber) && (caseSeverity) ) {
+        let finalURL = `${globalTranslationURL}?CaseNumber=${encodeURIComponent(caseNumber)}&Severity=${encodeURIComponent(caseSeverity)}`;
+        window.open(finalURL, 'MF Translation', 'width=1150,height=700');
+    } else {
+        if ( (caseNumber) && !(caseSeverity) ) {
+            let finalURL = `${globalTranslationURL}?CaseNumber=${encodeURIComponent(caseNumber)}`;
+        window.open(finalURL, 'MF Translation', 'width=1150,height=700');
+        } else {
+            window.open(globalTranslationURL, 'MF Translation', 'width=1150,height=700');
+        }
+    }
+}
+
 function thirdLineRef() {
     createMFMenu('thirdLineRef', 'fa-paper-plane', '3rd Line Referral');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.thirdLineRef');
@@ -499,36 +531,29 @@ function mfPPEvent() {
     window.open('https://microfocus-profile.performplus.pwc.com/login', '_blank');
 }
 
-function mfTranslation() {
-    createMFMenu('mftranslation', 'fa-language', 'Translation');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mftranslation');
-    mfButtonNew.addEventListener('click', mfTranslationEvent, false);
+function fullScreenKCS() {
+    createMFMenu('kcsfull', 'fa-expand', 'KCS Fullscreen');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.kcsfull');
+    mfButtonNew.addEventListener('click', fullScreenKCSEvent, false);
 }
 
-function mfTranslationEvent() {
-    let caseNumber;
-    let caseSeverity;
-    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-    if (caseCheck) {
-        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
-        let fullCaseSeverity = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(3) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
-        caseSeverity = fullCaseSeverity.substring(4);
-        if (caseSeverity === 'Critical') {
-            let tempSeverity = caseSeverity.toUpperCase();
-            caseSeverity = tempSeverity;
-        }
-    }
-    if ( (caseNumber) && (caseSeverity) ) {
-        let finalURL = `${globalTranslationURL}?CaseNumber=${encodeURIComponent(caseNumber)}&Severity=${encodeURIComponent(caseSeverity)}`;
-        window.open(finalURL, 'MF Translation', 'width=1150,height=700');
+function makeIframeFullscreen(iframe) {
+    if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
     } else {
-        if ( (caseNumber) && !(caseSeverity) ) {
-            let finalURL = `${globalTranslationURL}?CaseNumber=${encodeURIComponent(caseNumber)}`;
-        window.open(finalURL, 'MF Translation', 'width=1150,height=700');
-        } else {
-            window.open(globalTranslationURL, 'MF Translation', 'width=1150,height=700');
+        if (iframe.mozRequestFullScreen) {
+            iframe.mozRequestFullScreen();
+        } else if (iframe.webkitRequestFullscreen) {
+            iframe.webkitRequestFullscreen();
         }
     }
+}
+
+function fullScreenKCSEvent() {
+    let kcsFrame = document.querySelector('.split-right').querySelector('div.content.iframe-parent > iframe[title="Article Body Text Editor Container"]'); 
+    if (kcsFrame) {
+        makeIframeFullscreen(kcsFrame);
+    }  
 }
 
 function customURLs() {
@@ -570,31 +595,6 @@ function updateCustomURLs() {
         window.alert("Footer URL list JSON format is not correct!");
         window.open('https://github.com/UNiXMIT/UNiXSF#configuration', 'Salesforce Extension README', 'width=1450,height=850');
     }
-}
-
-function fullScreenKCS() {
-    createMFMenu('kcsfull', 'fa-expand', 'KCS Fullscreen');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.kcsfull');
-    mfButtonNew.addEventListener('click', fullScreenKCSEvent, false);
-}
-
-function makeIframeFullscreen(iframe) {
-    if (iframe.requestFullscreen) {
-        iframe.requestFullscreen();
-    } else {
-        if (iframe.mozRequestFullScreen) {
-            iframe.mozRequestFullScreen();
-        } else if (iframe.webkitRequestFullscreen) {
-            iframe.webkitRequestFullscreen();
-        }
-    }
-}
-
-function fullScreenKCSEvent() {
-    let kcsFrame = document.querySelector('.split-right').querySelector('div.content.iframe-parent > iframe[title="Article Body Text Editor Container"]'); 
-    if (kcsFrame) {
-        makeIframeFullscreen(kcsFrame);
-    }  
 }
 
 function initQMonitor() {
