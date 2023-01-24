@@ -455,6 +455,7 @@ function thirdLineRefEvent() {
     let caseAccount;
     let caseDescriptionElem;
     let caseDescription;
+    let userQuery;
     let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
     if (caseCheck) {
         caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
@@ -462,16 +463,13 @@ function thirdLineRefEvent() {
         caseName = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(5) > div > p.fieldComponent > slot div span').innerText;
         caseAccount = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(6) > div > p.fieldComponent div slot').innerText;
         caseDescriptionElem = activeCaseContains('.slds-form-element__label','Description'); 
-        caseDescription = caseDescriptionElem[0].nextSibling.nextSibling.firstChild.innerText
-    }
-    if ((caseNumber) && (caseSubject) && (caseName) && (caseDescription)) {
-        querySubject = caseName + " - 3rd Line assistance request for Case - " + caseNumber;
+        caseDescription = caseDescriptionElem[0].nextSibling.nextSibling.firstChild.innerText;
         caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-        caseLink = `<a title="${caseNumber}" href="${caseURL}">${caseNumber} - ${caseSubject}</a>`;
     }
-    let userQuery = {
+    if ((caseNumber) && (caseSubject) && (caseName) && (caseAccount) && (caseDescription) && (caseURL)) {
+        userQuery = {
         "to" : globalRefEmail,
-        "subject" : querySubject,
+        "subject" : caseName + " - 3rd Line assistance request for Case - " + caseNumber,
         "body" : "**When entering a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
                + "CUSTOMER: " + caseName + " - " + caseAccount + "\n\n"
                + "CASE SUMMARY: \n\n"
@@ -481,15 +479,29 @@ function thirdLineRefEvent() {
                + caseDescription +"\n\n"
                + "• Summary of diagnostics\n"
                + "• Hypothesis and other details\n"
-               + `• List FTS Attachments\n`
-               + "<FTS credentials can be found in the case>\n\n"
-    };
-    let calendarURL = "https://outlook.office.com/mail/0/deeplink/compose";
+               + "• List FTS Attachments - https://secureupload.microfocus.com/mffts\n"
+               + "[FTS credentials can be found in the case]\n\n"
+        };
+    } else {
+        userQuery = {
+        "to" : globalRefEmail,
+        "subject" : "[Customer Name]" + " - 3rd Line assistance request for Case - " + "[Case Number]",
+        "body" : "**When entering a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
+               + "CUSTOMER: " + "[Customer Name]" + " - " + "[Account Name]" + "\n\n"
+               + "CASE SUMMARY: \n\n"
+               + "• Summary of the issue\n" 
+               + "• Summary of diagnostics\n"
+               + "• Hypothesis and other details\n"
+               + "• List FTS Attachments - https://secureupload.microfocus.com/mffts\n"
+               + "[FTS credentials can be found in the case]\n\n"
+        };
+    }
+    let outlookURL = "https://outlook.office.com/mail/0/deeplink/compose";
     let finalQuery = [];
     Object.entries(userQuery).forEach(([key, value]) => {
         finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
     });
-    let finalURL = calendarURL + (finalQuery.length ? '?' + finalQuery.join('&') : '');
+    let finalURL = outlookURL + (finalQuery.length ? '?' + finalQuery.join('&') : '');
     window.open(finalURL, '3rd Line Referral', 'width=1600,height=900');
 }
 
