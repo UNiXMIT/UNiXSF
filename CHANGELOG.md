@@ -1,5 +1,6 @@
 # 2.9.2
 ### Enhancements
+- Welcome to Opentext! New logo added.
 - Add option to enable the 'Set Pending Customer' checkbox as default.
 - 3rd Line Referral QuickLink.
 
