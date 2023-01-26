@@ -13,6 +13,7 @@ let globalProtocol;
 let globalFTSURL;
 let globalURLS;
 let globalStatus;
+let globalFTSHTTP;
 let globalQuixyURL;
 let globalTranslationURL;
 let globalRefEmail;
@@ -32,6 +33,7 @@ function initSyncData() {
         savedTimeout: 60,
         savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
         savedPenCust: false,
+        savedFTSHTTP: '',
         savedQuixy: '',
         savedQueue: 'NOTIFY',
         savedQNotify: false,
@@ -47,6 +49,7 @@ function initSyncData() {
         globalTimeout = result.savedTimeout;
         globalProducts = result.savedProducts;
         globalPenCust = result.savedPenCust;
+        globalFTSHTTP = result.savedFTSHTTP;
         globalQuixyURL = result.savedQuixy;
         globalQueue = result.savedQueue;
         globalQNotify = result.savedQNotify;
@@ -90,6 +93,7 @@ function getSyncData() {
                 }
                 globalProducts = result.savedProducts;
                 globalPenCust = result.savedPenCust;
+                globalFTSHTTP = result.savedFTSHTTP;
                 globalQuixyURL = result.savedQuixy;
                 if (globalQueue != result.savedQueue) {
                     globalQueue = result.savedQueue;
@@ -321,7 +325,7 @@ function mfFTSEvent() {
         let finalFTSURL = globalProtocol + combineFTS + '@' + globalFTSURL;
         window.open(finalFTSURL, '_parent');
     } else {
-        window.open('https://secureupload.microfocus.com/mffts/', '_blank');
+        window.open(globalFTSHTTP, '_blank');
     }
 }
 
@@ -413,9 +417,7 @@ function thirdLineRef() {
 }
 
 function thirdLineRefEvent() {
-    let querySubject;
     let caseURL;
-    let caseLink;
     let caseNumber;
     let caseSubject;
     let caseName;
@@ -446,7 +448,7 @@ function thirdLineRefEvent() {
                + caseDescription +"\n\n"
                + "• Summary of diagnostics\n"
                + "• Hypothesis and other details\n"
-               + "• List FTS Attachments - https://secureupload.microfocus.com/mffts\n"
+               + "• List FTS Attachments - " + globalFTSHTTP + "\n"
                + "[FTS credentials can be found in the case]\n\n"
         };
     } else {
@@ -459,7 +461,7 @@ function thirdLineRefEvent() {
                + "• Summary of the issue\n" 
                + "• Summary of diagnostics\n"
                + "• Hypothesis and other details\n"
-               + "• List FTS Attachments - https://secureupload.microfocus.com/mffts\n"
+               + "• List FTS Attachments - " + globalFTSHTTP + "\n"
                + "[FTS credentials can be found in the case]\n\n"
         };
     }

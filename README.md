@@ -119,6 +119,8 @@ Click on the toolbar extension menu and select Options.
   Desktop and Web notifications can be enabled/disabled.  
   For the case queue name, either enter the name of the case queue that you want to monitor or append the name of the case queue you want to monitor with 'NOTIFY'.  
 
+- The FTS HTTP URL.  
+
 - The Quixy defect URL.  
 
 - The translation request URL.  

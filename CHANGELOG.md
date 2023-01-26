@@ -11,6 +11,7 @@
 - Changed URL source for latestVersion check.
 - Use local icons only.
 - Rearrange functions and QuickLinks.
+- FTS HTTP URL is configurable.
 
 # 2.9.1
 ### WARNING
