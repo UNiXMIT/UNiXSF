@@ -3,7 +3,7 @@
   "version": "2.9.2",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
-  "homepage_url": "https://unixmit.github.io/UNiXSF",
+  "homepage_url": "https://github.com/UNiXMIT/UNiXSF",
   "manifest_version": 3,
   "options_page": "config/config.html",
   "permissions": [
