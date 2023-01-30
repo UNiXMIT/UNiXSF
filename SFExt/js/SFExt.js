@@ -243,6 +243,7 @@ function mfNav() {
             mfSup();
             mfSLD();
             mfFTS();
+            mfElevate();
             mfQuixy();
             mfDocumentation();
             mfTranslation();
@@ -329,6 +330,29 @@ function mfFTSEvent() {
     }
 }
 
+function mfElevate() {
+    createMFMenu('mfelevate', 'fa-bug', 'Elevate to R&D');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfelevate');
+    mfButtonNew.addEventListener('click', mfElevateEvent, false);
+}
+
+function mfElevateEvent() {
+    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (caseCheck) {
+        let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText; 
+        if (caseNumber) {
+            let finalURL = globalQuixyURL.replace(/\/$/, "") + '/#/submitOctane/type/CPE%20Incident/autofillSystem/SC/autofillId/' + caseNumber;
+            window.open(finalURL, '_blank');
+        } else {
+            let finalURL = globalQuixyURL.replace(/\/$/, "") + '/#/submit';
+            window.open(finalURL, '_blank');
+        }
+    } else {
+        let finalURL = globalQuixyURL.replace(/\/$/, "") + '/#/submit';
+        window.open(finalURL, '_blank');
+    }
+}
+
 function mfQuixy() {
     createMFMenu('mfqx', 'fa-code', 'Quixy');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfqx');
@@ -338,7 +362,7 @@ function mfQuixy() {
 function mfQuixyEvent() {
     let quixyID = activeCaseContains('lightning-formatted-text','OCTCR'); 
     if (quixyID.length) {
-        let finalURL = `${globalQuixyURL.replace(/\/$/, "")}/${quixyID[0].innerText}`;
+        let finalURL = globalQuixyURL.replace(/\/$/, "") + '/#/viewEntity/' + quixyID[0].innerText;
         window.open(finalURL, '_blank');
     } else {
         window.open(globalQuixyURL.replace(/\/$/, ""), '_blank');
@@ -800,7 +824,7 @@ function quixyListURL() {
         let allDefects = document.querySelectorAll('[title^="OCTCR"]');
         allDefects.forEach(defectElem => {
             let quixyID = defectElem.textContent;
-            let finalURL = `<a target="_blank" href="${globalQuixyURL.replace(/\/$/, "")}/${quixyID}">${quixyID}</a>`;
+            let finalURL = `<a target="_blank" href="${globalQuixyURL.replace(/\/$/, "")}/#/viewEntity/${quixyID}">${quixyID}</a>`;
             defectElem.innerHTML = finalURL;
             defectElem.title = "Quixy";
         });

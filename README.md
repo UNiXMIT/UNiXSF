@@ -31,13 +31,16 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
     Uses the active case tab to get the FTS Account/Password details (tested with WinSCP - https://winscp.net).  
     If no case is open it will open the FTS homepage.  
 
+  - Elevate to R&D.  
+    Added another 'Elevate to R&D' button as the native ones have a habit of disappearing. 
+
   - Quixy Defects.  
     Uses the active case tab to formulate the Quixy URL to open. If no case is open it will open the Quixy homepage
 
-  - MF Translation Request page. 
+  - MF Translation Request page.  
     If you have a case open and active, the case number and severity will be used to populate the corresponding fields of the translation page.   
 
-  - MF Documentation.
+  - MF Documentation.  
     If you have a case open and active, the product in the case will be checked and the appropriate docs page opened.  
     If no cases are opened the general docs page will be opened.  
 
@@ -48,7 +51,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
   - Full Screen KCS Editor.  
     Make the KCS editor full screen to allow easier creation/editing of the article body.
 
-  - 3rd Line Referral.
+  - 3rd Line Referral.  
     Generates an email, using a set template and information from the case.  
 
   - Additional menu items for Support Portal, SLD Web Portal and PerformPlus.  
@@ -121,7 +124,7 @@ Click on the toolbar extension menu and select Options.
 
 - The FTS HTTP URL.  
 
-- The Quixy defect URL.  
+- The Quixy URL.  
 
 - The translation request URL.  
 

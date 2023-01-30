@@ -3,6 +3,7 @@
 - Welcome to OpenText! New logo added.
 - Add option to enable the 'Set Pending Customer' checkbox as default.
 - 3rd Line Referral QuickLink.
+- Added another 'Elevate to R&D' button as the native ones have a habit of disappearing. 
 
 ### Tweaks
 - Add 'Pending Customer' to 'Case Status' modal.
