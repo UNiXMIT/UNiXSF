@@ -707,7 +707,6 @@ function qNotify() {
                         request.setRequestHeader('Content-type', 'application/json');
                         const params = {
                             username: "SFExt Queue Monitor",
-                            avatar_url: iconURL,
                             content: notifyBody + ' ' + caseURL
                         };
                         request.send(JSON.stringify(params));
@@ -758,7 +757,6 @@ function qNotify() {
                             request.setRequestHeader('Content-type', 'application/json');
                             const params = {
                                 username: "SFExt New Activity",
-                                avatar_url: iconURL,
                                 content: notifyBody + ' ' + caseURL
                             };
                             request.send(JSON.stringify(params));
