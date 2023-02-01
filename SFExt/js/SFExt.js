@@ -462,7 +462,7 @@ function thirdLineRefEvent() {
     if ((caseNumber) && (caseSubject) && (caseName) && (caseAccount) && (caseDescription) && (caseURL)) {
         userQuery = {
         "to" : globalRefEmail,
-        "subject" : caseName + " - 3rd Line assistance request for Case - " + caseNumber,
+        "subject" : caseAccount + " - 3rd Line assistance request for Case - " + caseNumber,
         "body" : "**When sending a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
                + "CUSTOMER: " + caseName + " - " + caseAccount + "\n\n"
                + "CASE SUMMARY: \n\n"
@@ -470,15 +470,15 @@ function thirdLineRefEvent() {
                + caseNumber + " - " + caseSubject + "\n" 
                + caseURL + "\n\n" 
                + caseDescription +"\n\n"
-               + "• Summary of diagnostics\n"
-               + "• Hypothesis and other details\n"
+               + "• Summary of diagnostics\n\n"
+               + "• Hypothesis and other details\n\n"
                + "• List FTS Attachments - " + globalFTSHTTP + "\n"
                + "[FTS credentials can be found in the case]\n\n"
         };
     } else {
         userQuery = {
         "to" : globalRefEmail,
-        "subject" : "[Customer Name]" + " - 3rd Line assistance request for Case - " + "[Case Number]",
+        "subject" : "[Account Name]" + " - 3rd Line assistance request for Case - " + "[Case Number]",
         "body" : "**When sending a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
                + "CUSTOMER: " + "[Customer Name]" + " - " + "[Account Name]" + "\n\n"
                + "CASE SUMMARY: \n\n"

@@ -1,3 +1,8 @@
+# 2.9.3
+
+### Tweaks
+- Minor changes to the 3rd line referral email.
+
 # 2.9.2
 ### Enhancements
 - Welcome to OpenText! New logo added.
