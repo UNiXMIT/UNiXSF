@@ -17,7 +17,7 @@ let globalFTSHTTP;
 let globalQuixyURL;
 let globalTranslationURL;
 let globalRefEmail;
-let iconURL= chrome.runtime.getURL('icons/mf128.png');
+let iconURL= chrome.runtime.getURL('icons/ot128.png');
 let intervalID;
 let qObserver;
 let oldCaseArray = [];

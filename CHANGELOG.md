@@ -2,6 +2,7 @@
 
 ### Tweaks
 - Minor changes to the 3rd line referral email.
+- Change MF icons to OT icons.
 
 # 2.9.2
 ### Enhancements
