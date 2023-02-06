@@ -3,6 +3,9 @@
 ### Tweaks
 - Minor changes to the 3rd line referral email.
 - Change MF icons to OT icons.
+  
+### Fixes
+- Fix minor issue with 'Set Pending Customer' option.
 
 # 2.9.2
 ### Enhancements

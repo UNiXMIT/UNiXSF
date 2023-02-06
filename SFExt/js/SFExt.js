@@ -1041,7 +1041,9 @@ function defPenCust() {
             (async ()=>{
                 let checkbox = document.querySelector('.split-right > .tabContent.active.oneConsoleTab').querySelector('.supportPublisherQuickSendEmail input[type="checkbox"]');
                 if (checkbox && checkbox.className != 'done') {
-                    document.querySelector('.split-right > .tabContent.active.oneConsoleTab').querySelector('.supportPublisherQuickSendEmail input[type="checkbox"]').checked = globalPenCust;
+                    if (globalPenCust) {
+                        document.querySelector('.split-right > .tabContent.active.oneConsoleTab').querySelector('.supportPublisherQuickSendEmail input[type="checkbox"]').checked = globalPenCust;
+                    }
                     checkbox.className = 'done';
                 }
                 await sleep(500);
