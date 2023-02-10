@@ -17,6 +17,7 @@ let globalFTSHTTP;
 let globalQuixyURL;
 let globalTranslationURL;
 let globalRefEmail;
+let globalArial = 1;
 let iconURL= chrome.runtime.getURL('icons/ot128.png');
 let intervalID;
 let qObserver;
@@ -1053,6 +1054,31 @@ function defPenCust() {
     observer.observe(document, {childList: true, subtree: true});
 }
 
+function defFont() {
+    if (globalArial) {
+        let observer = new MutationObserver(mutations => {
+            (async ()=>{
+                let emailTab = document.querySelector('.split-right').querySelector('[data-target-selection-name="Case.SendEmailTab"]');
+                if ( (emailTab) && (emailTab.className != 'done')) {
+                    emailTab.addEventListener('click', defFontEvent, false);
+                    emailTab.className = 'done tabHeader';
+                }
+                await sleep(500);
+            })();
+        });
+        observer.observe(document, {childList: true, subtree: true});
+    }
+}
+
+function defFontEvent() {
+    (async ()=>{
+        await sleep(1000);
+        document.querySelector('.split-right').querySelector('[title="CK Editor Container"]').contentWindow.document.querySelector('[title="Font Name"]').click()
+        await sleep(500);
+        document.querySelector('.split-right').querySelector('[title="CK Editor Container"]').contentWindow.document.querySelector('.cke_panel_frame').contentWindow.document.querySelector('[title="Arial"]').click()
+    })();
+}
+
 function extLoaded() {
     let observer = new MutationObserver(mutations => {
         let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
@@ -1312,6 +1338,7 @@ window.onload = function() {
             addCharacterCounter();
             addCopyButton();
             defPenCust();
+            // defFont();
             extLoaded();
             fixMouse();
             dailyUsers();

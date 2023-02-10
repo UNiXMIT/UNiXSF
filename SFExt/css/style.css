@@ -12,6 +12,10 @@ html {
     font-family: "Roboto",sans-serif !important; 
 }  
 
+.slds-truncate {
+    text-overflow: clip !important;
+}
+
 .slds-rich-text-editor__textarea.slds-grid.ql-container {
     min-height: 200px;
 }
