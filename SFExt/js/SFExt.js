@@ -184,7 +184,7 @@ function sendObserver() {
 
 function awaitSend() {
     let observer = new MutationObserver(mutations => {
-        const emailSent = contains('span', 'Email sent'); 
+        const emailSent = contains('.toastMessage', 'Email'); 
         if (emailSent.length) {
             if (globalStatus) {
                 document.querySelector('.statusDialog').showModal();
