@@ -53,6 +53,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
   - 3rd Line Referral.  
     Generates an email, using a set template and information from the case.  
+    It also adds '3rd Line AMC' user as a Case Team member. Reuires that the 'Case Team' section, in the Related tab, be the first in the list. This can be adjusted in the Salesforce settings.  
 
   - Additional menu items for Support Portal, SLD Web Portal and PerformPlus.  
 
