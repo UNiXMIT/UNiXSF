@@ -8,6 +8,7 @@
 ### Fixes
 - Fix minor issue with 'Set Pending Customer' option.
 - Issue with 'Modify Case Status after Send' feature after Salesforce made changes that broke it.
+- I was accidentally removing the SF Notification bell icon.
 
 # 2.9.2
 ### Enhancements
