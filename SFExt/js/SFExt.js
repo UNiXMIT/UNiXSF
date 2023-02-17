@@ -1137,9 +1137,9 @@ function defFont() {
 function defFontEvent() {
     (async ()=>{
         await sleep(1000);
-        document.querySelector('.split-right').querySelector('[title="CK Editor Container"]').contentWindow.document.querySelector('[title="Font Name"]').click()
+        document.querySelector('.split-right').querySelector('[title="CK Editor Container"]').contentWindow.document.querySelector('[title="Font Name"]').click();
         await sleep(500);
-        document.querySelector('.split-right').querySelector('[title="CK Editor Container"]').contentWindow.document.querySelector('.cke_panel_frame').contentWindow.document.querySelector('[title="Arial"]').click()
+        document.querySelector('.split-right').querySelector('[title="CK Editor Container"]').contentWindow.document.querySelector('.cke_panel_frame').contentWindow.document.querySelector('[title="Arial"]').click();
     })();
 }
 
