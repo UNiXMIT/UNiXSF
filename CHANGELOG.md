@@ -4,6 +4,7 @@
 - Minor changes to the 3rd line referral email.
 - Change MF icons to OT icons.
 - 3rd Line Referral QuickLink now also adds '3rd Line AMC' user as a Case Team member.
+- Add PRODUCT section to 3rd line referral email.
   
 ### Fixes
 - Fix minor issue with 'Set Pending Customer' option.

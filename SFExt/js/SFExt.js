@@ -511,6 +511,7 @@ function refEmail() {
     let caseSubject;
     let caseName;
     let caseAccount;
+    let caseProduct;
     let caseDescriptionElem;
     let caseDescription;
     let userQuery;
@@ -520,15 +521,17 @@ function refEmail() {
         caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text').innerText;
         caseName = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(5) > div > p.fieldComponent > slot div span').innerText;
         caseAccount = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(6) > div > p.fieldComponent div slot').innerText;
+        caseProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('span > a').textContent;
         caseDescriptionElem = activeCaseContains('.slds-form-element__label','Description'); 
         caseDescription = caseDescriptionElem[0].nextSibling.nextSibling.firstChild.innerText;
         caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
     }
-    if ((caseNumber) && (caseSubject) && (caseName) && (caseAccount) && (caseDescription) && (caseURL)) {
+    if ((caseNumber) && (caseSubject) && (caseName) && (caseAccount) && (caseDescription) && (caseURL) && (caseProduct)) {
         userQuery = {
         "to" : globalRefEmail,
         "subject" : caseAccount + " - 3rd Line assistance request for Case - " + caseNumber,
         "body" : "**When sending a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
+            + "PRODUCT: " + caseProduct + "\n\n"
             + "CUSTOMER: " + caseName + " - " + caseAccount + "\n\n"
             + "CASE SUMMARY: \n\n"
             + "• Summary of the issue\n" 
@@ -545,11 +548,12 @@ function refEmail() {
         "to" : globalRefEmail,
         "subject" : "[Account Name]" + " - 3rd Line assistance request for Case - " + "[Case Number]",
         "body" : "**When sending a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
+            + "PRODUCT: \n\n"
             + "CUSTOMER: " + "[Customer Name]" + " - " + "[Account Name]" + "\n\n"
             + "CASE SUMMARY: \n\n"
-            + "• Summary of the issue\n" 
-            + "• Summary of diagnostics\n"
-            + "• Hypothesis and other details\n"
+            + "• Summary of the issue\n\n" 
+            + "• Summary of diagnostics\n\n"
+            + "• Hypothesis and other details\n\n"
             + "• List FTS Attachments - " + globalFTSHTTP + "\n"
             + "[FTS credentials can be found in the case]\n\n"
         };
