@@ -248,6 +248,7 @@ function mfNav() {
             mfQuixy();
             mfDocumentation();
             mfTranslation();
+            mfAccountTeam();
             thirdLineRef();
             addReminder();
             mfPP();
@@ -403,6 +404,24 @@ function mfDocumentationURL(products, mfProduct) {
     }
 }
 
+function mfAccountTeam() {
+    createMFMenu('mfAccount', 'fa-people-group', 'Account Team');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfAccount');
+    mfButtonNew.addEventListener('click', mfAccountTeamEvent, false);
+}
+
+function mfAccountTeamEvent() {
+    let activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (activeTab) {
+        let account = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(6) a');
+        if (account) {
+            let accountURL = account.href;
+            let accountTeamURL = accountURL.replace("/view", "/related/AccountTeamMembers/view");
+            window.open(accountTeamURL, '_blank');
+        }
+    }
+}
+
 function mfTranslation() {
     createMFMenu('mftranslation', 'fa-language', 'Translation');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mftranslation');
@@ -442,31 +461,31 @@ function thirdLineRef() {
 }
 
 function thirdLineRefEvent() {
-    (async ()=>{
-        addCaseTeam();
-        const activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-        if (activeTab) {
-            const relatedTab = activeTab.querySelector('[title="Related"]');
-            if (relatedTab) {
-                let observer = new MutationObserver(mutations => {
-                    setTimeout(function() {
-                        let refCheck = document.querySelector('div.refSent');
-                        if (refCheck) {
-                            refEmail();
-                            let div = document.querySelector('.refSent');
-                            if (div) {
-                            div.parentNode.removeChild(div);
-                            }
-                            observer.disconnect();
-                        }
-                    }, 200);
-                });
-                observer.observe(document, {childList: true, subtree: true});
-            }
-        } else {
+    // (async ()=>{
+    //     addCaseTeam();
+    //     const activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    //     if (activeTab) {
+    //         const relatedTab = activeTab.querySelector('[title="Related"]');
+    //         if (relatedTab) {
+    //             let observer = new MutationObserver(mutations => {
+    //                 setTimeout(function() {
+    //                     let refCheck = document.querySelector('div.refSent');
+    //                     if (refCheck) {
+    //                         refEmail();
+    //                         let div = document.querySelector('.refSent');
+    //                         if (div) {
+    //                         div.parentNode.removeChild(div);
+    //                         }
+    //                         observer.disconnect();
+    //                     }
+    //                 }, 200);
+    //             });
+    //             observer.observe(document, {childList: true, subtree: true});
+    //         }
+    //     } else {
             refEmail();
-        }
-    })();
+        // }
+    // })();
 }
 
 function addCaseTeam() {
