@@ -12,6 +12,12 @@ html {
     font-family: "Roboto",sans-serif !important; 
 }  
 
+.slds-global-header__logo {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/icons/ot.png') !important;
+    background-size: auto 40px !important;
+    width: 235px !important;
+}
+
 .slds-truncate {
     text-overflow: clip !important;
 }
@@ -24,31 +30,19 @@ div.uiInput.uiInputTextArea.uiInput--default.uiInput--textarea textarea {
     min-height: 150px;
 }
 
-.newfooterul {
+p.ExtLoaded {
     float: right !important;
     width: auto !important;
     display: flex !important;
     position: absolute !important;
     right: 0 !important;
-}
-
-p.ExtLoaded {
     margin-top: 12px !important;
     margin-right: 10px !important;
     font-weight: bold !important;
-}
-
-.slds-global-header__logo {
-    background-image: url('chrome-extension://__MSG_@@extension_id__/icons/ot.png') !important;
-    background-size: auto 40px !important;
-    width: 235px !important;
-}
-
-p.ExtLoaded { 
     text-decoration: none !important; 
     color: black; 
     font-family: "RobotoBold",sans-serif !important;
-} 
+}
 
 .dropbtn { 
     background-color: #fff; 

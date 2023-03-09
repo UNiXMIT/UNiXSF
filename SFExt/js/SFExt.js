@@ -681,7 +681,7 @@ function customURLs() {
             countURLs = countURLs + 1;
         });
     } catch (err) {
-        window.alert("Footer URL list JSON format is not correct!");
+        window.alert("Custom URL list JSON format is not correct!");
     }
 }
 
@@ -704,7 +704,7 @@ function updateCustomURLs() {
             countURLs = countURLs + 1;
         });
     } catch (err) {
-        window.alert("Footer URL list JSON format is not correct!");
+        window.alert("Custom URL list JSON format is not correct!");
     }
 }
 
@@ -1165,15 +1165,12 @@ function defFontEvent() {
 
 function extLoaded() {
     let observer = new MutationObserver(mutations => {
-        let footerUl = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
-        if (footerUl) {
-            let newUL = document.createElement("ul");
-            newUL.className = "newfooterul";
-            footerUl.appendChild(newUL);
-            let li = document.createElement("li");
-            li.innerHTML = `<p class="ExtLoaded">SFExt ${installedVersion}</p>`;
-            li.className = 'ExtLoaded';
-            newUL.appendChild(li);
+        let footer = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
+        if (footer) {
+            let footerP = document.createElement("p");
+            footerP.className = "ExtLoaded";
+            footerP.innerText = `SFExt ${installedVersion}`;
+            footer.appendChild(footerP);
             observer.disconnect();
         }
     });
