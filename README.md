@@ -6,8 +6,6 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 - [Features](#features)
 - [Install](#install)
 - [Update](#update)
-- [Latest Release](https://github.com/UNiXMIT/UNiXSF/releases/latest)
-- [Changelog](https://github.com/UNiXMIT/UNiXSF/releases)
 - [Configuration](#configuration)
 - [Features/Improvements Wishlist](#featuresimprovements-wishlist)
 - [Troubleshooting](#troubleshooting)
@@ -83,7 +81,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 ## Install
 
-1. Download the [Latest Release SFExt.zip](https://github.com/UNiXMIT/UNiXSF/raw/main/SFExt.zip), and unzip into the directory where you would like the extension to be stored.  
+1. Download the Latest Release SFExt.zip, and unzip into the directory where you would like the extension to be stored.  
 2. Open Google Chrome, Brave or Edge.  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser) in the browser address bar.   
 4. Toggle "Developer mode".  
@@ -95,7 +93,7 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 ## Update
 
-1. Download the [Latest Release SFExt.zip](https://github.com/UNiXMIT/UNiXSF/raw/main/SFExt.zip), and unzip into the directory where the previous version of the SF Extension is located, overwriting the old files. 
+1. Download the Latest Release SFExt.zip, and unzip into the directory where the previous version of the SF Extension is located, overwriting the old files. 
 2. Open Google Chrome, Brave or Edge.  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser). 
 4. Click the reload icon in the Salesforce Extension tile.
@@ -157,7 +155,6 @@ Click on the toolbar extension menu and select Options.
    {"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","Net Express / Server Express":"net-express"**,"ChangeMan ZMF":"changeman-zmf"**}
 
 - Custom links can be added to the QuickLink Menu. The format for the configuration is in JSON where the Key is the text of the link and the Value is the URL to load.  
-  The default is {"SFExt":"https://unixmit.github.io/UNiXSF"} which sets the text to 'SFExt' and the URL of the link to 'https://unixmit.github.io/UNiXSF'  
 
 ### Save Options
 

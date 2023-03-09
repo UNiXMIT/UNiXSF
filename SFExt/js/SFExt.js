@@ -44,7 +44,7 @@ function initSyncData() {
         savedRefEmail: '',
         savedProtocol: 'sftp://',
         savedFTSURL: '',
-        savedURLS: '{"SFExt":"https://github.com/UNiXMIT/UNiXSF"}',
+        savedURLS: '',
         savedStatus: false
     }, function(result) {
         globalTimeout = result.savedTimeout;
@@ -82,7 +82,7 @@ function getSyncData() {
                 savedRefEmail: '',
                 savedProtocol: 'sftp://',
                 savedFTSURL: '',
-                savedURLS: '{"SFExt":"https://github.com/UNiXMIT/UNiXSF"}',
+                savedURLS: '',
                 savedStatus: false
             }, function(result) {
                 if (globalTimeout != result.savedTimeout) {
@@ -386,7 +386,6 @@ function mfDocumentationEvent() {
             mfDocumentationURL(products, mfProduct);
         } catch (err) {
             window.alert("Product list JSON format is not correct!");
-            window.open('https://github.com/UNiXMIT/UNiXSF#configuration', 'Salesforce Extension README', 'width=1450,height=850');
         }
     } else {
         window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
@@ -683,7 +682,6 @@ function customURLs() {
         });
     } catch (err) {
         window.alert("Footer URL list JSON format is not correct!");
-        window.open('https://github.com/UNiXMIT/UNiXSF#configuration', 'Salesforce Extension README', 'width=1450,height=850');
     }
 }
 
@@ -707,7 +705,6 @@ function updateCustomURLs() {
         });
     } catch (err) {
         window.alert("Footer URL list JSON format is not correct!");
-        window.open('https://github.com/UNiXMIT/UNiXSF#configuration', 'Salesforce Extension README', 'width=1450,height=850');
     }
 }
 
@@ -1174,7 +1171,7 @@ function extLoaded() {
             newUL.className = "newfooterul";
             footerUl.appendChild(newUL);
             let li = document.createElement("li");
-            li.innerHTML = `<a class="ExtLoaded" target="_blank" href="https://github.com/UNiXMIT/UNiXSF">SFExt ${installedVersion}</a>`;
+            li.innerHTML = `<p class="ExtLoaded">SFExt ${installedVersion}</p>`;
             li.className = 'ExtLoaded';
             newUL.appendChild(li);
             observer.disconnect();
@@ -1273,10 +1270,6 @@ function updateCheck() {
                                     body: updateMessage,
                                     icon: iconURL
                                 });
-                                UpdateNofity.addEventListener('click', () => {
-                                    window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
-                                    window.open('https://github.com/UNiXMIT/UNiXSF/raw/main/SFExt.zip', '_blank');
-                                });
                             } else {
                                 Notification.requestPermission()
                                     .then(function(p) {
@@ -1284,10 +1277,6 @@ function updateCheck() {
                                             const UpdateNofity = new Notification('SFExtension Update Available', {
                                                 body: updateMessage,
                                                 icon: iconURL
-                                            });
-                                            UpdateNofity.addEventListener('click', () => {
-                                                window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
-                                                window.open('https://github.com/UNiXMIT/UNiXSF/raw/main/SFExt.zip', '_blank');
                                             });
                                         } else {
                                             console.log('User blocked notifications.');
@@ -1302,8 +1291,6 @@ function updateCheck() {
                     if ( !(initDropDown) ) {
                         updateLabel = `SFExt Update ${latestVersion}`;
                         createMFMenu('mfupdate', 'fa-arrows-rotate', updateLabel);
-                        let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfupdate');
-                        mfButtonNew.addEventListener('click', mfUpdateEvent, false);
                     }
                 }
             }
@@ -1311,11 +1298,6 @@ function updateCheck() {
     };
     xmlHttp.open("GET", URL);
     xmlHttp.send(null);
-}
-
-function mfUpdateEvent() {
-    window.open('https://github.com/UNiXMIT/UNiXSF/releases/latest', '_blank');
-    window.open('https://github.com/UNiXMIT/UNiXSF/raw/main/SFExt.zip', '_blank');
 }
 
 function compareVersions(v1, v2) {

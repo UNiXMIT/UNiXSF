@@ -64,7 +64,7 @@ function restore_options() {
       savedRefEmail: '',
       savedProtocol: 'sftp://',
       savedFTSURL: '',
-      savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
+      savedURLS: '',
       savedStatus: false
   }, function(result) {
       document.getElementById('timeout').value = result.savedTimeout;
@@ -100,7 +100,7 @@ function export_options() {
         savedRefEmail: '',
         savedProtocol: 'sftp://',
         savedFTSURL: '',
-        savedURLS: '{"SFExt":"https://unixmit.github.io/UNiXSF"}',
+        savedURLS: '',
         savedStatus: false
     }, function(result) {
         chrome.downloads.onChanged.addListener(function(downloadDelta) {

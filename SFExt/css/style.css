@@ -32,11 +32,7 @@ div.uiInput.uiInputTextArea.uiInput--default.uiInput--textarea textarea {
     right: 0 !important;
 }
 
-a.ExtLoaded {
-    text-decoration: none !important;
-}
-
-.ExtLoaded {
+p.ExtLoaded {
     margin-top: 12px !important;
     margin-right: 10px !important;
     font-weight: bold !important;
@@ -48,19 +44,10 @@ a.ExtLoaded {
     width: 235px !important;
 }
 
-a.ExtLoaded { 
+p.ExtLoaded { 
     text-decoration: none !important; 
     color: black; 
     font-family: "RobotoBold",sans-serif !important;
-} 
-
-a.ExtLoaded:visited { 
-    text-decoration: none !important; 
-    color: black; 
-} 
-
-a.ExtLoaded:hover { 
-    color: red 
 } 
 
 .dropbtn { 
