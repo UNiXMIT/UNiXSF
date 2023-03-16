@@ -1168,10 +1168,12 @@ function extLoaded() {
     let observer = new MutationObserver(mutations => {
         let footer = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
         if (footer) {
-            let footerP = document.createElement("p");
-            footerP.className = "ExtLoaded";
-            footerP.innerText = `SFExt ${installedVersion}`;
-            footer.appendChild(footerP);
+            let footera = document.createElement("a");
+            footera.className = "ExtLoaded";
+            footera.innerText = `SFExt ${installedVersion}`;
+            footera.href = configURL;
+            footera.setAttribute('target', '_blank');
+            footer.appendChild(footera);
             observer.disconnect();
         }
     });

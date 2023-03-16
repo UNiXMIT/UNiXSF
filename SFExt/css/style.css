@@ -30,19 +30,35 @@ div.uiInput.uiInputTextArea.uiInput--default.uiInput--textarea textarea {
     min-height: 150px;
 }
 
-p.ExtLoaded {
+a.ExtLoaded {
     float: right !important;
     width: auto !important;
     display: flex !important;
     position: absolute !important;
     right: 0 !important;
+    text-decoration: none !important;
+}
+
+a.ExtLoaded {
     margin-top: 12px !important;
-    margin-right: 10px !important;
+    margin-right: 15px !important;
     font-weight: bold !important;
+}
+
+a.ExtLoaded { 
     text-decoration: none !important; 
     color: black; 
     font-family: "RobotoBold",sans-serif !important;
-}
+} 
+
+a.ExtLoaded:visited { 
+    text-decoration: none !important; 
+    color: black; 
+} 
+
+a.ExtLoaded:hover { 
+    color: red 
+} 
 
 .dropbtn { 
     background-color: #fff; 
