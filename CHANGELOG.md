@@ -1,10 +1,12 @@
 # 2.9.3
 
+### Enhancements
+- Add Account Team QuickLink
+
 ### Tweaks
 - Minor changes to the 3rd line referral email.
 - Change MF icons to OT icons.
 - Add PRODUCT section to 3rd line referral email.
-- Add Account Team QuickLink
   
 ### Fixes
 - Fix minor issue with 'Set Pending Customer' option.
