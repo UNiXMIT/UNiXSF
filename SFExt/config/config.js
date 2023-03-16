@@ -63,8 +63,8 @@ function restore_options() {
       savedTranslation: '',
       savedRefEmail: '',
       savedProtocol: 'sftp://',
-      savedFTSURL: '{"SFExt":""}',
-      savedURLS: '',
+      savedFTSURL: '',
+      savedURLS: '{"SFExt":""}',
       savedStatus: false
   }, function(result) {
       document.getElementById('timeout').value = result.savedTimeout;
@@ -99,8 +99,8 @@ function export_options() {
         savedTranslation: '',
         savedRefEmail: '',
         savedProtocol: 'sftp://',
-        savedFTSURL: '{"SFExt":""}',
-        savedURLS: '',
+        savedFTSURL: '',
+        savedURLS: '{"SFExt":""}',
         savedStatus: false
     }, function(result) {
         chrome.downloads.onChanged.addListener(function(downloadDelta) {

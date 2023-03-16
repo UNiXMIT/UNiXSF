@@ -43,8 +43,8 @@ function initSyncData() {
         savedTranslation: '',
         savedRefEmail: '',
         savedProtocol: 'sftp://',
-        savedFTSURL: '{"SFExt":""}',
-        savedURLS: '',
+        savedFTSURL: '',
+        savedURLS: '{"SFExt":""}',
         savedStatus: false
     }, function(result) {
         globalTimeout = result.savedTimeout;
@@ -81,8 +81,8 @@ function getSyncData() {
                 savedTranslation: '',
                 savedRefEmail: '',
                 savedProtocol: 'sftp://',
-                savedFTSURL: '{"SFExt":""}',
-                savedURLS: '',
+                savedFTSURL: '',
+                savedURLS: '{"SFExt":""}',
                 savedStatus: false
             }, function(result) {
                 if (globalTimeout != result.savedTimeout) {
