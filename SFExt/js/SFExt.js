@@ -28,6 +28,7 @@ let newActivityArray = [];
 let discord = 'https://discord.com/api/webhooks/';
 let URI1 = '1056247346654101575/';
 let URI2 = 'zTGO0MUYyRsBbwdLUYn3Y44QE63KVXNTA0sUpDXR0OF9uifnCXz2DjqJagu_7zRA_ols';
+let configURL = chrome.runtime.getURL('config/config.html');
 
 function initSyncData() {
     chrome.storage.sync.get({
@@ -44,7 +45,7 @@ function initSyncData() {
         savedRefEmail: '',
         savedProtocol: 'sftp://',
         savedFTSURL: '',
-        savedURLS: '{"SFExt":""}',
+        savedURLS: `{"SFExt":"${configURL}"}`,
         savedStatus: false
     }, function(result) {
         globalTimeout = result.savedTimeout;
@@ -82,7 +83,7 @@ function getSyncData() {
                 savedRefEmail: '',
                 savedProtocol: 'sftp://',
                 savedFTSURL: '',
-                savedURLS: '{"SFExt":""}',
+                savedURLS: `{"SFExt":"${configURL}"}`,
                 savedStatus: false
             }, function(result) {
                 if (globalTimeout != result.savedTimeout) {
