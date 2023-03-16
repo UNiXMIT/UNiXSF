@@ -63,7 +63,7 @@ function restore_options() {
       savedTranslation: '',
       savedRefEmail: '',
       savedProtocol: 'sftp://',
-      savedFTSURL: '',
+      savedFTSURL: '{"SFExt":""}',
       savedURLS: '',
       savedStatus: false
   }, function(result) {
@@ -99,7 +99,7 @@ function export_options() {
         savedTranslation: '',
         savedRefEmail: '',
         savedProtocol: 'sftp://',
-        savedFTSURL: '',
+        savedFTSURL: '{"SFExt":""}',
         savedURLS: '',
         savedStatus: false
     }, function(result) {

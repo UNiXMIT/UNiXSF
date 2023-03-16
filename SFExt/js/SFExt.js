@@ -43,7 +43,7 @@ function initSyncData() {
         savedTranslation: '',
         savedRefEmail: '',
         savedProtocol: 'sftp://',
-        savedFTSURL: '',
+        savedFTSURL: '{"SFExt":""}',
         savedURLS: '',
         savedStatus: false
     }, function(result) {
@@ -81,7 +81,7 @@ function getSyncData() {
                 savedTranslation: '',
                 savedRefEmail: '',
                 savedProtocol: 'sftp://',
-                savedFTSURL: '',
+                savedFTSURL: '{"SFExt":""}',
                 savedURLS: '',
                 savedStatus: false
             }, function(result) {
