@@ -2,6 +2,7 @@
 
 ### Tweaks
 - Perform+ URL is now configurable.
+- Improve QuickLink menu creation.
 
 # 2.9.3
 

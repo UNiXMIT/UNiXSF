@@ -242,25 +242,28 @@ function mfNav() {
     let observer = new MutationObserver(mutations => {
         let mfButton = document.querySelector('#oneHeader').querySelector('ul.slds-global-actions');
         if ( (mfButton) && (navInit) ) {
-            navInit = 0;
-            for (let i = 0; i < 3 ; ++i) {
-                mfButton.removeChild(mfButton.children[3]);
-            }
-            mfDropDown();
-            mfSup();
-            mfSLD();
-            mfFTS();
-            mfElevate();
-            mfQuixy();
-            mfDocumentation();
-            mfTranslation();
-            mfAccountTeam();
-            thirdLineRef();
-            addReminder();
-            mfPP();
-            fullScreenKCS();
-            customURLs();
-            observer.disconnect();
+            (async ()=>{
+                navInit = 0;
+                for (let i = 0; i < 3 ; ++i) {
+                    mfButton.removeChild(mfButton.children[3]);
+                    await sleep(100);
+                }
+                mfDropDown();
+                mfSup();
+                mfSLD();
+                mfFTS();
+                mfElevate();
+                mfQuixy();
+                mfDocumentation();
+                mfTranslation();
+                mfAccountTeam();
+                thirdLineRef();
+                addReminder();
+                mfPP();
+                fullScreenKCS();
+                customURLs();
+                observer.disconnect();
+            })();
         }
     });
     observer.observe(document, {childList: true, subtree: true});
