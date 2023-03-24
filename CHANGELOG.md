@@ -1,3 +1,8 @@
+# 2.9.4
+
+### Tweaks
+- Perform+ URL is now configurable.
+
 # 2.9.3
 
 ### Enhancements

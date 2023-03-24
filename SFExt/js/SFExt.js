@@ -15,6 +15,7 @@ let globalURLS;
 let globalStatus;
 let globalFTSHTTP;
 let globalQuixyURL;
+let globalPP;
 let globalTranslationURL;
 let globalRefEmail;
 let globalArial = 1;
@@ -37,6 +38,7 @@ function initSyncData() {
         savedPenCust: false,
         savedFTSHTTP: '',
         savedQuixy: '',
+        savedPP: '',
         savedQueue: 'NOTIFY',
         savedQNotify: false,
         savedQNotifyWeb: false,
@@ -53,6 +55,7 @@ function initSyncData() {
         globalPenCust = result.savedPenCust;
         globalFTSHTTP = result.savedFTSHTTP;
         globalQuixyURL = result.savedQuixy;
+        globalPP = result.savedPP;
         globalQueue = result.savedQueue;
         globalQNotify = result.savedQNotify;
         globalQNotifyWeb = result.savedQNotifyWeb;
@@ -75,6 +78,7 @@ function getSyncData() {
                 savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
                 savedPenCust: false,
                 savedQuixy: '',
+                savedPP: '',
                 savedQueue: 'NOTIFY',
                 savedQNotify: false,
                 savedQNotifyWeb: false,
@@ -97,6 +101,7 @@ function getSyncData() {
                 globalPenCust = result.savedPenCust;
                 globalFTSHTTP = result.savedFTSHTTP;
                 globalQuixyURL = result.savedQuixy;
+                globalPP = result.savedPP;
                 if (globalQueue != result.savedQueue) {
                     globalQueue = result.savedQueue;
                     if (qObserver) {
@@ -642,7 +647,7 @@ function mfPP() {
 }
 
 function mfPPEvent() {
-    window.open('https://microfocus-profile.performplus.pwc.com/login', '_blank');
+    window.open(globalPP, '_blank');
 }
 
 function fullScreenKCS() {
