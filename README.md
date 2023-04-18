@@ -128,6 +128,8 @@ Click on the toolbar extension menu and select Options.
 
 - The Quixy URL.  
 
+- The Perform+ URL.  
+
 - The translation request URL.  
 
 - The 3rd line referral email address.  
