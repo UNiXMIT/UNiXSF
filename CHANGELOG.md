@@ -1,7 +1,7 @@
 # 2.9.5
 
-### Tweaks
-- Move f15 press to it's own function  
+### Enhancements
+- Scroll 1 pixel and back, every 30 minutes, to keep session alive.  
 
 # 2.9.4
 

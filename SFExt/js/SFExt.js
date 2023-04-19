@@ -140,10 +140,11 @@ function queueRefresh() {
     }
 }
 
-function pressF15() {
+function stayAlive() {
     setInterval(function() {
-        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'f15'}));
-    }, 120000);
+        window.scrollBy({ top: 1, behavior: "instant" });
+        window.scrollBy({ top: -1, behavior: "instant" });
+    }, 1800000);
 }
 
 function createStatusModal() {
@@ -1409,7 +1410,7 @@ window.onload = function() {
         if (globalInit) {
             getSyncData();
             queueRefresh();
-            pressF15();
+            stayAlive();
             createStatusModal();
             sendObserver();
             mfNav();
