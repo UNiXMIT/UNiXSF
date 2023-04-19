@@ -136,9 +136,14 @@ function queueRefresh() {
             if (refreshButton) {
                 refreshButton.click();
             }
-            window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'f15'}));
         }, refreshInterval);
     }
+}
+
+function pressF15() {
+    setInterval(function() {
+        window.dispatchEvent(new KeyboardEvent('keydown', {'key': 'f15'}));
+    }, 120000);
 }
 
 function createStatusModal() {
@@ -1404,6 +1409,7 @@ window.onload = function() {
         if (globalInit) {
             getSyncData();
             queueRefresh();
+            pressF15();
             createStatusModal();
             sendObserver();
             mfNav();

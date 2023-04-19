@@ -1,3 +1,8 @@
+# 2.9.5
+
+### Tweaks
+- Move f15 press to it's own function  
+
 # 2.9.4
 
 ### Tweaks
