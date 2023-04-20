@@ -20,13 +20,6 @@
       "run_at": "document_end",
       "js": ["js/SFExt.js"],
       "css": ["css/style.css","css/all.css"]
-    },
-    {
-      "matches": [
-        "*://*/*"
-      ],
-      "run_at": "document_end",
-      "js": ["js/Semaphore.js"]
     }
   ],
   "web_accessible_resources": [
