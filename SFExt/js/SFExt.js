@@ -140,13 +140,6 @@ function queueRefresh() {
     }
 }
 
-function stayAlive() {
-    setInterval(function() {
-        window.scrollBy({ top: 1, behavior: "instant" });
-        window.scrollBy({ top: -1, behavior: "instant" });
-    }, 1800000);
-}
-
 function createStatusModal() {
     const caseStatusJSON = '{"suspended":"Suspended","closed":"Closed","customer":"Pending Customer","internal":"Pending Internal","solution":"Solution Suggested","support":"Pending Support","development":"Pending Development","release":"Pending Release"}';
     let myDialog = document.createElement("dialog");
@@ -1410,7 +1403,6 @@ window.onload = function() {
         if (globalInit) {
             getSyncData();
             queueRefresh();
-            stayAlive();
             createStatusModal();
             sendObserver();
             mfNav();
