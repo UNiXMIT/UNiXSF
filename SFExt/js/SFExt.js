@@ -548,11 +548,11 @@ function refEmail() {
         caseName = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(5) > div > p.fieldComponent > slot div span').innerText;
         caseAccount = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(6) > div > p.fieldComponent div slot').innerText;
         caseProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('span > a').textContent;
-        caseDescriptionElem = activeCaseContains('.slds-form-element__label','Description'); 
-        caseDescription = caseDescriptionElem[0].nextSibling.nextSibling.firstChild.innerText;
+        // caseDescriptionElem = activeCaseContains('.slds-form-element__label','Description'); 
+        // caseDescription = caseDescriptionElem[0].nextSibling.nextSibling.firstChild.innerText;
         caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
     }
-    if ((caseNumber) && (caseSubject) && (caseName) && (caseAccount) && (caseDescription) && (caseURL) && (caseProduct)) {
+    if ((caseNumber) && (caseSubject) && (caseName) && (caseAccount) && (caseURL) && (caseProduct)) {
         userQuery = {
         "to" : globalRefEmail,
         "subject" : caseAccount + " - 3rd Line assistance request for Case - " + caseNumber,
@@ -563,7 +563,7 @@ function refEmail() {
             + "• Summary of the issue\n" 
             + caseNumber + " - " + caseSubject + "\n" 
             + caseURL + "\n\n" 
-            + caseDescription +"\n\n"
+            // + caseDescription +"\n\n"
             + "• Summary of diagnostics\n\n"
             + "• Hypothesis and other details\n\n"
             + "• List FTS Attachments - " + globalFTSHTTP + "\n"

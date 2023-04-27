@@ -1,7 +1,7 @@
 # 2.9.5
 
-### Enhancements
-- Scroll 1 pixel and back, every 30 minutes, to keep session alive.  
+### Fixes
+- The Query string limit is now in Chrome. I've had to remove the Case's Description from the 3rd line referral email.   
 
 # 2.9.4
 
