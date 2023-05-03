@@ -2,6 +2,7 @@
 
 ### Fixes
 - The Query string limit is now in Chrome. I've had to remove the Case's Description from the 3rd line referral email.   
+- Fixed an issue where the case status wasn't being modified from Pending Support (New Activity) to Pending Support.  
 
 # 2.9.4
 

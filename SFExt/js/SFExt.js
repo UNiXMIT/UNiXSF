@@ -221,7 +221,7 @@ function saveCaseStatus() {
                         openStatusCombo.click();
                     }
                     await sleep(300);
-                    let selectStatusValue = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector(`[data-value^="${userSelected}"]`);
+                    let selectStatusValue = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector(`[data-value="${userSelected}"]`);
                     if (selectStatusValue) {
                         selectStatusValue.click();
                     }
