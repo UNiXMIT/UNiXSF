@@ -1,3 +1,8 @@
+# 2.9.6
+
+### Tweaks
+- Improve function that removes useless menu items and creates QuickLink menu.  
+
 # 2.9.5
 
 ### Fixes

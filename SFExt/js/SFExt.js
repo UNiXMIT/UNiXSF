@@ -240,12 +240,14 @@ function saveCaseStatus() {
 function mfNav() {
     let observer = new MutationObserver(mutations => {
         let mfButton = document.querySelector('#oneHeader').querySelector('ul.slds-global-actions');
-        if ( (mfButton) && (navInit) ) {
+        let liDetect = mfButton.querySelectorAll('li.slds-global-actions__item');
+        if ( (mfButton) && (navInit) && (liDetect.length == 7) && (liDetect[2]) && (liDetect[3]) && (liDetect[4]) ) {
+            observer.disconnect();
             (async ()=>{
                 navInit = 0;
-                for (let i = 0; i < 3 ; ++i) {
-                    mfButton.removeChild(mfButton.children[3]);
-                    await sleep(100);
+                let removeButton = mfButton.querySelectorAll('li.slds-global-actions__item');
+                for (let i = 2; i < 5 ; ++i) {
+                    removeButton[i].remove();
                 }
                 mfDropDown();
                 mfSup();
@@ -261,7 +263,6 @@ function mfNav() {
                 mfPP();
                 fullScreenKCS();
                 customURLs();
-                observer.disconnect();
             })();
         }
     });
