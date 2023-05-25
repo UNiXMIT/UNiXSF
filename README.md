@@ -52,8 +52,12 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
   - 3rd Line Referral.  
     Generates an email, using a set template and information from the case.   
 
-  - Account Team.
+  - Account Team.  
     Opens up the Account Team page for the case you have open.  
+    Only works if you have a case open and active.  
+  
+  - Entitlements.  
+    Opens up the Entitlements page for the case you have open.  
     Only works if you have a case open and active.  
 
   - Additional menu items for Support Portal, SLD Web Portal and PerformPlus.  

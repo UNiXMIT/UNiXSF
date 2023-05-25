@@ -1,7 +1,7 @@
 # 2.9.7
 
-### Fixes
-- Chrome broke the links again. Had to make changes to get them working again.
+### Enhancements
+- Add QuickLink for Entitlements.  
 
 # 2.9.6
 

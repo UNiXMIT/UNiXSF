@@ -257,6 +257,7 @@ function mfNav() {
                 mfQuixy();
                 mfDocumentation();
                 mfTranslation();
+                mfEntitlement();
                 mfAccountTeam();
                 thirdLineRef();
                 addReminder();
@@ -409,6 +410,24 @@ function mfDocumentationURL(products, mfProduct) {
         window.open(finalURL, '_blank');
     } else {
         window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
+    }
+}
+
+function mfEntitlement() {
+    createMFMenu('mfEnt', 'fa-list-check', 'Entitlements');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfEnt');
+    mfButtonNew.addEventListener('click', mfEntitlementEvent, false);
+}
+
+function mfEntitlementEvent() {
+    let activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (activeTab) {
+        let account = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(6) a');
+        if (account) {
+            let accountURL = account.href;
+            let entitlementURL = accountURL.replace("/view", "/related/Entitlements/view");
+            window.open(entitlementURL, '_blank');
+        }
     }
 }
 
@@ -585,7 +604,7 @@ function refEmail() {
             + "[FTS credentials can be found in the case]\n\n"
         };
     }
-    let outlookURL = "https://outlook.office.com/mail/0/action/compose";
+    let outlookURL = "https://outlook.office.com/mail/0/deeplink/compose";
     let finalQuery = [];
     Object.entries(userQuery).forEach(([key, value]) => {
         finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
@@ -634,7 +653,7 @@ function addReminderEvent() {
         "subject" : querySubject,
         "body" : caseLink
     };
-    let calendarURL = "https://outlook.office.com/calendar/0/action/compose?path=/calendar/action/compose";
+    let calendarURL = "https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose";
     let finalQuery = [];
     Object.entries(userQuery).forEach(([key, value]) => {
         finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
