@@ -3,6 +3,9 @@
 ### Enhancements
 - Add QuickLink for Entitlements.  
 
+### Fixes
+- Fixed issue with the 3rd Line Ref. and Reminder URL that stopped it from working in Chrome/Edge randomly.  
+
 # 2.9.6
 
 ### Tweaks

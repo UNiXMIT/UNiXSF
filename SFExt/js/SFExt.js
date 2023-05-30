@@ -604,7 +604,7 @@ function refEmail() {
             + "[FTS credentials can be found in the case]\n\n"
         };
     }
-    let outlookURL = "https://outlook.office.com/mail/0/deeplink/compose";
+    let outlookURL = "https://outlook.office.com/mail/deeplink/compose";
     let finalQuery = [];
     Object.entries(userQuery).forEach(([key, value]) => {
         finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
@@ -653,7 +653,7 @@ function addReminderEvent() {
         "subject" : querySubject,
         "body" : caseLink
     };
-    let calendarURL = "https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose";
+    let calendarURL = "https://outlook.office.com/calendar/deeplink/compose";
     let finalQuery = [];
     Object.entries(userQuery).forEach(([key, value]) => {
         finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
