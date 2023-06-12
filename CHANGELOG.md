@@ -1,3 +1,8 @@
+# 2.9.8
+
+### Enhancements
+Added buttons next to the FTS Credentials to copy that information to the clipboard.  
+
 # 2.9.7
 
 ### Enhancements
