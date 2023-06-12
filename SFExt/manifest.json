@@ -1,6 +1,6 @@
 {
   "name": "Salesforce Extension",
-  "version": "2.9.7",
+  "version": "2.9.8",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "manifest_version": 3,

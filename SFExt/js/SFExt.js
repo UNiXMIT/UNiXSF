@@ -1143,6 +1143,70 @@ function addCopyButton() {
                 }
             }
         }
+        if (activeTab) {
+            let ftsAccountTitle = activeCaseContains('records-record-layout-item > div > div > div', 'FTS AccountName');
+            if (ftsAccountTitle.length) {
+                let ftsAccount = ftsAccountTitle[0].parentNode.querySelector('div + lightning-helptext + div > span > slot');
+                let ftsPasswordTitle = activeCaseContains('records-record-layout-item > div > div > div', 'FTS Password');
+                let ftsPassword = ftsPasswordTitle[0].parentNode.querySelector('div + lightning-helptext + div > span > slot');
+                if (!ftsAccount.className) {
+                    ftsAccount.className = "copyButtonAdded";
+                    let button = document.createElement('button');
+                    button.style.border = 'none';
+                    button.style.backgroundColor = 'transparent';
+                    button.style.color = '#0570f6';
+                    button.style.cursor = 'pointer';
+                    button.style.fontWeight = '700';
+                    button.style.fontSize = '14px';
+                    button.title = 'Copy FTS Account Name';
+                    button.className = 'copyButton fa-solid fa-copy';
+                    (async ()=>{
+                        if (ftsAccount && ftsAccount.parentNode) {
+                            ftsAccount.parentNode.appendChild(button);
+                            button.addEventListener('click', async () => {
+                                let selectedText = ftsAccount.innerText;
+                                const clipboardItem = new ClipboardItem({
+                                    "text/plain": new Blob(
+                                        [selectedText],
+                                        { type: "text/plain" }
+                                    ),
+                                });
+                                await navigator.clipboard.write([clipboardItem]);
+                            });
+                        }
+                        await sleep(500);
+                    })();
+                }
+                if (!ftsPassword.className) {
+                    ftsPassword.className = "copyButtonAdded";
+                    let button = document.createElement('button');
+                    button.style.border = 'none';
+                    button.style.backgroundColor = 'transparent';
+                    button.style.color = '#0570f6';
+                    button.style.cursor = 'pointer';
+                    button.style.fontWeight = '700';
+                    button.style.fontSize = '14px';
+                    button.title = 'Copy FTS Password';
+                    button.className = 'copyButton fa-solid fa-copy';
+                    (async ()=>{
+                        if (ftsPassword && ftsPassword.parentNode) {
+                            ftsPassword.parentNode.appendChild(button);
+                            button.addEventListener('click', async () => {
+                                let selectedText = ftsPassword.innerText;
+                                const clipboardItem = new ClipboardItem({
+                                    "text/plain": new Blob(
+                                        [selectedText],
+                                        { type: "text/plain" }
+                                    ),
+                                });
+                                await navigator.clipboard.write([clipboardItem]);
+                            });
+                        }
+                        await sleep(500);
+                    })();
+                }
+            }
+        }
     });
     observer.observe(document, {childList: true, subtree: true});
 }
