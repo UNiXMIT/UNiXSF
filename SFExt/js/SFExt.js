@@ -1344,7 +1344,7 @@ function EE() {
 
 function updateCheck() {
     let xmlHttp = new XMLHttpRequest();
-    let URL = 'https://gist.githubusercontent.com/UNiXMIT/debc0afb977069647d01cfdd0aae79a8/raw/latestVersion';
+    let URL = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
     xmlHttp.onreadystatechange = () => {
         if (xmlHttp.readyState === 4) {
             if (xmlHttp.status === 200) {
