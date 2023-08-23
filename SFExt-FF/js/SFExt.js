@@ -1021,17 +1021,22 @@ function addCopyButton() {
                         button.addEventListener('click', async () => {
                             let selectedText = field.innerText;
                             let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-                            const clipboardItem = new ClipboardItem({
-                                "text/plain": new Blob(
-                                    [selectedText],
-                                    { type: "text/plain" }
-                                ),
-                                "text/html": new Blob(
-                                    [`<a href="${caseURL}">${selectedText}</a>`],
-                                    { type: "text/html" }
-                                ),
-                            });
-                            await navigator.clipboard.write([clipboardItem]);
+                            if(typeof ClipboardItem && navigator.clipboard.write) {
+                                const clipboardItem = new ClipboardItem({
+                                    "text/plain": new Blob(
+                                        [selectedText],
+                                        { type: "text/plain" }
+                                    ),
+                                    "text/html": new Blob(
+                                        [`<a href="${caseURL}">${selectedText}</a>`],
+                                        { type: "text/html" }
+                                    ),
+                                });
+                                await navigator.clipboard.write([clipboardItem]);
+                            }
+                            else {
+                                navigator.clipboard.writeText(selectedText)
+                            }
                         });
                     }
                     await sleep(500);
@@ -1057,17 +1062,22 @@ function addCopyButton() {
                         button.addEventListener('click', async () => {
                             let selectedText = field.innerText;
                             let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-                            const clipboardItem = new ClipboardItem({
-                                "text/plain": new Blob(
-                                    [selectedText],
-                                    { type: "text/plain" }
-                                ),
-                                "text/html": new Blob(
-                                    [`<a href="${caseURL}">${selectedText}</a>`],
-                                    { type: "text/html" }
-                                ),
-                            });
-                            await navigator.clipboard.write([clipboardItem]);
+                            if(typeof ClipboardItem && navigator.clipboard.write) {
+                                const clipboardItem = new ClipboardItem({
+                                    "text/plain": new Blob(
+                                        [selectedText],
+                                        { type: "text/plain" }
+                                    ),
+                                    "text/html": new Blob(
+                                        [`<a href="${caseURL}">${selectedText}</a>`],
+                                        { type: "text/html" }
+                                    ),
+                                });
+                                await navigator.clipboard.write([clipboardItem]);
+                            }
+                            else {
+                                navigator.clipboard.writeText(selectedText)
+                            }
                         });
                     }
                     await sleep(500);
@@ -1089,17 +1099,22 @@ function addCopyButton() {
                             let caseSubject  = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text');
                             selectedText = caseNumber.innerText + ' - ' + caseSubject.innerText;
                             let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-                            const clipboardItem = new ClipboardItem({
-                                "text/plain": new Blob(
-                                    [selectedText],
-                                    { type: "text/plain" }
-                                ),
-                                "text/html": new Blob(
-                                    [`<a href="${caseURL}">${selectedText}</a>`],
-                                    { type: "text/html" }
-                                ),
-                            });
-                            await navigator.clipboard.write([clipboardItem]);
+                            if(typeof ClipboardItem && navigator.clipboard.write) {
+                                const clipboardItem = new ClipboardItem({
+                                    "text/plain": new Blob(
+                                        [selectedText],
+                                        { type: "text/plain" }
+                                    ),
+                                    "text/html": new Blob(
+                                        [`<a href="${caseURL}">${selectedText}</a>`],
+                                        { type: "text/html" }
+                                    ),
+                                });
+                                await navigator.clipboard.write([clipboardItem]);
+                            }
+                            else {
+                                navigator.clipboard.writeText(selectedText)
+                            }
                         });
                     }
                     await sleep(500);
@@ -1125,17 +1140,22 @@ function addCopyButton() {
                             field[0].parentNode.appendChild(button);
                             button.addEventListener('click', async () => {
                                 let selectedText = field[0].innerText;
-                                const clipboardItem = new ClipboardItem({
-                                    "text/plain": new Blob(
-                                        [selectedText],
-                                        { type: "text/plain" }
-                                    ),
-                                    "text/html": new Blob(
-                                        [`<a target="_blank" href="${globalQuixyURL.replace(/\/$/, "")}/${selectedText}">${selectedText}</a>`],
-                                        { type: "text/html" }
-                                    ),
-                                });
-                                await navigator.clipboard.write([clipboardItem]);
+                                if(typeof ClipboardItem && navigator.clipboard.write) {
+                                    const clipboardItem = new ClipboardItem({
+                                        "text/plain": new Blob(
+                                            [selectedText],
+                                            { type: "text/plain" }
+                                        ),
+                                        "text/html": new Blob(
+                                            [`<a target="_blank" href="${globalQuixyURL.replace(/\/$/, "")}/${selectedText}">${selectedText}</a>`],
+                                            { type: "text/html" }
+                                        ),
+                                    });
+                                    await navigator.clipboard.write([clipboardItem]);
+                                }
+                                else {
+                                    navigator.clipboard.writeText(selectedText)
+                                }
                             });
                         }
                         await sleep(500);
@@ -1165,13 +1185,18 @@ function addCopyButton() {
                             ftsAccount.parentNode.appendChild(button);
                             button.addEventListener('click', async () => {
                                 let selectedText = ftsAccount.innerText;
-                                const clipboardItem = new ClipboardItem({
-                                    "text/plain": new Blob(
-                                        [selectedText],
-                                        { type: "text/plain" }
-                                    ),
-                                });
-                                await navigator.clipboard.write([clipboardItem]);
+                                if(typeof ClipboardItem && navigator.clipboard.write) {
+                                    const clipboardItem = new ClipboardItem({
+                                        "text/plain": new Blob(
+                                            [selectedText],
+                                            { type: "text/plain" }
+                                        ),
+                                    });
+                                    await navigator.clipboard.write([clipboardItem]);
+                                }
+                                else {
+                                    navigator.clipboard.writeText(selectedText)
+                                }
                             });
                         }
                         await sleep(500);
@@ -1193,13 +1218,18 @@ function addCopyButton() {
                             ftsPassword.parentNode.appendChild(button);
                             button.addEventListener('click', async () => {
                                 let selectedText = ftsPassword.innerText;
-                                const clipboardItem = new ClipboardItem({
-                                    "text/plain": new Blob(
-                                        [selectedText],
-                                        { type: "text/plain" }
-                                    ),
-                                });
-                                await navigator.clipboard.write([clipboardItem]);
+                                if(typeof ClipboardItem && navigator.clipboard.write) {
+                                    const clipboardItem = new ClipboardItem({
+                                        "text/plain": new Blob(
+                                            [selectedText],
+                                            { type: "text/plain" }
+                                        ),
+                                    });
+                                    await navigator.clipboard.write([clipboardItem]);
+                                }
+                                else {
+                                    navigator.clipboard.writeText(selectedText)
+                                }
                             });
                         }
                         await sleep(500);

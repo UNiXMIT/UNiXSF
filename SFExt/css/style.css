@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Roboto';
-    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Roboto-Regular.ttf'); 
+    src: url('../fonts/Roboto-Regular.ttf'); 
 }
 
 @font-face {
     font-family: 'RobotoBold';
-    src: url('chrome-extension://__MSG_@@extension_id__/fonts/Roboto-Bold.ttf'); 
+    src: url('../fonts/Roboto-Bold.ttf'); 
 }
 
 html { 
@@ -13,7 +13,7 @@ html {
 }  
 
 .slds-global-header__logo {
-    background-image: url('chrome-extension://__MSG_@@extension_id__/icons/ot.png') !important;
+    background-image: url('../icons/ot.png') !important;
     background-size: auto 40px !important;
     width: 235px !important;
 }
@@ -58,7 +58,7 @@ a.ExtLoaded:hover {
     width: 25px; 
     height: 25px; 
     border: none; 
-    background-image: url("chrome-extension://__MSG_@@extension_id__/icons/ot.svg");
+    background-image: url("../icons/ot.svg");
     background-size: 25px; 
     opacity: 0.4; 
 } 
