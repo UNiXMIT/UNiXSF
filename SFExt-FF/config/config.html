@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="config.css" rel="stylesheet" />
+    <title>Salesforce Extension Configuration</title>
+</head>
+<body>
+    <div id="Main">
+        <h1>Salesforce Extension Configuration</h1>
+        
+        <h3>Config</h3>
+        <label for="timeout">Auto Refresh Timeout (seconds). Minimum is 30. Disabled &lt; 30.</label>
+        <input id="timeout" min="30" name="timeout" type="number" />
+        <label for="products">Supported Products (JSON Format)</label>
+        <textarea id="products" name="products" rows="5"></textarea>
+        <label for="pendingCust">Pending Customer as Default</label>
+        <input type="checkbox" id="pendingCust" name="pendingCust">
+        <label for="caseStatus">Modify Case Status after Send</label>
+        <input type="checkbox" id="caseStatus" name="caseStatus">
+        <label for="ftshttp">FTS HTTPS URL</label>
+        <input id="ftshttp" name="ftshttp"></input>
+        <label for="quixy">Quixy URL</label>
+        <input id="quixy" name="quixy"></input>
+        <label for="pp">Perform+ URL</label>
+        <input id="pp" name="pp"></input>
+        <label for="queue">Name of Queue to Monitor for Notifications (case sensistive)</label>
+        <input id="queue" name="queue"></input>
+        <label for="qnotify">Enable Queue Desktop Notifications</label>
+        <input type="checkbox" id="qnotify" name="qnotify">
+        <label for="qnotifyweb">Enable Queue Webhook Notifications (requires Webhook URL to be set)</label>
+        <input type="checkbox" id="qnotifyweb" name="qnotifyweb">
+        <label for="webhook">Webhook URL for Web Notifications</label>
+        <input id="webhook" name="webhook"></input>
+        <label for="translation">Translation Request URL</label>
+        <input id="translation" name="translation"></input>
+        <label for="refemail">3rd Line Referral email Address</label>
+        <input id="refemail" name="refemail"></input>
+
+        <h3>Advanced</h3>
+        <label for="protocol">FTS FTP/SFTP Protocol</label>
+        <input id="protocol" name="protocol" />
+        <label for="protocol">FTS FTP/SFTP URL:PORT (e.g. domain.com:22)</label>
+        <input id="ftsurl" name="ftsurl" />
+        <label for="customurls">Custom URLs (JSON Format)</label>
+        <textarea id="customurls" name="customurls" rows="5"></textarea>
+
+        <div id="status"></div>
+        <button id="save">Save</button>
+        <button id="reset">Reset</button>
+        <button id="export">Export</button>
+        <button id="import">Import</button>
+        <script src="config.js"></script>
+    </div>
+</body>
+</html>

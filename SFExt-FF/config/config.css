@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Source+Code+Pro&display=swap');
+body {
+    margin: 0 30px;
+    padding: 0;
+    overflow-x: hidden;
+}
+#Main {
+    width: 700px;
+    margin: 30px auto;
+}
+h1 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-size: 40px;
+}
+h1:after {
+    width: 75px;
+    border-bottom: 4px solid #0570f6;
+    display: block;
+    content: "";
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    margin-top: 40px;
+}
+h3:after {
+    width: 50px;
+    border-bottom: 4px solid #0570F6;
+    display: block;
+    content: '';
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+label {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    display: block;
+}
+input {
+    font-family: "Source Code Pro", monospace;
+    font-size: 12px;
+}
+textarea {
+    display: block;
+    font-family: "Source Code Pro", monospace;
+    font-size: 12px;
+}
+#timeout {
+    width: 100px;
+}
+#products {
+    width: 700px;
+    height: 150px;
+}
+#ftshttp {
+    width: 400px;
+}
+#quixy {
+    width: 400px;
+}
+#pp {
+    width: 400px;
+}
+#queue {
+    width: 300px;
+}
+#webhook {
+    width: 600px;
+}
+#translation {
+    width: 600px;
+}
+#refemail {
+    width: 400px;
+}
+#protocol {
+    width: 100px;
+}
+#ftsurl {
+    width: 400px;
+}
+#customurls {
+    width: 700px;
+    height: 100px;
+}
+#status {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    margin: 10px 0;
+    color: red;
+    height: 20px;
+}
+button {
+    font-size: 20px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    line-height: 1rem;
+    padding: 15px;
+    background: #0d0d0d;
+    color: #fff;
+    margin: 20px 20px 0;
+    display: inline;
+    width: 8rem;
+    text-align: center;
+    border: 1px solid #0d0d0d;
+    transition: color 0.3s, background 0.3s;
+    text-decoration: none;
+}
+button:hover {
+    background: #fff;
+    color: #0d0d0d;
+    cursor: pointer;
+}
+
+body::-webkit-scrollbar {
+    width: 12px;
+}
+   
+body::-webkit-scrollbar-track {
+    background: #ddd;
+}
+   
+body::-webkit-scrollbar-thumb {
+    background-color: #f1f1f1;
+    border-radius: 20px;
+}
+
+textarea::-webkit-scrollbar {
+    width: 12px;
+}
+   
+textarea::-webkit-scrollbar-track {
+    background: #ddd;
+}
+   
+textarea::-webkit-scrollbar-thumb {
+    background-color: #f1f1f1;
+    border-radius: 20px;
+}
