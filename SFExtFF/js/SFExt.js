@@ -26,13 +26,10 @@ let oldCaseArray = [];
 let newCaseArray = [];
 let oldActivityArray = [];
 let newActivityArray = [];
-let discord = 'https://discord.com/api/webhooks/';
-let URI1 = '1056247346654101575/';
-let URI2 = 'zTGO0MUYyRsBbwdLUYn3Y44QE63KVXNTA0sUpDXR0OF9uifnCXz2DjqJagu_7zRA_ols';
 let configURL = browser.runtime.getURL('config/config.html');
 
 function initSyncData() {
-    browser.storage.local.get({
+    browser.storage.sync.get({
         savedTimeout: 60,
         savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
         savedPenCust: false,
@@ -72,8 +69,8 @@ function initSyncData() {
 
 function getSyncData() {
     browser.storage.onChanged.addListener((changes, area) => {
-        if (area === 'local') {
-            browser.storage.local.get({
+        if (area === 'sync') {
+            browser.storage.sync.get({
                 savedTimeout: 60,
                 savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
                 savedPenCust: false,
@@ -839,14 +836,11 @@ function qNotify() {
                         }
                     })();
                     if (globalQNotifyWeb) {
-                        const request = new XMLHttpRequest();
-                        request.open("POST", globalWebhook);
-                        request.setRequestHeader('Content-type', 'application/json');
-                        const params = {
-                            username: "SFExt Queue Monitor",
+                        browser.runtime.sendMessage({
+                            action: "newCase",
+                            url: globalWebhook,
                             content: notifyBody + ' ' + caseURL
-                        };
-                        request.send(JSON.stringify(params));
+                        });
                     }
                 }
                 if (newActivity.length) {
@@ -889,14 +883,11 @@ function qNotify() {
                             }
                         })();
                         if (globalQNotifyWeb) {
-                            const request = new XMLHttpRequest();
-                            request.open("POST", globalWebhook);
-                            request.setRequestHeader('Content-type', 'application/json');
-                            const params = {
-                                username: "SFExt New Activity",
+                            browser.runtime.sendMessage({
+                                action: "newActivity",
+                                url: globalWebhook,
                                 content: notifyBody + ' ' + caseURL
-                            };
-                            request.send(JSON.stringify(params));
+                            });
                         }
                     }
                 }
@@ -1309,19 +1300,6 @@ function fixMouse() {
     });
 }
 
-function dailyUsers() {
-    let myID = browser.runtime.id;
-    let webhook = discord + URI1 + URI2;
-    const request = new XMLHttpRequest();
-    request.open("POST", webhook);
-    request.setRequestHeader('Content-type', 'application/json');
-    const params = {
-        username: "SFExt User Activity",
-        content: myID + ' - ' + installedVersion
-    };
-    request.send(JSON.stringify(params));
-}
-
 function EE() {
     window.addEventListener('keydown', function(event) {
         if (event.ctrlKey && event.shiftKey && event.code === 'F1') {
@@ -1531,11 +1509,10 @@ window.onload = function() {
             // defFont();
             extLoaded();
             fixMouse();
-            dailyUsers();
             EE();
-            setTimeout(function() {
-                updateCheck();
-            }, 20000);
+            // setTimeout(function() {
+            //     updateCheck();
+            // }, 20000);
             clearTimeout(initInterval);
         }
     }, 500);

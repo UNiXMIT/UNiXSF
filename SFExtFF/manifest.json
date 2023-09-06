@@ -1,6 +1,6 @@
 {
   "name": "Salesforce Extension",
-  "version": "2.9.8",
+  "version": "3.0.0",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "manifest_version": 3,
@@ -10,13 +10,21 @@
       "strict_min_version": "42.0"
     }
   },
-  "options_page": "config/config.html",
+  "options_ui": {
+    "page": "config/config.html",
+    "open_in_tab": true,
+    "browser_style": false
+  },
   "permissions": [
     "storage",
     "activeTab",
     "clipboardWrite",
     "downloads",
-    "tabs"
+    "tabs",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://discord.com/*"
   ],
   "content_scripts": [
     {
@@ -39,7 +47,8 @@
   },
   "action": {
     "default_icon": "icons/ot32.png",
-    "default_popup": "config/config.html"
+    "default_title": "SFExt",
+    "default_area": "navbar"
   },
   "icons": {
     "16": "icons/ot16.png",

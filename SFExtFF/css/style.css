@@ -103,8 +103,13 @@ ul.mflist {
 
 .fa-caret-down { 
     opacity: 0.4; 
-    margin-left: -8px; 
+    margin: 0 -6px 0 -14px;
 } 
+
+.fa-caret-down::before {
+    position: absolute;
+    bottom: 5px;
+}
 
 .dropdown-content li:hover { 
     background-color: #ddd; 
@@ -121,10 +126,6 @@ ul.mflist {
 .mfdropdown:hover .fa-caret-down {
     opacity: 0.6; 
 } 
-
-.fa-caret-down { 
-    margin-right: -10px; 
-}
 
 li.mfupdate { 
     color: red; 

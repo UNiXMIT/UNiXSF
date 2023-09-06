@@ -15,7 +15,7 @@ function save_options() {
   let ftsurl = document.getElementById('ftsurl').value;
   let customurls = document.getElementById('customurls').value;
   let caseStatus = document.getElementById('caseStatus').checked;
-  browser.storage.local.set({
+  browser.storage.sync.set({
       savedTimeout: refreshTimeout,
       savedProducts: products,
       savedPenCust: pendingCust,
@@ -42,7 +42,7 @@ function save_options() {
 }
 
 function reset_options() {
-  browser.storage.local.remove(["savedTimeout", "savedProducts", "savedPenCust", "savedFTSHTTP", "savedQuixy", "savedPP", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedTranslation", "savedRefEmail", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus"], function() {
+  browser.storage.sync.remove(["savedTimeout", "savedProducts", "savedPenCust", "savedFTSHTTP", "savedQuixy", "savedPP", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedTranslation", "savedRefEmail", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus"], function() {
       let error = browser.runtime.lastError;
       if (error) {
           console.error(error);
@@ -52,7 +52,7 @@ function reset_options() {
 }
 
 function restore_options() {
-  browser.storage.local.get({
+  browser.storage.sync.get({
       savedTimeout: 60,
       savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
       savedPenCust: false,
@@ -90,7 +90,7 @@ function restore_options() {
 }
 
 function export_options() {
-    browser.storage.local.get({
+    browser.storage.sync.get({
         savedTimeout: 60,
         savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
         savedPenCust: false,
@@ -126,9 +126,9 @@ function export_options() {
             }
         });
         let items = JSON.stringify(result, null, 2);
-        let url = 'data:application/json;base64,' + btoa(items);
+        let blob = new Blob([items], {type: "application/json"})
         browser.downloads.download({
-            url: url,
+            url: URL.createObjectURL(blob),
             filename: 'sfext.json',
             saveAs: true 
         }); 
@@ -144,7 +144,7 @@ function import_options() {
       reader.addEventListener("load", (event) => {
         const contents = event.target.result;
         const json = JSON.parse(contents);
-        browser.storage.local.set({
+        browser.storage.sync.set({
             savedTimeout: json.savedTimeout,
             savedProducts: json.savedProducts,
             savedPenCust: json.savedPenCust,
