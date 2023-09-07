@@ -6,7 +6,7 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 - [Features](#features)
 - [Install](#install)
 - [Update](#update)
-- [Changelog](/CHANGELOG)
+- [Changelog](UNiXSF/CHANGELOG)
 - [Configuration](#configuration)
 - [Features/Improvements Wishlist](#featuresimprovements-wishlist)
 - [Troubleshooting](#troubleshooting)
