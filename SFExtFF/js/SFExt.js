@@ -175,10 +175,13 @@ function createStatusModal() {
 
 function sendObserver() {
     let observer = new MutationObserver(mutations => {
-        const sendButton = document.querySelector('.split-right').querySelector('.LARGE.send.uiButton');
-        if ( (sendButton) && (sendButton.title != 'sendEvent') ) {
-            sendButton.title = 'sendEvent';
-            sendButton.addEventListener('click', awaitSend, false);
+        let initial = document.querySelector('.split-right');
+        if (initial) {
+            const sendButton = initial.querySelector('.LARGE.send.uiButton');
+            if ( (sendButton) && (sendButton.title != 'sendEvent') ) {
+                sendButton.title = 'sendEvent';
+                sendButton.addEventListener('click', awaitSend, false);
+            }
         }
     });
     observer.observe(document, {childList: true, subtree: true});
@@ -960,31 +963,34 @@ function defectFixed() {
 
 function addCharacterCounter() {
     let observer = new MutationObserver(mutations => {
-        let textareas = document.querySelector('.split-right').querySelectorAll('.slds-textarea, .textarea');
-        textareas.forEach(function(textarea) {
-            let checkCounter = textarea.nextSibling;
-            let existingCounter;
-            if (checkCounter) {
-                existingCounter = checkCounter.classList.contains('character-counter');
-            }
-            if (!existingCounter) {        
-                let counter = document.createElement('div');
-                counter.classList.add('character-counter');
-                textarea.parentNode.insertBefore(counter, textarea.nextSibling);
-                textarea.addEventListener('input', function() {
+        let initial = document.querySelector('.split-right');
+        if (initial) {
+            let textareas = initial.querySelectorAll('.slds-textarea, .textarea');
+            textareas.forEach(function(textarea) {
+                let checkCounter = textarea.nextSibling;
+                let existingCounter;
+                if (checkCounter) {
+                    existingCounter = checkCounter.classList.contains('character-counter');
+                }
+                if (!existingCounter) {        
+                    let counter = document.createElement('div');
+                    counter.classList.add('character-counter');
+                    textarea.parentNode.insertBefore(counter, textarea.nextSibling);
+                    textarea.addEventListener('input', function() {
+                        counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
+                        if (textarea.value.length > textarea.maxLength) {
+                            counter.style.color = 'red';
+                        } else {
+                            counter.style.color = 'inherit';
+                        }
+                    });
                     counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
                     if (textarea.value.length > textarea.maxLength) {
                         counter.style.color = 'red';
-                    } else {
-                        counter.style.color = 'inherit';
                     }
-                });
-                counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
-                if (textarea.value.length > textarea.maxLength) {
-                    counter.style.color = 'red';
                 }
-            }
-        });
+            });
+        }
     });
     observer.observe(document, {childList: true, subtree: true});
 }

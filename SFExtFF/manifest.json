@@ -1,6 +1,6 @@
 {
   "name": "Salesforce Extension",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "manifest_version": 3,
