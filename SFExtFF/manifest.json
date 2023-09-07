@@ -1,13 +1,13 @@
 {
   "name": "Salesforce Extension",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "manifest_version": 3,
   "browser_specific_settings": {
     "gecko": {
       "id": "{23d40d0a-b0f9-4516-8c5c-ac5951d517b5}",
-      "strict_min_version": "42.0"
+      "update_url": "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/FF/updates.json"
     }
   },
   "options_ui": {

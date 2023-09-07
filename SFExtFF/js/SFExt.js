@@ -1251,42 +1251,20 @@ function defPenCust() {
     observer.observe(document, {childList: true, subtree: true});
 }
 
-function defFont() {
-    if (globalArial) {
-        let observer = new MutationObserver(mutations => {
-            (async ()=>{
-                let emailTab = document.querySelector('.split-right').querySelector('[data-target-selection-name="Case.SendEmailTab"]');
-                if ( (emailTab) && (emailTab.className != 'done')) {
-                    emailTab.addEventListener('click', defFontEvent, false);
-                    emailTab.className = 'done tabHeader';
-                }
-                await sleep(500);
-            })();
-        });
-        observer.observe(document, {childList: true, subtree: true});
-    }
-}
-
-function defFontEvent() {
-    (async ()=>{
-        await sleep(1000);
-        document.querySelector('.split-right').querySelector('[title="CK Editor Container"]').contentWindow.document.querySelector('[title="Font Name"]').click();
-        await sleep(500);
-        document.querySelector('.split-right').querySelector('[title="CK Editor Container"]').contentWindow.document.querySelector('.cke_panel_frame').contentWindow.document.querySelector('[title="Arial"]').click();
-    })();
-}
-
 function extLoaded() {
     let observer = new MutationObserver(mutations => {
-        let footer = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
-        if (footer) {
-            let footera = document.createElement("a");
-            footera.className = "ExtLoaded";
-            footera.innerText = `SFExt ${installedVersion}`;
-            footera.href = configURL;
-            footera.setAttribute('target', '_blank');
-            footer.appendChild(footera);
-            observer.disconnect();
+        let initial = document.querySelector('.oneUtilityBar');
+        if (initial) {
+            let footer = initial.querySelector('.utilitybar');
+            if (footer) {
+                let footera = document.createElement("a");
+                footera.className = "ExtLoaded";
+                footera.innerText = `SFExt ${installedVersion}`;
+                footera.href = configURL;
+                footera.setAttribute('target', '_blank');
+                footer.appendChild(footera);
+                observer.disconnect();
+            }
         }
     });
     observer.observe(document, {childList: true, subtree: true});
@@ -1349,73 +1327,6 @@ function EE() {
         }
     });
 }
-
-function updateCheck() {
-    let xmlHttp = new XMLHttpRequest();
-    let URL = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
-    xmlHttp.onreadystatechange = () => {
-        if (xmlHttp.readyState === 4) {
-            if (xmlHttp.status === 200) {
-                let latestVersion = xmlHttp.response;
-                let newVersion = compareVersions(installedVersion, latestVersion.toString());
-                if ( (newVersion == 1) ) {
-                    (async() => {
-                        let updateMessage = `Version ${latestVersion}`;
-                        if (!window.Notification) {
-                            console.log('Browser does not support notifications.');
-                        } else {
-                            if (Notification.permission === 'granted') {
-                                const UpdateNofity = new Notification('SFExtension Update Available', {
-                                    body: updateMessage,
-                                    icon: iconURL
-                                });
-                            } else {
-                                Notification.requestPermission()
-                                    .then(function(p) {
-                                        if (p === 'granted') {
-                                            const UpdateNofity = new Notification('SFExtension Update Available', {
-                                                body: updateMessage,
-                                                icon: iconURL
-                                            });
-                                        } else {
-                                            console.log('User blocked notifications.');
-                                        }
-                                    })
-                                    .catch(function(err) {
-                                        console.error(err);
-                                    });
-                            }
-                        }
-                    })();
-                    if ( !(initDropDown) ) {
-                        updateLabel = `SFExt Update ${latestVersion}`;
-                        createMFMenu('mfupdate', 'fa-arrows-rotate', updateLabel);
-                    }
-                }
-            }
-        }
-    };
-    xmlHttp.open("GET", URL);
-    xmlHttp.send(null);
-}
-
-function compareVersions(v1, v2) {
-    const v1Parts = v1.split('.');
-    const v2Parts = v2.split('.');
-    for (let i = 0; i < v1Parts.length || i < v2Parts.length; i++) {
-        if (i >= v1Parts.length) {
-            return 1;
-        } else if (i >= v2Parts.length) {
-            return -1;
-        }
-        if (parseInt(v1Parts[i]) > parseInt(v2Parts[i])) {
-            return -1;
-        } else if (parseInt(v1Parts[i]) < parseInt(v2Parts[i])) {
-            return 1;
-        }
-    }
-    return 0;
-}  
 
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -1497,7 +1408,9 @@ window.onload = function() {
             queueRefresh();
             createStatusModal();
             sendObserver();
-            mfNav();
+            setTimeout(function() {
+                mfNav();
+            }, 1000);
             setTimeout(function() {
                 initQMonitor();
             }, 10000);
@@ -1506,13 +1419,11 @@ window.onload = function() {
             addCharacterCounter();
             addCopyButton();
             defPenCust();
-            // defFont();
-            extLoaded();
+            setTimeout(function() {
+                extLoaded();
+            }, 1000);
             fixMouse();
             EE();
-            // setTimeout(function() {
-            //     updateCheck();
-            // }, 20000);
             clearTimeout(initInterval);
         }
     }, 500);

@@ -1,0 +1,16 @@
+{
+    "addons": {
+      "{23d40d0a-b0f9-4516-8c5c-ac5951d517b5}": {
+        "updates": [
+          {
+            "version": "2.9.8",
+            "update_link": "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/FF/2.9.8/1aa420af9a0c4d9d8e9d-2.9.8.xpi"
+          },
+          {
+            "version": "3.0.0",
+            "update_link": "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/FF/3.0.0/1aa420af9a0c4d9d8e9d-3.0.0.xpi"
+          }
+        ]
+      }
+    }
+  }

@@ -24,14 +24,16 @@ function handleClick() {
 function dailyUsers() {
     let myID = browser.runtime.id;
     let webhook = discord + URI1 + URI2;
-    const request = new XMLHttpRequest();
-    request.open("POST", webhook);
-    request.setRequestHeader('Content-type', 'application/json');
     const params = {
         username: "SFExt User Activity",
         content: myID + ' - ' + installedVersion
     };
-    request.send(JSON.stringify(params));
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(params)
+    };
+    fetch(webhook, requestOptions);
 }
 
 function handleMessage(request, sender, sendResponse) {
@@ -46,11 +48,12 @@ function handleMessage(request, sender, sendResponse) {
             content: request.content
         };
     }
-    console.log(request.url);
-    const webRrequest = new XMLHttpRequest();
-    webRrequest.open("POST", request.url);
-    webRrequest.setRequestHeader('Content-type', 'application/json');
-    webRrequest.send(JSON.stringify(params));
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(params)
+    };
+    fetch(request.url, requestOptions);
 }
 
 dailyUsers();

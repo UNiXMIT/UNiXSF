@@ -1,7 +1,7 @@
 # Salesforce Extension
 
 This is a browser extension to add useful features to Salesforce.  
-It works in Chrome, Brave and Edge (Chromium) browsers.  
+It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.  
 
 - [Features](#features)
 - [Install](#install)
@@ -85,6 +85,8 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 
 ## Install
 
+### Chromium  
+
 1. Download the Latest Release SFExt.zip, and unzip into the directory where you would like the extension to be stored.  
 2. Open Google Chrome, Brave or Edge.  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser) in the browser address bar.   
@@ -95,12 +97,24 @@ It works in Chrome, Brave and Edge (Chromium) browsers.
 8. You can now turn off "Developer mode". 
 9. Once you have loaded Salesforce in your browser, if the extension has loaded correctly, it should say 'SFExt' in the lower right corner.  
 
+### Firefox  
+
+1. Download the latest *.xhr file.
+2. Right click on the *.chr file and 'Open With...' Firefox.
+3. In the Pop-up that appears in Firefox, click 'Add'.
+
 ## Update
+
+### Chromium
 
 1. Download the Latest Release SFExt.zip, and unzip into the directory where the previous version of the SF Extension is located, overwriting the old files. 
 2. Open Google Chrome, Brave or Edge.  
 3. Navigate to chrome://extensions (or brave://extensions or edge://extensions depending on your browser). 
 4. Click the reload icon in the Salesforce Extension tile.
+
+### Firefox
+
+[How to update add-ons.](https://support.mozilla.org/en-US/kb/how-update-add-ons)
 
 ## Configuration
 
@@ -205,9 +219,9 @@ Imports your exported options from the previously exported JSON file. The import
 
 ## Optional
 
-This extension benefits from using it in conjunction with the [Lightning Extension](https://chrome.google.com/webstore/detail/lightning-extension/hfglcknhngdnhbkccblidlkljgflofgh)  
+This extension benefits from using it in conjunction with the [Lightning Extension](https://chrome.google.com/webstore/detail/lightning-extension/hfglcknhngdnhbkccblidlkljgflofgh) for Chromium browsers or [SalesForce Link Grabber Activate](https://addons.mozilla.org/en-GB/firefox/addon/sf-link-grabber-activate/) for Firefox
 
-When 'Link Grabber' is enabled in that extension, when you click the Desktop Notifications from the Case Queue Monitor, the cases are opened in the same Salesforce tab rather than opening a new tab.  
+When 'Link Grabber' is enabled in that extension (Chromium) or 'SalesForce Link Grabber Activate' is installed (Firefox), when you click the Desktop Notifications from the Case Queue Monitor, the cases are opened in the same Salesforce tab rather than opening a new tab.  
 
 ![10](images/LinkGrabber.png) 
 

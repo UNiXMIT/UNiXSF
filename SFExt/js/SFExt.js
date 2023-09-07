@@ -1344,7 +1344,7 @@ function EE() {
 
 function updateCheck() {
     let xmlHttp = new XMLHttpRequest();
-    let URL = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/latestVersion';
+    let URL = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/Chromium/latestVersion';
     xmlHttp.onreadystatechange = () => {
         if (xmlHttp.readyState === 4) {
             if (xmlHttp.status === 200) {
