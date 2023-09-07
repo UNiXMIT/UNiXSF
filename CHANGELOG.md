@@ -1,3 +1,11 @@
+# 3.0.3 (Firefox)
+
+### Tweaks
+- Light colour icons for dark browser themes.
+
+### Fixes
+- 32x32 icon wasn't the right size.
+
 # 3.0.2 (Firefox)
 
 ### Features
