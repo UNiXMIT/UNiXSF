@@ -21,6 +21,20 @@ h1:after {
     margin-top: 10px;
     margin-bottom: 30px;
 }
+h2 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    margin-top: 20px;
+}
+h2:after {
+    width: 50px;
+    border-bottom: 4px solid #0570F6;
+    display: block;
+    content: '';
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
 h3 {
     font-family: 'Roboto', sans-serif;
     font-weight: 600;
