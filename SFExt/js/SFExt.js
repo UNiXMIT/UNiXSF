@@ -30,6 +30,7 @@ let discord = 'https://discord.com/api/webhooks/';
 let URI1 = '1056247346654101575/';
 let URI2 = 'zTGO0MUYyRsBbwdLUYn3Y44QE63KVXNTA0sUpDXR0OF9uifnCXz2DjqJagu_7zRA_ols';
 let configURL = chrome.runtime.getURL('config/config.html');
+let globalUUID;
 
 function initSyncData() {
     chrome.storage.sync.get({
@@ -1280,14 +1281,24 @@ function fixMouse() {
 }
 
 function dailyUsers() {
-    let myID = chrome.runtime.id;
+    chrome.storage.sync.get({
+        savedUUID: ''
+    }, function(result) {
+        globalUUID = result.savedUUID;
+    });
+    if (!globalUUID) {
+        globalUUID = crypto.randomUUID();
+        chrome.storage.sync.set({
+            savedUUID: globalUUID
+        });
+    }
     let webhook = discord + URI1 + URI2;
     const request = new XMLHttpRequest();
     request.open("POST", webhook);
     request.setRequestHeader('Content-type', 'application/json');
     const params = {
         username: "SFExt User Activity",
-        content: myID + ' - ' + installedVersion
+        content: globalUUID + ' - ' + installedVersion
     };
     request.send(JSON.stringify(params));
 }

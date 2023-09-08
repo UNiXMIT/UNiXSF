@@ -1,3 +1,8 @@
+# 3.0.4 (Firefox)
+
+### Enhancements
+- Generate UUID for Extension instances.
+
 # 3.0.3 (Firefox)
 
 ### Tweaks

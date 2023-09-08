@@ -108,7 +108,8 @@ function export_options() {
         savedProtocol: 'sftp://',
         savedFTSURL: '',
         savedURLS: '{"SFExt":""}',
-        savedStatus: false
+        savedStatus: false,
+        savedUUID: ''
     }, function(result) {
         chrome.downloads.onChanged.addListener(function(downloadDelta) {
             if (downloadDelta.state && downloadDelta.state.current === "complete") {
@@ -162,7 +163,8 @@ function import_options() {
             savedProtocol: json.savedProtocol,
             savedFTSURL: json.savedFTSURL,
             savedURLS: json.savedURLS,
-            savedStatus: json.savedStatus
+            savedStatus: json.savedStatus,
+            savedUUID: json.savedUUID
         }, function() {
             try {
                 let status = document.getElementById('status');
