@@ -1,4 +1,4 @@
-const installedVersion = browser.runtime.getManifest().version;
+const installedVersion = chrome.runtime.getManifest().version;
 
 function save_options() {
   let refreshTimeout = document.getElementById('timeout').value;
@@ -191,4 +191,4 @@ document.getElementById('save').addEventListener('click', save_options);
 document.getElementById('reset').addEventListener('click', reset_options);
 document.getElementById('export').addEventListener('click', export_options);
 document.getElementById('import').addEventListener('click', import_options);
-document.getElementById('version').textContent(installedVersion);
+document.getElementById('version').textContent = installedVersion;

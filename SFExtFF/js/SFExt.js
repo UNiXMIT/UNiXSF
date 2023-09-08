@@ -1406,31 +1406,25 @@ function waitActiveElm(selector) {
     });
 }
 
-window.onload = function() {
-    initSyncData();
-    let initInterval = setInterval(function() {
-        if (globalInit) {
-            getSyncData();
-            queueRefresh();
-            createStatusModal();
-            sendObserver();
-            setTimeout(function() {
-                mfNav();
-            }, 1000);
-            setTimeout(function() {
-                initQMonitor();
-            }, 10000);
-            quixyListURL();
-            defectFixed();
-            addCharacterCounter();
-            addCopyButton();
-            defPenCust();
-            setTimeout(function() {
-                extLoaded();
-            }, 1000);
-            fixMouse();
-            EE();
-            clearTimeout(initInterval);
-        }
-    }, 500);
-};
+initSyncData();
+let initInterval = setInterval(function() {
+    if (globalInit) {
+        getSyncData();
+        queueRefresh();
+        createStatusModal();
+        sendObserver();
+        mfNav();
+        setTimeout(function() {
+            initQMonitor();
+        }, 10000);
+        quixyListURL();
+        defectFixed();
+        addCharacterCounter();
+        addCopyButton();
+        defPenCust();
+        extLoaded();
+        fixMouse();
+        EE();
+        clearTimeout(initInterval);
+    }
+}, 500);
