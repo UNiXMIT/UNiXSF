@@ -3,6 +3,7 @@
 ### Tweaks
 - Light colour icons for dark browser themes.
 - Remove onload event. No longer needed because MutationObservers are used instead.
+- Add SFExt version to config page.
 
 ### Fixes
 - 32x32 icon wasn't the right size.
