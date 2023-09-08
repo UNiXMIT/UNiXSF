@@ -4,6 +4,7 @@ let URI1 = '1056247346654101575/';
 let URI2 = 'zTGO0MUYyRsBbwdLUYn3Y44QE63KVXNTA0sUpDXR0OF9uifnCXz2DjqJagu_7zRA_ols';
 let params;
 let configURL = browser.runtime.getURL('config/config.html');
+let globalUUID;
 
 function reloadSFTab() {
     browser.runtime.onInstalled.addListener(function(){
@@ -22,11 +23,21 @@ function handleClick() {
 }
 
 function dailyUsers() {
-    let myID = browser.runtime.id;
+    browser.storage.sync.get({
+        savedUUID: ''
+    }, function(result) {
+        globalUUID = result.savedUUID;
+    });
+    if (!globalUUID) {
+        globalUUID = crypto.randomUUID();
+        browser.storage.sync.set({
+            savedUUID: globalUUID
+        });
+    }
     let webhook = discord + URI1 + URI2;
     const params = {
         username: "SFExt User Activity",
-        content: myID + ' - ' + installedVersion
+        content: globalUUID + ' - ' + installedVersion
     };
     const requestOptions = {
         method: 'POST',
