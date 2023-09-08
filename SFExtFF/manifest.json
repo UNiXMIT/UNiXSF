@@ -1,5 +1,6 @@
 {
   "name": "Salesforce Extension",
+  "short_name": "SFExt",
   "version": "3.0.3",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
