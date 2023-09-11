@@ -151,7 +151,7 @@ Click on the toolbar extension menu and select Options.
 
 - The translation request URL.  
 
-- The 3rd line referral email address.  
+- The 3rd line referral email address (NOT the DL name).  
 
 - FTS protocol, URL and port.  
 
