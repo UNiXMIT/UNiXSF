@@ -96,13 +96,14 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 6. Select the folder where you downloaded the files to in step 1.  
 7. The new features are now active.
 8. You can now turn off "Developer mode". 
-9. Once you have loaded Salesforce in your browser, if the extension has loaded correctly, it should say 'SFExt' in the lower right corner.  
+9. Once you have loaded Salesforce in your browser, if the extension has loaded correctly, it should say 'SFExt x.x.x' in the lower right corner.  
 
 ### Firefox  
 
 1. Download the latest *.xhr file.
 2. Right click on the *.xhr file and 'Open With...' Firefox.
 3. In the Pop-up that appears in Firefox, click 'Add'.
+4. Once you have loaded Salesforce in your browser, if the extension has loaded correctly, it should say 'SFExt x.x.x' in the lower right corner.  
 
 ## Update
 
