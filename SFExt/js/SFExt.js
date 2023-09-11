@@ -49,7 +49,8 @@ function initSyncData() {
         savedProtocol: 'sftp://',
         savedFTSURL: '',
         savedURLS: `{"SFExt":"${configURL}"}`,
-        savedStatus: false
+        savedStatus: false,
+        savedUUID: ''
     }, function(result) {
         globalTimeout = result.savedTimeout;
         globalProducts = result.savedProducts;
@@ -67,6 +68,7 @@ function initSyncData() {
         globalFTSURL = result.savedFTSURL;
         globalURLS = result.savedURLS;
         globalStatus = result.savedStatus;
+        globalUUID = result.savedUUID;
         globalInit = 1;
     });
 }
@@ -89,7 +91,8 @@ function getSyncData() {
                 savedProtocol: 'sftp://',
                 savedFTSURL: '',
                 savedURLS: `{"SFExt":"${configURL}"}`,
-                savedStatus: false
+                savedStatus: false,
+                savedUUID: ''
             }, function(result) {
                 if (globalTimeout != result.savedTimeout) {
                     globalTimeout = result.savedTimeout;
@@ -124,6 +127,7 @@ function getSyncData() {
                     updateCustomURLs();
                 }
                 globalStatus = result.savedStatus;
+                globalUUID = result.savedUUID;
             });
         }
     });
@@ -1281,11 +1285,6 @@ function fixMouse() {
 }
 
 function dailyUsers() {
-    chrome.storage.sync.get({
-        savedUUID: ''
-    }, function(result) {
-        globalUUID = result.savedUUID;
-    });
     if (!globalUUID) {
         globalUUID = crypto.randomUUID();
         chrome.storage.sync.set({
@@ -1293,12 +1292,13 @@ function dailyUsers() {
         });
     }
     let webhook = discord + URI1 + URI2;
+    const browserType = getBrowserType();
     const request = new XMLHttpRequest();
     request.open("POST", webhook);
     request.setRequestHeader('Content-type', 'application/json');
     const params = {
         username: "SFExt User Activity",
-        content: globalUUID + ' - ' + installedVersion
+        content: browserType + ' - ' + globalUUID + ' - ' + installedVersion
     };
     request.send(JSON.stringify(params));
 }
@@ -1490,6 +1490,31 @@ function waitActiveElm(selector) {
             subtree: true
         });
     });
+}
+
+function getBrowserType() {
+    const test = regexp => {
+      return regexp.test(navigator.userAgent);
+    };  
+    if (test(/opr\//i) || !!window.opr) {
+      return 'Opera';
+    } else if (test(/edg/i)) {
+      return 'Edge';
+    } else if (test(/chrome|chromium|crios/i)) {
+      return 'Chrome';
+    } else if (test(/firefox|fxios/i)) {
+      return 'Firefox';
+    } else if (test(/safari/i)) {
+      return 'Safari';
+    } else if (test(/trident/i)) {
+      return 'IE';
+    } else if (test(/ucbrowser/i)) {
+      return 'UC Browser';
+    } else if (test(/samsungbrowser/i)) {
+      return 'Samsung';
+    } else {
+      return 'Unknown Browser';
+    }
 }
 
 initSyncData();

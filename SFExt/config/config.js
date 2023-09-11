@@ -70,7 +70,8 @@ function restore_options() {
       savedProtocol: 'sftp://',
       savedFTSURL: '',
       savedURLS: '{"SFExt":""}',
-      savedStatus: false
+      savedStatus: false,
+      savedUUID: ''
   }, function(result) {
       document.getElementById('timeout').value = result.savedTimeout;
       document.getElementById('products').value = result.savedProducts;
@@ -88,6 +89,13 @@ function restore_options() {
       document.getElementById('ftsurl').value = result.savedFTSURL;
       document.getElementById('customurls').value = result.savedURLS;
       document.getElementById('caseStatus').checked = result.savedStatus;
+      if (!result.savedUUID) {
+        let globalUUID = crypto.randomUUID();
+        chrome.storage.sync.set({
+        savedUUID: globalUUID
+        });
+      }
+      document.getElementById('uuid').textContent = result.savedUUID;
   });
 }
 

@@ -1,7 +1,9 @@
-# 3.0.4 (Firefox)
+# 3.0.4
 
 ### Enhancements
 - Generate UUID for Extension instances.
+- Detect browser type.
+- UUID displayed on Config Page.
 
 # 3.0.3 (Firefox)
 

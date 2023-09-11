@@ -22,12 +22,16 @@ function handleClick() {
       });
 }
 
+function getUUID() {
+  browser.storage.sync.get({
+    savedUUID: ''
+  }, function(result) {
+    globalUUID = result.savedUUID;
+    dailyUsers();
+  });
+}
+
 function dailyUsers() {
-    browser.storage.sync.get({
-        savedUUID: ''
-    }, function(result) {
-        globalUUID = result.savedUUID;
-    });
     if (!globalUUID) {
         globalUUID = crypto.randomUUID();
         browser.storage.sync.set({
@@ -35,9 +39,10 @@ function dailyUsers() {
         });
     }
     let webhook = discord + URI1 + URI2;
+    const browserType = getBrowserType();
     const params = {
         username: "SFExt User Activity",
-        content: globalUUID + ' - ' + installedVersion
+        content: browserType + ' - ' + globalUUID + ' - ' + installedVersion
     };
     const requestOptions = {
         method: 'POST',
@@ -67,7 +72,32 @@ function handleMessage(request, sender, sendResponse) {
     fetch(request.url, requestOptions);
 }
 
-dailyUsers();
+function getBrowserType() {
+    const test = regexp => {
+      return regexp.test(navigator.userAgent);
+    };  
+    if (test(/opr\//i) || !!window.opr) {
+      return 'Opera';
+    } else if (test(/edg/i)) {
+      return 'Edge';
+    } else if (test(/chrome|chromium|crios/i)) {
+      return 'Chrome';
+    } else if (test(/firefox|fxios/i)) {
+      return 'Firefox';
+    } else if (test(/safari/i)) {
+      return 'Safari';
+    } else if (test(/trident/i)) {
+      return 'IE';
+    } else if (test(/ucbrowser/i)) {
+      return 'UC Browser';
+    } else if (test(/samsungbrowser/i)) {
+      return 'Samsung';
+    } else {
+      return 'Unknown Browser';
+    }
+}
+
+getUUID();
 reloadSFTab();
 browser.action.onClicked.addListener(handleClick);
 browser.runtime.onMessage.addListener(handleMessage);
