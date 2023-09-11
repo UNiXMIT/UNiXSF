@@ -1,3 +1,10 @@
+const installedVersion = chrome.runtime.getManifest().version;
+let discord = 'https://discord.com/api/webhooks/';
+let URI1 = '1056247346654101575/';
+let URI2 = 'zTGO0MUYyRsBbwdLUYn3Y44QE63KVXNTA0sUpDXR0OF9uifnCXz2DjqJagu_7zRA_ols';
+let params;
+let globalUUID;
+
 function reloadSFTab() {
     chrome.runtime.onInstalled.addListener(function(){
         chrome.tabs.query({url: "*://*.lightning.force.com/*"}, function(results) {
@@ -7,4 +14,48 @@ function reloadSFTab() {
         });
     });
 }
+
+function getUUID() {
+    chrome.storage.sync.get({
+      savedUUID: ''
+    }, function(result) {
+      globalUUID = result.savedUUID;
+      dailyUsers();
+    });
+  }
+  
+  function dailyUsers() {
+      if (!globalUUID) {
+          globalUUID = crypto.randomUUID();
+          chrome.storage.sync.set({
+              savedUUID: globalUUID
+          });
+      }
+      let webhook = discord + URI1 + URI2;
+      const browserType = getBrowserType();
+      params = {
+          username: "SFExt User Activity",
+          content: browserType + ' - ' + globalUUID + ' - ' + installedVersion
+      };
+      const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(params)
+      };
+      fetch(webhook, requestOptions);
+  }
+
+function getBrowserType() { 
+    if (navigator.userAgent.includes('Edge')) {
+      return 'Edge';
+    } else if (navigator.userAgent.includes('Chrome')) {
+      return 'Chrome';
+    } else if (navigator.userAgent.includes('Firefox')) {
+      return 'Firefox';
+    } else {
+      return 'Unknown Browser';
+    }
+}
+
+getUUID();
 reloadSFTab();

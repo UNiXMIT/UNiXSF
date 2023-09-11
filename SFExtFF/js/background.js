@@ -40,7 +40,7 @@ function dailyUsers() {
     }
     let webhook = discord + URI1 + URI2;
     const browserType = getBrowserType();
-    const params = {
+    params = {
         username: "SFExt User Activity",
         content: browserType + ' - ' + globalUUID + ' - ' + installedVersion
     };
@@ -73,28 +73,15 @@ function handleMessage(request, sender, sendResponse) {
 }
 
 function getBrowserType() {
-    const test = regexp => {
-      return regexp.test(navigator.userAgent);
-    };  
-    if (test(/opr\//i) || !!window.opr) {
-      return 'Opera';
-    } else if (test(/edg/i)) {
-      return 'Edge';
-    } else if (test(/chrome|chromium|crios/i)) {
-      return 'Chrome';
-    } else if (test(/firefox|fxios/i)) {
-      return 'Firefox';
-    } else if (test(/safari/i)) {
-      return 'Safari';
-    } else if (test(/trident/i)) {
-      return 'IE';
-    } else if (test(/ucbrowser/i)) {
-      return 'UC Browser';
-    } else if (test(/samsungbrowser/i)) {
-      return 'Samsung';
-    } else {
-      return 'Unknown Browser';
-    }
+  if (navigator.userAgent.includes('Edge')) {
+    return 'Edge';
+  } else if (navigator.userAgent.includes('Chrome')) {
+    return 'Chrome';
+  } else if (navigator.userAgent.includes('Firefox')) {
+    return 'Firefox';
+  } else {
+    return 'Unknown Browser';
+  }
 }
 
 getUUID();
