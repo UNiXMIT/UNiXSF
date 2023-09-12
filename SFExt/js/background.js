@@ -24,29 +24,56 @@ function getUUID() {
     });
   }
   
-  function dailyUsers() {
-      if (!globalUUID) {
-          globalUUID = crypto.randomUUID();
-          chrome.storage.sync.set({
-              savedUUID: globalUUID
-          });
-      }
-      let webhook = discord + URI1 + URI2;
-      const browserType = getBrowserType();
-      params = {
-          username: "SFExt User Activity",
-          content: browserType + ' - ' + globalUUID + ' - ' + installedVersion
-      };
-      const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(params)
-      };
-      fetch(webhook, requestOptions);
-  }
+function dailyUsers() {
+    if (!globalUUID) {
+      globalUUID = crypto.randomUUID();
+        chrome.storage.sync.set({
+        savedUUID: globalUUID
+    });
+    }
+    let webhook = discord + URI1 + URI2;
+    const browserType = getBrowserType();
+    params = {
+        username: "SFExt User Activity",
+        content: browserType + ' - ' + globalUUID + ' - ' + installedVersion
+    };
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(params)
+    };
+    fetch(webhook, requestOptions);
+}
+
+function handleMessage(request, sender, sendResponse) { 
+    if (request.action === "newCase") {
+        params = {
+            username: "SFExt Queue Monitor",
+            content: request.content
+        };
+    } else if (request.action === "newActivity") {
+        params = {
+            username: "SFExt New Activity",
+            content: request.content
+        };
+    }
+    if (request.action === "updateCheck") {
+      fetch('https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/Chromium/latestVersion.json')
+          .then(response => response.json()) 
+          .then(data => sendResponse({ latestVer: data.latestVersion }) );
+          return true;
+    } else {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(params)
+        };
+        fetch(request.url, requestOptions);
+    }
+}
 
 function getBrowserType() { 
-    if (navigator.userAgent.includes('Edge')) {
+    if (navigator.userAgent.includes('Edg')) {
       return 'Edge';
     } else if (navigator.userAgent.includes('Chrome')) {
       return 'Chrome';
@@ -59,3 +86,4 @@ function getBrowserType() {
 
 getUUID();
 reloadSFTab();
+chrome.runtime.onMessage.addListener(handleMessage);

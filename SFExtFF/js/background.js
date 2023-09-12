@@ -35,7 +35,7 @@ function dailyUsers() {
     if (!globalUUID) {
         globalUUID = crypto.randomUUID();
         browser.storage.sync.set({
-            savedUUID: globalUUID
+          savedUUID: globalUUID
         });
     }
     let webhook = discord + URI1 + URI2;
@@ -73,7 +73,7 @@ function handleMessage(request, sender, sendResponse) {
 }
 
 function getBrowserType() {
-  if (navigator.userAgent.includes('Edge')) {
+  if (navigator.userAgent.includes('Edg')) {
     return 'Edge';
   } else if (navigator.userAgent.includes('Chrome')) {
     return 'Chrome';

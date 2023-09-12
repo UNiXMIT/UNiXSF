@@ -183,10 +183,13 @@ function createStatusModal() {
 
 function sendObserver() {
     let observer = new MutationObserver(mutations => {
-        const sendButton = document.querySelector('.split-right').querySelector('.LARGE.send.uiButton');
-        if ( (sendButton) && (sendButton.title != 'sendEvent') ) {
-            sendButton.title = 'sendEvent';
-            sendButton.addEventListener('click', awaitSend, false);
+        let initial = document.querySelector('.split-right');
+        if (initial) {
+            const sendButton = initial.querySelector('.LARGE.send.uiButton');
+            if ( (sendButton) && (sendButton.title != 'sendEvent') ) {
+                sendButton.title = 'sendEvent';
+                sendButton.addEventListener('click', awaitSend, false);
+            }
         }
     });
     observer.observe(document, {childList: true, subtree: true});
@@ -844,14 +847,11 @@ function qNotify() {
                         }
                     })();
                     if (globalQNotifyWeb) {
-                        const request = new XMLHttpRequest();
-                        request.open("POST", globalWebhook);
-                        request.setRequestHeader('Content-type', 'application/json');
-                        const params = {
-                            username: "SFExt Queue Monitor",
+                        chrome.runtime.sendMessage({
+                            action: "newCase",
+                            url: globalWebhook,
                             content: notifyBody + ' ' + caseURL
-                        };
-                        request.send(JSON.stringify(params));
+                        });
                     }
                 }
                 if (newActivity.length) {
@@ -894,14 +894,11 @@ function qNotify() {
                             }
                         })();
                         if (globalQNotifyWeb) {
-                            const request = new XMLHttpRequest();
-                            request.open("POST", globalWebhook);
-                            request.setRequestHeader('Content-type', 'application/json');
-                            const params = {
-                                username: "SFExt New Activity",
+                            chrome.runtime.sendMessage({
+                                action: "newActivity",
+                                url: globalWebhook,
                                 content: notifyBody + ' ' + caseURL
-                            };
-                            request.send(JSON.stringify(params));
+                            });
                         }
                     }
                 }
@@ -974,31 +971,34 @@ function defectFixed() {
 
 function addCharacterCounter() {
     let observer = new MutationObserver(mutations => {
-        let textareas = document.querySelector('.split-right').querySelectorAll('.slds-textarea, .textarea');
-        textareas.forEach(function(textarea) {
-            let checkCounter = textarea.nextSibling;
-            let existingCounter;
-            if (checkCounter) {
-                existingCounter = checkCounter.classList.contains('character-counter');
-            }
-            if (!existingCounter) {        
-                let counter = document.createElement('div');
-                counter.classList.add('character-counter');
-                textarea.parentNode.insertBefore(counter, textarea.nextSibling);
-                textarea.addEventListener('input', function() {
+        let initial = document.querySelector('.split-right');
+        if (initial) {
+            let textareas = initial.querySelectorAll('.slds-textarea, .textarea');
+            textareas.forEach(function(textarea) {
+                let checkCounter = textarea.nextSibling;
+                let existingCounter;
+                if (checkCounter) {
+                    existingCounter = checkCounter.classList.contains('character-counter');
+                }
+                if (!existingCounter) {        
+                    let counter = document.createElement('div');
+                    counter.classList.add('character-counter');
+                    textarea.parentNode.insertBefore(counter, textarea.nextSibling);
+                    textarea.addEventListener('input', function() {
+                        counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
+                        if (textarea.value.length > textarea.maxLength) {
+                            counter.style.color = 'red';
+                        } else {
+                            counter.style.color = 'inherit';
+                        }
+                    });
                     counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
                     if (textarea.value.length > textarea.maxLength) {
                         counter.style.color = 'red';
-                    } else {
-                        counter.style.color = 'inherit';
                     }
-                });
-                counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
-                if (textarea.value.length > textarea.maxLength) {
-                    counter.style.color = 'red';
                 }
-            }
-        });
+            });
+        }
     });
     observer.observe(document, {childList: true, subtree: true});
 }
@@ -1235,42 +1235,20 @@ function defPenCust() {
     observer.observe(document, {childList: true, subtree: true});
 }
 
-function defFont() {
-    if (globalArial) {
-        let observer = new MutationObserver(mutations => {
-            (async ()=>{
-                let emailTab = document.querySelector('.split-right').querySelector('[data-target-selection-name="Case.SendEmailTab"]');
-                if ( (emailTab) && (emailTab.className != 'done')) {
-                    emailTab.addEventListener('click', defFontEvent, false);
-                    emailTab.className = 'done tabHeader';
-                }
-                await sleep(500);
-            })();
-        });
-        observer.observe(document, {childList: true, subtree: true});
-    }
-}
-
-function defFontEvent() {
-    (async ()=>{
-        await sleep(1000);
-        document.querySelector('.split-right').querySelector('[title="CK Editor Container"]').contentWindow.document.querySelector('[title="Font Name"]').click();
-        await sleep(500);
-        document.querySelector('.split-right').querySelector('[title="CK Editor Container"]').contentWindow.document.querySelector('.cke_panel_frame').contentWindow.document.querySelector('[title="Arial"]').click();
-    })();
-}
-
 function extLoaded() {
     let observer = new MutationObserver(mutations => {
-        let footer = document.querySelector('.oneUtilityBar').querySelector('.utilitybar');
-        if (footer) {
-            let footera = document.createElement("a");
-            footera.className = "ExtLoaded";
-            footera.innerText = `SFExt ${installedVersion}`;
-            footera.href = configURL;
-            footera.setAttribute('target', '_blank');
-            footer.appendChild(footera);
-            observer.disconnect();
+        let initial = document.querySelector('.oneUtilityBar');
+        if (initial) {
+            let footer = initial.querySelector('.utilitybar');
+            if (footer) {
+                let footera = document.createElement("a");
+                footera.className = "ExtLoaded";
+                footera.innerText = `SFExt ${installedVersion}`;
+                footera.href = configURL;
+                footera.setAttribute('target', '_blank');
+                footer.appendChild(footera);
+                observer.disconnect();
+            }
         }
     });
     observer.observe(document, {childList: true, subtree: true});
@@ -1335,52 +1313,48 @@ function EE() {
 }
 
 function updateCheck() {
-    let xmlHttp = new XMLHttpRequest();
-    let URL = 'https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/Chromium/latestVersion';
-    xmlHttp.onreadystatechange = () => {
-        if (xmlHttp.readyState === 4) {
-            if (xmlHttp.status === 200) {
-                let latestVersion = xmlHttp.response;
-                let newVersion = compareVersions(installedVersion, latestVersion.toString());
-                if ( (newVersion == 1) ) {
-                    (async() => {
-                        let updateMessage = `Version ${latestVersion}`;
-                        if (!window.Notification) {
-                            console.log('Browser does not support notifications.');
+    chrome.runtime.sendMessage({
+        action: "updateCheck"
+    }, function(response) {
+        let latestVersion = response.latestVer;
+        if (latestVersion) {
+            let newVersion = compareVersions(installedVersion, latestVersion.toString());
+            if ( (newVersion == 1) ) {
+                (async() => {
+                    let updateMessage = `Version ${latestVersion}`;
+                    if (!window.Notification) {
+                        console.log('Browser does not support notifications.');
+                    } else {
+                        if (Notification.permission === 'granted') {
+                            const UpdateNofity = new Notification('SFExtension Update Available', {
+                                body: updateMessage,
+                                icon: iconURL
+                            });
                         } else {
-                            if (Notification.permission === 'granted') {
-                                const UpdateNofity = new Notification('SFExtension Update Available', {
-                                    body: updateMessage,
-                                    icon: iconURL
+                            Notification.requestPermission()
+                                .then(function(p) {
+                                    if (p === 'granted') {
+                                        const UpdateNofity = new Notification('SFExtension Update Available', {
+                                            body: updateMessage,
+                                            icon: iconURL
+                                        });
+                                    } else {
+                                        console.log('User blocked notifications.');
+                                    }
+                                })
+                                .catch(function(err) {
+                                    console.error(err);
                                 });
-                            } else {
-                                Notification.requestPermission()
-                                    .then(function(p) {
-                                        if (p === 'granted') {
-                                            const UpdateNofity = new Notification('SFExtension Update Available', {
-                                                body: updateMessage,
-                                                icon: iconURL
-                                            });
-                                        } else {
-                                            console.log('User blocked notifications.');
-                                        }
-                                    })
-                                    .catch(function(err) {
-                                        console.error(err);
-                                    });
-                            }
                         }
-                    })();
-                    if ( !(initDropDown) ) {
-                        updateLabel = `SFExt Update ${latestVersion}`;
-                        createMFMenu('mfupdate', 'fa-arrows-rotate', updateLabel);
                     }
+                })();
+                if ( !(initDropDown) ) {
+                    updateLabel = `SFExt Update ${latestVersion}`;
+                    createMFMenu('mfupdate', 'fa-arrows-rotate', updateLabel);
                 }
             }
         }
-    };
-    xmlHttp.open("GET", URL);
-    xmlHttp.send(null);
+    });
 }
 
 function compareVersions(v1, v2) {
@@ -1489,7 +1463,6 @@ let initInterval = setInterval(function() {
         addCharacterCounter();
         addCopyButton();
         defPenCust();
-        // defFont();
         extLoaded();
         fixMouse();
         EE();
