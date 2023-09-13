@@ -1,3 +1,8 @@
+# 3.0.5 (Firefox)
+
+### Tweaks
+- Adjust modal width to fit slightly larger fonts in Firefox.  
+
 # 3.0.4
 
 ### Enhancements
