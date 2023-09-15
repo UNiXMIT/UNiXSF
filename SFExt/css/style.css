@@ -8,6 +8,11 @@
     src: url('chrome-extension://__MSG_@@extension_id__/fonts/Roboto-Bold.ttf'); 
 }
 
+body {
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
 html { 
     font-family: "Roboto",sans-serif !important; 
 }  

@@ -2,6 +2,7 @@
 
 ### Tweaks
 - Adjust modal width to fit slightly larger fonts in Firefox.  
+- Enabled Font smoothing (Requires enabling Hardware Acceleration in Firefox).  
 
 # 3.0.4
 
