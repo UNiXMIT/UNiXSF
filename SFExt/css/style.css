@@ -135,6 +135,13 @@ li.mfupdate {
     color: red; 
 }
 
+dialog::backdrop {
+    -webkit-backdrop-filter: blur(2px) !important;
+    backdrop-filter: blur(2px) !important;
+}
+
+
+
 .caseStatus {
     width: 200px;
     margin: 10px auto;
