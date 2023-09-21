@@ -4,6 +4,7 @@ let URI1 = '1056247346654101575/';
 let URI2 = 'zTGO0MUYyRsBbwdLUYn3Y44QE63KVXNTA0sUpDXR0OF9uifnCXz2DjqJagu_7zRA_ols';
 let params;
 let globalUUID;
+let pattern = "*://*.force.com/*";
 
 function reloadSFTab() {
     chrome.runtime.onInstalled.addListener(function(){
@@ -82,6 +83,73 @@ function getBrowserType() {
     } else {
       return 'Unknown Browser';
     }
+}
+
+async function redirect(newTab) {
+  console.log("redirect(newTab): " + newTab.url);
+
+  // Check for download URLs that contain ".force.com"
+  // and "/download/", because these end up in an HTTP
+  // redirect, and would thus lead to navigating away
+  // from the SF console, which is not what we want,
+  // instead we want the normal behavior, where the
+  // downloaded item is handled in a new/separate
+  // browser tab:
+  if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/")) {
+      console.log("redirect(newTab): Ignoring, because download link on .force.com (*.force.com/*/download/*)");
+      return;
+  }
+
+  let currentSfTab = await sfTab();
+  //console.log(currentSfTab);
+  //console.log("Redirecting: " + newTab.tabId + "  :  " + newTab.url);
+
+
+  if (newTab.tabId !== currentSfTab.id) {
+      if (newTab.url == currentSfTab.url) { return closeTab(newTab.tabId); }
+      loadURL(currentSfTab.id, newTab.url);
+      closeTab(newTab.tabId);
+  }
+}
+
+chrome.webNavigation.onBeforeNavigate.addListener(
+  redirect, { url: [{ hostContains: ".force.com" }] }
+);
+
+async function sfTab() {
+  console.log("sfTab()");
+
+  let tabs = await getTabs();
+
+  for (let tab of tabs) {
+      if (tab.url.includes(".force.com/")) {
+          return tab
+      }
+  }
+}
+
+async function getTabs() {
+  console.log("getTabs()");
+
+  return new Promise(resolve => {
+      chrome.tabs.query({ url: "*://*.force.com/*" }).then(resolve);
+  });
+}
+
+async function loadURL(tab, address) {
+  console.log("loadURL(tab, address): " + tab.url);
+
+  return new Promise(resolve => {
+      chrome.tabs.update(tab, { url: address, active: true }).then(resolve);
+  });
+}
+
+async function closeTab(tab) {
+  console.log("closeTab(tab): " + tab.url);
+
+  return new Promise(resolve => {
+      chrome.tabs.remove(tab).then(resolve);
+  });
 }
 
 getUUID();

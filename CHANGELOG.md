@@ -1,5 +1,8 @@
 # 3.0.5
 
+### Enhancements
+- SalesForce Link Grabber. Opens SalesForce (*.force.com*) links in existing SF tab and activates the tab.
+
 ### Tweaks
 - Adjust modal width to fit slightly larger fonts in Firefox.  
 - Enabled Font smoothing (Requires enabling Hardware Acceleration in Firefox).  

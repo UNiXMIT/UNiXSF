@@ -1,7 +1,7 @@
 {
   "name": "Salesforce Extension",
   "short_name": "SFExt",
-  "version": "3.0.5",
+  "version": "3.1.0",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "manifest_version": 3,
@@ -22,7 +22,8 @@
     "clipboardWrite",
     "downloads",
     "tabs",
-    "webRequest"
+    "webRequest",
+    "webNavigation"
   ],
   "host_permissions": [
     "https://discord.com/*"
@@ -30,7 +31,7 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.lightning.force.com/*"
+        "*://*.force.com/*"
       ],
       "run_at": "document_end",
       "js": ["js/SFExt.js"],
@@ -40,7 +41,7 @@
   "web_accessible_resources": [
     {
       "resources": [ "*" ],
-      "matches": [ "*://*.lightning.force.com/*" ]
+      "matches": [ "*://*.force.com/*" ]
     }
   ],
   "background": {

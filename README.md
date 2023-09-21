@@ -84,6 +84,9 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
   If you want to keep the current status, just click 'Cancel' on the popup.  
   This can be enabled in the extension options.  
 
+- **SalesForce Link Grabber**.  
+  Opens SalesForce (\*.force.com\*) links in existing SF tab and activates the tab.  
+
 ## Install
 
 ### Chromium  
@@ -220,14 +223,6 @@ Imports your exported options from the previously exported JSON file. The import
 
 - Where there are 2 sets of documentation for one product, it's only possible to configure the docs QuickLink to re-direct to one of those URLs.
   i.e. product 'Reflection for Secure IT' has docs in 'rsit-server-client-unix' and 'rsit-windows-client'
-
-## Optional
-
-This extension benefits from using it in conjunction with the [Lightning Extension](https://chrome.google.com/webstore/detail/lightning-extension/hfglcknhngdnhbkccblidlkljgflofgh) for Chromium browsers or [SalesForce Link Grabber Activate](https://addons.mozilla.org/en-GB/firefox/addon/sf-link-grabber-activate/) for Firefox
-
-When 'Link Grabber' is enabled in that extension (Chromium) or 'SalesForce Link Grabber Activate' is installed (Firefox), when you click the Desktop Notifications from the Case Queue Monitor, the cases are opened in the same Salesforce tab rather than opening a new tab.  
-
-![10](images/LinkGrabber.png) 
 
 ## Donate
 
