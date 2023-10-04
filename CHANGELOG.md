@@ -1,4 +1,4 @@
-# 3.0.5
+# 3.1.0
 
 ### Enhancements
 - SalesForce Link Grabber. Opens SalesForce (*.force.com*) links in existing SF tab and activates the tab.
