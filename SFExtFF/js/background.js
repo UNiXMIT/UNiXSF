@@ -1,7 +1,7 @@
 const installedVersion = browser.runtime.getManifest().version;
-let discord = 'https://discord.com/api/webhooks/';
-let URI1 = '1056247346654101575/';
-let URI2 = 'zTGO0MUYyRsBbwdLUYn3Y44QE63KVXNTA0sUpDXR0OF9uifnCXz2DjqJagu_7zRA_ols';
+let wh = 'https://opentextcorporation.webhook.office.com/webhookb2/';
+let URI1 = 'ef649ecd-3a44-4c35-bb6d-0038f8e06e6f@10a18477-d533-4ecd-a78d-916dbd849d7c/IncomingWebhook/';
+let URI2 = '784865adfbea4ce2853eaccfdd785453/f16de0dc-a49a-4507-b213-aba6ee6fba48';
 let params;
 let configURL = browser.runtime.getURL('config/config.html');
 let globalUUID;
@@ -39,11 +39,11 @@ function dailyUsers() {
           savedUUID: globalUUID
         });
     }
-    let webhook = discord + URI1 + URI2;
+    let webhook = wh + URI1 + URI2;
     const browserType = getBrowserType();
     params = {
-        username: "SFExt User Activity",
-        content: browserType + ' - ' + globalUUID + ' - ' + installedVersion
+        title: "SFExt User Activity",
+        text: browserType + ' - ' + globalUUID + ' - ' + installedVersion
     };
     const requestOptions = {
         method: 'POST',
@@ -56,13 +56,13 @@ function dailyUsers() {
 function handleMessage(request, sender, sendResponse) {
     if (request.action === "newCase") {
         params = {
-            username: "SFExt Queue Monitor",
-            content: request.content
+            title: "SFExt Queue Monitor",
+            text: request.content
         };
     } else if (request.action === "newActivity") {
         params = {
-            username: "SFExt New Activity",
-            content: request.content
+            title: "SFExt New Activity",
+            text: request.content
         };
     }
     const requestOptions = {

@@ -26,11 +26,7 @@ let oldCaseArray = [];
 let newCaseArray = [];
 let oldActivityArray = [];
 let newActivityArray = [];
-let discord = 'https://discord.com/api/webhooks/';
-let URI1 = '1056247346654101575/';
-let URI2 = 'zTGO0MUYyRsBbwdLUYn3Y44QE63KVXNTA0sUpDXR0OF9uifnCXz2DjqJagu_7zRA_ols';
 let configURL = chrome.runtime.getURL('config/config.html');
-let globalUUID;
 
 function initSyncData() {
     chrome.storage.sync.get({
@@ -68,7 +64,6 @@ function initSyncData() {
         globalFTSURL = result.savedFTSURL;
         globalURLS = result.savedURLS;
         globalStatus = result.savedStatus;
-        globalUUID = result.savedUUID;
         globalInit = 1;
     });
 }
@@ -127,7 +122,6 @@ function getSyncData() {
                     updateCustomURLs();
                 }
                 globalStatus = result.savedStatus;
-                globalUUID = result.savedUUID;
             });
         }
     });

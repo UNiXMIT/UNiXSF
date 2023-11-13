@@ -13,6 +13,9 @@
     "tabs",
     "webNavigation"
   ],
+  "host_permissions": [
+    "https://opentextcorporation.webhook.office.com/*"
+  ],
   "content_scripts": [
     {
       "matches": [

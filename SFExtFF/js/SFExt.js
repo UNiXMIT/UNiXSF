@@ -1257,6 +1257,18 @@ function defPenCust() {
     observer.observe(document, {childList: true, subtree: true});
 }
 
+function removeModal() {
+    let observer = new MutationObserver(mutations => {
+        let errorModal = document.querySelector('.DESKTOP.uiModal--app-error.uiModal.open.active');
+        if (errorModal) {
+            if (errorModal.querySelector('.title').textContent  == 'Sorry to interrupt') {
+                errorModal.querySelector('.uiButton').click();
+            }
+        }
+    });
+    observer.observe(document, {childList: true, subtree: true});
+}
+
 function extLoaded() {
     let observer = new MutationObserver(mutations => {
         let initial = document.querySelector('.oneUtilityBar');
@@ -1422,6 +1434,7 @@ let initInterval = setInterval(function() {
         addCharacterCounter();
         addCopyButton();
         defPenCust();
+        removeModal();
         extLoaded();
         fixMouse();
         EE();

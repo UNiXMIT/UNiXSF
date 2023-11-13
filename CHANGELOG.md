@@ -1,3 +1,9 @@
+# 3.1.1 (Firefox)
+
+### Tweaks
+- Workaround for Salesforce error modal appearing. Auto clear the modal. 
+- Adjust Webhooks to use Teams Webhook format.
+
 # 3.1.0
 
 ### Enhancements
