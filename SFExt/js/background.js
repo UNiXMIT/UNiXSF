@@ -5,6 +5,7 @@ let URI2 = '784865adfbea4ce2853eaccfdd785453/f16de0dc-a49a-4507-b213-aba6ee6fba4
 let params;
 let globalUUID;
 let pattern = "*://*.force.com/*";
+let globalGrab;
 
 function reloadSFTab() {
     chrome.runtime.onInstalled.addListener(function(){
@@ -86,30 +87,29 @@ function getBrowserType() {
 }
 
 async function redirect(newTab) {
-  console.log("redirect(newTab): " + newTab.url);
-
-  // Check for download URLs that contain ".force.com"
-  // and "/download/", because these end up in an HTTP
-  // redirect, and would thus lead to navigating away
-  // from the SF console, which is not what we want,
-  // instead we want the normal behavior, where the
-  // downloaded item is handled in a new/separate
-  // browser tab:
   if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/")) {
-      console.log("redirect(newTab): Ignoring, because download link on .force.com (*.force.com/*/download/*)");
       return;
   }
-
-  let currentSfTab = await sfTab();
-  //console.log(currentSfTab);
-  //console.log("Redirecting: " + newTab.tabId + "  :  " + newTab.url);
-
-
-  if (newTab.tabId !== currentSfTab.id) {
-      if (newTab.url == currentSfTab.url) { return closeTab(newTab.tabId); }
-      loadURL(currentSfTab.id, newTab.url);
-      closeTab(newTab.tabId);
+  getGrab();
+  if (globalGrab) {
+    console.log('Link Grabbed')
+    let currentSfTab = await sfTab();
+    if (newTab.tabId !== currentSfTab.id) {
+        if (newTab.url == currentSfTab.url) { return closeTab(newTab.tabId); }
+        loadURL(currentSfTab.id, newTab.url);
+        closeTab(newTab.tabId);
+    } 
+  } else {
+      return;
   }
+}
+
+function getGrab() {
+  chrome.storage.sync.get({
+    savedGrab: true
+  }, function(result) {
+    globalGrab = result.savedGrab;
+  });
 }
 
 chrome.webNavigation.onBeforeNavigate.addListener(
@@ -117,10 +117,7 @@ chrome.webNavigation.onBeforeNavigate.addListener(
 );
 
 async function sfTab() {
-  console.log("sfTab()");
-
   let tabs = await getTabs();
-
   for (let tab of tabs) {
       if (tab.url.includes(".force.com/")) {
           return tab
@@ -129,24 +126,18 @@ async function sfTab() {
 }
 
 async function getTabs() {
-  console.log("getTabs()");
-
   return new Promise(resolve => {
       chrome.tabs.query({ url: "*://*.force.com/*" }).then(resolve);
   });
 }
 
 async function loadURL(tab, address) {
-  console.log("loadURL(tab, address): " + tab.url);
-
   return new Promise(resolve => {
       chrome.tabs.update(tab, { url: address, active: true }).then(resolve);
   });
 }
 
 async function closeTab(tab) {
-  console.log("closeTab(tab): " + tab.url);
-
   return new Promise(resolve => {
       chrome.tabs.remove(tab).then(resolve);
   });

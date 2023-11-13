@@ -161,6 +161,8 @@ Click on the toolbar extension menu and select Options.
 
 - The supported products list. This list is used to open the correct documentation page when the documentation link/icon is clicked.  
 
+- Enable/Disable Salesforce Link Grabber.  
+
   **Requirements**  
   The list must be in JSON format.  
   The list consists of key/value pairs, separated by , and enclosed in braces { }.  

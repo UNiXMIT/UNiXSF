@@ -18,6 +18,7 @@ function save_options() {
   let ftsurl = document.getElementById('ftsurl').value;
   let customurls = document.getElementById('customurls').value;
   let caseStatus = document.getElementById('caseStatus').checked;
+  let grabLink = document.getElementById('grabLink').checked;
   browser.storage.sync.set({
       savedTimeout: refreshTimeout,
       savedProducts: products,
@@ -34,7 +35,8 @@ function save_options() {
       savedProtocol: protocol,
       savedFTSURL: ftsurl,
       savedURLS: customurls,
-      savedStatus: caseStatus
+      savedStatus: caseStatus,
+      savedGrab: grabLink
   }, function() {
       let status = document.getElementById('status');
       status.textContent = 'Options Saved';
@@ -45,7 +47,7 @@ function save_options() {
 }
 
 function reset_options() {
-  browser.storage.sync.remove(["savedTimeout", "savedProducts", "savedPenCust", "savedFTSHTTP", "savedQuixy", "savedPP", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedTranslation", "savedRefEmail", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus"], function() {
+  browser.storage.sync.remove(["savedTimeout", "savedProducts", "savedPenCust", "savedFTSHTTP", "savedQuixy", "savedPP", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedTranslation", "savedRefEmail", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus", "savedGrab"], function() {
       let error = browser.runtime.lastError;
       if (error) {
           console.error(error);
@@ -72,7 +74,8 @@ function restore_options() {
       savedFTSURL: '',
       savedURLS: '{"SFExt":""}',
       savedStatus: false,
-      savedUUID: ''
+      savedUUID: '',
+      savedGrab: true
   }, function(result) {
       document.getElementById('timeout').value = result.savedTimeout;
       document.getElementById('products').value = result.savedProducts;
@@ -90,6 +93,7 @@ function restore_options() {
       document.getElementById('ftsurl').value = result.savedFTSURL;
       document.getElementById('customurls').value = result.savedURLS;
       document.getElementById('caseStatus').checked = result.savedStatus;
+      document.getElementById('grabLink').checked = result.savedGrab;
       if (!result.savedUUID) {
         let globalUUID = crypto.randomUUID();
         browser.storage.sync.set({
@@ -118,7 +122,8 @@ function export_options() {
         savedFTSURL: '',
         savedURLS: '{"SFExt":""}',
         savedStatus: false,
-        savedUUID: ''
+        savedUUID: '',
+        savedGrab: true
     }, function(result) {
         browser.downloads.onChanged.addListener(function(downloadDelta) {
             if (downloadDelta.state && downloadDelta.state.current === "complete") {
@@ -173,7 +178,8 @@ function import_options() {
             savedFTSURL: json.savedFTSURL,
             savedURLS: json.savedURLS,
             savedStatus: json.savedStatus,
-            savedUUID: json.savedUUID
+            savedUUID: json.savedUUID,
+            savedGrab: json.savedGrab
         }, function() {
             try {
                 let status = document.getElementById('status');

@@ -1,4 +1,9 @@
-# 3.1.1 (Firefox)
+# 3.1.2
+
+### Tweaks
+- Add config option to disable Salesforce Link Grabber.  
+
+# 3.1.1
 
 ### Tweaks
 - Workaround for Salesforce error modal appearing. Auto clear the modal. 
