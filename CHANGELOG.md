@@ -3,6 +3,9 @@
 ### Tweaks
 - Add config option to disable Salesforce Link Grabber.  
 
+### Fixes
+- Fix issue with default SFExt custom URL.  
+
 # 3.1.1
 
 ### Tweaks

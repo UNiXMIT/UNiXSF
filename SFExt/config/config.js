@@ -1,4 +1,5 @@
 const installedVersion = chrome.runtime.getManifest().version;
+const configURL = chrome.runtime.getURL('config.html');
 
 function save_options() {
   let refreshTimeout = document.getElementById('timeout').value;
@@ -71,7 +72,7 @@ function restore_options() {
       savedRefEmail: '',
       savedProtocol: 'sftp://',
       savedFTSURL: '',
-      savedURLS: '{"SFExt":""}',
+      savedURLS: `{"SFExt":"${configURL}"}`,
       savedStatus: false,
       savedUUID: '',
       savedGrab: grabLink
@@ -119,7 +120,7 @@ function export_options() {
         savedRefEmail: '',
         savedProtocol: 'sftp://',
         savedFTSURL: '',
-        savedURLS: '{"SFExt":""}',
+        savedURLS: `{"SFExt":"${configURL}"}`,
         savedStatus: false,
         savedUUID: '',
         savedGrab: true

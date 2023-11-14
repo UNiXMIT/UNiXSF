@@ -1,4 +1,5 @@
 const installedVersion = browser.runtime.getManifest().version;
+const configURL = browser.runtime.getURL('config.html');
 let globalUUID;
 
 function save_options() {
@@ -72,7 +73,7 @@ function restore_options() {
       savedRefEmail: '',
       savedProtocol: 'sftp://',
       savedFTSURL: '',
-      savedURLS: '{"SFExt":""}',
+      savedURLS: `{"SFExt":"${configURL}"}`,
       savedStatus: false,
       savedUUID: '',
       savedGrab: true
@@ -120,7 +121,7 @@ function export_options() {
         savedRefEmail: '',
         savedProtocol: 'sftp://',
         savedFTSURL: '',
-        savedURLS: '{"SFExt":""}',
+        savedURLS: `{"SFExt":"${configURL}"}`,
         savedStatus: false,
         savedUUID: '',
         savedGrab: true
