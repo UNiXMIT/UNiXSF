@@ -103,8 +103,8 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 
 ### Firefox  
 
-1. Download the latest *.xhr file.
-2. Right click on the *.xhr file and 'Open With...' Firefox.
+1. Download the latest *.xpi file.
+2. Right click on the *.xpi file and 'Open With...' Firefox.
 3. In the Pop-up that appears in Firefox, click 'Add'.
 4. Once you have loaded Salesforce in your browser, if the extension has loaded correctly, it should say 'SFExt x.x.x' in the lower right corner.  
 
