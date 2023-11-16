@@ -5,7 +5,7 @@
 
 ### Fixes
 - Fix issue with default SFExt custom URL.  
-- Fix issue when opening external KCS URL in a seperate tab. 
+- Fix issue with some external URLs being incorrectly grabbed.  
 
 # 3.1.1
 
