@@ -75,7 +75,7 @@ function handleMessage(request, sender, sendResponse) {
 }
 
 function getBrowserType() { 
-    if (navigator.userAgent.includes('Edg')) {
+    if (navigator.userAgent.includes('Edge')) {
       return 'Edge';
     } else if (navigator.userAgent.includes('Chrome')) {
       return 'Chrome';
@@ -87,12 +87,11 @@ function getBrowserType() {
 }
 
 async function redirect(newTab) {
-  if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/")) {
+  if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/") || newTab.url.includes("/article/")) {
       return;
   }
   getGrab();
   if (globalGrab) {
-    console.log('Link Grabbed')
     let currentSfTab = await sfTab();
     if (newTab.tabId !== currentSfTab.id) {
         if (newTab.url == currentSfTab.url) { return closeTab(newTab.tabId); }
