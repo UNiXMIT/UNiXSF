@@ -87,7 +87,7 @@ function getBrowserType() {
 }
 
 async function redirect(newTab) {
-  if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/") || newTab.url.includes("/article/") || newTab.url.includes("portal.microfocus.com/"))  {
+  if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/") || newTab.url.includes("portal"))  {
       return;
   }
   getGrab();
