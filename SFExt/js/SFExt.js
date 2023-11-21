@@ -1314,6 +1314,7 @@ function updateCheck() {
         if (latestVersion) {
             let newVersion = compareVersions(installedVersion, latestVersion.toString());
             if ( (newVersion == 1) ) {
+                const updateURL = `https://github.com/UNiXMIT/UNiXSF/raw/main/updates/Chromium/${latestVersion}/SFExt.zip`;
                 (async() => {
                     let updateMessage = `Version ${latestVersion}`;
                     if (!window.Notification) {
@@ -1324,6 +1325,9 @@ function updateCheck() {
                                 body: updateMessage,
                                 icon: iconURL
                             });
+                            UpdateNofity.addEventListener('click', () => {
+                                window.open(updateURL, '_blank');
+                            });
                         } else {
                             Notification.requestPermission()
                                 .then(function(p) {
@@ -1331,6 +1335,9 @@ function updateCheck() {
                                         const UpdateNofity = new Notification('SFExtension Update Available', {
                                             body: updateMessage,
                                             icon: iconURL
+                                        });
+                                        UpdateNofity.addEventListener('click', () => {
+                                            window.open(updateURL, '_blank');
                                         });
                                     } else {
                                         console.log('User blocked notifications.');
@@ -1345,6 +1352,8 @@ function updateCheck() {
                 if ( !(initDropDown) ) {
                     updateLabel = `SFExt Update ${latestVersion}`;
                     createMFMenu('mfupdate', 'fa-arrows-rotate', updateLabel);
+                    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfupdate');
+                    mfButtonNew.addEventListener('click', () => {window.open(updateURL, '_blank');});
                 }
             }
         }

@@ -1,3 +1,8 @@
+# 3.1.3
+
+### Enhancements
+- Set SFExt Update quick link and notifications to download latest version.  
+
 # 3.1.2
 
 ### Tweaks
