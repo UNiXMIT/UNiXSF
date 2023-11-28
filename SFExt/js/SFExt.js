@@ -1314,7 +1314,7 @@ function updateCheck() {
         if (latestVersion) {
             let newVersion = compareVersions(installedVersion, latestVersion.toString());
             if ( (newVersion == 1) ) {
-                const updateURL = `https://github.com/UNiXMIT/UNiXSF/raw/main/updates/Chromium/${latestVersion}/SFExt.zip`;
+                const updateURL = `https://github.com/UNiXMIT/UNiXSF/raw/main/updates/Chromium/${latestVersion}/SFExt-${latestVersion}.zip`;
                 (async() => {
                     let updateMessage = `Version ${latestVersion}`;
                     if (!window.Notification) {
@@ -1350,8 +1350,14 @@ function updateCheck() {
                     }
                 })();
                 if ( !(initDropDown) ) {
-                    updateLabel = `SFExt Update ${latestVersion}`;
-                    createMFMenu('mfupdate', 'fa-arrows-rotate', updateLabel);
+                    let ul = document.querySelector('.mflist');
+                    let li = ul.appendChild(document.createElement('li'));
+                    li.classList.add('mfupdate');
+                    let fa = li.appendChild(document.createElement('i'));
+                    fa.classList.add('fa-solid', 'fa-xl');
+                    fa.classList.add('fa-arrows-rotate');
+                    fa.classList.add('fa-spin');
+                    li.appendChild(document.createTextNode(`SFExt Update ${latestVersion}`));
                     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfupdate');
                     mfButtonNew.addEventListener('click', () => {window.open(updateURL, '_blank');});
                 }
