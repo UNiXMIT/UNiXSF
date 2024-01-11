@@ -1,3 +1,8 @@
+# 3.2.0
+
+### Tweaks
+- Rocket Software Branding.  
+
 # 3.1.3
 
 ### Enhancements

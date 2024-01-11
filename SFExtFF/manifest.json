@@ -49,25 +49,25 @@
   },
   "action": {
     "default_icon": {
-      "16": "icons/ot16.png",
-      "32": "icons/ot32.png"
+      "16": "icons/rocket16.png",
+      "32": "icons/rocket32.png"
     },
     "default_title": "SFExt",
     "default_area": "navbar",
     "theme_icons": [{
-      "light": "icons/ot16light.png",
-      "dark": "icons/ot16.png",
+      "light": "icons/rocket16.png",
+      "dark": "icons/rocket16.png",
       "size": 16
     }, {
-      "light": "icons/ot32light.png",
-      "dark": "icons/ot32.png",
+      "light": "icons/rocket32.png",
+      "dark": "icons/rocket32.png",
       "size": 32
     }]
   },
   "icons": {
-    "16": "icons/ot16.png",
-    "32": "icons/ot32.png",
-    "48": "icons/ot48.png",
-    "128": "icons/ot128.png"
+    "16": "icons/rocket16.png",
+    "32": "icons/rocket32.png",
+    "48": "icons/rocket48.png",
+    "128": "icons/rocket128.png"
   }
 }
