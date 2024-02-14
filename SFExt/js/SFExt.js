@@ -19,7 +19,7 @@ let globalPP;
 let globalTranslationURL;
 let globalRefEmail;
 let globalArial = 1;
-let iconURL= chrome.runtime.getURL('icons/rocket128.png');
+let iconURL= chrome.runtime.getURL('icons/ot128.png');
 let intervalID;
 let qObserver;
 let oldCaseArray = [];
@@ -329,11 +329,11 @@ function mfFTS() {
 }
 
 function mfFTSEvent() {
-    let ftsAccountTitle = activeCaseContains('records-record-layout-item > div > div > div', 'FTS AccountName');
+    let ftsAccountTitle = activeCaseContains('dt > div', 'FTS AccountName');
     if (ftsAccountTitle.length) {
-        let ftsAccount = ftsAccountTitle[0].parentNode.querySelector('div + lightning-helptext + div > span > slot').innerText;
-        let ftsPasswordTitle = activeCaseContains('records-record-layout-item > div > div > div', 'FTS Password');
-        let ftsPassword = ftsPasswordTitle[0].parentNode.querySelector('div + lightning-helptext + div > span > slot').innerText;
+        let ftsAccount = ftsAccountTitle[0].parentNode.parentNode.querySelector('dd > div > span > slot').innerText;
+        let ftsPasswordTitle = activeCaseContains('dt > div', 'FTS Password');
+        let ftsPassword = ftsPasswordTitle[0].parentNode.parentNode.querySelector('dd > div > span > slot').innerText;
         let encodeFTSAcc = (ftsAccount).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
         let encodeFTSPass = (ftsPassword).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
         let combineFTS = encodeFTSAcc + ':' + encodeFTSPass;
@@ -1143,11 +1143,11 @@ function addCopyButton() {
             }
         }
         if (activeTab) {
-            let ftsAccountTitle = activeCaseContains('records-record-layout-item > div > div > div', 'FTS AccountName');
+            let ftsAccountTitle = activeCaseContains('dt > div', 'FTS AccountName');
             if (ftsAccountTitle.length) {
-                let ftsAccount = ftsAccountTitle[0].parentNode.querySelector('div + lightning-helptext + div > span > slot');
-                let ftsPasswordTitle = activeCaseContains('records-record-layout-item > div > div > div', 'FTS Password');
-                let ftsPassword = ftsPasswordTitle[0].parentNode.querySelector('div + lightning-helptext + div > span > slot');
+                let ftsAccount = ftsAccountTitle[0].parentNode.parentNode.querySelector('dd > div > span > slot');
+                let ftsPasswordTitle = activeCaseContains('dt > div', 'FTS Password');
+                let ftsPassword = ftsPasswordTitle[0].parentNode.parentNode.querySelector('dd > div > span > slot');
                 if (!ftsAccount.className) {
                     ftsAccount.className = "copyButtonAdded";
                     let button = document.createElement('button');

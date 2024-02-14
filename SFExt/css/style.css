@@ -18,7 +18,7 @@ html {
 }  
 
 .slds-global-header__logo {
-    background-image: url('chrome-extension://__MSG_@@extension_id__/icons/rocketLong.svg') !important;
+    background-image: url('chrome-extension://__MSG_@@extension_id__/icons/ot.png') !important;
     background-size: auto 40px !important;
     width: 235px !important;
 }
@@ -63,7 +63,7 @@ a.ExtLoaded:hover {
     width: 25px; 
     height: 25px; 
     border: none; 
-    background-image: url("chrome-extension://__MSG_@@extension_id__/icons/rocket.svg");
+    background-image: url("chrome-extension://__MSG_@@extension_id__/icons/ot.svg");
     background-size: 25px; 
     opacity: 0.4; 
 } 

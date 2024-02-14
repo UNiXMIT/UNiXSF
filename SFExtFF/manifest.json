@@ -1,7 +1,7 @@
 {
   "name": "Salesforce Extension",
   "short_name": "SFExt",
-  "version": "3.2.0",
+  "version": "3.1.4",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "manifest_version": 3,
@@ -49,25 +49,25 @@
   },
   "action": {
     "default_icon": {
-      "16": "icons/rocket16.png",
-      "32": "icons/rocket32.png"
+      "16": "icons/ot16.png",
+      "32": "icons/ot32.png"
     },
     "default_title": "SFExt",
     "default_area": "navbar",
     "theme_icons": [{
-      "light": "icons/rocket16.png",
-      "dark": "icons/rocket16.png",
+      "light": "icons/ot16light.png",
+      "dark": "icons/ot16.png",
       "size": 16
     }, {
-      "light": "icons/rocket32.png",
-      "dark": "icons/rocket32.png",
+      "light": "icons/ot32.png",
+      "dark": "icons/ot32.png",
       "size": 32
     }]
   },
   "icons": {
-    "16": "icons/rocket16.png",
-    "32": "icons/rocket32.png",
-    "48": "icons/rocket48.png",
-    "128": "icons/rocket128.png"
+    "16": "icons/ot16.png",
+    "32": "icons/ot32.png",
+    "48": "icons/ot48.png",
+    "128": "icons/ot128.png"
   }
 }
