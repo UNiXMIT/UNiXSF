@@ -19,7 +19,7 @@ let globalPP;
 let globalTranslationURL;
 let globalRefEmail;
 let globalArial = 1;
-let iconURL= browser.runtime.getURL('icons/ot128.png');
+let iconURL= browser.runtime.getURL('icons/rocket128.png');
 let intervalID;
 let qObserver;
 let oldCaseArray = [];
