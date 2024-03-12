@@ -8,6 +8,7 @@ function save_options() {
   let ftshttp = document.getElementById('ftshttp').value;
   let quixy = document.getElementById('quixy').value;
   let pp = document.getElementById('pp').value;
+  let edu = document.getElementById('edu').value;
   let queue = document.getElementById('queue').value;
   let qnotify = document.getElementById('qnotify').checked;
   let qnotifyweb = document.getElementById('qnotifyweb').checked;
@@ -26,6 +27,7 @@ function save_options() {
       savedFTSHTTP: ftshttp,
       savedQuixy: quixy,
       savedPP: pp,
+      savedEDU: edu,
       savedQueue: queue,
       savedQNotify: qnotify,
       savedQNotifyWeb: qnotifyweb,
@@ -47,7 +49,7 @@ function save_options() {
 }
 
 function reset_options() {
-  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedPenCust", "savedFTSHTTP", "savedQuixy", "savedPP", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedTranslation", "savedRefEmail", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus", "savedGrab"], function() {
+  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedPenCust", "savedFTSHTTP", "savedQuixy", "savedPP", "savedEDU", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedTranslation", "savedRefEmail", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus", "savedGrab"], function() {
       let error = chrome.runtime.lastError;
       if (error) {
           console.error(error);
@@ -64,6 +66,7 @@ function restore_options() {
       savedFTSHTTP: '',
       savedQuixy: '',
       savedPP: '',
+      savedEDU: '',
       savedQueue: 'NOTIFY',
       savedQNotify: false,
       savedQNotifyWeb: false,
@@ -83,6 +86,7 @@ function restore_options() {
       document.getElementById('ftshttp').value = result.savedFTSHTTP;
       document.getElementById('quixy').value = result.savedQuixy;
       document.getElementById('pp').value = result.savedPP;
+      document.getElementById('edu').value = result.savedEDU;
       document.getElementById('queue').value = result.savedQueue;
       document.getElementById('qnotify').checked = result.savedQNotify;
       document.getElementById('qnotifyweb').checked = result.savedQNotifyWeb;
@@ -112,6 +116,7 @@ function export_options() {
         savedFTSHTTP: '',
         savedQuixy: '',
         savedPP: '',
+        savedEDU: '',
         savedQueue: 'NOTIFY',
         savedQNotify: false,
         savedQNotifyWeb: false,
@@ -168,6 +173,7 @@ function import_options() {
             savedFTSHTTP: json.savedFTSHTTP,
             savedQuixy: json.savedQuixy,
             savedPP: json.savedPP,
+            savedEDU: json.savedEDU,
             savedQueue: json.savedQueue,
             savedQNotify: json.savedQNotify,
             savedQNotifyWeb: json.savedQNotifyWeb,

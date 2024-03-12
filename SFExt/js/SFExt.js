@@ -16,6 +16,7 @@ let globalStatus;
 let globalFTSHTTP;
 let globalQuixyURL;
 let globalPP;
+let globalEDU;
 let globalTranslationURL;
 let globalRefEmail;
 let globalArial = 1;
@@ -36,6 +37,7 @@ function initSyncData() {
         savedFTSHTTP: '',
         savedQuixy: '',
         savedPP: '',
+        savedEDU: '',
         savedQueue: 'NOTIFY',
         savedQNotify: false,
         savedQNotifyWeb: false,
@@ -54,6 +56,7 @@ function initSyncData() {
         globalFTSHTTP = result.savedFTSHTTP;
         globalQuixyURL = result.savedQuixy;
         globalPP = result.savedPP;
+        globalEDU = result.savedEDU;
         globalQueue = result.savedQueue;
         globalQNotify = result.savedQNotify;
         globalQNotifyWeb = result.savedQNotifyWeb;
@@ -77,6 +80,7 @@ function getSyncData() {
                 savedPenCust: false,
                 savedQuixy: '',
                 savedPP: '',
+                savedEDU: '',
                 savedQueue: 'NOTIFY',
                 savedQNotify: false,
                 savedQNotifyWeb: false,
@@ -101,6 +105,7 @@ function getSyncData() {
                 globalFTSHTTP = result.savedFTSHTTP;
                 globalQuixyURL = result.savedQuixy;
                 globalPP = result.savedPP;
+                globalEDU = result.savedEDU;
                 if (globalQueue != result.savedQueue) {
                     globalQueue = result.savedQueue;
                     if (qObserver) {
@@ -264,6 +269,7 @@ function mfNav() {
                 thirdLineRef();
                 addReminder();
                 mfPP();
+                mfEDU();
                 fullScreenKCS();
                 customURLs();
             })();
@@ -672,6 +678,16 @@ function mfPP() {
 
 function mfPPEvent() {
     window.open(globalPP, '_blank');
+}
+
+function mfEDU() {
+    createMFMenu('mfedu', 'fa-book-open-reader', 'Education System');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfedu');
+    mfButtonNew.addEventListener('click', mfEDUEvent, false);
+}
+
+function mfEDUEvent() {
+    window.open(globalEDU, '_blank');
 }
 
 function fullScreenKCS() {
