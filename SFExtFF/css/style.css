@@ -108,6 +108,7 @@ ul.mflist {
 .fa-caret-down { 
     opacity: 0.4; 
     margin: 0 -6px 0 -14px;
+    color: #7022d1;
 } 
 
 .fa-caret-down::before {

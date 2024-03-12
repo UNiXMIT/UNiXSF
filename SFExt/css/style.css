@@ -108,6 +108,7 @@ ul.mflist {
 .fa-caret-down { 
     opacity: 0.4; 
     margin-left: -8px; 
+    color: #7022d1;
 } 
 
 .dropdown-content li:hover { 
