@@ -62,7 +62,7 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
     Opens up the Entitlements page for the case you have open.  
     Only works if you have a case open and active.  
 
-  - Additional menu items for Support Portal, SLD Web Portal and PerformPlus.  
+  - Additional menu items for Support Portal, SLD Web Portal, Education System and PerformPlus.  
 
 - **Quixy URLs**  
   Creates URLs to Quixy defects in queues (if you have the 'R&D Change Requests' column visible).  
@@ -151,6 +151,8 @@ Click on the toolbar extension menu and select Options.
 - The FTS HTTP URL.  
 
 - The Quixy URL.  
+
+- The Education System URL.  
 
 - The Perform+ URL.  
 
