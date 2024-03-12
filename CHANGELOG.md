@@ -6,7 +6,8 @@ Welcome to Rocket Software!
 - Improve Link Grabber.   
 
 ### Tweaks
-- Rocket Software branding.  
+- Rocket Software branding. 
+- Rename PerformPlus to Huddle 
 
 # 3.1.4
 
