@@ -1288,6 +1288,12 @@ function extLoaded() {
     observer.observe(document, {childList: true, subtree: true});
 }
 
+function keepAlive() {
+    browser.runtime.sendMessage({
+        action: "keepAlive"
+    });
+}
+
 function fixMouse() {
     document.addEventListener('mouseup', e => {
         if (typeof e === 'object' && [3, 4].includes(e.button)) {
@@ -1436,6 +1442,7 @@ let initInterval = setInterval(function() {
         defPenCust();
         removeModal();
         extLoaded();
+        setInterval(keepAlive, 25000);
         fixMouse();
         EE();
         clearTimeout(initInterval);

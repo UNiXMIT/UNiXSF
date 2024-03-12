@@ -66,6 +66,9 @@ function handleMessage(request, sender, sendResponse) {
             text: request.content
         };
     }
+    if (request.action === "keepAlive") {
+        return;
+    }
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -87,7 +90,7 @@ function getBrowserType() {
 }
 
 async function redirect(newTab) {
-    if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/")) {
+    if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/") || newTab.url.includes("*://portal.")) {
         return;
     }
     getGrab();
@@ -130,10 +133,24 @@ async function getTabs() {
     });
 }
 
-async function loadURL(tab, address) {
-    return new Promise(resolve => {
-        browser.tabs.update(tab, { url: address, active: true }).then(resolve);
-    });
+// async function loadURL(tab, address) {
+//     return new Promise(resolve => {
+//         browser.tabs.update(tab, { url: address, active: true }).then(resolve);
+//     });
+// }
+
+function loadURL(tab, address) {
+    browser.scripting.executeScript({
+      target: { tabId: tab },
+      func: injectURL,
+      args: [address]
+    })
+}
+  
+function injectURL(address) {
+    const t = window.wrappedJSObject.$A.getEvt("markup://force:navigateToURL");
+    t.setParam("url", address);
+    t.fire();
 }
 
 async function closeTab(tab) {

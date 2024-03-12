@@ -1,3 +1,10 @@
+# 3.2.0
+Welcome to Rocket Software!  
+
+### Enhancements
+- Keep alive Background/Service Worker. 
+- Improve Link Grabber.   
+
 # 3.1.4
 
 ### Fixes

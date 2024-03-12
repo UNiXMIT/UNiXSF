@@ -59,6 +59,9 @@ function handleMessage(request, sender, sendResponse) {
             text: request.content
         };
     }
+    if (request.action === "keepAlive") {
+      return;
+    }
     if (request.action === "updateCheck") {
       fetch('https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/Chromium/latestVersion.json')
           .then(response => response.json()) 
@@ -87,7 +90,7 @@ function getBrowserType() {
 }
 
 async function redirect(newTab) {
-  if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/") || newTab.url.includes("portal"))  {
+  if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/") || newTab.url.includes("*://portal.")) {
       return;
   }
   getGrab();
@@ -130,10 +133,25 @@ async function getTabs() {
   });
 }
 
-async function loadURL(tab, address) {
-  return new Promise(resolve => {
-      chrome.tabs.update(tab, { url: address, active: true }).then(resolve);
-  });
+// async function loadURL(tab, address) {
+//   return new Promise(resolve => {
+//       chrome.tabs.update(tab, { url: address, active: true }).then(resolve);
+//   });
+// }
+
+function loadURL(tab, address) {
+  chrome.scripting.executeScript({
+    target: { tabId: tab },
+    func: injectURL,
+    args: [address],
+    world: "MAIN"
+  })
+}
+
+function injectURL(address) {
+  const t = $A.getEvt("markup://force:navigateToURL");
+  t.setParam("url", address);
+  t.fire();
 }
 
 async function closeTab(tab) {

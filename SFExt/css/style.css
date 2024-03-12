@@ -19,8 +19,7 @@ html {
 
 .slds-global-header__logo {
     background-image: url('chrome-extension://__MSG_@@extension_id__/icons/rocketLong.svg') !important;
-    background-size: auto 40px !important;
-    width: 235px !important;
+    background-size: auto 45px !important;
 }
 
 .slds-truncate {

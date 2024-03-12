@@ -1248,6 +1248,12 @@ function extLoaded() {
     observer.observe(document, {childList: true, subtree: true});
 }
 
+function keepAlive() {
+    chrome.runtime.sendMessage({
+        action: "keepAlive"
+    });
+}
+
 function fixMouse() {
     document.addEventListener('mouseup', e => {
         if (typeof e === 'object' && [3, 4].includes(e.button)) {
@@ -1473,6 +1479,7 @@ let initInterval = setInterval(function() {
         addCopyButton();
         defPenCust();
         extLoaded();
+        setInterval(keepAlive, 25000);
         fixMouse();
         EE();
         setTimeout(function() {

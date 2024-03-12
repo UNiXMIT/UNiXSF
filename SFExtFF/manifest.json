@@ -1,7 +1,7 @@
 {
   "name": "Salesforce Extension",
   "short_name": "SFExt",
-  "version": "3.1.4",
+  "version": "3.2.0",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "manifest_version": 3,
@@ -23,10 +23,12 @@
     "downloads",
     "tabs",
     "webRequest",
-    "webNavigation"
+    "webNavigation",
+    "scripting"
   ],
   "host_permissions": [
-    "https://opentextcorporation.webhook.office.com/*"
+    "https://opentextcorporation.webhook.office.com/*",
+    "https://microfocus.lightning.force.com/lightning/*"
   ],
   "content_scripts": [
     {
@@ -55,7 +57,7 @@
     "default_title": "SFExt",
     "default_area": "navbar",
     "theme_icons": [{
-      "light": "icons/rocket16light.png",
+      "light": "icons/rocket16.png",
       "dark": "icons/rocket16.png",
       "size": 16
     }, {
