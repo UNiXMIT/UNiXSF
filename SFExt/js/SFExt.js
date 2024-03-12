@@ -665,7 +665,7 @@ function addReminderEvent() {
 }
 
 function mfPP() {
-    createMFMenu('mfpp', 'fa-circle-plus', 'PerformPlus');
+    createMFMenu('mfpp', 'fa-circle-plus', 'Huddle');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfpp');
     mfButtonNew.addEventListener('click', mfPPEvent, false);
 }
