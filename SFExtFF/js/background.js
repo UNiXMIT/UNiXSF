@@ -144,7 +144,8 @@ function loadURL(tab, address) {
       target: { tabId: tab },
       func: injectURL,
       args: [address]
-    })
+    });
+    browser.tabs.update(tab, { active: true });
 }
   
 function injectURL(address) {

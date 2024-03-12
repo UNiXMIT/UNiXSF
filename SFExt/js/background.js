@@ -145,7 +145,8 @@ function loadURL(tab, address) {
     func: injectURL,
     args: [address],
     world: "MAIN"
-  })
+  });
+  browser.tabs.update(tab, { active: true });
 }
 
 function injectURL(address) {
