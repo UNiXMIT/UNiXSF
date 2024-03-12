@@ -5,6 +5,9 @@ Welcome to Rocket Software!
 - Keep alive Background/Service Worker. 
 - Improve Link Grabber.   
 
+### Tweaks
+- Rocket Software branding.  
+
 # 3.1.4
 
 ### Fixes
