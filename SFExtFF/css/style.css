@@ -64,7 +64,7 @@ a.ExtLoaded:hover {
     border: none; 
     background-image: url("../icons/rocket.svg");
     background-size: 25px; 
-    opacity: 0.4; 
+    opacity: 0.6; 
 } 
 
 .mfdropdown { 
@@ -111,9 +111,14 @@ ul.mflist {
     color: #503eff;
 } 
 
-.fa-caret-down::before {
-    position: absolute;
-    bottom: 5px;
+.fa-caret-down:before {
+    position: relative;
+    top: 14px;
+    left: 5px;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(225deg, #d155fa 20%, #7b19c1 50%, #503eff 80%);
 }
 
 .dropdown-content li:hover { 
@@ -125,11 +130,11 @@ ul.mflist {
 } 
 
 .mfdropdown:hover .dropbtn { 
-    opacity: 0.6; 
+    opacity: 1; 
 } 
 
 .mfdropdown:hover .fa-caret-down {
-    opacity: 0.6; 
+    opacity: 0.8; 
 } 
 
 li.mfupdate { 
