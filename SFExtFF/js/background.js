@@ -78,7 +78,7 @@ function handleMessage(request, sender, sendResponse) {
 }
 
 function getBrowserType() {
-  if (navigator.userAgent.includes('Edg')) {
+  if (navigator.userAgent.includes('Edge')) {
     return 'Edge';
   } else if (navigator.userAgent.includes('Chrome')) {
     return 'Chrome';
