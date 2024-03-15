@@ -36,7 +36,7 @@ function dailyUsers() {
     let webhook = wh + URI1 + URI2;
     const browserType = getBrowserType();
     params = {
-        text: "**SFExt User Activity** \n\n " + browserType + ' - ' + globalUUID + ' - ' + installedVersion
+        text: "*SFExt User Activity*\n" + browserType + ' - ' + globalUUID + ' - ' + installedVersion
     };
     const requestOptions = {
         method: 'POST',
@@ -49,11 +49,11 @@ function dailyUsers() {
 function handleMessage(request, sender, sendResponse) { 
     if (request.action === "newCase") {
         params = {
-            text: "**SFExt Queue Monitor** \n\n " + request.content
+            text: "*SFExt Queue Monitor*\n" + request.content
         };
     } else if (request.action === "newActivity") {
         params = {
-            text: "**SFExt New Activity** \n\n " + request.content
+            text: "*SFExt New Activity*\n" + request.content
         };
     }
     if (request.action === "keepAlive") {
