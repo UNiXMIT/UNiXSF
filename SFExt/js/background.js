@@ -77,13 +77,11 @@ function handleMessage(request, sender, sendResponse) {
     } else if (request.url.includes(slackWebhook)) {
         if (request.action === "newCase") {
             params = {
-                text: "*SFExt Queue Monitor*\n" + request.content,
-                icon_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/rocket128.png"
+                text: "*SFExt Queue Monitor*\n" + request.content
             };
         } else if (request.action === "newActivity") {
             params = {
-                text: "*SFExt New Activity*\n" + request.content,
-                icon_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/rocket128.png",
+                text: "*SFExt New Activity*\n" + request.content
             };
         }
     } else if (request.url.includes(discordWebhook) || request.url.includes(discordProxyWebhook)) {
