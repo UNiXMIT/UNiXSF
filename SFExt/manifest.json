@@ -15,7 +15,10 @@
     "scripting"
   ],
   "host_permissions": [
-    "https://opentextcorporation.webhook.office.com/*",
+    "https://*.webhook.office.com/*",
+    "https://hooks.slack.com/services/*",
+    "https://discord.com/api/webhooks/*",
+    "https://webhook.lewisakura.moe/*",
     "https://microfocus.lightning.force.com/lightning/*"
   ],
   "content_scripts": [

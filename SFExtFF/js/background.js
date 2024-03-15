@@ -1,7 +1,7 @@
 const installedVersion = browser.runtime.getManifest().version;
-let wh = 'https://opentextcorporation.webhook.office.com/webhookb2/';
-let URI1 = 'ef649ecd-3a44-4c35-bb6d-0038f8e06e6f@10a18477-d533-4ecd-a78d-916dbd849d7c/IncomingWebhook/';
-let URI2 = '784865adfbea4ce2853eaccfdd785453/f16de0dc-a49a-4507-b213-aba6ee6fba48';
+let wh = 'https://webhook.lewisakura.moe/api/webhooks/';
+let URI1 = '1218152794507182080';
+let URI2 = '/102FyIRHNa8fSYjTu4hsFdB5VgpG9VhhcrLyaxiADn9ets7It3QA8GmIpZ2XM8zo0eCL';
 let params;
 let configURL = browser.runtime.getURL('config/config.html');
 let globalUUID;
@@ -43,7 +43,8 @@ function dailyUsers() {
     let webhook = wh + URI1 + URI2;
     const browserType = getBrowserType();
     params = {
-        text: "*SFExt User Activity*\n" + browserType + ' - ' + globalUUID + ' - ' + installedVersion
+        username: "SFExt User Activity",
+        content: browserType + ' - ' + globalUUID + ' - ' + installedVersion
     };
     const requestOptions = {
         method: 'POST',
@@ -54,16 +55,49 @@ function dailyUsers() {
 }
 
 function handleMessage(request, sender, sendResponse) {
-    if (request.action === "newCase") {
-        params = {
-            text: "*SFExt Queue Monitor*\n" + request.content
-        };
-    } else if (request.action === "newActivity") {
-        params = {
-            text: "*SFExt New Activity*\n" + request.content
-        };
-    }
+    const teamsWebhook = "https://*.webhook.office.com/webhookb2/";
+    const slackWebhook = "https://hooks.slack.com/services/";
+    const discordWebhook = "https://discord.com/api/webhooks/";
+    const discordProxyWebhook = "https://webhook.lewisakura.moe/";
     if (request.action === "keepAlive") {
+        return;
+    }
+    if (request.url.includes(teamsWebhook)) {
+        if (request.action === "newCase") {
+            params = {
+                title: "SFExt Queue Monitor",
+                text: request.content
+            };
+        } else if (request.action === "newActivity") {
+            params = {
+                title: "SFExt New Activity",
+                text: request.content
+            };
+        }
+    } else if (request.url.includes(slackWebhook)) {
+        if (request.action === "newCase") {
+            params = {
+                text: "*SFExt Queue Monitor*\n" + request.content
+            };
+        } else if (request.action === "newActivity") {
+            params = {
+                text: "*SFExt New Activity*\n" + request.content
+            };
+        }
+    } else if (request.url.includes(discordWebhook) || request.url.includes(discordProxyWebhook)) {
+        if (request.action === "newCase") {
+            params = {
+                username: "SFExt Queue Monitor",
+                content: request.content
+            };
+        } else if (request.action === "newActivity") {
+            params = {
+                username: "SFExt New Activity",
+                content: request.content
+            };
+        }  
+    } else {
+        console.log("SFExt: Unsupported Webhook!");
         return;
     }
     const requestOptions = {
@@ -84,7 +118,7 @@ function getBrowserType() {
   } else {
     return 'Unknown Browser';
   }
-}
+}  
 
 async function redirect(newTab) {
     if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/") || newTab.url.includes("*://portal.")) {
