@@ -37,6 +37,7 @@ function dailyUsers() {
     const browserType = getBrowserType();
     params = {
       username: "SFExt User Activity",
+      avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/rocket128.png",
       content: browserType + ' - ' + globalUUID + ' - ' + installedVersion
     };
     const requestOptions = {
@@ -87,11 +88,13 @@ function handleMessage(request, sender, sendResponse) {
         if (request.action === "newCase") {
             params = {
                 username: "SFExt Queue Monitor",
+                avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/rocket128.png",
                 content: request.content
             };
         } else if (request.action === "newActivity") {
             params = {
                 username: "SFExt New Activity",
+                avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/rocket128.png",
                 content: request.content
             };
         }  
