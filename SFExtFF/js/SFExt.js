@@ -1325,7 +1325,7 @@ function EE() {
                 clearInterval(intervalID);
             }
             let img = document.createElement('img');
-            img.src = 'https://unixmit.uk/ramona.gif';
+            img.src = 'https://i.giphy.com/12FOQ3mPLElLHy.webp';
             img.style.position = 'absolute';
             img.style.zIndex = 9999;
             img.style.width = '125px';
