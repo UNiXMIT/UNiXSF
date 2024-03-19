@@ -1146,7 +1146,7 @@ function addCopyButton() {
                                         { type: "text/plain" }
                                     ),
                                     "text/html": new Blob(
-                                        [`<a target="_blank" href="${globalQuixyURL.replace(/\/$/, "")}/${selectedText}">${selectedText}</a>`],
+                                        [`<a target="_blank" href="${globalQuixyURL.replace(/\/$/, "")}/#/viewEntity/${selectedText}">${selectedText}</a>`],
                                         { type: "text/html" }
                                     ),
                                 });

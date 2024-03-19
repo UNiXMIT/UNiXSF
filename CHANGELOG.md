@@ -8,7 +8,10 @@ Welcome to Rocket Software!
 
 ### Tweaks
 - Rocket Software branding. 
-- Rename PerformPlus to Huddle  
+- Rename PerformPlus to Huddle.    
+
+### Fixes
+- Fixed issue wih Quixy link when copied.  
 
 # 3.1.4
 
