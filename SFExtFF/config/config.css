@@ -130,6 +130,7 @@ button {
     border: 1px solid #0d0d0d;
     transition: color 0.3s, background 0.3s;
     text-decoration: none;
+    border-radius: 6px;
 }
 button:hover {
     background: #fff;
