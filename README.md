@@ -23,7 +23,7 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
   Notifications are generated when:  
   - A new or updated case appears in the queue, that wasn't there before.  
   - The status of a case in the queue changes to 'Pending Support (New Activity)'.  
-    NOTE: The 'Case Number' and 'Status' columns need to be visible in the queue. The 'Subject' column is optional.  .       
+    NOTE: The 'Case Number' and 'Status' columns need to be visible in the queue. The 'Subject' column is optional.         
 
 - **QuickLink Menu**
 
@@ -46,7 +46,7 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 
   - Reminders/Follow-Up in Outlook Calendar.  
     Gets the case number, subject and URL from the active, open case and opens a new window to create an Outlook Calendar event with reminder set.  
-    By default the calendar event start date is 3 days in the future but this can be changed, by the user, in the new window.  
+    By default, the calendar event start date is 3 days in the future, but this can be changed, by the user, in the new window.  
   
   - Full Screen KCS Editor.  
     Make the KCS editor full screen to allow easier creation/editing of the article body.
@@ -55,11 +55,11 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
     Generates an email, using a set template and information from the case.   
 
   - Account Team.  
-    Opens up the Account Team page for the case you have open.  
+    Opens up the Account Team page for the case you have opened.  
     Only works if you have a case open and active.  
   
   - Entitlements.  
-    Opens up the Entitlements page for the case you have open.  
+    Opens up the Entitlements page for the case you have opened.  
     Only works if you have a case open and active.  
 
   - Additional menu items for Support Portal, SLD Web Portal, Education System and PerformPlus.  
@@ -81,7 +81,7 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
   Add option to enable the 'Set Pending Customer' checkbox as default when sending an email.  
 
 - **Modify Case Status after Send**  
-  After the 'Send' button is clicked and the email is sent from a case, a popup will appear letting you change the case status from its current status to another status.  
+  After the 'Send' button is clicked, and the email is sent from a case, a popup will appear letting you change the case status from its current status to another status.  
   If you want to keep the current status, just click 'Cancel' on the popup.  
   This can be enabled in the extension options.  
 
@@ -105,7 +105,7 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 ### Firefox  
 
 1. Download the latest *.xpi file.
-2. Right click on the *.xpi file and 'Open With...' Firefox.
+2. Right-click on the *.xpi file and 'Open With...' Firefox.
 3. In the Pop-up that appears in Firefox, click 'Add'.
 4. Once you have loaded Salesforce in your browser, if the extension has loaded correctly, it should say 'SFExt x.x.x' in the lower right corner.  
 
@@ -170,7 +170,7 @@ Click on the toolbar extension menu and select Options.
   The list must be in JSON format.  
   The list consists of key/value pairs, separated by , and enclosed in braces { }.  
   The Key must exactly match the name of the product as it appears in cases.   
-  The Value must match the sub-domain of the documentation page for that product:  
+  The Value must match the subdomain of the documentation page for that product:  
   i.e. for AcuCOBOL the URL is https://www.microfocus.com/documentation/extend-acucobol so the value must be:  
   ```
   extend-acucobol
