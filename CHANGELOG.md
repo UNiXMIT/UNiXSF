@@ -11,7 +11,7 @@ Welcome to Rocket Software!
 - Rename PerformPlus to Huddle.    
 
 ### Fixes
-- Fixed issue wih Quixy link when copied.  
+- Fixed issue with Quixy link when copied.  
 
 # 3.1.4
 
@@ -82,7 +82,7 @@ Welcome to Rocket Software!
 - Firefox support.
 
 ### Tweaks
-- Code cleanup.
+- Code clean-up.
 - Execute API requests from background script. 
 
 # 2.9.8
@@ -152,13 +152,13 @@ Welcome to Rocket Software!
 Internal URLs (Quixy, Translation and FTS URLs) now need to be added by the user on the config page. If you don't do this after updating, the Quixy links, Translation Request and FTS buttons won't work.  
 
 ### Fixes
-- Added element checking to the Modify Case Status feature to stop errors if the cases was already in edit mode.
+- Added element checking to the Modify Case Status feature to stop errors if the case was already in edit mode.
 - Convert latestVersion to string before sending to the compareVersions function.
 - Fixed issue with Hyperlink in Reminder body.
 
 ### Tweaks
 - Add hyperlink to case and subject copied to clipboard, with fallback of text, when clicking case/subject copy button.
-- Add paragraph to README to show how to register WinSCP for SFTP URL protocol in Windows.
+- Add paragraph to README to show how to register WinSCP for SFTP URL protocol on Windows.
 - Added Copy Button to Case Defect Numbers for the 'R&D Change Requests' field.
 - Removed all internal MF links.
 
@@ -171,7 +171,7 @@ Internal URLs (Quixy, Translation and FTS URLs) now need to be added by the user
 # 2.8
 ### Enhancements
 - Added character counts to 'textarea' fields.
-- The height of the Knowledge body editor didn't take into account the height of the viewport so it was not all visible at the same time. Salesforce enforces this incorrect calculation. I added a QuickLink button to make the KCS editor fullscreen to allow easier creation/editing of the article body.
+- The height of the Knowledge body editor didn't take into account the height of the viewport so it was not all visible at the same time. Salesforce enforces this incorrect calculation. I added a QuickLink button to make the KCS editor full screen to allow easier creation/editing of the article body.
 - Added COPY buttons next to the case number and case subject to make it easier to copy them to clipboard.
 
 ### Tweaks
