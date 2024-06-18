@@ -1,3 +1,8 @@
+# 3.2.1
+
+### Fixes
+- Issue when opening public KCS URLs when the link grabber was enabled.  
+
 # 3.2.0
 Welcome to Rocket Software!  
 

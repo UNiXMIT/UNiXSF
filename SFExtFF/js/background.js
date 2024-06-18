@@ -124,7 +124,7 @@ function getBrowserType() {
 }  
 
 async function redirect(newTab) {
-    if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/") || newTab.url.includes("*://portal.")) {
+    if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/") || newTab.url.includes("https://portal")) {
         return;
     }
     getGrab();
