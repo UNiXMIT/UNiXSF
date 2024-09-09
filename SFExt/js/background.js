@@ -123,8 +123,8 @@ function getBrowserType() {
 }
 
 async function redirect(newTab) {
-  if (newTab.url.includes(".force.com/") && newTab.url.includes("/download/") || newTab.url.includes("https://portal")) {
-      return;
+  if (newTab.url.includes(".force.com/") && (newTab.url.includes("/download/") || newTab.url.includes("https://portal") || newTab.url.includes("/p") || newTab.url.includes(".force.com/servlet"))) {
+    return;
   }
   getGrab();
   if (globalGrab) {

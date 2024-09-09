@@ -1,3 +1,8 @@
+# 3.2.2
+
+### Fixes
+- Issue when opening a case printable view while 'Salesforce Link Grabber' was enabled.  
+
 # 3.2.1
 
 ### Fixes
