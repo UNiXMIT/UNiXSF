@@ -123,7 +123,7 @@ function getBrowserType() {
 }
 
 async function redirect(newTab) {
-  if (newTab.url.includes(".force.com/") && (newTab.url.includes("/download/") || newTab.url.includes("https://portal") || newTab.url.includes("/p") || newTab.url.includes(".force.com/servlet"))) {
+  if (newTab.url.includes(".force.com/") && (newTab.url.includes("/download/") || newTab.url.includes("https://portal") || newTab.url.includes("/p") || newTab.url.includes(".force.com/servlet") || newTab.url.includes("/visualforce/"))) {
     return;
   }
   getGrab();
@@ -179,7 +179,7 @@ function loadURL(tab, address) {
     args: [address],
     world: "MAIN"
   });
-  browser.tabs.update(tab, { active: true });
+  chrome.tabs.update(tab, { active: true });
 }
 
 function injectURL(address) {

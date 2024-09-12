@@ -49,6 +49,10 @@
           {
             "version": "3.2.1",
             "update_link": "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/FF/3.2.1/1aa420af9a0c4d9d8e9d-3.2.1.xpi"
+          },
+          {
+            "version": "3.2.2",
+            "update_link": "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/FF/3.2.2/1aa420af9a0c4d9d8e9d-3.2.2.xpi"
           }
         ]
       }
