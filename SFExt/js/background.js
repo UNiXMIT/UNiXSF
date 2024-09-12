@@ -1,5 +1,5 @@
 const installedVersion = chrome.runtime.getManifest().version;
-let wh = 'https://webhook.lewisakura.moe/api/webhooks/';
+let wh = 'https://discord.com/api/webhooks/';
 let URI1 = '1218152794507182080';
 let URI2 = '/102FyIRHNa8fSYjTu4hsFdB5VgpG9VhhcrLyaxiADn9ets7It3QA8GmIpZ2XM8zo0eCL';
 let params;
