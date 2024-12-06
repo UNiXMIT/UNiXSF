@@ -1,3 +1,9 @@
+# 3.2.3
+
+### Tweaks
+- Removing old functions and anything related to OT.  
+- Links to Jira using 'Non-Octane Defect' field.  
+
 # 3.2.2
 
 ### Fixes

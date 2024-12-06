@@ -1,6 +1,6 @@
 {
   "name": "Salesforce Extension",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "manifest_version": 3,
@@ -18,7 +18,7 @@
     "https://*.webhook.office.com/*",
     "https://hooks.slack.com/services/*",
     "https://discord.com/api/webhooks/*",
-    "https://webhook.lewisakura.moe/*",
+    "https://fiveproxy.lol/*",
     "https://microfocus.lightning.force.com/lightning/*"
   ],
   "content_scripts": [

@@ -14,7 +14,7 @@ let globalFTSURL;
 let globalURLS;
 let globalStatus;
 let globalFTSHTTP;
-let globalQuixyURL;
+let globalDefectURL;
 let globalPP;
 let globalEDU;
 let globalTranslationURL;
@@ -35,14 +35,14 @@ function initSyncData() {
         savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
         savedPenCust: false,
         savedFTSHTTP: '',
-        savedQuixy: '',
+        savedDefect: '',
         savedPP: '',
         savedEDU: '',
         savedQueue: 'NOTIFY',
         savedQNotify: false,
         savedQNotifyWeb: false,
         savedWebhook: '',
-        savedTranslation: '',
+        // savedTranslation: '',
         savedRefEmail: '',
         savedProtocol: 'sftp://',
         savedFTSURL: '',
@@ -53,14 +53,14 @@ function initSyncData() {
         globalProducts = result.savedProducts;
         globalPenCust = result.savedPenCust;
         globalFTSHTTP = result.savedFTSHTTP;
-        globalQuixyURL = result.savedQuixy;
+        globalDefectURL = result.savedDefect;
         globalPP = result.savedPP;
         globalEDU = result.savedEDU;
         globalQueue = result.savedQueue;
         globalQNotify = result.savedQNotify;
         globalQNotifyWeb = result.savedQNotifyWeb;
         globalWebhook = result.savedWebhook;
-        globalTranslationURL = result.savedTranslation;
+        // globalTranslationURL = result.savedTranslation;
         globalRefEmail = result.savedRefEmail;
         globalProtocol = result.savedProtocol;
         globalFTSURL = result.savedFTSURL;
@@ -77,14 +77,14 @@ function getSyncData() {
                 savedTimeout: 60,
                 savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
                 savedPenCust: false,
-                savedQuixy: '',
+                savedDefect: '',
                 savedPP: '',
                 savedEDU: '',
                 savedQueue: 'NOTIFY',
                 savedQNotify: false,
                 savedQNotifyWeb: false,
                 savedWebhook: '',
-                savedTranslation: '',
+                // savedTranslation: '',
                 savedRefEmail: '',
                 savedProtocol: 'sftp://',
                 savedFTSURL: '',
@@ -101,7 +101,7 @@ function getSyncData() {
                 globalProducts = result.savedProducts;
                 globalPenCust = result.savedPenCust;
                 globalFTSHTTP = result.savedFTSHTTP;
-                globalQuixyURL = result.savedQuixy;
+                globalDefectURL = result.savedDefect;
                 globalPP = result.savedPP;
                 globalEDU = result.savedEDU;
                 if (globalQueue != result.savedQueue) {
@@ -116,7 +116,7 @@ function getSyncData() {
                 globalQNotify = result.savedQNotify;
                 globalQNotifyWeb = result.savedQNotifyWeb;
                 globalWebhook = result.savedWebhook;
-                globalTranslationURL = result.savedTranslation;
+                // globalTranslationURL = result.savedTranslation;
                 globalRefEmail = result.savedRefEmail;
                 globalProtocol = result.savedProtocol;
                 globalFTSURL = result.savedFTSURL;
@@ -258,17 +258,17 @@ function mfNav() {
                 mfSup();
                 mfSLD();
                 mfFTS();
-                mfElevate();
-                mfQuixy();
+                // mfElevate();
+                mfDefect();
                 mfDocumentation();
-                mfTranslation();
+                // mfTranslation();
                 mfEntitlement();
                 mfAccountTeam();
                 thirdLineRef();
                 addReminder();
                 mfPP();
                 mfEDU();
-                fullScreenKCS();
+                // fullScreenKCS();
                 customURLs();
             })();
         }
@@ -359,31 +359,36 @@ function mfElevateEvent() {
     if (caseCheck) {
         let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText; 
         if (caseNumber) {
-            let finalURL = globalQuixyURL.replace(/\/$/, "") + '/#/submitOctane/type/CPE%20Incident/autofillSystem/SC/autofillId/' + caseNumber;
+            let finalURL = globalDefectURL.replace(/\/$/, "") + '/#/submitOctane/type/CPE%20Incident/autofillSystem/SC/autofillId/' + caseNumber;
             window.open(finalURL, '_blank');
         } else {
-            let finalURL = globalQuixyURL.replace(/\/$/, "") + '/#/submit';
+            let finalURL = globalDefectURL.replace(/\/$/, "") + '/#/submit';
             window.open(finalURL, '_blank');
         }
     } else {
-        let finalURL = globalQuixyURL.replace(/\/$/, "") + '/#/submit';
+        let finalURL = globalDefectURL.replace(/\/$/, "") + '/#/submit';
         window.open(finalURL, '_blank');
     }
 }
 
-function mfQuixy() {
-    createMFMenu('mfqx', 'fa-code', 'Quixy');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfqx');
-    mfButtonNew.addEventListener('click', mfQuixyEvent, false);
+function mfDefect() {
+    createMFMenu('mfde', 'fa-code', 'Jira');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfde');
+    mfButtonNew.addEventListener('click', mfDefectEvent, false);
 }
 
-function mfQuixyEvent() {
-    let quixyID = activeCaseContains('lightning-formatted-text','OCTCR'); 
-    if (quixyID.length) {
-        let finalURL = globalQuixyURL.replace(/\/$/, "") + '/#/viewEntity/' + quixyID[0].innerText;
-        window.open(finalURL, '_blank');
+function mfDefectEvent() {
+    let defectElem = activeCaseContains('dt > div', 'Non-Octane Defect');
+    if (defectElem.length) {
+        let defectID = defectElem[0].parentNode.parentNode.querySelector('dd > div > span > slot').innerText;
+        if (defectID.length) {
+            let finalURL = globalDefectURL.replace(/\/$/, "") + '/browse/' + defectID;
+            window.open(finalURL, '_blank');
+        } else {
+            window.open(globalDefectURL.replace(/\/$/, ""), '_blank');
+        }
     } else {
-        window.open(globalQuixyURL.replace(/\/$/, ""), '_blank');
+        window.open(globalDefectURL.replace(/\/$/, ""), '_blank');
     }
 }
 
@@ -942,15 +947,22 @@ function emptyArrays() {
     }
 }
 
-function quixyListURL() {
+function defectListURL() {
     let observer = new MutationObserver(mutations => {
-        let allDefects = document.querySelectorAll('[title^="OCTCR"]');
-        allDefects.forEach(defectElem => {
-            let quixyID = defectElem.textContent;
-            let finalURL = `<a target="_blank" href="${globalQuixyURL.replace(/\/$/, "")}/#/viewEntity/${quixyID}">${quixyID}</a>`;
-            defectElem.innerHTML = finalURL;
-            defectElem.title = "Quixy";
-        });
+        let headerCell = document.querySelector('[title="Non-Octane Defect"]');
+        if (headerCell) {
+            let headerCellIndex = headerCell.cellIndex;
+            let defectRows = document.querySelectorAll("tbody tr:not([title='Defect'])");
+            defectRows.forEach(row => {
+                let defectCell = row.cells[headerCellIndex];
+                let defectID = defectCell.innerText;
+                if (defectID) {
+                    let finalURL = `<a target="_blank" href="${globalDefectURL.replace(/\/$/, "")}/browse/${defectID}">${defectID}</a>`;
+                    defectCell.innerHTML = finalURL;
+                    row.title = "Defect";
+                }
+            });
+        }
     });
     observer.observe(document, {childList: true, subtree: true});
 }
@@ -1048,7 +1060,7 @@ function addCopyButton() {
                                 await navigator.clipboard.write([clipboardItem]);
                             }
                             else {
-                                navigator.clipboard.writeText(selectedText)
+                                navigator.clipboard.writeText(selectedText);
                             }
                         });
                     }
@@ -1089,7 +1101,7 @@ function addCopyButton() {
                                 await navigator.clipboard.write([clipboardItem]);
                             }
                             else {
-                                navigator.clipboard.writeText(selectedText)
+                                navigator.clipboard.writeText(selectedText);
                             }
                         });
                     }
@@ -1126,7 +1138,7 @@ function addCopyButton() {
                                 await navigator.clipboard.write([clipboardItem]);
                             }
                             else {
-                                navigator.clipboard.writeText(selectedText)
+                                navigator.clipboard.writeText(selectedText);
                             }
                         });
                     }
@@ -1135,44 +1147,47 @@ function addCopyButton() {
             }
         }
         if (activeTab) {
-            let field = activeCaseContains('lightning-formatted-text','OCTCR'); 
-            if (field.length) {
-                if (!field[0].className) {
-                    field[0].className = "copyButtonAdded";
-                    let button = document.createElement('button');
-                    button.style.border = 'none';
-                    button.style.backgroundColor = 'transparent';
-                    button.style.color = '#0570f6';
-                    button.style.cursor = 'pointer';
-                    button.style.fontWeight = '700';
-                    button.style.fontSize = '14px';
-                    button.title = 'Copy Defect Number';
-                    button.className = 'copyButton fa-solid fa-copy';
-                    (async ()=>{
-                        if (field[0] && field[0].parentNode) {
-                            field[0].parentNode.appendChild(button);
-                            button.addEventListener('click', async () => {
-                                let selectedText = field[0].innerText;
-                                if(typeof ClipboardItem && navigator.clipboard.write) {
-                                    const clipboardItem = new ClipboardItem({
-                                        "text/plain": new Blob(
-                                            [selectedText],
-                                            { type: "text/plain" }
-                                        ),
-                                        "text/html": new Blob(
-                                            [`<a target="_blank" href="${globalQuixyURL.replace(/\/$/, "")}/#/viewEntity/${selectedText}">${selectedText}</a>`],
-                                            { type: "text/html" }
-                                        ),
-                                    });
-                                    await navigator.clipboard.write([clipboardItem]);
-                                }
-                                else {
-                                    navigator.clipboard.writeText(selectedText)
-                                }
-                            });
-                        }
-                        await sleep(500);
-                    })();
+            let defectElem = activeCaseContains('dt > div', 'Non-Octane Defect'); 
+            if (defectElem.length) {
+                let defectID = defectElem[0].parentNode.parentNode.querySelector('dd > div > span > slot');
+                if (defectID.innerText.length) {
+                    if (!defectID.className) {
+                        defectID.className = "copyButtonAdded";
+                        let button = document.createElement('button');
+                        button.style.border = 'none';
+                        button.style.backgroundColor = 'transparent';
+                        button.style.color = '#0570f6';
+                        button.style.cursor = 'pointer';
+                        button.style.fontWeight = '700';
+                        button.style.fontSize = '14px';
+                        button.title = 'Copy Defect Number';
+                        button.className = 'copyButton fa-solid fa-copy';
+                        (async ()=>{
+                            if (defectID && defectID.parentNode) {
+                                defectID.parentNode.appendChild(button);
+                                button.addEventListener('click', async () => {
+                                    let selectedText = defectID.innerText;
+                                    if(typeof ClipboardItem && navigator.clipboard.write) {
+                                        const clipboardItem = new ClipboardItem({
+                                            "text/plain": new Blob(
+                                                [selectedText],
+                                                { type: "text/plain" }
+                                            ),
+                                            "text/html": new Blob(
+                                                [`<a target="_blank" href="${globalDefectURL.replace(/\/$/, "")}/browse/${selectedText}">${selectedText}</a>`],
+                                                { type: "text/html" }
+                                            ),
+                                        });
+                                        await navigator.clipboard.write([clipboardItem]);
+                                    }
+                                    else {
+                                        navigator.clipboard.writeText(selectedText);
+                                    }
+                                });
+                            }
+                            await sleep(500);
+                        })();
+                    }
                 }
             }
         }
@@ -1208,7 +1223,7 @@ function addCopyButton() {
                                     await navigator.clipboard.write([clipboardItem]);
                                 }
                                 else {
-                                    navigator.clipboard.writeText(selectedText)
+                                    navigator.clipboard.writeText(selectedText);
                                 }
                             });
                         }
@@ -1241,7 +1256,7 @@ function addCopyButton() {
                                     await navigator.clipboard.write([clipboardItem]);
                                 }
                                 else {
-                                    navigator.clipboard.writeText(selectedText)
+                                    navigator.clipboard.writeText(selectedText);
                                 }
                             });
                         }
@@ -1451,7 +1466,7 @@ let initInterval = setInterval(function() {
         setTimeout(function() {
             initQMonitor();
         }, 10000);
-        quixyListURL();
+        defectListURL();
         defectFixed();
         addCharacterCounter();
         addCopyButton();

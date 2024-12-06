@@ -24,7 +24,7 @@ function getUUID() {
       globalUUID = result.savedUUID;
       dailyUsers();
     });
-  }
+}
   
 function dailyUsers() {
     if (!globalUUID) {
@@ -52,7 +52,7 @@ function handleMessage(request, sender, sendResponse) {
     const teamsWebhook = "https://*.webhook.office.com/webhookb2/";
     const slackWebhook = "https://hooks.slack.com/services/";
     const discordWebhook = "https://discord.com/api/webhooks/";
-    const discordProxyWebhook = "https://webhook.lewisakura.moe/";
+    const discordProxyWebhook = "https://fiveproxy.lol/";
     if (request.action === "keepAlive") {
         return;
     }

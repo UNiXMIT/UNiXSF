@@ -6,14 +6,14 @@ function save_options() {
   let products = document.getElementById('products').value;
   let pendingCust = document.getElementById('pendingCust').checked;
   let ftshttp = document.getElementById('ftshttp').value;
-  let quixy = document.getElementById('quixy').value;
+  let defect = document.getElementById('defect').value;
   let pp = document.getElementById('pp').value;
   let edu = document.getElementById('edu').value;
   let queue = document.getElementById('queue').value;
   let qnotify = document.getElementById('qnotify').checked;
   let qnotifyweb = document.getElementById('qnotifyweb').checked;
   let webhook = document.getElementById('webhook').value;
-  let translation = document.getElementById('translation').value;
+//   let translation = document.getElementById('translation').value;
   let refEmail = document.getElementById('refemail').value;
   let protocol = document.getElementById('protocol').value;
   let ftsurl = document.getElementById('ftsurl').value;
@@ -25,14 +25,14 @@ function save_options() {
       savedProducts: products,
       savedPenCust: pendingCust,
       savedFTSHTTP: ftshttp,
-      savedQuixy: quixy,
+      savedDefect: defect,
       savedPP: pp,
       savedEDU: edu,
       savedQueue: queue,
       savedQNotify: qnotify,
       savedQNotifyWeb: qnotifyweb,
       savedWebhook: webhook,
-      savedTranslation: translation,
+    //   savedTranslation: translation,
       savedRefEmail: refEmail,
       savedProtocol: protocol,
       savedFTSURL: ftsurl,
@@ -49,7 +49,7 @@ function save_options() {
 }
 
 function reset_options() {
-  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedPenCust", "savedFTSHTTP", "savedQuixy", "savedPP", "savedEDU", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedTranslation", "savedRefEmail", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus", "savedGrab"], function() {
+  chrome.storage.sync.remove(["savedTimeout", "savedProducts", "savedPenCust", "savedFTSHTTP", "savedDefect", "savedPP", "savedEDU", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedRefEmail", "savedProtocol", "savedFTSURL", "savedURLS", "savedStatus", "savedGrab"], function() {
       let error = chrome.runtime.lastError;
       if (error) {
           console.error(error);
@@ -64,14 +64,14 @@ function restore_options() {
       savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
       savedPenCust: false,
       savedFTSHTTP: '',
-      savedQuixy: '',
+      savedDefect: '',
       savedPP: '',
       savedEDU: '',
       savedQueue: 'NOTIFY',
       savedQNotify: false,
       savedQNotifyWeb: false,
       savedWebhook: '',
-      savedTranslation: '',
+    //   savedTranslation: '',
       savedRefEmail: '',
       savedProtocol: 'sftp://',
       savedFTSURL: '',
@@ -84,14 +84,14 @@ function restore_options() {
       document.getElementById('products').value = result.savedProducts;
       document.getElementById('pendingCust').checked = result.savedPenCust;
       document.getElementById('ftshttp').value = result.savedFTSHTTP;
-      document.getElementById('quixy').value = result.savedQuixy;
+      document.getElementById('defect').value = result.savedDefect;
       document.getElementById('pp').value = result.savedPP;
       document.getElementById('edu').value = result.savedEDU;
       document.getElementById('queue').value = result.savedQueue;
       document.getElementById('qnotify').checked = result.savedQNotify;
       document.getElementById('qnotifyweb').checked = result.savedQNotifyWeb;
       document.getElementById('webhook').value = result.savedWebhook;
-      document.getElementById('translation').value = result.savedTranslation;
+    //   document.getElementById('translation').value = result.savedTranslation;
       document.getElementById('refemail').value = result.savedRefEmail;
       document.getElementById('protocol').value = result.savedProtocol;
       document.getElementById('ftsurl').value = result.savedFTSURL;
@@ -114,14 +114,14 @@ function export_options() {
         savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
         savedPenCust: false,
         savedFTSHTTP: '',
-        savedQuixy: '',
+        savedDefect: '',
         savedPP: '',
         savedEDU: '',
         savedQueue: 'NOTIFY',
         savedQNotify: false,
         savedQNotifyWeb: false,
         savedWebhook: '',
-        savedTranslation: '',
+        // savedTranslation: '',
         savedRefEmail: '',
         savedProtocol: 'sftp://',
         savedFTSURL: '',
@@ -171,14 +171,14 @@ function import_options() {
             savedProducts: json.savedProducts,
             savedPenCust: json.savedPenCust,
             savedFTSHTTP: json.savedFTSHTTP,
-            savedQuixy: json.savedQuixy,
+            savedDefect: json.savedDefect,
             savedPP: json.savedPP,
             savedEDU: json.savedEDU,
             savedQueue: json.savedQueue,
             savedQNotify: json.savedQNotify,
             savedQNotifyWeb: json.savedQNotifyWeb,
             savedWebhook: json.savedWebhook,
-            savedTranslation: json.savedTranslation,
+            // savedTranslation: json.savedTranslation,
             savedRefEmail: json.savedRefEmail,
             savedProtocol: json.savedProtocol,
             savedFTSURL: json.savedFTSURL,
