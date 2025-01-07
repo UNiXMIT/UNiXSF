@@ -411,18 +411,18 @@ function mfDocumentationEvent() {
             window.alert("Product list JSON format is not correct!");
         }
     } else {
-        window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
+        window.open('https://docs.rocketsoftware.com/', '_blank');
     }
 }
 
 function mfDocumentationURL(products, mfProduct) {
-    let documentationURL = "https://www.microfocus.com/documentation/";
+    let documentationURL = "https://docs.rocketsoftware.com/bundle?labelkey=";
     let productURI = products[mfProduct];
     if (productURI) {
         let finalURL = documentationURL + productURI;
         window.open(finalURL, '_blank');
     } else {
-        window.open('https://www.microfocus.com/en-us/support/documentation', '_blank');
+        window.open(documentationURL, '_blank');
     }
 }
 
