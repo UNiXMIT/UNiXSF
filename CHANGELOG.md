@@ -1,3 +1,8 @@
+# 4.0.0
+
+Starting fresh with Rocket Salesforce. Keeping the core features that transfer over to Rocket SF and removing the rest.  
+I will tweak and add functions as needed when we have been using Rocket SF for a time.  
+
 # 3.2.3
 
 ### Tweaks

@@ -3,21 +3,21 @@ let globalInit = 0;
 let navInit = 1;
 let initDropDown = 1;
 let globalTimeout;
-let globalProducts;
-let globalPenCust;
+// let globalProducts;
+// let globalPenCust;
 let globalQueue;
 let globalQNotify;
 let globalQNotifyWeb;
 let globalWebhook;
-let globalProtocol;
-let globalFTSURL;
+// let globalProtocol;
+// let globalFTSURL;
 let globalURLS;
-let globalStatus;
-let globalFTSHTTP;
+// let globalStatus;
+// let globalFTSHTTP;
 let globalDefectURL;
 let globalPP;
 let globalEDU;
-let globalTranslationURL;
+// let globalTranslationURL;
 let globalRefEmail;
 let globalArial = 1;
 let iconURL= browser.runtime.getURL('icons/rocket128.png');
@@ -32,9 +32,9 @@ let configURL = browser.runtime.getURL('config/config.html');
 function initSyncData() {
     browser.storage.sync.get({
         savedTimeout: 60,
-        savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
-        savedPenCust: false,
-        savedFTSHTTP: '',
+        // savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+        // savedPenCust: false,
+        // savedFTSHTTP: '',
         savedDefect: '',
         savedPP: '',
         savedEDU: '',
@@ -44,15 +44,15 @@ function initSyncData() {
         savedWebhook: '',
         // savedTranslation: '',
         savedRefEmail: '',
-        savedProtocol: 'sftp://',
-        savedFTSURL: '',
+        // savedProtocol: 'sftp://',
+        // savedFTSURL: '',
         savedURLS: `{"SFExt":"${configURL}"}`,
-        savedStatus: false
+        // savedStatus: false
     }, function(result) {
         globalTimeout = result.savedTimeout;
-        globalProducts = result.savedProducts;
-        globalPenCust = result.savedPenCust;
-        globalFTSHTTP = result.savedFTSHTTP;
+        // globalProducts = result.savedProducts;
+        // globalPenCust = result.savedPenCust;
+        // globalFTSHTTP = result.savedFTSHTTP;
         globalDefectURL = result.savedDefect;
         globalPP = result.savedPP;
         globalEDU = result.savedEDU;
@@ -62,10 +62,10 @@ function initSyncData() {
         globalWebhook = result.savedWebhook;
         // globalTranslationURL = result.savedTranslation;
         globalRefEmail = result.savedRefEmail;
-        globalProtocol = result.savedProtocol;
-        globalFTSURL = result.savedFTSURL;
+        // globalProtocol = result.savedProtocol;
+        // globalFTSURL = result.savedFTSURL;
         globalURLS = result.savedURLS;
-        globalStatus = result.savedStatus;
+        // globalStatus = result.savedStatus;
         globalInit = 1;
     });
 }
@@ -75,8 +75,9 @@ function getSyncData() {
         if (area === 'sync') {
             browser.storage.sync.get({
                 savedTimeout: 60,
-                savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
-                savedPenCust: false,
+                // savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
+                // savedPenCust: false,
+                // savedFTSHTTP: '',
                 savedDefect: '',
                 savedPP: '',
                 savedEDU: '',
@@ -86,10 +87,10 @@ function getSyncData() {
                 savedWebhook: '',
                 // savedTranslation: '',
                 savedRefEmail: '',
-                savedProtocol: 'sftp://',
-                savedFTSURL: '',
+                // savedProtocol: 'sftp://',
+                // savedFTSURL: '',
                 savedURLS: `{"SFExt":"${configURL}"}`,
-                savedStatus: false
+                // savedStatus: false
             }, function(result) {
                 if (globalTimeout != result.savedTimeout) {
                     globalTimeout = result.savedTimeout;
@@ -98,9 +99,9 @@ function getSyncData() {
                     }
                     queueRefresh();
                 }
-                globalProducts = result.savedProducts;
-                globalPenCust = result.savedPenCust;
-                globalFTSHTTP = result.savedFTSHTTP;
+                // globalProducts = result.savedProducts;
+                // globalPenCust = result.savedPenCust;
+                // globalFTSHTTP = result.savedFTSHTTP;
                 globalDefectURL = result.savedDefect;
                 globalPP = result.savedPP;
                 globalEDU = result.savedEDU;
@@ -118,13 +119,13 @@ function getSyncData() {
                 globalWebhook = result.savedWebhook;
                 // globalTranslationURL = result.savedTranslation;
                 globalRefEmail = result.savedRefEmail;
-                globalProtocol = result.savedProtocol;
-                globalFTSURL = result.savedFTSURL;
+                // globalProtocol = result.savedProtocol;
+                // globalFTSURL = result.savedFTSURL;
                 if (globalURLS != result.savedURLS) {
                     globalURLS = result.savedURLS;
                     updateCustomURLs();
                 }
-                globalStatus = result.savedStatus;
+                // globalStatus = result.savedStatus;
             });
         }
     });
@@ -256,16 +257,16 @@ function mfNav() {
                 }
                 mfDropDown();
                 mfSup();
-                mfSLD();
-                mfFTS();
+                // mfSLD();
+                // mfFTS();
                 // mfElevate();
                 mfDefect();
                 mfDocumentation();
                 // mfTranslation();
-                mfEntitlement();
-                mfAccountTeam();
+                // mfEntitlement();
+                // mfAccountTeam();
                 thirdLineRef();
-                addReminder();
+                // addReminder();
                 mfPP();
                 mfEDU();
                 // fullScreenKCS();
@@ -313,7 +314,7 @@ function mfSup() {
 }
 
 function mfSupEvent() {
-    window.open('https://portal.microfocus.com/', '_blank');
+    window.open('https://my.rocketsoftware.com/RocketCommunity', '_blank');
 }
 
 function mfSLD() {
@@ -378,18 +379,18 @@ function mfDefect() {
 }
 
 function mfDefectEvent() {
-    let defectElem = activeCaseContains('dt > div', 'Non-Octane Defect');
-    if (defectElem.length) {
-        let defectID = defectElem[0].parentNode.parentNode.querySelector('dd > div > span > slot').innerText;
-        if (defectID.length) {
-            let finalURL = globalDefectURL.replace(/\/$/, "") + '/browse/' + defectID;
-            window.open(finalURL, '_blank');
-        } else {
-            window.open(globalDefectURL.replace(/\/$/, ""), '_blank');
-        }
-    } else {
+    // let defectElem = activeCaseContains('dt > div', 'Non-Octane Defect');
+    // if (defectElem.length) {
+    //     let defectID = defectElem[0].parentNode.parentNode.querySelector('dd > div > span > slot').innerText;
+    //     if (defectID.length) {
+    //         let finalURL = globalDefectURL.replace(/\/$/, "") + '/browse/' + defectID;
+    //         window.open(finalURL, '_blank');
+    //     } else {
+    //         window.open(globalDefectURL.replace(/\/$/, ""), '_blank');
+    //     }
+    // } else {
         window.open(globalDefectURL.replace(/\/$/, ""), '_blank');
-    }
+    // }
 }
 
 function mfDocumentation() {
@@ -399,18 +400,18 @@ function mfDocumentation() {
 }
 
 function mfDocumentationEvent() {
-    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-    if (caseCheck) {
-        let mfProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('span > a').textContent;
-        try {
-            let products = JSON.parse(globalProducts);
-            mfDocumentationURL(products, mfProduct);
-        } catch (err) {
-            window.alert("Product list JSON format is not correct!");
-        }
-    } else {
+    // let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    // if (caseCheck) {
+    //     let mfProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('span > a').textContent;
+    //     try {
+    //         let products = JSON.parse(globalProducts);
+    //         mfDocumentationURL(products, mfProduct);
+    //     } catch (err) {
+    //         window.alert("Product list JSON format is not correct!");
+    //     }
+    // } else {
         window.open('https://docs.rocketsoftware.com/', '_blank');
-    }
+    // }
 }
 
 function mfDocumentationURL(products, mfProduct) {
@@ -574,11 +575,11 @@ function refEmail() {
     let userQuery;
     let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
     if (caseCheck) {
-        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
-        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text').innerText;
-        caseName = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(5) > div > p.fieldComponent > slot div span').innerText;
-        caseAccount = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(6) > div > p.fieldComponent div slot').innerText;
-        caseProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('span > a').textContent;
+        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('slot.slds-page-header__title > lightning-formatted-text:nth-child(1)').innerText;
+        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('dd:nth-child(2) > div:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > lightning-formatted-text:nth-child(1)').innerText;
+        caseName = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item.slds-page-header__detail-block:nth-child(6) > div:nth-child(1) > p:nth-child(2) > slot:nth-child(1) > force-lookup:nth-child(1) > div:nth-child(1) > records-hoverable-link:nth-child(1) > div:nth-child(1) > a:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > span:nth-child(1) > slot:nth-child(1)').innerText;
+        caseAccount = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('dl:nth-child(1) > slot:nth-child(1) > records-record-layout-row:nth-child(2) > slot:nth-child(1) > records-record-layout-item:nth-child(1) > div:nth-child(1) > div:nth-child(1) > dd:nth-child(2) > div:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > force-lookup:nth-child(1) > div:nth-child(1) > records-hoverable-link:nth-child(1) > div:nth-child(1) > a:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > span:nth-child(1) > slot:nth-child(1)').innerText;
+        caseProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('dl:nth-child(1) > slot:nth-child(1) > records-record-layout-row:nth-child(2) > slot:nth-child(1) > records-record-layout-item:nth-child(2) > div:nth-child(1) > div:nth-child(1) > dd:nth-child(2) > div:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > force-lookup:nth-child(1) > div:nth-child(1) > records-hoverable-link:nth-child(1) > div:nth-child(1) > a:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > span:nth-child(1) > slot:nth-child(1)').textContent;
         // caseDescriptionElem = activeCaseContains('.slds-form-element__label','Description'); 
         // caseDescription = caseDescriptionElem[0].nextSibling.nextSibling.firstChild.innerText;
         caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
@@ -641,8 +642,8 @@ function addReminderEvent() {
     let reminderDate = new Date(future).toJSON();
     let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
     if (caseCheck) {
-        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
-        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text').innerText;
+        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('slot.slds-page-header__title > lightning-formatted-text:nth-child(1)').innerText;
+        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('dd:nth-child(2) > div:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > lightning-formatted-text:nth-child(1)').innerText;
     }
     if ((caseNumber) && (caseSubject)) {
         querySubject = caseNumber + " - " + caseSubject;
@@ -1026,89 +1027,89 @@ function addCharacterCounter() {
 function addCopyButton() {
     let observer = new MutationObserver(mutations => {
         let activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-        if (activeTab) {
-            let caseNumberButtonCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > .copyButton');
-            if (caseNumberButtonCheck === null) {
-                let field = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text');
-                let button = document.createElement('button');
-                button.style.border = 'none';
-                button.style.backgroundColor = 'transparent';
-                button.style.color = '#0570f6';
-                button.style.cursor = 'pointer';
-                button.style.fontWeight = '700';
-                button.style.fontSize = '14px';
-                button.title = 'Copy Case Number';
-                button.className = 'copyButton fa-solid fa-copy';
-                (async ()=>{
-                    if (field && field.parentNode) {
-                        field.parentNode.parentNode.parentNode.parentNode.style.paddingRight = '0';
-                        field.parentNode.appendChild(button);
-                        button.addEventListener('click', async () => {
-                            let selectedText = field.innerText;
-                            let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-                            if(typeof ClipboardItem && navigator.clipboard.write) {
-                                const clipboardItem = new ClipboardItem({
-                                    "text/plain": new Blob(
-                                        [selectedText],
-                                        { type: "text/plain" }
-                                    ),
-                                    "text/html": new Blob(
-                                        [`<a href="${caseURL}">${selectedText}</a>`],
-                                        { type: "text/html" }
-                                    ),
-                                });
-                                await navigator.clipboard.write([clipboardItem]);
-                            }
-                            else {
-                                navigator.clipboard.writeText(selectedText);
-                            }
-                        });
-                    }
-                    await sleep(500);
-                })();
-            }
-        }
-        if (activeTab) {
-            let caseSubjectButtonCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > .copyButton');
-            if (caseSubjectButtonCheck === null) {
-                let field  = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text');
-                let button = document.createElement('button');
-                button.style.border = 'none';
-                button.style.backgroundColor = 'transparent';
-                button.style.color = '#0570f6';
-                button.style.cursor = 'pointer';
-                button.style.fontWeight = '700';
-                button.style.fontSize = '16px';
-                button.title = 'Copy Case Subject';
-                button.className = 'copyButton fa-solid fa-copy';
-                (async ()=>{
-                    if (field && field.parentNode) {
-                        field.parentNode.appendChild(button);
-                        button.addEventListener('click', async () => {
-                            let selectedText = field.innerText;
-                            let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-                            if(typeof ClipboardItem && navigator.clipboard.write) {
-                                const clipboardItem = new ClipboardItem({
-                                    "text/plain": new Blob(
-                                        [selectedText],
-                                        { type: "text/plain" }
-                                    ),
-                                    "text/html": new Blob(
-                                        [`<a href="${caseURL}">${selectedText}</a>`],
-                                        { type: "text/html" }
-                                    ),
-                                });
-                                await navigator.clipboard.write([clipboardItem]);
-                            }
-                            else {
-                                navigator.clipboard.writeText(selectedText);
-                            }
-                        });
-                    }
-                    await sleep(500);
-                })();
-            }
-        }
+        // if (activeTab) {
+        //     let caseNumberButtonCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > .copyButton');
+        //     if (caseNumberButtonCheck === null) {
+        //         let field = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text');
+        //         let button = document.createElement('button');
+        //         button.style.border = 'none';
+        //         button.style.backgroundColor = 'transparent';
+        //         button.style.color = '#0570f6';
+        //         button.style.cursor = 'pointer';
+        //         button.style.fontWeight = '700';
+        //         button.style.fontSize = '14px';
+        //         button.title = 'Copy Case Number';
+        //         button.className = 'copyButton fa-solid fa-copy';
+        //         (async ()=>{
+        //             if (field && field.parentNode) {
+        //                 field.parentNode.parentNode.parentNode.parentNode.style.paddingRight = '0';
+        //                 field.parentNode.appendChild(button);
+        //                 button.addEventListener('click', async () => {
+        //                     let selectedText = field.innerText;
+        //                     let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+        //                     if(typeof ClipboardItem && navigator.clipboard.write) {
+        //                         const clipboardItem = new ClipboardItem({
+        //                             "text/plain": new Blob(
+        //                                 [selectedText],
+        //                                 { type: "text/plain" }
+        //                             ),
+        //                             "text/html": new Blob(
+        //                                 [`<a href="${caseURL}">${selectedText}</a>`],
+        //                                 { type: "text/html" }
+        //                             ),
+        //                         });
+        //                         await navigator.clipboard.write([clipboardItem]);
+        //                     }
+        //                     else {
+        //                         navigator.clipboard.writeText(selectedText);
+        //                     }
+        //                 });
+        //             }
+        //             await sleep(500);
+        //         })();
+        //     }
+        // }
+        // if (activeTab) {
+        //     let caseSubjectButtonCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > .copyButton');
+        //     if (caseSubjectButtonCheck === null) {
+        //         let field  = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text');
+        //         let button = document.createElement('button');
+        //         button.style.border = 'none';
+        //         button.style.backgroundColor = 'transparent';
+        //         button.style.color = '#0570f6';
+        //         button.style.cursor = 'pointer';
+        //         button.style.fontWeight = '700';
+        //         button.style.fontSize = '16px';
+        //         button.title = 'Copy Case Subject';
+        //         button.className = 'copyButton fa-solid fa-copy';
+        //         (async ()=>{
+        //             if (field && field.parentNode) {
+        //                 field.parentNode.appendChild(button);
+        //                 button.addEventListener('click', async () => {
+        //                     let selectedText = field.innerText;
+        //                     let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+        //                     if(typeof ClipboardItem && navigator.clipboard.write) {
+        //                         const clipboardItem = new ClipboardItem({
+        //                             "text/plain": new Blob(
+        //                                 [selectedText],
+        //                                 { type: "text/plain" }
+        //                             ),
+        //                             "text/html": new Blob(
+        //                                 [`<a href="${caseURL}">${selectedText}</a>`],
+        //                                 { type: "text/html" }
+        //                             ),
+        //                         });
+        //                         await navigator.clipboard.write([clipboardItem]);
+        //                     }
+        //                     else {
+        //                         navigator.clipboard.writeText(selectedText);
+        //                     }
+        //                 });
+        //             }
+        //             await sleep(500);
+        //         })();
+        //     }
+        // }
         if (activeTab) {
             let caseButtonCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.highlights-icon-container.slds-avatar.slds-m-right_small.icon.copyButton');
             if (caseButtonCheck === null) {
@@ -1120,8 +1121,8 @@ function addCopyButton() {
                         let fieldTitle = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.highlights-icon-container.slds-avatar.slds-m-right_small.icon > img');
                         fieldTitle.title = 'Copy Case Number & Subject';
                         field.addEventListener('click', async () => {
-                            let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text');
-                            let caseSubject  = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text');
+                            let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('slot.slds-page-header__title > lightning-formatted-text:nth-child(1)');
+                            let caseSubject  = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('dd:nth-child(2) > div:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > lightning-formatted-text:nth-child(1)');
                             selectedText = caseNumber.innerText + ' - ' + caseSubject.innerText;
                             let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
                             if(typeof ClipboardItem && navigator.clipboard.write) {
@@ -1146,125 +1147,125 @@ function addCopyButton() {
                 })();
             }
         }
-        if (activeTab) {
-            let defectElem = activeCaseContains('dt > div', 'Non-Octane Defect'); 
-            if (defectElem.length) {
-                let defectID = defectElem[0].parentNode.parentNode.querySelector('dd > div > span > slot');
-                if (defectID.innerText.length) {
-                    if (!defectID.className) {
-                        defectID.className = "copyButtonAdded";
-                        let button = document.createElement('button');
-                        button.style.border = 'none';
-                        button.style.backgroundColor = 'transparent';
-                        button.style.color = '#0570f6';
-                        button.style.cursor = 'pointer';
-                        button.style.fontWeight = '700';
-                        button.style.fontSize = '14px';
-                        button.title = 'Copy Defect Number';
-                        button.className = 'copyButton fa-solid fa-copy';
-                        (async ()=>{
-                            if (defectID && defectID.parentNode) {
-                                defectID.parentNode.appendChild(button);
-                                button.addEventListener('click', async () => {
-                                    let selectedText = defectID.innerText;
-                                    if(typeof ClipboardItem && navigator.clipboard.write) {
-                                        const clipboardItem = new ClipboardItem({
-                                            "text/plain": new Blob(
-                                                [selectedText],
-                                                { type: "text/plain" }
-                                            ),
-                                            "text/html": new Blob(
-                                                [`<a target="_blank" href="${globalDefectURL.replace(/\/$/, "")}/browse/${selectedText}">${selectedText}</a>`],
-                                                { type: "text/html" }
-                                            ),
-                                        });
-                                        await navigator.clipboard.write([clipboardItem]);
-                                    }
-                                    else {
-                                        navigator.clipboard.writeText(selectedText);
-                                    }
-                                });
-                            }
-                            await sleep(500);
-                        })();
-                    }
-                }
-            }
-        }
-        if (activeTab) {
-            let ftsAccountTitle = activeCaseContains('dt > div', 'FTS AccountName');
-            if (ftsAccountTitle.length) {
-                let ftsAccount = ftsAccountTitle[0].parentNode.parentNode.querySelector('dd > div > span > slot');
-                let ftsPasswordTitle = activeCaseContains('dt > div', 'FTS Password');
-                let ftsPassword = ftsPasswordTitle[0].parentNode.parentNode.querySelector('dd > div > span > slot');
-                if (!ftsAccount.className) {
-                    ftsAccount.className = "copyButtonAdded";
-                    let button = document.createElement('button');
-                    button.style.border = 'none';
-                    button.style.backgroundColor = 'transparent';
-                    button.style.color = '#0570f6';
-                    button.style.cursor = 'pointer';
-                    button.style.fontWeight = '700';
-                    button.style.fontSize = '14px';
-                    button.title = 'Copy FTS Account Name';
-                    button.className = 'copyButton fa-solid fa-copy';
-                    (async ()=>{
-                        if (ftsAccount && ftsAccount.parentNode) {
-                            ftsAccount.parentNode.appendChild(button);
-                            button.addEventListener('click', async () => {
-                                let selectedText = ftsAccount.innerText;
-                                if(typeof ClipboardItem && navigator.clipboard.write) {
-                                    const clipboardItem = new ClipboardItem({
-                                        "text/plain": new Blob(
-                                            [selectedText],
-                                            { type: "text/plain" }
-                                        ),
-                                    });
-                                    await navigator.clipboard.write([clipboardItem]);
-                                }
-                                else {
-                                    navigator.clipboard.writeText(selectedText);
-                                }
-                            });
-                        }
-                        await sleep(500);
-                    })();
-                }
-                if (!ftsPassword.className) {
-                    ftsPassword.className = "copyButtonAdded";
-                    let button = document.createElement('button');
-                    button.style.border = 'none';
-                    button.style.backgroundColor = 'transparent';
-                    button.style.color = '#0570f6';
-                    button.style.cursor = 'pointer';
-                    button.style.fontWeight = '700';
-                    button.style.fontSize = '14px';
-                    button.title = 'Copy FTS Password';
-                    button.className = 'copyButton fa-solid fa-copy';
-                    (async ()=>{
-                        if (ftsPassword && ftsPassword.parentNode) {
-                            ftsPassword.parentNode.appendChild(button);
-                            button.addEventListener('click', async () => {
-                                let selectedText = ftsPassword.innerText;
-                                if(typeof ClipboardItem && navigator.clipboard.write) {
-                                    const clipboardItem = new ClipboardItem({
-                                        "text/plain": new Blob(
-                                            [selectedText],
-                                            { type: "text/plain" }
-                                        ),
-                                    });
-                                    await navigator.clipboard.write([clipboardItem]);
-                                }
-                                else {
-                                    navigator.clipboard.writeText(selectedText);
-                                }
-                            });
-                        }
-                        await sleep(500);
-                    })();
-                }
-            }
-        }
+        // if (activeTab) {
+        //     let defectElem = activeCaseContains('dt > div', 'Non-Octane Defect'); 
+        //     if (defectElem.length) {
+        //         let defectID = defectElem[0].parentNode.parentNode.querySelector('dd > div > span > slot');
+        //         if (defectID.innerText.length) {
+        //             if (!defectID.className) {
+        //                 defectID.className = "copyButtonAdded";
+        //                 let button = document.createElement('button');
+        //                 button.style.border = 'none';
+        //                 button.style.backgroundColor = 'transparent';
+        //                 button.style.color = '#0570f6';
+        //                 button.style.cursor = 'pointer';
+        //                 button.style.fontWeight = '700';
+        //                 button.style.fontSize = '14px';
+        //                 button.title = 'Copy Defect Number';
+        //                 button.className = 'copyButton fa-solid fa-copy';
+        //                 (async ()=>{
+        //                     if (defectID && defectID.parentNode) {
+        //                         defectID.parentNode.appendChild(button);
+        //                         button.addEventListener('click', async () => {
+        //                             let selectedText = defectID.innerText;
+        //                             if(typeof ClipboardItem && navigator.clipboard.write) {
+        //                                 const clipboardItem = new ClipboardItem({
+        //                                     "text/plain": new Blob(
+        //                                         [selectedText],
+        //                                         { type: "text/plain" }
+        //                                     ),
+        //                                     "text/html": new Blob(
+        //                                         [`<a target="_blank" href="${globalDefectURL.replace(/\/$/, "")}/browse/${selectedText}">${selectedText}</a>`],
+        //                                         { type: "text/html" }
+        //                                     ),
+        //                                 });
+        //                                 await navigator.clipboard.write([clipboardItem]);
+        //                             }
+        //                             else {
+        //                                 navigator.clipboard.writeText(selectedText);
+        //                             }
+        //                         });
+        //                     }
+        //                     await sleep(500);
+        //                 })();
+        //             }
+        //         }
+        //     }
+        // }
+        // if (activeTab) {
+        //     let ftsAccountTitle = activeCaseContains('dt > div', 'FTS AccountName');
+        //     if (ftsAccountTitle.length) {
+        //         let ftsAccount = ftsAccountTitle[0].parentNode.parentNode.querySelector('dd > div > span > slot');
+        //         let ftsPasswordTitle = activeCaseContains('dt > div', 'FTS Password');
+        //         let ftsPassword = ftsPasswordTitle[0].parentNode.parentNode.querySelector('dd > div > span > slot');
+        //         if (!ftsAccount.className) {
+        //             ftsAccount.className = "copyButtonAdded";
+        //             let button = document.createElement('button');
+        //             button.style.border = 'none';
+        //             button.style.backgroundColor = 'transparent';
+        //             button.style.color = '#0570f6';
+        //             button.style.cursor = 'pointer';
+        //             button.style.fontWeight = '700';
+        //             button.style.fontSize = '14px';
+        //             button.title = 'Copy FTS Account Name';
+        //             button.className = 'copyButton fa-solid fa-copy';
+        //             (async ()=>{
+        //                 if (ftsAccount && ftsAccount.parentNode) {
+        //                     ftsAccount.parentNode.appendChild(button);
+        //                     button.addEventListener('click', async () => {
+        //                         let selectedText = ftsAccount.innerText;
+        //                         if(typeof ClipboardItem && navigator.clipboard.write) {
+        //                             const clipboardItem = new ClipboardItem({
+        //                                 "text/plain": new Blob(
+        //                                     [selectedText],
+        //                                     { type: "text/plain" }
+        //                                 ),
+        //                             });
+        //                             await navigator.clipboard.write([clipboardItem]);
+        //                         }
+        //                         else {
+        //                             navigator.clipboard.writeText(selectedText);
+        //                         }
+        //                     });
+        //                 }
+        //                 await sleep(500);
+        //             })();
+        //         }
+        //         if (!ftsPassword.className) {
+        //             ftsPassword.className = "copyButtonAdded";
+        //             let button = document.createElement('button');
+        //             button.style.border = 'none';
+        //             button.style.backgroundColor = 'transparent';
+        //             button.style.color = '#0570f6';
+        //             button.style.cursor = 'pointer';
+        //             button.style.fontWeight = '700';
+        //             button.style.fontSize = '14px';
+        //             button.title = 'Copy FTS Password';
+        //             button.className = 'copyButton fa-solid fa-copy';
+        //             (async ()=>{
+        //                 if (ftsPassword && ftsPassword.parentNode) {
+        //                     ftsPassword.parentNode.appendChild(button);
+        //                     button.addEventListener('click', async () => {
+        //                         let selectedText = ftsPassword.innerText;
+        //                         if(typeof ClipboardItem && navigator.clipboard.write) {
+        //                             const clipboardItem = new ClipboardItem({
+        //                                 "text/plain": new Blob(
+        //                                     [selectedText],
+        //                                     { type: "text/plain" }
+        //                                 ),
+        //                             });
+        //                             await navigator.clipboard.write([clipboardItem]);
+        //                         }
+        //                         else {
+        //                             navigator.clipboard.writeText(selectedText);
+        //                         }
+        //                     });
+        //                 }
+        //                 await sleep(500);
+        //             })();
+        //         }
+        //     }
+        // }
     });
     observer.observe(document, {childList: true, subtree: true});
 }
@@ -1460,18 +1461,18 @@ let initInterval = setInterval(function() {
     if (globalInit) {
         getSyncData();
         queueRefresh();
-        createStatusModal();
-        sendObserver();
+        // createStatusModal();
+        // sendObserver();
         mfNav();
         setTimeout(function() {
             initQMonitor();
         }, 10000);
-        defectListURL();
-        defectFixed();
-        addCharacterCounter();
+        // defectListURL();
+        // defectFixed();
+        // addCharacterCounter();
         addCopyButton();
-        defPenCust();
-        removeModal();
+        // defPenCust();
+        // removeModal();
         extLoaded();
         setInterval(keepAlive, 25000);
         fixMouse();

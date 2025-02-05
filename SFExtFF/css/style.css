@@ -146,7 +146,7 @@ dialog::backdrop {
     backdrop-filter: blur(2px) !important;
 }
 
-.caseStatus {
+/* .caseStatus {
     width: 200px;
     margin: 10px auto;
 }
@@ -191,7 +191,7 @@ dialog::backdrop {
     background: #fff;
     color: #0d0d0d;
     cursor: pointer;
-}
+} */
 
 .copyButton:hover {
     color: #005aca !important;

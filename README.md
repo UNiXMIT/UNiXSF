@@ -12,7 +12,6 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 - [Features/Improvements Wishlist](#featuresimprovements-wishlist)
 - [Troubleshooting](#troubleshooting)
 - [Limitations](#limitations)
-- [Optional](#optional)
 - [Donate](#donate) 
 
 ## Features  
@@ -27,54 +26,16 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 
 - **QuickLink Menu**
 
-  - FTS SFTP.   
-    Uses the active case tab to get the FTS Account/Password details (tested with WinSCP - https://winscp.net).  
-    If no case is open it will open the FTS homepage.  
-
-  - Defect Link.  
-    Uses the active case tab to formulate the defect URL to open. If no case is open it will open the defects homepage
-
-  - MF Documentation.  
-    If you have a case open and active, the product in the case will be checked and the appropriate docs page opened.  
-    If no cases are opened the general docs page will be opened.  
-
-  - Reminders/Follow-Up in Outlook Calendar.  
-    Gets the case number, subject and URL from the active, open case and opens a new window to create an Outlook Calendar event with reminder set.  
-    By default, the calendar event start date is 3 days in the future, but this can be changed, by the user, in the new window.  
+  - Documentation.  
+    Opens the online documentation page.     
 
   - 3rd Line Referral.  
-    Generates an email, using a set template and information from the case.   
+    Generates an email, using a set template and information from the case.     
 
-  - Account Team.  
-    Opens up the Account Team page for the case you have opened.  
-    Only works if you have a case open and active.  
-  
-  - Entitlements.  
-    Opens up the Entitlements page for the case you have opened.  
-    Only works if you have a case open and active.  
+  - Additional menu items for Support Portal, Education System and Huddle.  
 
-  - Additional menu items for Support Portal, SLD Web Portal, Education System and PerformPlus.  
-
-- **Defect URLs**  
-  Creates URLs to defects in queues (if you have the 'Non-Octane Defect' column visible).
-
-- **Highlight Fixed Defects**  
-  Highlights 'Planned in new release' or 'Software update provided' Close Codes in your Pending Release Queue.  
-
-- **Character Counter**  
-  Added character counts to 'textarea' fields.  
-
-- **Copy to clipboard buttons for Case Number, Subject, Defect Number and FTS Credentials**  
-  Added buttons next to the Case Number, Subject, Defect Number (if present) and FTS Credentials to copy that information to the clipboard.  
-  The main case icon copies the Case Number and Subject at the same time.   
-
-- **Enable the 'Set Pending Customer' checkbox as default**  
-  Add option to enable the 'Set Pending Customer' checkbox as default when sending an email.  
-
-- **Modify Case Status after Send**  
-  After the 'Send' button is clicked, and the email is sent from a case, a popup will appear letting you change the case status from its current status to another status.  
-  If you want to keep the current status, just click 'Cancel' on the popup.  
-  This can be enabled in the extension options.  
+- **Copy to clipboard buttons for Case Number and Subject**  
+  The main case icon (Briefcase Icon) copies the Case Number, Subject and Case URL to the clipboard.     
 
 - **SalesForce Link Grabber**.  
   Opens SalesForce (\*.force.com\*) links in existing SF tab and activates the tab.  
@@ -139,41 +100,13 @@ Click on the toolbar extension menu and select Options.
   Desktop and Web notifications can be enabled/disabled.  
   For the case queue name, either enter the name of the case queue that you want to monitor or append the name of the case queue you want to monitor with 'NOTIFY'.  
 
-- The FTS HTTP URL.  
-
-- The Defect URL.  
-
 - The Education System URL.  
 
-- The Perform+ URL.  
-
-- The translation request URL.  
+- The Huddle URL.   
 
 - The 3rd line referral email address (NOT the DL name).  
 
-- FTS protocol, URL and port.  
-
-- The supported products list. This list is used to open the correct documentation page when the documentation link/icon is clicked.  
-
 - Enable/Disable Salesforce Link Grabber.  
-
-  **Requirements**  
-  The list must be in JSON format.  
-  The list consists of key/value pairs, separated by , and enclosed in braces { }.  
-  The Key must exactly match the name of the product as it appears in cases.   
-  The Value must match the subdomain of the documentation page for that product:  
-  i.e. for AcuCOBOL the URL is https://www.microfocus.com/documentation/extend-acucobol so the value must be:  
-  ```
-  extend-acucobol
-  ```
-  #### Example
-   To add ChangeMan ZMF to your list of supported products, add:  
-   ```
-   ,"ChangeMan ZMF":"changeman-zmf"
-   ```
-   to the list of products. It should now look like this:  
-
-   {"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","Net Express / Server Express":"net-express"**,"ChangeMan ZMF":"changeman-zmf"**}
 
 - Custom links can be added to the QuickLink Menu. The format for the configuration is in JSON where the Key is the text of the link and the Value is the URL to load.  
 
@@ -205,20 +138,13 @@ Imports your exported options from the previously exported JSON file. The import
   Make sure Notifications are enabled, for the Salesforce website, in your browser:  
   ![08](images/EnableNotify.png)
 
-- If the FTS button does not open with your local SFTP client, it may not be supported.
-  The SFTP Client application used, depends on the default app set in the OS for SFTP Protocol:  
-  ![09](images/sftp.png)  
-  This can be changed in Settings -> Apps -> Default apps -> Choose default applications by protocol.  
-  To register WinSCP to handle URL addresses use the [WinSCP installer](https://winscp.net/eng/docs/ui_installer_selecttasks) or go to [Preferences dialog](https://winscp.net/eng/docs/ui_pref_integration).  
-
 - Microsoft Edge and Chrome (Chromium based browsers) have a query string limit of 4035 characters. If the URL generated by the 3rd Line Referral QuickLink is longer than 4035 characters it will fail with a 'HTTP 500 server error'. 
 
 - Enable 'dom.events.asyncClipboard.clipboardItem' in Firefox about:config to allow the clipboard API to use MIME type objects.  
 
 ## Limitations  
 
-- Where there are 2 sets of documentation for one product, it's only possible to configure the docs QuickLink to re-direct to one of those URLs.
-  i.e. product 'Reflection for Secure IT' has docs in 'rsit-server-client-unix' and 'rsit-windows-client'
+N/A  
 
 ## Donate
 

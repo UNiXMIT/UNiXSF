@@ -69,13 +69,13 @@ textarea {
 #timeout {
     width: 100px;
 }
-#products {
+/* #products {
     width: 700px;
     height: 150px;
-}
-#ftshttp {
+} */
+/* #ftshttp {
     width: 400px;
-}
+} */
 #defect {
     width: 400px;
 }
@@ -97,12 +97,12 @@ textarea {
 #refemail {
     width: 400px;
 }
-#protocol {
+/* #protocol {
     width: 100px;
 }
 #ftsurl {
     width: 400px;
-}
+} */
 #customurls {
     width: 700px;
     height: 100px;
