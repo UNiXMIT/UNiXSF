@@ -266,7 +266,7 @@ function mfNav() {
                 // mfEntitlement();
                 // mfAccountTeam();
                 thirdLineRef();
-                // addReminder();
+                addReminder();
                 mfPP();
                 mfEDU();
                 // fullScreenKCS();

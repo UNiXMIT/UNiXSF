@@ -27,7 +27,11 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 - **QuickLink Menu**
 
   - Documentation.  
-    Opens the online documentation page.     
+    Opens the online documentation page.    
+
+  - Reminders/Follow-Up in Outlook Calendar.  
+    Gets the case number, subject and URL from the active, open case and opens a new window to create an Outlook Calendar event with reminder set.  
+    By default, the calendar event start date is 3 days in the future, but this can be changed, by the user, in the new window.   
 
   - 3rd Line Referral.  
     Generates an email, using a set template and information from the case.     
