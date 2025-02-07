@@ -38,7 +38,7 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 
   - Additional menu items for Support Portal, Education System and Huddle.  
 
-- **Copy to clipboard buttons for Case Number and Subject**  
+- **Copy to clipboard button for Case Number and Subject**  
   The main case icon (Briefcase Icon) copies the Case Number, Subject and Case URL to the clipboard.     
 
 - **SalesForce Link Grabber**  
