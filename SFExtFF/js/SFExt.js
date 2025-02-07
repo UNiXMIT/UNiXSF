@@ -575,11 +575,11 @@ function refEmail() {
     let userQuery;
     let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
     if (caseCheck) {
-        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('slot.slds-page-header__title > lightning-formatted-text:nth-child(1)').innerText;
-        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('dd:nth-child(2) > div:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > lightning-formatted-text:nth-child(1)').innerText;
-        caseName = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item.slds-page-header__detail-block:nth-child(6) > div:nth-child(1) > p:nth-child(2) > slot:nth-child(1) > force-lookup:nth-child(1) > div:nth-child(1) > records-hoverable-link:nth-child(1) > div:nth-child(1) > a:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > span:nth-child(1) > slot:nth-child(1)').innerText;
-        caseAccount = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('dl:nth-child(1) > slot:nth-child(1) > records-record-layout-row:nth-child(2) > slot:nth-child(1) > records-record-layout-item:nth-child(1) > div:nth-child(1) > div:nth-child(1) > dd:nth-child(2) > div:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > force-lookup:nth-child(1) > div:nth-child(1) > records-hoverable-link:nth-child(1) > div:nth-child(1) > a:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > span:nth-child(1) > slot:nth-child(1)').innerText;
-        caseProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('dl:nth-child(1) > slot:nth-child(1) > records-record-layout-row:nth-child(2) > slot:nth-child(1) > records-record-layout-item:nth-child(2) > div:nth-child(1) > div:nth-child(1) > dd:nth-child(2) > div:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > force-lookup:nth-child(1) > div:nth-child(1) > records-hoverable-link:nth-child(1) > div:nth-child(1) > a:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > span:nth-child(1) > slot:nth-child(1)').textContent;
+        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Case Number"] [name="outputField"]').innerText;
+        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]').innerText;
+        caseName = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Contact Name"] [name="outputField"] a').innerText;
+        caseAccount = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Account Name"] [name="outputField"] a').innerText;
+        caseProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Product"] [name="outputField"] a').innerText;
         // caseDescriptionElem = activeCaseContains('.slds-form-element__label','Description'); 
         // caseDescription = caseDescriptionElem[0].nextSibling.nextSibling.firstChild.innerText;
         caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
@@ -598,8 +598,7 @@ function refEmail() {
             // + caseDescription +"\n\n"
             + "• Summary of diagnostics\n\n"
             + "• Hypothesis and other details\n\n"
-            + "• List FTS Attachments - " + globalFTSHTTP + "\n"
-            + "[FTS credentials can be found in the case]\n\n"
+            + "• List FTS Attachments\n\n"
         };
     } else {
         userQuery = {
@@ -612,8 +611,7 @@ function refEmail() {
             + "• Summary of the issue\n\n" 
             + "• Summary of diagnostics\n\n"
             + "• Hypothesis and other details\n\n"
-            + "• List FTS Attachments - " + globalFTSHTTP + "\n"
-            + "[FTS credentials can be found in the case]\n\n"
+            + "• List FTS Attachments\n\n"
         };
     }
     let outlookURL = "https://outlook.office.com/mail/deeplink/compose";
@@ -642,8 +640,8 @@ function addReminderEvent() {
     let reminderDate = new Date(future).toJSON();
     let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
     if (caseCheck) {
-        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('slot.slds-page-header__title > lightning-formatted-text:nth-child(1)').innerText;
-        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('dd:nth-child(2) > div:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > lightning-formatted-text:nth-child(1)').innerText;
+        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Case Number"] [name="outputField"]').innerText;
+        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]').innerText;
     }
     if ((caseNumber) && (caseSubject)) {
         querySubject = caseNumber + " - " + caseSubject;
@@ -1121,8 +1119,8 @@ function addCopyButton() {
                         let fieldTitle = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.highlights-icon-container.slds-avatar.slds-m-right_small.icon > img');
                         fieldTitle.title = 'Copy Case Number & Subject';
                         field.addEventListener('click', async () => {
-                            let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('slot.slds-page-header__title > lightning-formatted-text:nth-child(1)');
-                            let caseSubject  = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('dd:nth-child(2) > div:nth-child(1) > span:nth-child(1) > slot:nth-child(1) > lightning-formatted-text:nth-child(1)');
+                            let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Case Number"] [name="outputField"]');
+                            let caseSubject  = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]');
                             selectedText = caseNumber.innerText + ' - ' + caseSubject.innerText;
                             let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
                             if(typeof ClipboardItem && navigator.clipboard.write) {
@@ -1266,6 +1264,24 @@ function addCopyButton() {
         //         }
         //     }
         // }
+    });
+    observer.observe(document, {childList: true, subtree: true});
+}
+
+function addCaseTitle() {
+    let observer = new MutationObserver(mutations => {
+        let activeCase = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+        if (activeCase) {
+            let headerTitle = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('h1');
+            if (headerTitle) {
+                if (!headerTitle.classList.contains('copy')) {
+                    caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]').innerText;
+                    oldSubject = headerTitle.querySelector('[name="primaryField"]').innerText;
+                    headerTitle.querySelector('[name="primaryField"]').innerText = oldSubject + ' - ' + caseSubject;
+                    headerTitle.classList.add('copy');
+                }
+            }
+        } 
     });
     observer.observe(document, {childList: true, subtree: true});
 }
@@ -1471,6 +1487,7 @@ let initInterval = setInterval(function() {
         // defectFixed();
         // addCharacterCounter();
         addCopyButton();
+        addCaseTitle();
         // defPenCust();
         // removeModal();
         extLoaded();

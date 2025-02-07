@@ -41,8 +41,11 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 - **Copy to clipboard buttons for Case Number and Subject**  
   The main case icon (Briefcase Icon) copies the Case Number, Subject and Case URL to the clipboard.     
 
-- **SalesForce Link Grabber**.  
+- **SalesForce Link Grabber**  
   Opens SalesForce (\*.force.com\*) links in existing SF tab and activates the tab.  
+
+- **Add Case Subject to Case Header**  
+  Grabs the case subject and adds it to the header next to the case number.  
 
 ## Install
 
