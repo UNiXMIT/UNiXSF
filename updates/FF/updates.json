@@ -61,6 +61,10 @@
           {
             "version": "4.0.0",
             "update_link": "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/FF/4.0.0/1aa420af9a0c4d9d8e9d-4.0.0.xpi"
+          },
+          {
+            "version": "4.0.1",
+            "update_link": "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/FF/4.0.1/1aa420af9a0c4d9d8e9d-4.0.1.xpi"
           }
         ]
       }

@@ -1534,7 +1534,7 @@ let initInterval = setInterval(function() {
         // addCharacterCounter();
         addCopyButton();
         addCaseTitle();
-        fullWidthCase();
+        // fullWidthCase();
         // defPenCust();
         extLoaded();
         setInterval(keepAlive, 25000);
