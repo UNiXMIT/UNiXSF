@@ -1256,6 +1256,16 @@ function addCaseTitle() {
     observer.observe(document, {childList: true, subtree: true});
 }
 
+function fullWidthCase() {
+    let observer = new MutationObserver(mutations => {
+        let caseView = document.querySelector('div.split-right').querySelector('div.template-workspace-contents.slds-grid');
+        if (caseView) {
+            caseView.classList.remove("slds-grid");
+        }
+    });
+    observer.observe(document, {childList: true, subtree: true});
+}
+
 function defPenCust() {
     let observer = new MutationObserver(mutations => {
         let activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
@@ -1524,6 +1534,7 @@ let initInterval = setInterval(function() {
         // addCharacterCounter();
         addCopyButton();
         addCaseTitle();
+        fullWidthCase();
         // defPenCust();
         extLoaded();
         setInterval(keepAlive, 25000);
