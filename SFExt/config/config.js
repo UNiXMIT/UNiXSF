@@ -20,6 +20,7 @@ function save_options() {
   let customurls = document.getElementById('customurls').value;
   // let caseStatus = document.getElementById('caseStatus').checked;
   let grabLink = document.getElementById('grabLink').checked;
+  let wideCase = document.getElementById('wideCase').checked;
   chrome.storage.sync.set({
       savedTimeout: refreshTimeout,
       // savedProducts: products,
@@ -38,7 +39,8 @@ function save_options() {
       // savedFTSURL: ftsurl,
       savedURLS: customurls,
       // savedStatus: caseStatus,
-      savedGrab: grabLink
+      savedGrab: grabLink,
+      savedWide: wideCase
   }, function() {
       let status = document.getElementById('status');
       status.textContent = 'Options Saved';
@@ -49,7 +51,7 @@ function save_options() {
 }
 
 function reset_options() {
-  chrome.storage.sync.remove(["savedTimeout", "savedDefect", "savedPP", "savedEDU", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedRefEmail", "savedURLS", "savedGrab"], function() {
+  chrome.storage.sync.remove(["savedTimeout", "savedDefect", "savedPP", "savedEDU", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedRefEmail", "savedURLS", "savedGrab", "savedWide"], function() {
       let error = chrome.runtime.lastError;
       if (error) {
           console.error(error);
@@ -78,7 +80,8 @@ function restore_options() {
       savedURLS: `{"SFExt":"${configURL}"}`,
       // savedStatus: false,
       savedUUID: '',
-      savedGrab: grabLink
+      savedGrab: false,
+      savedWide: false
   }, function(result) {
       document.getElementById('timeout').value = result.savedTimeout;
     //   document.getElementById('products').value = result.savedProducts;
@@ -98,6 +101,7 @@ function restore_options() {
       document.getElementById('customurls').value = result.savedURLS;
       // document.getElementById('caseStatus').checked = result.savedStatus;
       document.getElementById('grabLink').checked = result.savedGrab;
+      document.getElementById('wideCase').checked = result.savedWide;
       if (!result.savedUUID) {
         let globalUUID = crypto.randomUUID();
         chrome.storage.sync.set({
@@ -128,7 +132,8 @@ function export_options() {
         savedURLS: `{"SFExt":"${configURL}"}`,
         // savedStatus: false,
         savedUUID: '',
-        savedGrab: true
+        savedGrab: true,
+        savedWide: true
     }, function(result) {
         chrome.downloads.onChanged.addListener(function(downloadDelta) {
             if (downloadDelta.state && downloadDelta.state.current === "complete") {
@@ -185,7 +190,8 @@ function import_options() {
             savedURLS: json.savedURLS,
             // savedStatus: json.savedStatus,
             savedUUID: json.savedUUID,
-            savedGrab: json.savedGrab
+            savedGrab: json.savedGrab,
+            savedWide: json.wideCase
         }, function() {
             try {
                 let status = document.getElementById('status');

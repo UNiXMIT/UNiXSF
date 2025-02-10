@@ -38,6 +38,9 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 
   - Additional menu items for Support Portal, Education System and Huddle.  
 
+- **Wide Case View**
+  View cases in a full width view rather than 3 narrow columns.  
+
 - **Copy to clipboard button for Case Number and Subject**  
   The main case icon (Briefcase Icon) copies the Case Number, Subject and Case URL to the clipboard.     
 
@@ -46,6 +49,9 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 
 - **Add Case Subject to Case Header**  
   Grabs the case subject and adds it to the header next to the case number.  
+
+- **KCS URL Generator**  
+  Generate a public KCS URL on a KCS view when the 'URL Name' column is visible and also when viewing an KCS article in SF. The hyperlink will now point to the public KCS article.  
 
 ## Install
 
@@ -114,6 +120,8 @@ Click on the toolbar extension menu and select Options.
 - The 3rd line referral email address (NOT the DL name).  
 
 - Enable/Disable Salesforce Link Grabber.  
+
+- Enable/Disable Wide Case View.  
 
 - Custom links can be added to the QuickLink Menu. The format for the configuration is in JSON where the Key is the text of the link and the Value is the URL to load.  
 

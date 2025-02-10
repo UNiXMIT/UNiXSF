@@ -1,3 +1,9 @@
+# 4.0.2
+
+### Enhancements
+- Generate a public KCS URL on a KCS view when the 'URL Name' column is visible and also when viewing a KCS article in SF.  
+- Option to enable/disable Wide Case View rather than 3 narrow columns.  
+
 # 4.0.1
 
 Oops!  

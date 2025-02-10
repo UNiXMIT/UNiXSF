@@ -19,6 +19,7 @@ let globalPP;
 let globalEDU;
 // let globalTranslationURL;
 let globalRefEmail;
+let globalWide;
 let globalArial = 1;
 let iconURL= browser.runtime.getURL('icons/rocket128.png');
 let intervalID;
@@ -48,6 +49,7 @@ function initSyncData() {
         // savedFTSURL: '',
         savedURLS: `{"SFExt":"${configURL}"}`,
         // savedStatus: false
+        savedWide: false
     }, function(result) {
         globalTimeout = result.savedTimeout;
         // globalProducts = result.savedProducts;
@@ -66,6 +68,7 @@ function initSyncData() {
         // globalFTSURL = result.savedFTSURL;
         globalURLS = result.savedURLS;
         // globalStatus = result.savedStatus;
+        globalWide = result.savedWide;
         globalInit = 1;
     });
 }
@@ -91,6 +94,7 @@ function getSyncData() {
                 // savedFTSURL: '',
                 savedURLS: `{"SFExt":"${configURL}"}`,
                 // savedStatus: false
+                savedWide: false
             }, function(result) {
                 if (globalTimeout != result.savedTimeout) {
                     globalTimeout = result.savedTimeout;
@@ -126,6 +130,7 @@ function getSyncData() {
                     updateCustomURLs();
                 }
                 // globalStatus = result.savedStatus;
+                globalWide = result.savedWide;
             });
         }
     });
@@ -1286,10 +1291,37 @@ function addCaseTitle() {
     observer.observe(document, {childList: true, subtree: true});
 }
 
+function KCSURL() {
+    let observer = new MutationObserver(mutations => {
+        let headerCell = document.querySelector('[title="URL Name"]');
+        if (headerCell) {
+            let headerCellIndex = headerCell.cellIndex;
+            let KCSRows = document.querySelectorAll("tbody tr:not([title='KCSURL'])");
+            KCSRows.forEach(row => {
+                let KCSCell = row.cells[headerCellIndex];
+                let KCSURL = KCSCell.innerText;
+                if (KCSURL) {
+                    let finalURL = `<a target="_blank" href="https://my.rocketsoftware.com/RocketCommunity/s/article/${KCSURL}">${KCSURL}</a>`;
+                    KCSCell.innerHTML = finalURL;
+                    row.title = "KCSURL";
+                }
+            }); 
+        }
+        let URLField = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="URL Name"] dd lightning-formatted-text');
+        let KCSCheck =URLField.querySelector("a");
+        if (URLField && !KCSCheck) {
+            let KCSURL = URLField.innerText;
+            let finalURL = `<a target="_blank" href="https://my.rocketsoftware.com/RocketCommunity/s/article/${KCSURL}">${KCSURL}</a>`;
+            URLField.innerHTML = finalURL;
+        }
+    });
+    observer.observe(document, {childList: true, subtree: true});
+}
+
 function fullWidthCase() {
     let observer = new MutationObserver(mutations => {
         let caseView = document.querySelector('div.split-right').querySelector('div.template-workspace-contents.slds-grid');
-        if (caseView) {
+        if (caseView && globalWide) {
             caseView.classList.remove("slds-grid");
         }
     });
@@ -1498,7 +1530,8 @@ let initInterval = setInterval(function() {
         // addCharacterCounter();
         addCopyButton();
         addCaseTitle();
-        // fullWidthCase();
+        KCSURL();
+        fullWidthCase();
         // defPenCust();
         // removeModal();
         extLoaded();
