@@ -1279,11 +1279,12 @@ function addCaseTitle() {
         if (activeCase) {
             let headerTitle = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('h1');
             if (headerTitle) {
-                if (!headerTitle.classList.contains('copy')) {
-                    caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]').innerText;
-                    oldSubject = headerTitle.querySelector('[name="primaryField"]').innerText;
-                    headerTitle.querySelector('[name="primaryField"]').innerText = oldSubject + ' - ' + caseSubject;
-                    headerTitle.classList.add('copy');
+                let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Case Number"] [name="outputField"]').innerText;
+                let caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]').innerText;
+                let oldSubject = headerTitle.querySelector('[name="primaryField"]').innerText;
+                let tempSubject = oldSubject.replace(`${caseNumber} - `, '');
+                if (tempSubject != caseSubject) {
+                    headerTitle.querySelector('[name="primaryField"]').innerText = caseNumber + ' - ' + caseSubject;
                 }
             }
         } 
@@ -1309,10 +1310,12 @@ function KCSURL() {
         }
         let URLField = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="URL Name"] dd lightning-formatted-text');
         let KCSCheck =URLField.querySelector("a");
-        if (URLField && !KCSCheck) {
-            let KCSURL = URLField.innerText;
-            let finalURL = `<a target="_blank" href="https://my.rocketsoftware.com/RocketCommunity/s/article/${KCSURL}">${KCSURL}</a>`;
-            URLField.innerHTML = finalURL;
+        if (URLField) {
+            if (URLField && !KCSCheck) {
+                let KCSURL = URLField.innerText;
+                let finalURL = `<a target="_blank" href="https://my.rocketsoftware.com/RocketCommunity/s/article/${KCSURL}">${KCSURL}</a>`;
+                URLField.innerHTML = finalURL;
+            }
         }
     });
     observer.observe(document, {childList: true, subtree: true});
