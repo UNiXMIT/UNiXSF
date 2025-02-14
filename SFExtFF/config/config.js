@@ -81,8 +81,8 @@ function restore_options() {
       savedURLS: `{"SFExt":"${configURL}"}`,
       // savedStatus: false,
       savedUUID: '',
-      savedGrab: true,
-      savedWide: true
+      savedGrab: false,
+      savedWide: false
   }, function(result) {
       document.getElementById('timeout').value = result.savedTimeout;
     //   document.getElementById('products').value = result.savedProducts;
@@ -133,8 +133,8 @@ function export_options() {
         savedURLS: `{"SFExt":"${configURL}"}`,
         // savedStatus: false,
         savedUUID: '',
-        savedGrab: true,
-        savedWide: true
+        savedGrab: false,
+        savedWide: false
     }, function(result) {
         browser.downloads.onChanged.addListener(function(downloadDelta) {
             if (downloadDelta.state && downloadDelta.state.current === "complete") {

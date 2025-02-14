@@ -1,4 +1,4 @@
-# 4.0.2
+# 4.0.3
 
 ### Enhancements
 - Generate a public KCS URL on a KCS view when the 'URL Name' column is visible and also when viewing a KCS article in SF.  

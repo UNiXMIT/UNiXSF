@@ -132,8 +132,8 @@ function export_options() {
         savedURLS: `{"SFExt":"${configURL}"}`,
         // savedStatus: false,
         savedUUID: '',
-        savedGrab: true,
-        savedWide: true
+        savedGrab: false,
+        savedWide: false
     }, function(result) {
         chrome.downloads.onChanged.addListener(function(downloadDelta) {
             if (downloadDelta.state && downloadDelta.state.current === "complete") {
