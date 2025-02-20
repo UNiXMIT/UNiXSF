@@ -1,3 +1,8 @@
+# 4.0.4
+
+### Tweaks
+- Reduce warnings show in the console.log by refactoring source code.  
+
 # 4.0.3
 
 ### Enhancements

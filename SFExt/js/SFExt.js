@@ -1278,16 +1278,18 @@ function KCSURL() {
                 }
             });
         }
-        let URLField = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="URL Name"] dd lightning-formatted-text');
-        if (URLField) {
-            let KCSCheck =URLField.querySelector("a");
-            if (URLField && !KCSCheck) {
-                let KCSURL = URLField.innerText;
-                let finalURL = `<a target="_blank" href="https://my.rocketsoftware.com/RocketCommunity/s/article/${KCSURL}">${KCSURL}</a>`;
-                URLField.innerHTML = finalURL;
+        let ActiveURLField = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+        if (ActiveURLField) {
+            let URLField = ActiveURLField.querySelector('[field-label="URL Name"] dd lightning-formatted-text');
+            if (URLField) {
+                let KCSCheck =URLField.querySelector("a");
+                if (URLField && !KCSCheck) {
+                    let KCSURL = URLField.innerText;
+                    let finalURL = `<a target="_blank" href="https://my.rocketsoftware.com/RocketCommunity/s/article/${KCSURL}">${KCSURL}</a>`;
+                    URLField.innerHTML = finalURL;
+                }
             }
-        }
-        
+        }       
     });
     observer.observe(document, {childList: true, subtree: true});
 }
