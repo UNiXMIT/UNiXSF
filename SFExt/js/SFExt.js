@@ -1249,11 +1249,11 @@ function addCaseTitle() {
         if (activeCase) {
             let headerTitle = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('h1');
             if (headerTitle) {
-                let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Case Number"] [name="outputField"]').innerText;
-                let caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]').innerText;
-                let oldSubject = headerTitle.querySelector('[name="primaryField"]').innerText;
+                let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Case Number"] [name="outputField"]')?.innerText;
+                let caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]')?.innerText;
+                let oldSubject = headerTitle.querySelector('[name="primaryField"]')?.innerText;
                 let tempSubject = oldSubject.replace(`${caseNumber} - `, '');
-                if (tempSubject != caseSubject) {
+                if ((tempSubject != caseSubject) && (caseNumber && caseSubject)) {
                     headerTitle.querySelector('[name="primaryField"]').innerText = caseNumber + ' - ' + caseSubject;
                 }
             }
@@ -1282,7 +1282,7 @@ function KCSURL() {
         if (ActiveURLField) {
             let URLField = ActiveURLField.querySelector('[field-label="URL Name"] dd lightning-formatted-text');
             if (URLField) {
-                let KCSCheck =URLField.querySelector("a");
+                let KCSCheck = URLField?.querySelector("a");
                 if (URLField && !KCSCheck) {
                     let KCSURL = URLField.innerText;
                     let finalURL = `<a target="_blank" href="https://my.rocketsoftware.com/RocketCommunity/s/article/${KCSURL}">${KCSURL}</a>`;

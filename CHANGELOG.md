@@ -3,6 +3,9 @@
 ### Tweaks
 - Reduce warnings show in the console.log by refactoring source code.  
 
+### Fixes
+- Fixed an issue where the Case Attachments page could hang.  
+
 # 4.0.3
 
 ### Enhancements
