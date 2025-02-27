@@ -1,3 +1,8 @@
+# 4.0.5
+
+### Tweaks
+- Improvements in the background.js  
+
 # 4.0.4
 
 ### Tweaks

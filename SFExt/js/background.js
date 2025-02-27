@@ -17,6 +17,30 @@ function reloadSFTab() {
     });
 }
 
+function compareDates() {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = today.getFullYear();
+    const todaysDate = `${day}${month}${year}`;
+    chrome.storage.sync.get(['savedDate'], (result) => {
+        const savedDate = result.savedDate;
+        if (savedDate) {
+            if (todaysDate !== savedDate) {
+                chrome.storage.sync.set({
+                    savedDate: todaysDate
+                });
+                getUUID();
+            }
+        } else {
+            chrome.storage.sync.set({
+                savedDate: todaysDate
+            });
+            getUUID();
+        }
+    });
+}
+
 function getUUID() {
     chrome.storage.sync.get({
       savedUUID: ''
@@ -194,6 +218,6 @@ async function closeTab(tab) {
   });
 }
 
-getUUID();
+compareDates();
 reloadSFTab();
 chrome.runtime.onMessage.addListener(handleMessage);
