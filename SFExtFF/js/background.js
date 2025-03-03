@@ -218,7 +218,7 @@ async function closeTab(tab) {
     });
 }
 
-getUUID();
+compareDates();
 reloadSFTab();
 browser.action.onClicked.addListener(handleClick);
 browser.runtime.onMessage.addListener(handleMessage);
