@@ -17,7 +17,7 @@ function reloadSFTab() {
     });
 }
 
-function compareDates() {
+function dailyUsers() {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -46,11 +46,11 @@ function getUUID() {
       savedUUID: ''
     }, function(result) {
       globalUUID = result.savedUUID;
-      dailyUsers();
+      submitUser();
     });
 }
   
-function dailyUsers() {
+function submitUser() {
     if (!globalUUID) {
       globalUUID = crypto.randomUUID();
         chrome.storage.sync.set({
@@ -218,6 +218,6 @@ async function closeTab(tab) {
   });
 }
 
-compareDates();
+dailyUsers();
 reloadSFTab();
 chrome.runtime.onMessage.addListener(handleMessage);
