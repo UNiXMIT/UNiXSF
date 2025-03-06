@@ -1272,7 +1272,7 @@ function KCSURL() {
                 let KCSCell = row.cells[headerCellIndex];
                 let KCSURL = KCSCell.innerText;
                 if (KCSURL) {
-                    let finalURL = `<a target="_blank" href="https://my.rocketsoftware.com/RocketCommunity/s/article/${KCSURL}">${KCSURL}</a>`;
+                    let finalURL = `<span class="slds-grid slds-grid--align-spread"><a class="slds-truncate slds-truncate" target="_blank" href="https://my.rocketsoftware.com/RocketCommunity/s/article/${KCSURL}">${KCSURL}</a></span>`;
                     KCSCell.innerHTML = finalURL;
                     row.title = "KCSURL";
                 }

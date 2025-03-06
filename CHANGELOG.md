@@ -3,6 +3,9 @@
 ### Tweaks
 - Improvements in the background.js  
 
+### Fixes
+- Overflow not truncated on KCS URL in list view.  
+
 # 4.0.4
 
 ### Tweaks
