@@ -250,8 +250,8 @@ function saveCaseStatus() {
 
 function mfNav() {
     let observer = new MutationObserver(mutations => {
-        let mfButton = document.querySelector('#oneHeader').querySelector('ul.slds-global-actions');
-        let liDetect = mfButton.querySelectorAll('li.slds-global-actions__item');
+        let mfButton = document.querySelector('#oneHeader')?.querySelector('ul.slds-global-actions');
+        let liDetect = mfButton?.querySelectorAll('li.slds-global-actions__item');
         if ( (mfButton) && (navInit) && (liDetect.length == 7) && (liDetect[2]) && (liDetect[3]) && (liDetect[4]) ) {
             observer.disconnect();
             (async ()=>{
@@ -1296,7 +1296,7 @@ function KCSURL() {
 
 function fullWidthCase() {
     let observer = new MutationObserver(mutations => {
-        let caseView = document.querySelector('div.split-right').querySelector('div.template-workspace-contents.slds-grid');
+        let caseView = document.querySelector('div.split-right')?.querySelector('div.template-workspace-contents.slds-grid');
         if (caseView && globalWide) {
             caseView.classList.remove("slds-grid");
         }
