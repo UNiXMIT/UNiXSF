@@ -1,3 +1,8 @@
+# 4.0.6
+
+### Fixes
+- Fixed another issue where the Case Attachments page could hang.  
+
 # 4.0.5
 
 ### Tweaks

@@ -195,7 +195,7 @@ function sendObserver() {
             }
         }
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function awaitSend() {
@@ -208,7 +208,7 @@ function awaitSend() {
             observer.disconnect();
         }
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function saveCaseStatus() {
@@ -279,7 +279,7 @@ function mfNav() {
             })();
         }
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function mfDropDown() {
@@ -524,7 +524,7 @@ function thirdLineRefEvent() {
     //                     }
     //                 }, 200);
     //             });
-    //             observer.observe(document, {childList: true, subtree: true});
+    //             observer.observe(document.body, {childList: true, subtree: true});
     //         }
     //     } else {
             refEmail();
@@ -797,7 +797,7 @@ function initQMonitor() {
                 }
             }, 5000);
         });
-        observer.observe(document, {childList: true, subtree: true});
+        observer.observe(document.body, {childList: true, subtree: true});
     }
 }
 
@@ -968,7 +968,7 @@ function defectListURL() {
             });
         }
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function defectFixed() {
@@ -990,7 +990,7 @@ function defectFixed() {
             }
         }
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function addCharacterCounter() {
@@ -1024,7 +1024,7 @@ function addCharacterCounter() {
             });
         }
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function addCopyButton() {
@@ -1270,7 +1270,7 @@ function addCopyButton() {
         //     }
         // }
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function addCaseTitle() {
@@ -1282,14 +1282,19 @@ function addCaseTitle() {
                 let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Case Number"] [name="outputField"]')?.innerText;
                 let caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]')?.innerText;
                 let oldSubject = headerTitle.querySelector('[name="primaryField"]')?.innerText;
-                let tempSubject = oldSubject.replace(`${caseNumber} - `, '');
+                let tempSubject = oldSubject?.replace(`${caseNumber} - `, '');
                 if ((tempSubject != caseSubject) && (caseNumber && caseSubject)) {
                     headerTitle.querySelector('[name="primaryField"]').innerText = caseNumber + ' - ' + caseSubject;
                 }
             }
         } 
+        (async ()=>{
+            observer.disconnect();
+            await sleep(1000);
+            observer.observe(document.body, {childList: true, subtree: true});
+        })();
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function KCSURL() {
@@ -1300,7 +1305,7 @@ function KCSURL() {
             let KCSRows = document.querySelectorAll("tbody tr:not([title='KCSURL'])");
             KCSRows.forEach(row => {
                 let KCSCell = row.cells[headerCellIndex];
-                let KCSURL = KCSCell.innerText;
+                let KCSURL = KCSCell?.innerText;
                 if (KCSURL) {
                     let finalURL = `<span class="slds-grid slds-grid--align-spread"><a class="slds-truncate slds-truncate" target="_blank" href="https://my.rocketsoftware.com/RocketCommunity/s/article/${KCSURL}">${KCSURL}</a></span>`;
                     KCSCell.innerHTML = finalURL;
@@ -1321,7 +1326,7 @@ function KCSURL() {
             }
         }  
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function fullWidthCase() {
@@ -1331,7 +1336,7 @@ function fullWidthCase() {
             caseView.classList.remove("slds-grid");
         }
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function defPenCust() {
@@ -1350,7 +1355,7 @@ function defPenCust() {
             })();
         }
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function removeModal() {
@@ -1362,7 +1367,7 @@ function removeModal() {
             }
         }
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function extLoaded() {
@@ -1381,7 +1386,7 @@ function extLoaded() {
             }
         }
     });
-    observer.observe(document, {childList: true, subtree: true});
+    observer.observe(document.body, {childList: true, subtree: true});
 }
 
 function keepAlive() {
