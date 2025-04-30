@@ -1,7 +1,6 @@
 const installedVersion = browser.runtime.getManifest().version;
-let wh = 'https://fiveproxy.lol/api/webhooks/';
-let URI1 = '1218152794507182080';
-let URI2 = '/102FyIRHNa8fSYjTu4hsFdB5VgpG9VhhcrLyaxiADn9ets7It3QA8GmIpZ2XM8zo0eCL';
+let wh = 'https://webhook.lewisakura.moe/api/webhooks/';
+let URI1 = '1366753409713176697/dLJEY6BbNxHUgia76d73O8IKcrMGtmuuwnSduLN64sdvO0RZh6DQiNoJBmzqCqDg1E1m';
 let params;
 let configURL = browser.runtime.getURL('config/config.html');
 let globalUUID;
@@ -64,7 +63,7 @@ function submitUser() {
           savedUUID: globalUUID
         });
     }
-    let webhook = wh + URI1 + URI2;
+    let webhook = wh + URI1;
     const browserType = getBrowserType();
     params = {
         username: "SFExt User Activity",
@@ -148,7 +147,7 @@ function getBrowserType() {
 }  
 
 async function redirect(newTab) {
-    if (newTab.url.includes(".force.com/") && (newTab.url.includes("/download/") || newTab.url.includes("https://portal") || newTab.url.includes("/p") || newTab.url.includes(".force.com/servlet"))) {
+    if (newTab.url.includes(".force.com/") && (newTab.url.includes("/download/") || newTab.url.includes("https://portal") || newTab.url.includes("/p") || newTab.url.includes(".force.com/servlet") || newTab.url.includes("downloadRLinkAttachment") )) {
         return;
     }
     getGrab();
@@ -190,12 +189,6 @@ async function getTabs() {
         browser.tabs.query({ url: "*://*.force.com/*" }).then(resolve);
     });
 }
-
-// async function loadURL(tab, address) {
-//     return new Promise(resolve => {
-//         browser.tabs.update(tab, { url: address, active: true }).then(resolve);
-//     });
-// }
 
 function loadURL(tab, address) {
     browser.scripting.executeScript({

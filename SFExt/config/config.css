@@ -69,13 +69,6 @@ textarea {
 #timeout {
     width: 100px;
 }
-/* #products {
-    width: 700px;
-    height: 150px;
-} */
-/* #ftshttp {
-    width: 400px;
-} */
 #defect {
     width: 400px;
 }
@@ -91,18 +84,9 @@ textarea {
 #webhook {
     width: 600px;
 }
-/* #translation {
-    width: 600px;
-} */
 #refemail {
     width: 400px;
 }
-/* #protocol {
-    width: 100px;
-}
-#ftsurl {
-    width: 400px;
-} */
 #customurls {
     width: 700px;
     height: 100px;

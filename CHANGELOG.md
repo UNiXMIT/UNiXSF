@@ -1,3 +1,11 @@
+# 4.0.7
+
+### Fixes
+- SF Link Grabber was grabbing the Case Attachments download page and then when it auto closed it was closing the SF tab.  
+
+### Tweaks
+- Remove old code.  
+
 # 4.0.6
 
 ### Fixes

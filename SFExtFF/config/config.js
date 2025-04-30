@@ -4,9 +4,6 @@ let globalUUID;
 
 function save_options() {
   let refreshTimeout = document.getElementById('timeout').value;
-//   let products = document.getElementById('products').value;
-  // let pendingCust = document.getElementById('pendingCust').checked;
-  // let ftshttp = document.getElementById('ftshttp').value;
   let defect = document.getElementById('defect').value;
   let pp = document.getElementById('pp').value;
   let edu = document.getElementById('edu').value;
@@ -14,19 +11,12 @@ function save_options() {
   let qnotify = document.getElementById('qnotify').checked;
   let qnotifyweb = document.getElementById('qnotifyweb').checked;
   let webhook = document.getElementById('webhook').value;
-  // let translation = document.getElementById('translation').value;
   let refEmail = document.getElementById('refemail').value;
-  // let protocol = document.getElementById('protocol').value;
-  // let ftsurl = document.getElementById('ftsurl').value;
   let customurls = document.getElementById('customurls').value;
-  // let caseStatus = document.getElementById('caseStatus').checked;
   let grabLink = document.getElementById('grabLink').checked;
   let wideCase = document.getElementById('wideCase').checked;
   browser.storage.sync.set({
       savedTimeout: refreshTimeout,
-    //   savedProducts: products,
-      // savedPenCust: pendingCust,
-      // savedFTSHTTP: ftshttp,
       savedDefect: defect,
       savedPP: pp,
       savedEDU: edu,
@@ -34,12 +24,8 @@ function save_options() {
       savedQNotify: qnotify,
       savedQNotifyWeb: qnotifyweb,
       savedWebhook: webhook,
-      // savedTranslation: translation,
       savedRefEmail: refEmail,
-      // savedProtocol: protocol,
-      // savedFTSURL: ftsurl,
       savedURLS: customurls,
-      // savedStatus: caseStatus,
       savedGrab: grabLink,
       savedWide: wideCase
   }, function() {
@@ -64,9 +50,6 @@ function reset_options() {
 function restore_options() {
   browser.storage.sync.get({
       savedTimeout: 60,
-    //   savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
-      // savedPenCust: false,
-      // savedFTSHTTP: '',
       savedDefect: '',
       savedPP: '',
       savedEDU: '',
@@ -74,20 +57,13 @@ function restore_options() {
       savedQNotify: false,
       savedQNotifyWeb: false,
       savedWebhook: '',
-      // savedTranslation: '',
       savedRefEmail: '',
-      // savedProtocol: 'sftp://',
-      // savedFTSURL: '',
       savedURLS: `{"SFExt":"${configURL}"}`,
-      // savedStatus: false,
       savedUUID: '',
       savedGrab: false,
       savedWide: false
   }, function(result) {
       document.getElementById('timeout').value = result.savedTimeout;
-    //   document.getElementById('products').value = result.savedProducts;
-      // document.getElementById('pendingCust').checked = result.savedPenCust;
-      // document.getElementById('ftshttp').value = result.savedFTSHTTP;
       document.getElementById('defect').value = result.savedDefect;
       document.getElementById('pp').value = result.savedPP;
       document.getElementById('edu').value = result.savedEDU;
@@ -95,12 +71,8 @@ function restore_options() {
       document.getElementById('qnotify').checked = result.savedQNotify;
       document.getElementById('qnotifyweb').checked = result.savedQNotifyWeb;
       document.getElementById('webhook').value = result.savedWebhook;
-      // document.getElementById('translation').value = result.savedTranslation;
       document.getElementById('refemail').value = result.savedRefEmail;
-      // document.getElementById('protocol').value = result.savedProtocol;
-      // document.getElementById('ftsurl').value = result.savedFTSURL;
       document.getElementById('customurls').value = result.savedURLS;
-      // document.getElementById('caseStatus').checked = result.savedStatus;
       document.getElementById('grabLink').checked = result.savedGrab;
       document.getElementById('wideCase').checked = result.savedWide;  
       if (!result.savedUUID) {
@@ -116,9 +88,6 @@ function restore_options() {
 function export_options() {
     browser.storage.sync.get({
         savedTimeout: 60,
-        // savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
-        // savedPenCust: false,
-        // savedFTSHTTP: '',
         savedDefect: '',
         savedPP: '',
         savedEDU: '',
@@ -126,12 +95,8 @@ function export_options() {
         savedQNotify: false,
         savedQNotifyWeb: false,
         savedWebhook: '',
-        // savedTranslation: '',
         savedRefEmail: '',
-        // savedProtocol: 'sftp://',
-        // savedFTSURL: '',
         savedURLS: `{"SFExt":"${configURL}"}`,
-        // savedStatus: false,
         savedUUID: '',
         savedGrab: false,
         savedWide: false
@@ -174,9 +139,6 @@ function import_options() {
         const json = JSON.parse(contents);
         browser.storage.sync.set({
             savedTimeout: json.savedTimeout,
-            // savedProducts: json.savedProducts,
-            // savedPenCust: json.savedPenCust,
-            // savedFTSHTTP: json.savedFTSHTTP,
             savedDefect: json.savedDefect,
             savedPP: json.savedPP,
             savedEDU: json.savedEDU,
@@ -184,12 +146,8 @@ function import_options() {
             savedQNotify: json.savedQNotify,
             savedQNotifyWeb: json.savedQNotifyWeb,
             savedWebhook: json.savedWebhook,
-            // savedTranslation: json.savedTranslation,
             savedRefEmail: json.savedRefEmail,
-            // savedProtocol: json.savedProtocol,
-            // savedFTSURL: json.savedFTSURL,
             savedURLS: json.savedURLS,
-            // savedStatus: json.savedStatus,
             savedUUID: json.savedUUID,
             savedGrab: json.savedGrab,
             savedWide: json.wideCase

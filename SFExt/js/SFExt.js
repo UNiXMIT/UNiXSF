@@ -3,21 +3,14 @@ let globalInit = 0;
 let navInit = 1;
 let initDropDown = 1;
 let globalTimeout;
-// let globalProducts;
-// let globalPenCust;
 let globalQueue;
 let globalQNotify;
 let globalQNotifyWeb;
 let globalWebhook;
-// let globalProtocol;
-// let globalFTSURL;
 let globalURLS;
-// let globalStatus;
-// let globalFTSHTTP;
 let globalDefectURL;
 let globalPP;
 let globalEDU;
-// let globalTranslationURL;
 let globalRefEmail;
 let globalWide;
 let globalArial = 1;
@@ -33,9 +26,6 @@ let configURL = chrome.runtime.getURL('config/config.html');
 function initSyncData() {
     chrome.storage.sync.get({
         savedTimeout: 60,
-        // savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
-        // savedPenCust: false,
-        // savedFTSHTTP: '',
         savedDefect: '',
         savedPP: '',
         savedEDU: '',
@@ -43,18 +33,11 @@ function initSyncData() {
         savedQNotify: false,
         savedQNotifyWeb: false,
         savedWebhook: '',
-        // savedTranslation: '',
         savedRefEmail: '',
-        // savedProtocol: 'sftp://',
-        // savedFTSURL: '',
         savedURLS: `{"SFExt":"${configURL}"}`,
-        // savedStatus: false
         savedWide: false
     }, function(result) {
         globalTimeout = result.savedTimeout;
-        // globalProducts = result.savedProducts;
-        // globalPenCust = result.savedPenCust;
-        // globalFTSHTTP = result.savedFTSHTTP;
         globalDefectURL = result.savedDefect;
         globalPP = result.savedPP;
         globalEDU = result.savedEDU;
@@ -62,12 +45,8 @@ function initSyncData() {
         globalQNotify = result.savedQNotify;
         globalQNotifyWeb = result.savedQNotifyWeb;
         globalWebhook = result.savedWebhook;
-        // globalTranslationURL = result.savedTranslation;
         globalRefEmail = result.savedRefEmail;
-        // globalProtocol = result.savedProtocol;
-        // globalFTSURL = result.savedFTSURL;
         globalURLS = result.savedURLS;
-        // globalStatus = result.savedStatus;
         globalWide = result.savedWide;
         globalInit = 1;
     });
@@ -78,9 +57,6 @@ function getSyncData() {
         if (area === 'sync') {
             chrome.storage.sync.get({
                 savedTimeout: 60,
-                // savedProducts: '{"ACUCOBOL-GT (Extend)":"extend-acucobol","Enterprise Developer / Server / Test Server":"enterprise-developer","Visual COBOL":"visual-cobol","COBOL Server":"cobol","Net Express / Server Express":"net-express","Enterprise Analyzer":"enterprise-analyzer","COBOL Analyzer":"cobol-analyzer","COBOL-IT":"cobol-it-ds","RM/COBOL":"rm-cobol","Relativity":"relativity","Data Express":"dataexpress"}',
-                // savedPenCust: false,
-                // savedFTSHTTP: '',
                 savedDefect: '',
                 savedPP: '',
                 savedEDU: '',
@@ -88,12 +64,8 @@ function getSyncData() {
                 savedQNotify: false,
                 savedQNotifyWeb: false,
                 savedWebhook: '',
-                // savedTranslation: '',
                 savedRefEmail: '',
-                // savedProtocol: 'sftp://',
-                // savedFTSURL: '',
                 savedURLS: `{"SFExt":"${configURL}"}`,
-                // savedStatus: false
                 savedWide: false
             }, function(result) {
                 if (globalTimeout != result.savedTimeout) {
@@ -103,9 +75,6 @@ function getSyncData() {
                     }
                     queueRefresh();
                 }
-                // globalProducts = result.savedProducts;
-                // globalPenCust = result.savedPenCust;
-                // globalFTSHTTP = result.savedFTSHTTP;
                 globalDefectURL = result.savedDefect;
                 globalPP = result.savedPP;
                 globalEDU = result.savedEDU;
@@ -121,15 +90,11 @@ function getSyncData() {
                 globalQNotify = result.savedQNotify;
                 globalQNotifyWeb = result.savedQNotifyWeb;
                 globalWebhook = result.savedWebhook;
-                // globalTranslationURL = result.savedTranslation;
                 globalRefEmail = result.savedRefEmail;
-                // globalProtocol = result.savedProtocol;
-                // globalFTSURL = result.savedFTSURL;
                 if (globalURLS != result.savedURLS) {
                     globalURLS = result.savedURLS;
                     updateCustomURLs();
                 }
-                // globalStatus = result.savedStatus;
                 globalWide = result.savedWide;
             });
         }
@@ -148,106 +113,6 @@ function queueRefresh() {
     }
 }
 
-function createStatusModal() {
-    const caseStatusJSON = '{"suspended":"Suspended","closed":"Closed","customer":"Pending Customer","internal":"Pending Internal","solution":"Solution Suggested","support":"Pending Support","development":"Pending Development","release":"Pending Release"}';
-    let myDialog = document.createElement("dialog");
-    myDialog.className = 'statusDialog';
-    document.body.appendChild(myDialog);
-    let statusDiv = document.createElement("div");
-    statusDiv.className = "caseStatus";
-    let statusTitle = statusDiv.appendChild(document.createElement('h3'));
-    statusTitle.innerText = "Case Status";
-    myDialog.appendChild(statusDiv);
-    let caseStatusParse = JSON.parse(caseStatusJSON);
-    Object.entries(caseStatusParse).forEach(([key, value]) => {
-        let statusGroup = document.createElement("div");
-        statusGroup.className = "statusGroup";
-        let input = statusGroup.appendChild(document.createElement('input'));
-        input.type = "radio";
-        input.id = key;
-        input.name = "status";
-        input.value = value;
-        input.className = 'statusRadioMF';
-        let label = statusGroup.appendChild(document.createElement('label'));
-        label.className = "statusLabel";
-        label.setAttribute("for", key);
-        label.innerText = value;
-        statusDiv.appendChild(statusGroup);
-    });
-    let cancelStatus = statusDiv.appendChild(document.createElement('button'));
-    cancelStatus.textContent = "Cancel";
-    cancelStatus.className = "statusButton";
-    cancelStatus.addEventListener('click', function(){myDialog.close();}, false);
-    let saveStatus = statusDiv.appendChild(document.createElement('button'));
-    saveStatus.textContent = "Save";
-    saveStatus.className = "statusButton";
-    saveStatus.addEventListener('click', saveCaseStatus, false);
-}
-
-function sendObserver() {
-    let observer = new MutationObserver(mutations => {
-        let initial = document.querySelector('.split-right');
-        if (initial) {
-            const sendButton = initial.querySelector('.LARGE.send.uiButton');
-            if ( (sendButton) && (sendButton.title != 'sendEvent') ) {
-                sendButton.title = 'sendEvent';
-                sendButton.addEventListener('click', awaitSend, false);
-            }
-        }
-    });
-    observer.observe(document.body, {childList: true, subtree: true});
-}
-
-function awaitSend() {
-    let observer = new MutationObserver(mutations => {
-        const emailSent = contains('.toastMessage', 'Email'); 
-        if (emailSent.length) {
-            if (globalStatus) {
-                document.querySelector('.statusDialog').showModal();
-            }
-            observer.disconnect();
-        }
-    });
-    observer.observe(document.body, {childList: true, subtree: true});
-}
-
-function saveCaseStatus() {
-    let userSelection = document.querySelectorAll('.statusRadioMF');
-    for (i = 0; i < userSelection.length; i++) {
-        if(userSelection[i].checked) {
-            let userSelected = userSelection[i].value;
-            const detailsTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[title="Details"]');
-            if (detailsTab) {
-                (async ()=>{
-                    await sleep(100);
-                    detailsTab.click();
-                    await sleep(100);
-                    let modifyButton = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('button.test-id__inline-edit-trigger');
-                    if (modifyButton) {
-                        modifyButton.click();
-                    }
-                    await sleep(500);
-                    let openStatusCombo = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.slds-form__row:nth-child(1) slot records-record-layout-item:nth-child(2) button');
-                    if (openStatusCombo) {
-                        openStatusCombo.click();
-                    }
-                    await sleep(300);
-                    let selectStatusValue = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector(`[data-value="${userSelected}"]`);
-                    if (selectStatusValue) {
-                        selectStatusValue.click();
-                    }
-                    await sleep(200);
-                    let SaveEdit = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[name="SaveEdit"]');
-                    if (SaveEdit) {
-                        SaveEdit.click();
-                    }
-                })();
-            }
-        document.querySelector('.statusDialog').close();
-        }
-    }
-}
-
 function mfNav() {
     let observer = new MutationObserver(mutations => {
         let mfButton = document.querySelector('#oneHeader')?.querySelector('ul.slds-global-actions');
@@ -262,19 +127,12 @@ function mfNav() {
                 }
                 mfDropDown();
                 mfSup();
-                // mfSLD();
-                // mfFTS();
-                // mfElevate();
                 mfDefect();
                 mfDocumentation();
-                // mfTranslation();
-                // mfEntitlement();
-                // mfAccountTeam();
                 thirdLineRef();
                 addReminder();
                 mfPP();
                 mfEDU();
-                // fullScreenKCS();
                 customURLs();
             })();
         }
@@ -322,61 +180,6 @@ function mfSupEvent() {
     window.open('https://my.rocketsoftware.com/RocketCommunity', '_blank');
 }
 
-function mfSLD() {
-    createMFMenu('mfsld', 'fa-cloud-arrow-down', 'SLD');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfsld');
-    mfButtonNew.addEventListener('click', mfSLDEvent, false);
-}
-
-function mfSLDEvent() {
-    window.open('https://sld.microfocus.com/', '_blank');
-}
-
-function mfFTS() {
-    createMFMenu('mffts', 'fa-cloud-arrow-up', 'FTS');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mffts');
-    mfButtonNew.addEventListener('click', mfFTSEvent, false);
-}
-
-function mfFTSEvent() {
-    let ftsAccountTitle = activeCaseContains('dt > div', 'FTS AccountName');
-    if (ftsAccountTitle.length) {
-        let ftsAccount = ftsAccountTitle[0].parentNode.parentNode.querySelector('dd > div > span > slot').innerText;
-        let ftsPasswordTitle = activeCaseContains('dt > div', 'FTS Password');
-        let ftsPassword = ftsPasswordTitle[0].parentNode.parentNode.querySelector('dd > div > span > slot').innerText;
-        let encodeFTSAcc = (ftsAccount).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
-        let encodeFTSPass = (ftsPassword).replace(/#/g, "%23").replace(/%/g, "%25").replace(/\+/g, "%2B").replace(/\//g, "%2F").replace(/@/g, "%40").replace(/:/g, "%3A").replace(/;/g, "%3B");
-        let combineFTS = encodeFTSAcc + ':' + encodeFTSPass;
-        let finalFTSURL = globalProtocol + combineFTS + '@' + globalFTSURL;
-        window.open(finalFTSURL, '_parent');
-    } else {
-        window.open(globalFTSHTTP, '_blank');
-    }
-}
-
-function mfElevate() {
-    createMFMenu('mfelevate', 'fa-bug', 'Elevate to R&D');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfelevate');
-    mfButtonNew.addEventListener('click', mfElevateEvent, false);
-}
-
-function mfElevateEvent() {
-    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-    if (caseCheck) {
-        let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText; 
-        if (caseNumber) {
-            let finalURL = globalDefectURL.replace(/\/$/, "") + '/#/submitOctane/type/CPE%20Incident/autofillSystem/SC/autofillId/' + caseNumber;
-            window.open(finalURL, '_blank');
-        } else {
-            let finalURL = globalDefectURL.replace(/\/$/, "") + '/#/submit';
-            window.open(finalURL, '_blank');
-        }
-    } else {
-        let finalURL = globalDefectURL.replace(/\/$/, "") + '/#/submit';
-        window.open(finalURL, '_blank');
-    }
-}
-
 function mfDefect() {
     createMFMenu('mfde', 'fa-code', 'Jira');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfde');
@@ -384,18 +187,7 @@ function mfDefect() {
 }
 
 function mfDefectEvent() {
-    // let defectElem = activeCaseContains('dt > div', 'Non-Octane Defect');
-    // if (defectElem.length) {
-    //     let defectID = defectElem[0].parentNode.parentNode.querySelector('dd > div > span > slot').innerText;
-    //     if (defectID.length) {
-    //         let finalURL = globalDefectURL.replace(/\/$/, "") + '/browse/' + defectID;
-    //         window.open(finalURL, '_blank');
-    //     } else {
-    //         window.open(globalDefectURL.replace(/\/$/, ""), '_blank');
-    //     }
-    // } else {
-        window.open(globalDefectURL.replace(/\/$/, ""), '_blank');
-    // }
+    window.open(globalDefectURL.replace(/\/$/, ""), '_blank');
 }
 
 function mfDocumentation() {
@@ -405,18 +197,7 @@ function mfDocumentation() {
 }
 
 function mfDocumentationEvent() {
-    // let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-    // if (caseCheck) {
-    //     let mfProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('span > a').textContent;
-    //     try {
-    //         let products = JSON.parse(globalProducts);
-    //         mfDocumentationURL(products, mfProduct);
-    //     } catch (err) {
-    //         window.alert("Product list JSON format is not correct!");
-    //     }
-    // } else {
-        window.open('https://docs.rocketsoftware.com/', '_blank');
-    // }
+    window.open('https://docs.rocketsoftware.com/', '_blank');
 }
 
 function mfDocumentationURL(products, mfProduct) {
@@ -430,74 +211,6 @@ function mfDocumentationURL(products, mfProduct) {
     }
 }
 
-function mfEntitlement() {
-    createMFMenu('mfEnt', 'fa-list-check', 'Entitlements');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfEnt');
-    mfButtonNew.addEventListener('click', mfEntitlementEvent, false);
-}
-
-function mfEntitlementEvent() {
-    let activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-    if (activeTab) {
-        let account = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(6) a');
-        if (account) {
-            let accountURL = account.href;
-            let entitlementURL = accountURL.replace("/view", "/related/Entitlements/view");
-            window.open(entitlementURL, '_blank');
-        }
-    }
-}
-
-function mfAccountTeam() {
-    createMFMenu('mfAccount', 'fa-people-group', 'Account Team');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mfAccount');
-    mfButtonNew.addEventListener('click', mfAccountTeamEvent, false);
-}
-
-function mfAccountTeamEvent() {
-    let activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-    if (activeTab) {
-        let account = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(6) a');
-        if (account) {
-            let accountURL = account.href;
-            let accountTeamURL = accountURL.replace("/view", "/related/AccountTeamMembers/view");
-            window.open(accountTeamURL, '_blank');
-        }
-    }
-}
-
-function mfTranslation() {
-    createMFMenu('mftranslation', 'fa-language', 'Translation');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.mftranslation');
-    mfButtonNew.addEventListener('click', mfTranslationEvent, false);
-}
-
-function mfTranslationEvent() {
-    let caseNumber;
-    let caseSeverity;
-    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-    if (caseCheck) {
-        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
-        let fullCaseSeverity = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(3) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text').innerText;
-        caseSeverity = fullCaseSeverity.substring(4);
-        if (caseSeverity === 'Critical') {
-            let tempSeverity = caseSeverity.toUpperCase();
-            caseSeverity = tempSeverity;
-        }
-    }
-    if ( (caseNumber) && (caseSeverity) ) {
-        let finalURL = `${globalTranslationURL}?CaseNumber=${encodeURIComponent(caseNumber)}&Severity=${encodeURIComponent(caseSeverity)}`;
-        window.open(finalURL, 'MF Translation', 'width=1150,height=700');
-    } else {
-        if ( (caseNumber) && !(caseSeverity) ) {
-            let finalURL = `${globalTranslationURL}?CaseNumber=${encodeURIComponent(caseNumber)}`;
-        window.open(finalURL, 'MF Translation', 'width=1150,height=700');
-        } else {
-            window.open(globalTranslationURL, 'MF Translation', 'width=1150,height=700');
-        }
-    }
-}
-
 function thirdLineRef() {
     createMFMenu('thirdLineRef', 'fa-paper-plane', '3rd Line Referral');
     let mfButtonNew = document.querySelector('#oneHeader').querySelector('.thirdLineRef');
@@ -505,67 +218,7 @@ function thirdLineRef() {
 }
 
 function thirdLineRefEvent() {
-    // (async ()=>{
-    //     addCaseTeam();
-    //     const activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-    //     if (activeTab) {
-    //         const relatedTab = activeTab.querySelector('[title="Related"]');
-    //         if (relatedTab) {
-    //             let observer = new MutationObserver(mutations => {
-    //                 setTimeout(function() {
-    //                     let refCheck = document.querySelector('div.refSent');
-    //                     if (refCheck) {
-    //                         refEmail();
-    //                         let div = document.querySelector('.refSent');
-    //                         if (div) {
-    //                         div.parentNode.removeChild(div);
-    //                         }
-    //                         observer.disconnect();
-    //                     }
-    //                 }, 200);
-    //             });
-    //             observer.observe(document.body, {childList: true, subtree: true});
-    //         }
-    //     } else {
-            refEmail();
-        // }
-    // })();
-}
-
-function addCaseTeam() {
-    const activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-    if (activeTab) {
-        const relatedTab = activeTab.querySelector('[title="Related"]');
-        if (relatedTab) {
-            (async ()=>{
-                relatedTab.click();
-                await sleep(500);
-                let addButton = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('div[title="Add Member"]');
-                if (addButton) {
-                    addButton.click();
-                }
-                await sleep(500);
-                let assignMember = document.querySelector('.modal-container input[title="Search People"]');
-                if (assignMember) {
-                    assignMember.value = '3rd Line AMC';
-                }
-                await sleep(100);
-                let memberRole = document.querySelector('.modal-container .uiInputSelect');
-                if (memberRole) {
-                    memberRole.value = '0B74J000000KyvvSAC';
-                }
-                await sleep(100);
-                let save = document.querySelector('.modal-container button[name="save"]');
-                if (save) {
-                    save.click();
-                }
-                let div = document.createElement('div');
-                div.className = 'refSent';
-                div.style.display = 'none';
-                document.body.appendChild(div);
-            })();
-        }
-    }
+    refEmail();
 }
 
 function refEmail() {
@@ -575,8 +228,6 @@ function refEmail() {
     let caseName;
     let caseAccount;
     let caseProduct;
-    let caseDescriptionElem;
-    let caseDescription;
     let userQuery;
     let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
     if (caseCheck) {
@@ -585,8 +236,6 @@ function refEmail() {
         caseName = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Contact Name"] [name="outputField"] a').innerText;
         caseAccount = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Account Name"] [name="outputField"] a').innerText;
         caseProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Product"] [name="outputField"] a').innerText;
-        // caseDescriptionElem = activeCaseContains('.slds-form-element__label','Description'); 
-        // caseDescription = caseDescriptionElem[0].nextSibling.nextSibling.firstChild.innerText;
         caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
     }
     if ((caseNumber) && (caseSubject) && (caseName) && (caseAccount) && (caseURL) && (caseProduct)) {
@@ -599,8 +248,7 @@ function refEmail() {
             + "CASE SUMMARY: \n\n"
             + "• Summary of the issue\n" 
             + caseNumber + " - " + caseSubject + "\n" 
-            + caseURL + "\n\n" 
-            // + caseDescription +"\n\n"
+            + caseURL + "\n\n"
             + "• Summary of diagnostics\n\n"
             + "• Hypothesis and other details\n\n"
             + "• List Case Attachments\n\n"
@@ -695,31 +343,6 @@ function mfEDU() {
 
 function mfEDUEvent() {
     window.open(globalEDU, '_blank');
-}
-
-function fullScreenKCS() {
-    createMFMenu('kcsfull', 'fa-expand', 'KCS Fullscreen');
-    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.kcsfull');
-    mfButtonNew.addEventListener('click', fullScreenKCSEvent, false);
-}
-
-function makeIframeFullscreen(iframe) {
-    if (iframe.requestFullscreen) {
-        iframe.requestFullscreen();
-    } else {
-        if (iframe.mozRequestFullScreen) {
-            iframe.mozRequestFullScreen();
-        } else if (iframe.webkitRequestFullscreen) {
-            iframe.webkitRequestFullscreen();
-        }
-    }
-}
-
-function fullScreenKCSEvent() {
-    let kcsFrame = document.querySelector('.split-right').querySelector('div.content.iframe-parent > iframe[title="Article Body Text Editor Container"]'); 
-    if (kcsFrame) {
-        makeIframeFullscreen(kcsFrame);
-    }  
 }
 
 function customURLs() {
@@ -951,158 +574,9 @@ function emptyArrays() {
     }
 }
 
-function defectListURL() {
-    let observer = new MutationObserver(mutations => {
-        let headerCell = document.querySelector('[title="Non-Octane Defect"]');
-        if (headerCell) {
-            let headerCellIndex = headerCell.cellIndex;
-            let defectRows = document.querySelectorAll("tbody tr:not([title='Defect'])");
-            defectRows.forEach(row => {
-                let defectCell = row.cells[headerCellIndex];
-                let defectID = defectCell.innerText;
-                if (defectID) {
-                    let finalURL = `<a target="_blank" href="${globalDefectURL.replace(/\/$/, "")}/browse/${defectID}">${defectID}</a>`;
-                    defectCell.innerHTML = finalURL;
-                    row.title = "Defect";
-                }
-            });
-        }
-    });
-    observer.observe(document.body, {childList: true, subtree: true});
-}
-
-function defectFixed() {
-    let observer = new MutationObserver(mutations => {
-        let fixedElement = activeQueueContains('td > span > span','Planned in new release');
-        for (let i = 0, length = fixedElement.length; i < length; ++i) {
-            if (fixedElement[i].title != "Fixed") {
-                fixedElement[i].style.color = 'red';
-                fixedElement[i].title = 'Fixed';
-                fixedElement[i].parentNode.parentNode.parentNode.style.backgroundColor = '#f1f1f1';
-            }
-        }
-        let fixedElement2 = activeQueueContains('td > span > span','Software update provided');
-        for (let i = 0, length = fixedElement2.length; i < length; ++i) {
-            if (fixedElement2[i].title != "Fixed") {
-                fixedElement2[i].style.color = 'red';
-                fixedElement2[i].title = 'Fixed';
-                fixedElement2[i].parentNode.parentNode.parentNode.style.backgroundColor = '#f1f1f1';
-            }
-        }
-    });
-    observer.observe(document.body, {childList: true, subtree: true});
-}
-
-function addCharacterCounter() {
-    let observer = new MutationObserver(mutations => {
-        let initial = document.querySelector('.split-right');
-        if (initial) {
-            let textareas = initial.querySelectorAll('.slds-textarea, .textarea');
-            textareas.forEach(function(textarea) {
-                let checkCounter = textarea.nextSibling;
-                let existingCounter;
-                if (checkCounter) {
-                    existingCounter = checkCounter.classList.contains('character-counter');
-                }
-                if (!existingCounter) {        
-                    let counter = document.createElement('div');
-                    counter.classList.add('character-counter');
-                    textarea.parentNode.insertBefore(counter, textarea.nextSibling);
-                    textarea.addEventListener('input', function() {
-                        counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
-                        if (textarea.value.length > textarea.maxLength) {
-                            counter.style.color = 'red';
-                        } else {
-                            counter.style.color = 'inherit';
-                        }
-                    });
-                    counter.innerHTML = textarea.value.length + '/' + textarea.maxLength;
-                    if (textarea.value.length > textarea.maxLength) {
-                        counter.style.color = 'red';
-                    }
-                }
-            });
-        }
-    });
-    observer.observe(document.body, {childList: true, subtree: true});
-}
-
 function addCopyButton() {
     let observer = new MutationObserver(mutations => {
         let activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-        // if (activeTab) {
-        //     let caseNumberButtonCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > .copyButton');
-        //     if (caseNumberButtonCheck === null) {
-        //         let field = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('records-highlights-details-item:nth-child(1) > div > p.fieldComponent.slds-text-body--regular.slds-show_inline-block.slds-truncate > slot > lightning-formatted-text');
-        //         let button = document.createElement('button');
-        //         button.style.border = 'none';
-        //         button.style.backgroundColor = 'transparent';
-        //         button.style.color = '#0570f6';
-        //         button.style.cursor = 'pointer';
-        //         button.style.fontWeight = '700';
-        //         button.style.fontSize = '14px';
-        //         button.title = 'Copy Case Number';
-        //         button.className = 'copyButton fa-solid fa-copy';
-        //         (async ()=>{
-        //             if (field && field.parentNode) {
-        //                 field.parentNode.parentNode.parentNode.parentNode.style.paddingRight = '0';
-        //                 field.parentNode.appendChild(button);
-        //                 button.addEventListener('click', async () => {
-        //                     let selectedText = field.innerText;
-        //                     let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-        //                     const clipboardItem = new ClipboardItem({
-        //                         "text/plain": new Blob(
-        //                             [selectedText],
-        //                             { type: "text/plain" }
-        //                         ),
-        //                         "text/html": new Blob(
-        //                             [`<a href="${caseURL}">${selectedText}</a>`],
-        //                             { type: "text/html" }
-        //                         ),
-        //                     });
-        //                     await navigator.clipboard.write([clipboardItem]);
-        //                 });
-        //             }
-        //             await sleep(500);
-        //         })();
-        //     }
-        // }
-        // if (activeTab) {
-        //     let caseSubjectButtonCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > .copyButton');
-        //     if (caseSubjectButtonCheck === null) {
-        //         let field  = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('support-output-case-subject-field > div > lightning-formatted-text');
-        //         let button = document.createElement('button');
-        //         button.style.border = 'none';
-        //         button.style.backgroundColor = 'transparent';
-        //         button.style.color = '#0570f6';
-        //         button.style.cursor = 'pointer';
-        //         button.style.fontWeight = '700';
-        //         button.style.fontSize = '16px';
-        //         button.title = 'Copy Case Subject';
-        //         button.className = 'copyButton fa-solid fa-copy';
-        //         (async ()=>{
-        //             if (field && field.parentNode) {
-        //                 field.parentNode.appendChild(button);
-        //                 button.addEventListener('click', async () => {
-        //                     let selectedText = field.innerText;
-        //                     let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
-        //                     const clipboardItem = new ClipboardItem({
-        //                         "text/plain": new Blob(
-        //                             [selectedText],
-        //                             { type: "text/plain" }
-        //                         ),
-        //                         "text/html": new Blob(
-        //                             [`<a href="${caseURL}">${selectedText}</a>`],
-        //                             { type: "text/html" }
-        //                         ),
-        //                     });
-        //                     await navigator.clipboard.write([clipboardItem]);
-        //                 });
-        //             }
-        //             await sleep(500);
-        //         })();
-        //     }
-        // }
         if (activeTab) {
             let caseButtonCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.highlights-icon-container.slds-avatar.slds-m-right_small.icon.copyButton');
             if (caseButtonCheck === null) {
@@ -1135,110 +609,6 @@ function addCopyButton() {
                 })();
             }
         }
-        // if (activeTab) {
-        //     let defectElem = activeCaseContains('dt > div', 'Non-Octane Defect');
-        //     if (defectElem.length) {
-        //         let defectID = defectElem[0].parentNode.parentNode.querySelector('dd > div > span > slot');
-        //         if (defectID.innerText.length) {
-        //             if (!defectID.className) {
-        //                 defectID.className = "copyButtonAdded";
-        //                 let button = document.createElement('button');
-        //                 button.style.border = 'none';
-        //                 button.style.backgroundColor = 'transparent';
-        //                 button.style.color = '#0570f6';
-        //                 button.style.cursor = 'pointer';
-        //                 button.style.fontWeight = '700';
-        //                 button.style.fontSize = '14px';
-        //                 button.title = 'Copy Defect Number';
-        //                 button.className = 'copyButton fa-solid fa-copy';
-        //                 (async ()=>{
-        //                     if (defectID && defectID.parentNode) {
-        //                         defectID.parentNode.appendChild(button);
-        //                         button.addEventListener('click', async () => {
-        //                             let selectedText = defectID.innerText;
-        //                             const clipboardItem = new ClipboardItem({
-        //                                 "text/plain": new Blob(
-        //                                     [selectedText],
-        //                                     { type: "text/plain" }
-        //                                 ),
-        //                                 "text/html": new Blob(
-        //                                     [`<a target="_blank" href="${globalDefectURL.replace(/\/$/, "")}/browse/${selectedText}">${selectedText}</a>`],
-        //                                     { type: "text/html" }
-        //                                 ),
-        //                             });
-        //                             await navigator.clipboard.write([clipboardItem]);
-        //                         });
-        //                     }
-        //                     await sleep(500);
-        //                 })();
-        //             }
-        //         }
-        //     }
-        // }
-        // if (activeTab) {
-        //     let ftsAccountTitle = activeCaseContains('dt > div', 'FTS AccountName');
-        //     if (ftsAccountTitle.length) {
-        //         let ftsAccount = ftsAccountTitle[0].parentNode.parentNode.querySelector('dd > div > span > slot');
-        //         let ftsPasswordTitle = activeCaseContains('dt > div', 'FTS Password');
-        //         let ftsPassword = ftsPasswordTitle[0].parentNode.parentNode.querySelector('dd > div > span > slot');
-        //         if (!ftsAccount.className) {
-        //             ftsAccount.className = "copyButtonAdded";
-        //             let button = document.createElement('button');
-        //             button.style.border = 'none';
-        //             button.style.backgroundColor = 'transparent';
-        //             button.style.color = '#0570f6';
-        //             button.style.cursor = 'pointer';
-        //             button.style.fontWeight = '700';
-        //             button.style.fontSize = '14px';
-        //             button.title = 'Copy FTS Account Name';
-        //             button.className = 'copyButton fa-solid fa-copy';
-        //             (async ()=>{
-        //                 if (ftsAccount && ftsAccount.parentNode) {
-        //                     ftsAccount.parentNode.appendChild(button);
-        //                     button.addEventListener('click', async () => {
-        //                         let selectedText = ftsAccount.innerText;
-        //                         const clipboardItem = new ClipboardItem({
-        //                             "text/plain": new Blob(
-        //                                 [selectedText],
-        //                                 { type: "text/plain" }
-        //                             ),
-        //                         });
-        //                         await navigator.clipboard.write([clipboardItem]);
-        //                     });
-        //                 }
-        //                 await sleep(500);
-        //             })();
-        //         }
-        //         if (!ftsPassword.className) {
-        //             ftsPassword.className = "copyButtonAdded";
-        //             let button = document.createElement('button');
-        //             button.style.border = 'none';
-        //             button.style.backgroundColor = 'transparent';
-        //             button.style.color = '#0570f6';
-        //             button.style.cursor = 'pointer';
-        //             button.style.fontWeight = '700';
-        //             button.style.fontSize = '14px';
-        //             button.title = 'Copy FTS Password';
-        //             button.className = 'copyButton fa-solid fa-copy';
-        //             (async ()=>{
-        //                 if (ftsPassword && ftsPassword.parentNode) {
-        //                     ftsPassword.parentNode.appendChild(button);
-        //                     button.addEventListener('click', async () => {
-        //                         let selectedText = ftsPassword.innerText;
-        //                         const clipboardItem = new ClipboardItem({
-        //                             "text/plain": new Blob(
-        //                                 [selectedText],
-        //                                 { type: "text/plain" }
-        //                             ),
-        //                         });
-        //                         await navigator.clipboard.write([clipboardItem]);
-        //                     });
-        //                 }
-        //                 await sleep(500);
-        //             })();
-        //         }
-        //     }
-        // }
     });
     observer.observe(document.body, {childList: true, subtree: true});
 }
@@ -1304,25 +674,6 @@ function fullWidthCase() {
         let caseView = document.querySelector('div.split-right')?.querySelector('div.template-workspace-contents.slds-grid');
         if (caseView && globalWide) {
             caseView.classList.remove("slds-grid");
-        }
-    });
-    observer.observe(document.body, {childList: true, subtree: true});
-}
-
-function defPenCust() {
-    let observer = new MutationObserver(mutations => {
-        let activeTab = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-        if (activeTab) {
-            (async ()=>{
-                let checkbox = document.querySelector('.split-right > .tabContent.active.oneConsoleTab').querySelector('.supportPublisherQuickSendEmail input[type="checkbox"]');
-                if (checkbox && checkbox.className != 'done') {
-                    if (globalPenCust) {
-                        document.querySelector('.split-right > .tabContent.active.oneConsoleTab').querySelector('.supportPublisherQuickSendEmail input[type="checkbox"]').checked = globalPenCust;
-                    }
-                    checkbox.className = 'done';
-                }
-                await sleep(500);
-            })();
         }
     });
     observer.observe(document.body, {childList: true, subtree: true});
@@ -1566,20 +917,14 @@ let initInterval = setInterval(function() {
     if (globalInit) {
         getSyncData();
         queueRefresh();
-        // createStatusModal();
-        // sendObserver();
         mfNav();
         setTimeout(function() {
             initQMonitor();
         }, 10000);
-        // defectListURL();
-        // defectFixed();
-        // addCharacterCounter();
         addCopyButton();
         addCaseTitle();
         KCSURL();
         fullWidthCase();
-        // defPenCust();
         extLoaded();
         setInterval(keepAlive, 25000);
         fixMouse();
