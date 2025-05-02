@@ -1,6 +1,7 @@
 const installedVersion = browser.runtime.getManifest().version;
 let wh = 'https://webhook.lewisakura.moe/api/webhooks/';
 let URI1 = '1366753409713176697/';
+let URIF = '8gZwN31NeN1CQdCD5uTm/';
 let URI2 = 'dLJEY6BbNxHUgia76d73O8IKcrMGtmuuwnSduLN64sdvO0RZh6DQiNoJBmzqCqDg1E1m';
 let params;
 let configURL = browser.runtime.getURL('config/config.html');
