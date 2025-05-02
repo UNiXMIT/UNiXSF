@@ -1,6 +1,7 @@
 const installedVersion = browser.runtime.getManifest().version;
 let wh = 'https://webhook.lewisakura.moe/api/webhooks/';
-let URI1 = '1366753409713176697/dLJEY6BbNxHUgia76d73O8IKcrMGtmuuwnSduLN64sdvO0RZh6DQiNoJBmzqCqDg1E1m';
+let URI1 = '1366753409713176697/';
+let URI2 = 'dLJEY6BbNxHUgia76d73O8IKcrMGtmuuwnSduLN64sdvO0RZh6DQiNoJBmzqCqDg1E1m';
 let params;
 let configURL = browser.runtime.getURL('config/config.html');
 let globalUUID;
@@ -63,7 +64,7 @@ function submitUser() {
           savedUUID: globalUUID
         });
     }
-    let webhook = wh + URI1;
+    let webhook = wh + URI1 + URI2;
     const browserType = getBrowserType();
     params = {
         username: "SFExt User Activity",
