@@ -709,6 +709,15 @@ function keepAlive() {
     });
 }
 
+function moveMouse(){
+	var evt = new MouseEvent("mousemove", {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    });
+    document.dispatchEvent(evt);
+}
+
 function fixMouse() {
     document.addEventListener('mouseup', e => {
         if (typeof e === 'object' && [3, 4].includes(e.button)) {
@@ -853,7 +862,8 @@ let initInterval = setInterval(function() {
         KCSURL();
         fullWidthCase();
         extLoaded();
-        setInterval(keepAlive, 25000);
+        setInterval(keepAlive, 60000);
+        setInterval(moveMouse, 60000);
         fixMouse();
         EE();
         clearTimeout(initInterval);

@@ -24,7 +24,9 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.force.com/*"
+        "*://*.force.com/*",
+        "https://teams.live.com/*", 
+        "https://teams.microsoft.com/*"
       ],
       "run_at": "document_end",
       "js": ["js/SFExt.js"],
