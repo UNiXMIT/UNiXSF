@@ -20,9 +20,7 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 
 - **Case queue monitor and notifications**  
   Notifications are generated when:  
-  - A new or updated case appears in the queue, that wasn't there before.  
-  - The status of a case in the queue changes to 'Pending Support (New Activity)'.  
-    NOTE: The 'Case Number' and 'Status' columns need to be visible in the queue. The 'Subject' column is optional.         
+  - A new or updated case appears in the queue, that wasn't there before.        
 
 - **QuickLink Menu**
 

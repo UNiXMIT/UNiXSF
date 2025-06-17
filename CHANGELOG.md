@@ -1,3 +1,9 @@
+# 4.0.9
+
+### Tweaks
+- SF adjusted HTML tags. Modified JS code to match.  
+- Docs update.  
+
 # 4.0.8
 
 ### Tweaks
