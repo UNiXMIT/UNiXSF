@@ -655,7 +655,7 @@ function KCSURL() {
         }
         let ActiveURLField = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
         if (ActiveURLField) {
-            let URLField = ActiveURLField.querySelector('[field-label="URL Name"] dd lightning-formatted-text');
+            let URLField = ActiveURLField.querySelector('[field-label="URL Name"] lightning-formatted-text');
             if (URLField) {
                 let KCSCheck = URLField?.querySelector("a");
                 if (URLField && !KCSCheck) {
