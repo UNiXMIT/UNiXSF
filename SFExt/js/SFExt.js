@@ -385,8 +385,8 @@ function updateCustomURLs() {
 }
 
 function initQMonitor() {
-    let caseQueue = document.querySelector(`table[aria-label*="${globalQueue}"]`);
-    let caseTable = document.querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
+    let caseQueue = document.querySelector('#split-left').querySelector(`table[aria-label*="${globalQueue}"]`);
+    let caseTable = document.querySelector('#split-left').querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
     if ( (caseQueue) && (caseTable) ) {
         caseTable.forEach(caseRow => {
             let caseNumber = caseRow.querySelector('th span a').textContent;
@@ -402,8 +402,8 @@ function initQMonitor() {
     } else {
         let observer = new MutationObserver(mutations => {
             setTimeout(function() {
-                let caseQueue = document.querySelector(`table[aria-label*="${globalQueue}"]`);
-                let caseTable = document.querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
+                let caseQueue = document.querySelector('#split-left').querySelector(`table[aria-label*="${globalQueue}"]`);
+                let caseTable = document.querySelector('#split-left').querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
                 if ( (caseQueue) && (caseTable) ) {
                     caseTable.forEach(caseRow => {
                         let caseNumber = caseRow.querySelector('th span a').textContent;
@@ -425,7 +425,7 @@ function initQMonitor() {
 }
 
 function qMonitor() {
-    let caseQueue = document.querySelector(`table[aria-label*="${globalQueue}"]`);
+    let caseQueue = document.querySelector('#split-left').querySelector(`table[aria-label*="${globalQueue}"]`);
     qObserver = new MutationObserver(mutations => {
         if (caseQueue) {
             setTimeout(function() {
@@ -437,8 +437,8 @@ function qMonitor() {
 }
 
 function qNotify() {
-    let caseQueue = document.querySelector(`table[aria-label*="${globalQueue}"]`);
-    let caseTable = document.querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
+    let caseQueue = document.querySelector('#split-left').querySelector(`table[aria-label*="${globalQueue}"]`);
+    let caseTable = document.querySelector('#split-left').querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
     if (caseTable) {
         caseTable.forEach(caseRow => {
             let caseNumber = caseRow.querySelector('th span a').textContent;
@@ -564,7 +564,7 @@ function qNotify() {
 }
 
 function emptyArrays() {
-    let caseQueue = document.querySelector(`table[aria-label*="${globalQueue}"]`);
+    let caseQueue = document.querySelector('#split-left').querySelector(`table[aria-label*="${globalQueue}"]`);
     let caseTable = caseQueue.querySelectorAll("tbody tr");
     if ( (caseQueue) && !(caseTable) ) {
         oldCaseArray = [];
