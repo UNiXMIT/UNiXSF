@@ -77,7 +77,7 @@ function handleMessage(request, sender, sendResponse) {
     const teamsWebhook = "https://*.webhook.office.com/webhookb2/";
     const slackWebhook = "https://hooks.slack.com/services/";
     const discordWebhook = "https://discord.com/api/webhooks/";
-    const discordProxyWebhook = "https://fiveproxy.lol/";
+    const discordProxyWebhook = "https://webhook.lewisakura.moe/";
     if (request.action === "keepAlive") {
         return;
     }

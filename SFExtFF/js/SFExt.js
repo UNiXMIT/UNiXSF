@@ -19,8 +19,6 @@ let intervalID;
 let qObserver;
 let oldCaseArray = [];
 let newCaseArray = [];
-let oldActivityArray = [];
-let newActivityArray = [];
 let configURL = browser.runtime.getURL('config/config.html');
 
 function initSyncData() {
@@ -389,12 +387,8 @@ function initQMonitor() {
     let caseTable = document.querySelector('#split-left').querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
     if ( (caseQueue) && (caseTable) ) {
         caseTable.forEach(caseRow => {
-            let caseNumber = caseRow.querySelector('th span a').textContent;
+            let caseNumber = caseRow.querySelector('th').innerText;
             oldCaseArray.push(caseNumber);
-            let newActivity = monitoredQueueContains(caseRow, 'td > span > span', 'New Activity');
-            if (newActivity.length) {
-                oldActivityArray.push(caseNumber);
-            }
         });
         qMonitor();
     } else if (caseQueue) {
@@ -406,12 +400,8 @@ function initQMonitor() {
                 let caseTable = document.querySelector('#split-left').querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
                 if ( (caseQueue) && (caseTable) ) {
                     caseTable.forEach(caseRow => {
-                        let caseNumber = caseRow.querySelector('th span a').textContent;
+                        let caseNumber = caseRow.querySelector('th').innerText;
                         oldCaseArray.push(caseNumber);
-                        let newActivity = monitoredQueueContains(caseRow, 'td > span > span', 'New Activity');
-                        if (newActivity.length) {
-                            oldActivityArray.push(caseNumber);
-                        }
                     });
                 }
                 if (caseQueue) {
@@ -441,10 +431,9 @@ function qNotify() {
     let caseTable = document.querySelector('#split-left').querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
     if (caseTable) {
         caseTable.forEach(caseRow => {
-            let caseNumber = caseRow.querySelector('th span a').textContent;
-            let caseSubject = caseRow.querySelector('div[class*="supportOutputLookupWithPreviewForSubject"] div div a').textContent;
-            let caseURL = caseRow.querySelector('th span a').href;
-            let newActivity = monitoredQueueContains(caseRow, 'td > span > span', 'New Activity');
+            let caseNumber = caseRow.querySelector('th').innerText;
+            let caseSubject = caseRow.querySelector('[data-label="Subject"]').innerText.split('\n')[0];
+            let caseURL = 'https://rocketsoftware.lightning.force.com/lightning/r/' + caseRow.getAttribute('data-row-key-value') + '/view';
             let notifyBody;
             if ( !(caseSubject) ) {
                 notifyBody = caseNumber;
@@ -494,55 +483,6 @@ function qNotify() {
                         });
                     }
                 }
-                if (newActivity.length) {
-                    newActivityArray.push(caseNumber);
-                }
-            } else if (newActivity.length) {
-                if (oldActivityArray.indexOf(caseNumber) == -1) {
-                    if (globalQNotify) {
-                        (async() => {
-                            if (!window.Notification) {
-                                console.log('Browser does not support notifications.');
-                            } else {
-                                if (Notification.permission === 'granted') {
-                                    const qNotification = new Notification('SFExtension New Activity', {
-                                        body: notifyBody,
-                                        icon: iconURL
-                                    });
-                                    qNotification.addEventListener('click', () => {
-                                        window.open(caseURL, '_blank');
-                                    });
-                                } else {
-                                    Notification.requestPermission()
-                                        .then(function(p) {
-                                            if (p === 'granted') {
-                                                const qNotification = new Notification('SFExtension New Activity', {
-                                                    body: notifyBody,
-                                                    icon: iconURL
-                                                });
-                                                qNotification.addEventListener('click', () => {
-                                                    window.open(caseURL, '_blank');
-                                                });
-                                            } else {
-                                                console.log('User blocked notifications.');
-                                            }
-                                        })
-                                        .catch(function(err) {
-                                            console.error(err);
-                                        });
-                                }
-                            }
-                        })();
-                        if (globalQNotifyWeb) {
-                            browser.runtime.sendMessage({
-                                action: "newActivity",
-                                url: globalWebhook,
-                                content: notifyBody + ' ' + caseURL
-                            });
-                        }
-                    }
-                }
-                newActivityArray.push(caseNumber);
             }
             newCaseArray.push(caseNumber);
         });
@@ -550,9 +490,6 @@ function qNotify() {
             oldCaseArray = [];
             oldCaseArray = newCaseArray;
             newCaseArray = [];
-            oldActivityArray = [];
-            oldActivityArray = newActivityArray;
-            newActivityArray = [];
         }
     } else {
         if ( (caseQueue) && !(caseTable) ) {
@@ -569,8 +506,6 @@ function emptyArrays() {
     if ( (caseQueue) && !(caseTable) ) {
         oldCaseArray = [];
         newCaseArray = [];
-        oldActivityArray = [];
-        newActivityArray = [];
     }
 }
 
