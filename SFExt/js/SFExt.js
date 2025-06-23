@@ -387,7 +387,7 @@ function initQMonitor() {
     let caseTable = document.querySelector('#split-left').querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
     if ( (caseQueue) && (caseTable) ) {
         caseTable.forEach(caseRow => {
-            let caseNumber = caseRow.querySelector('th span a').textContent;
+            let caseNumber = caseRow.querySelector('th').innerText;
             oldCaseArray.push(caseNumber);
         });
         qMonitor();
@@ -400,7 +400,7 @@ function initQMonitor() {
                 let caseTable = document.querySelector('#split-left').querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
                 if ( (caseQueue) && (caseTable) ) {
                     caseTable.forEach(caseRow => {
-                        let caseNumber = caseRow.querySelector('th span a').textContent;
+                        let caseNumber = caseRow.querySelector('th').innerText;
                         oldCaseArray.push(caseNumber);
                     });
                 }
