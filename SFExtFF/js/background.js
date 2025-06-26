@@ -94,20 +94,11 @@ function handleMessage(request, sender, sendResponse) {
                 title: "SFExt Queue Monitor",
                 text: request.content
             };
-        } else if (request.action === "newActivity") {
-            params = {
-                title: "SFExt New Activity",
-                text: request.content
-            };
         }
     } else if (request.url.includes(slackWebhook)) {
         if (request.action === "newCase") {
             params = {
                 text: "*SFExt Queue Monitor*\n" + request.content
-            };
-        } else if (request.action === "newActivity") {
-            params = {
-                text: "*SFExt New Activity*\n" + request.content
             };
         }
     } else if (request.url.includes(discordWebhook) || request.url.includes(discordProxyWebhook)) {
@@ -117,13 +108,7 @@ function handleMessage(request, sender, sendResponse) {
                 avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/rocket128.png",
                 content: request.content
             };
-        } else if (request.action === "newActivity") {
-            params = {
-                username: "SFExt New Activity",
-                avatar_url: "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/SFExt/icons/rocket128.png",
-                content: request.content
-            };
-        }  
+        } 
     } else {
         console.log("SFExt: Unsupported Webhook!");
         return;
