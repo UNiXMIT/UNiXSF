@@ -1,3 +1,8 @@
+# 4.0.10
+
+### Tweaks
+- Change mentions of FTS to Case Attachments.   
+
 # 4.0.9
 
 ### Tweaks

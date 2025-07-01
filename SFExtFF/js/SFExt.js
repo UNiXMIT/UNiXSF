@@ -249,7 +249,7 @@ function refEmail() {
             + caseURL + "\n\n"
             + "• Summary of diagnostics\n\n"
             + "• Hypothesis and other details\n\n"
-            + "• List FTS Attachments\n\n"
+            + "• List Relevant Case Attachments\n\n"
         };
     } else {
         userQuery = {
