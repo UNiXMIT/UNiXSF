@@ -3,6 +3,9 @@
 ### Tweaks
 - Change mentions of FTS to Case Attachments.   
 
+### Enhancements
+- Signature button to add your signature to the case Post and change the visibility of the post.  
+
 # 4.0.9
 
 ### Tweaks

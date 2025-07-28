@@ -12,6 +12,7 @@ let globalDefectURL;
 let globalPP;
 let globalEDU;
 let globalRefEmail;
+let globalSig;
 let globalWide;
 let globalArial = 1;
 let iconURL= browser.runtime.getURL('icons/rocket128.png');
@@ -32,6 +33,7 @@ function initSyncData() {
         savedQNotifyWeb: false,
         savedWebhook: '',
         savedRefEmail: '',
+        savedSig: '',
         savedURLS: `{"SFExt":"${configURL}"}`,
         savedWide: false
     }, function(result) {
@@ -44,6 +46,7 @@ function initSyncData() {
         globalQNotifyWeb = result.savedQNotifyWeb;
         globalWebhook = result.savedWebhook;
         globalRefEmail = result.savedRefEmail;
+        globalSig = result.savedSig;
         globalURLS = result.savedURLS;
         globalWide = result.savedWide;
         globalInit = 1;
@@ -63,6 +66,7 @@ function getSyncData() {
                 savedQNotifyWeb: false,
                 savedWebhook: '',
                 savedRefEmail: '',
+                savedSig: '',
                 savedURLS: `{"SFExt":"${configURL}"}`,
                 savedWide: false
             }, function(result) {
@@ -89,6 +93,7 @@ function getSyncData() {
                 globalQNotifyWeb = result.savedQNotifyWeb;
                 globalWebhook = result.savedWebhook;
                 globalRefEmail = result.savedRefEmail;
+                globalSig = result.savedSig;
                 if (globalURLS != result.savedURLS) {
                     globalURLS = result.savedURLS;
                     updateCustomURLs();
@@ -619,6 +624,40 @@ function fullWidthCase() {
     observer.observe(document.body, {childList: true, subtree: true});
 }
 
+function signatureButton() {
+    let observer = new MutationObserver(mutations => {
+        let mfSigCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab')?.querySelector('.mfSig');
+        if (!mfSigCheck) {
+            let buttons = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab')?.querySelector('.publisherInputContainer  [aria-label="Insert content"]');
+            if (buttons) {
+                let sigButton = document.createElement('li');
+                sigButton.addEventListener('click', sigEvent, false);
+                sigButton.innerHTML = `<button class="slds-button slds-button_icon slds-button_icon-border-filled fa-solid fa-signature mfSig" title="Insert Signature" aria-label="Insert Signature">`;
+                buttons.appendChild(sigButton);
+            }
+        }
+    });
+    observer.observe(document.body, {childList: true, subtree: true});
+}
+
+function sigEvent() {
+    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.ql-editor').innerHTML = convertSigToHTML(globalSig);
+    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab')?.querySelector('.publisherVisibilityValue span')?.click();
+    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab')?.querySelector('[title="All with access"]')?.click();
+}
+
+function convertSigToHTML(input) {
+  let lines = input.split('\n').map(line => line.trim());
+  let html = '<p><br></p><p><br></p>';
+  lines.forEach(line => {
+    if (line !== '') {
+        html += `<p>${line}<br></p>`;
+    }
+  });
+  html = html.replace(/<p>([^<]*)<br><\/p>$/, '<p>$1</p>');
+  return html;
+}
+
 function extLoaded() {
     let observer = new MutationObserver(mutations => {
         let initial = document.querySelector('.oneUtilityBar');
@@ -796,6 +835,7 @@ let initInterval = setInterval(function() {
         addCaseTitle();
         KCSURL();
         fullWidthCase();
+        signatureButton();
         extLoaded();
         setInterval(keepAlive, 60000);
         setInterval(moveMouse, 60000);

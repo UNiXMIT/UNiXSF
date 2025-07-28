@@ -39,6 +39,10 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 - **Wide Case View**
   View cases in a full width view rather than 3 narrow columns.  
 
+- **Signature button to add your signature to the case Post**  
+  Adds a button to the case Post that adds your signature to the post. The signature is configurable in the extension options.  
+  It also changes the visibility of the Post to 'All with access'. The logic being that if you are adding your signature to a post, it's likely to a customer or partner, and you want to include it.  
+
 - **Copy to clipboard button for Case Number and Subject**  
   The main case icon (Briefcase Icon) copies the Case Number, Subject and Case URL to the clipboard.     
 
@@ -119,7 +123,9 @@ Click on the toolbar extension menu and select Options.
 
 - Enable/Disable Salesforce Link Grabber.  
 
-- Enable/Disable Wide Case View.  
+- Enable/Disable Wide Case View. 
+
+- Case Post Signature.  
 
 - Custom links can be added to the QuickLink Menu. The format for the configuration is in JSON where the Key is the text of the link and the Value is the URL to load.  
 

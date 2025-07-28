@@ -87,6 +87,10 @@ textarea {
 #refemail {
     width: 400px;
 }
+#signature {
+    width: 700px;
+    height: 100px;
+}
 #customurls {
     width: 700px;
     height: 100px;
