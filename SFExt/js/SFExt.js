@@ -636,14 +636,15 @@ function signatureButton() {
 }
 
 function sigEvent() {
-    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.ql-editor').innerHTML = convertSigToHTML(globalSig);
+    let originalHTML = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.ql-editor').innerHTML;
+    document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('.ql-editor').innerHTML = originalHTML + convertSigToHTML(globalSig);
     document.querySelector('div.split-right > .tabContent.active.oneConsoleTab')?.querySelector('.publisherVisibilityValue span')?.click();
     document.querySelector('div.split-right > .tabContent.active.oneConsoleTab')?.querySelector('[title="All with access"]')?.click();
 }
 
 function convertSigToHTML(input) {
   let lines = input.split('\n').map(line => line.trim());
-  let html = '<p><br></p><p><br></p>';
+  let html = '<p><br></p>';
   lines.forEach(line => {
     if (line !== '') {
         html += `<p>${line}<br></p>`;

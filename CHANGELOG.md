@@ -1,3 +1,8 @@
+# 4.0.11
+
+### Fixes
+- Fixed issue with the signature button overwriting the existing content in the case post editor.  
+
 # 4.0.10
 
 ### Tweaks
