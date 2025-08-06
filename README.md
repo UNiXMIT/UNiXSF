@@ -53,7 +53,10 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
   Grabs the case subject and adds it to the header next to the case number.  
 
 - **KCS URL Generator**  
-  Generate a public KCS URL on a KCS view when the 'URL Name' column is visible and also when viewing an KCS article in SF. The hyperlink will now point to the public KCS article.  
+  Generate a public KCS URL on a KCS view when the 'URL Name' column is visible and also when viewing an KCS article in SF. The hyperlink will now point to the public KCS article. 
+
+- **Open 'Log in to Experience as User' in a new tab**  
+  When you click on the 'Log in to Experience as User' button, it will now open in a new tab instead of the current tab.  
 
 ## Install
 

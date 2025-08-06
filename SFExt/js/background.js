@@ -7,6 +7,7 @@ let params;
 let globalUUID;
 let pattern = "*://*.force.com/*";
 let globalGrab;
+const handledUrls = new Set();
 
 function reloadSFTab() {
     chrome.runtime.onInstalled.addListener(function(){
@@ -15,6 +16,24 @@ function reloadSFTab() {
                 chrome.tabs.reload(tab.id);
             }
         });
+    });
+}
+
+function tabUpdates() {
+    chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+        if (changeInfo.url && 
+            changeInfo.url.includes('my.salesforce.com/servlet/servlet.su?') &&
+            !handledUrls.has(changeInfo.url)) {
+                handledUrls.add(changeInfo.url);
+                chrome.tabs.create({ url: changeInfo.url }).then(() => {
+                    return chrome.tabs.goBack(tabId);
+                }).then(() => {
+                    setTimeout(() => handledUrls.delete(changeInfo.url), 2000);
+                }).catch(error => {
+                    console.error("Error:", error);
+                    handledUrls.delete(changeInfo.url);
+                });
+            }
     });
 }
 
@@ -200,4 +219,5 @@ async function closeTab(tab) {
 
 dailyUsers();
 reloadSFTab();
+tabUpdates();
 chrome.runtime.onMessage.addListener(handleMessage);

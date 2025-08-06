@@ -1,3 +1,8 @@
+# 4.1.0
+
+### Enhancements
+- 'Log in to Experience as User' now opens in a new tab instead of the current tab.  
+
 # 4.0.11
 
 ### Fixes

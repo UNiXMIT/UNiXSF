@@ -8,6 +8,7 @@ let configURL = browser.runtime.getURL('config/config.html');
 let globalUUID;
 let pattern = "*://*.force.com/*";
 let globalGrab;
+const handledUrls = new Set();
 
 function reloadSFTab() {
     browser.runtime.onInstalled.addListener(function(){
@@ -16,6 +17,24 @@ function reloadSFTab() {
                 browser.tabs.reload(tab.id);
             }
         });
+    });
+}
+
+function tabUpdates() {
+    browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+        if (changeInfo.url && 
+            changeInfo.url.includes('my.salesforce.com/servlet/servlet.su?') &&
+            !handledUrls.has(changeInfo.url)) {
+                handledUrls.add(changeInfo.url);
+                browser.tabs.create({ url: changeInfo.url }).then(() => {
+                    return browser.tabs.goBack(tabId);
+                }).then(() => {
+                    setTimeout(() => handledUrls.delete(changeInfo.url), 2000);
+                }).catch(error => {
+                    console.error("Error:", error);
+                    handledUrls.delete(changeInfo.url);
+                });
+            }
     });
 }
 
@@ -200,5 +219,6 @@ async function closeTab(tab) {
 
 dailyUsers();
 reloadSFTab();
+tabUpdates();
 browser.action.onClicked.addListener(handleClick);
 browser.runtime.onMessage.addListener(handleMessage);
