@@ -113,7 +113,7 @@ ul.mflist {
 
 .fa-caret-down:before {
     position: relative;
-    top: 14px;
+    top: 10px;
     left: 5px;
     color: transparent;
     background-clip: text;
