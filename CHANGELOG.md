@@ -1,3 +1,13 @@
+# 4.1.2
+
+### Fixes
+- Salesforce changed their elements again, so had to fix the queue monitor and notification functions.  
+- Fixed location of down caret on FF.  
+
+### Tweaks
+- Improved keep alive function for background/service worker.  
+- Refactor and improve code structure.  
+
 # 4.1.0
 
 ### Enhancements

@@ -20,6 +20,7 @@ let intervalID;
 let qObserver;
 let oldCaseArray = [];
 let newCaseArray = [];
+let caseTable = [];
 let configURL = browser.runtime.getURL('config/config.html');
 
 function initSyncData() {
@@ -106,7 +107,7 @@ function getSyncData() {
 
 function queueRefresh() {
     if (globalTimeout >= 30) {
-        refreshInterval = globalTimeout * 1000;
+        let refreshInterval = globalTimeout * 1000;
         intervalID = setInterval(function() {
             let refreshButton = document.querySelector('#split-left').querySelector('button[name="refreshButton"]');
             if (refreshButton) {
@@ -367,7 +368,7 @@ function customURLs() {
 function updateCustomURLs() {
     let customCount = document.querySelectorAll('.fa-bolt').length;
     for (let i = 0; i < customCount; ++i) {
-        let customCount = i + 1;
+        customCount = i + 1;
         let urlClass = `custom${customCount}`;
         let removeURL = document.getElementsByClassName(urlClass);
         removeURL[0].parentNode.removeChild(removeURL[0]);
@@ -388,8 +389,8 @@ function updateCustomURLs() {
 }
 
 function initQMonitor() {
-    let caseQueue = document.querySelector('#split-left').querySelector(`table[aria-label*="${globalQueue}"]`);
-    let caseTable = document.querySelector('#split-left').querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
+    let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
+    let caseTable = caseQueue?.querySelectorAll('tbody tr');
     if ( (caseQueue) && (caseTable) ) {
         caseTable.forEach(caseRow => {
             let caseNumber = caseRow.querySelector('th').innerText;
@@ -401,8 +402,8 @@ function initQMonitor() {
     } else {
         let observer = new MutationObserver(mutations => {
             setTimeout(function() {
-                let caseQueue = document.querySelector('#split-left').querySelector(`table[aria-label*="${globalQueue}"]`);
-                let caseTable = document.querySelector('#split-left').querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
+                let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
+                let caseTable = caseQueue?.querySelectorAll('tbody tr');
                 if ( (caseQueue) && (caseTable) ) {
                     caseTable.forEach(caseRow => {
                         let caseNumber = caseRow.querySelector('th').innerText;
@@ -420,7 +421,7 @@ function initQMonitor() {
 }
 
 function qMonitor() {
-    let caseQueue = document.querySelector('#split-left').querySelector(`table[aria-label*="${globalQueue}"]`);
+    let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
     qObserver = new MutationObserver(mutations => {
         if (caseQueue) {
             setTimeout(function() {
@@ -432,8 +433,8 @@ function qMonitor() {
 }
 
 function qNotify() {
-    let caseQueue = document.querySelector('#split-left').querySelector(`table[aria-label*="${globalQueue}"]`);
-    let caseTable = document.querySelector('#split-left').querySelectorAll(`table[aria-label*="${globalQueue}"] tbody tr`);
+    let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
+    let caseTable = caseQueue?.querySelectorAll('tbody tr');
     if (caseTable) {
         caseTable.forEach(caseRow => {
             let caseNumber = caseRow.querySelector('th').innerText;
@@ -506,8 +507,8 @@ function qNotify() {
 }
 
 function emptyArrays() {
-    let caseQueue = document.querySelector('#split-left').querySelector(`table[aria-label*="${globalQueue}"]`);
-    let caseTable = caseQueue.querySelectorAll("tbody tr");
+    let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
+    let caseTable = caseQueue?.querySelectorAll('tbody tr');
     if ( (caseQueue) && !(caseTable) ) {
         oldCaseArray = [];
         newCaseArray = [];
@@ -530,7 +531,7 @@ function addCopyButton() {
                         field.addEventListener('click', async () => {
                             let caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Case Number"] [name="outputField"]');
                             let caseSubject  = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]');
-                            selectedText = caseNumber.innerText + ' - ' + caseSubject.innerText;
+                            let selectedText = caseNumber.innerText + ' - ' + caseSubject.innerText;
                             let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
                             if(typeof ClipboardItem && navigator.clipboard.write) {
                                 const clipboardItem = new ClipboardItem({
@@ -555,7 +556,7 @@ function addCopyButton() {
             }
         }
     });
-    observer.observe(document.body, {childList: true, subtree: true});
+    observer.observe(document.querySelector('div.split-right'), {childList: true, subtree: true});
 }
 
 function addCaseTitle() {
@@ -576,10 +577,10 @@ function addCaseTitle() {
         (async ()=>{
             observer.disconnect();
             await sleep(1000);
-            observer.observe(document.body, {childList: true, subtree: true});
+            observer.observe(document.querySelector('div.split-right'), {childList: true, subtree: true});
         })();
     });
-    observer.observe(document.body, {childList: true, subtree: true});
+    observer.observe(document.querySelector('div.split-right'), {childList: true, subtree: true});
 }
 
 function KCSURL() {
@@ -611,7 +612,7 @@ function KCSURL() {
             }
         }  
     });
-    observer.observe(document.body, {childList: true, subtree: true});
+    observer.observe(document.querySelector('div.split-right'), {childList: true, subtree: true});
 }
 
 function fullWidthCase() {
@@ -621,14 +622,14 @@ function fullWidthCase() {
             caseView.classList.remove("slds-grid");
         }
     });
-    observer.observe(document.body, {childList: true, subtree: true});
+    observer.observe(document.querySelector('div.split-right'), {childList: true, subtree: true});
 }
 
 function signatureButton() {
     let observer = new MutationObserver(mutations => {
         let mfSigCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab')?.querySelector('.mfSig');
         if (!mfSigCheck) {
-            let buttons = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab')?.querySelector('.publisherInputContainer  [aria-label="Insert content"]');
+            let buttons = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab')?.querySelector('.publisherInputContainer [aria-label="Insert content"]');
             if (buttons) {
                 let sigButton = document.createElement('li');
                 sigButton.addEventListener('click', sigEvent, false);
@@ -637,7 +638,7 @@ function signatureButton() {
             }
         }
     });
-    observer.observe(document.body, {childList: true, subtree: true});
+    observer.observe(document.querySelector('div.split-right'), {childList: true, subtree: true});
 }
 
 function sigEvent() {
@@ -769,7 +770,7 @@ function contains(selector, text) {
 }
 
 function activeQueueContains(selector, text) {
-    let activeQueue = document.querySelector('table.uiVirtualDataTable');
+    let activeQueue = document.querySelector('#split-left');
     if (activeQueue) {
         let elements = activeQueue.querySelectorAll(selector);
         return Array.prototype.filter.call(elements, function(element){
@@ -780,48 +781,32 @@ function activeQueueContains(selector, text) {
     }
 }
 
-function monitoredQueueContains(caseRow, selector, text) {
-    let elements = caseRow.querySelectorAll(selector);
-    return Array.prototype.filter.call(elements, function(element){
-    return RegExp(text).test(element.innerText);
-    });
-}
-
-function activeCaseContains(selector, text) {
-    let activeCase = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
-    if (activeCase) {
-        let elements = activeCase.querySelectorAll(selector);
-        return Array.prototype.filter.call(elements, function(element){
-        return RegExp(text).test(element.innerText);
-        });
-    } else {
-        return[];
-    }
-}
-
+// Example usage:
 // contains('div', 'sometext');     find "div" that contain "sometext"
 // contains('div', /^sometext/);    find "div" that start with "sometext"
 // contains('div', /sometext$/i);   find "div" that end with "sometext", case-insensitive
 
-function waitActiveElm(selector) {
-    return new Promise(resolve => {
-        if (document.querySelector(selector)) {
-            return resolve(document.querySelector(selector));
-        }
-
-        const observer = new MutationObserver(mutations => {
-            if (document.querySelector(selector)) {
-                resolve(document.querySelector(selector));
-                observer.disconnect();
-            }
+function queryShadowRoot(element, selector) {
+    let results = [];
+    if (element?.matches && element?.matches(selector)) {
+        results.push(element);
+    }
+    if (element?.shadowRoot) {
+        results = results.concat(Array.from(element?.shadowRoot.querySelectorAll(selector)));
+        element?.shadowRoot.querySelectorAll('*').forEach(child => {
+            results = results.concat(queryShadowRoot(child, selector));
         });
-
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
+    }
+    element?.children && Array.from(element?.children).forEach(child => {
+        results = results.concat(queryShadowRoot(child, selector));
     });
+    return results;
 }
+
+// Example usage:
+// const container = document.querySelector('#my-container'); // your starting element
+// const allMatches = queryShadowRoot(container, '.target-class');
+// console.log(allMatches);
 
 initSyncData();
 let initInterval = setInterval(function() {
@@ -838,10 +823,10 @@ let initInterval = setInterval(function() {
         fullWidthCase();
         signatureButton();
         extLoaded();
-        setInterval(keepAlive, 60000);
+        setInterval(keepAlive, 20000);
         setInterval(moveMouse, 60000);
         fixMouse();
         EE();
-        clearTimeout(initInterval);
+        clearInterval(initInterval);
     }
 }, 500);

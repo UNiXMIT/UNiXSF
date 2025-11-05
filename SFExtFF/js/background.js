@@ -105,6 +105,7 @@ function handleMessage(request, sender, sendResponse) {
     const discordWebhook = "https://discord.com/api/webhooks/";
     const discordProxyWebhook = "https://webhook.lewisakura.moe/";
     if (request.action === "keepAlive") {
+        browser.runtime.getPlatformInfo();
         return;
     }
     if (request.url.includes(teamsWebhook)) {

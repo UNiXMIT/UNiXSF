@@ -77,7 +77,7 @@ function submitUser() {
         savedUUID: globalUUID
     });
     }
-    let webhook = wh + URI1;
+    let webhook = wh + URI1 + URI2;
     const browserType = getBrowserType();
     params = {
       username: "SFExt User Activity",
@@ -98,6 +98,7 @@ function handleMessage(request, sender, sendResponse) {
     const discordWebhook = "https://discord.com/api/webhooks/";
     const discordProxyWebhook = "https://webhook.lewisakura.moe/";
     if (request.action === "keepAlive") {
+        chrome.runtime.getPlatformInfo();
         return;
     }
     if (request.action === "updateCheck") {
@@ -216,6 +217,10 @@ async function closeTab(tab) {
       chrome.tabs.remove(tab).then(resolve);
   });
 }
+
+// const keepAlive = () => setInterval(chrome.runtime.getPlatformInfo, 20e3);
+// chrome.runtime.onStartup.addListener(keepAlive);
+// keepAlive();
 
 dailyUsers();
 reloadSFTab();
