@@ -1,3 +1,9 @@
+# 4.1.3
+
+### Tweaks
+- Delay the execution of some functions to allow SF to load elements first.  
+- Add checks to ensure elements exist before trying to manipulate them.  
+
 # 4.1.2
 
 ### Fixes

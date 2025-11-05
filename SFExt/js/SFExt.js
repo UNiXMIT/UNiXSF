@@ -658,7 +658,8 @@ function convertSigToHTML(input) {
 function extLoaded() {
     let observer = new MutationObserver(mutations => {
         let initial = document.querySelector('.oneUtilityBar');
-        if (initial) {
+        let extLoadedCheck = document.querySelector('.ExtLoaded');
+        if ((initial) && (!extLoadedCheck)) {
             let footer = initial.querySelector('.utilitybar');
             if (footer) {
                 let footera = document.createElement("a");
