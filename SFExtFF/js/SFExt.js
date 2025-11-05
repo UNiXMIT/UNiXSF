@@ -817,16 +817,18 @@ let initInterval = setInterval(function() {
         setTimeout(function() {
             initQMonitor();
         }, 10000);
-        addCopyButton();
-        addCaseTitle();
-        KCSURL();
-        fullWidthCase();
-        signatureButton();
-        extLoaded();
-        setInterval(keepAlive, 20000);
-        setInterval(moveMouse, 60000);
-        fixMouse();
-        EE();
-        clearInterval(initInterval);
+        setTimeout(function() {
+            addCopyButton();
+            addCaseTitle();
+            KCSURL();
+            fullWidthCase();
+            signatureButton();
+            extLoaded();
+            setInterval(keepAlive, 20000);
+            setInterval(moveMouse, 60000);
+            fixMouse();
+            EE();
+            clearInterval(initInterval);
+        }, 2000);
     }
 }, 500);
