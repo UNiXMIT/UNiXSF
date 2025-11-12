@@ -787,20 +787,24 @@ function activeQueueContains(selector, text) {
 // contains('div', /^sometext/);    find "div" that start with "sometext"
 // contains('div', /sometext$/i);   find "div" that end with "sometext", case-insensitive
 
-function queryShadowRoot(element, selector) {
-    let results = [];
-    if (element?.matches && element?.matches(selector)) {
-        results.push(element);
+function queryShadowRoot(root, selector) {
+    const results = [];
+    const seen = new Set();
+    const stack = [root];
+    while (stack.length) {
+        const element = stack.pop();
+        if (!element || seen.has(element)) continue;
+        seen.add(element);
+        if (element.matches?.(selector)) {
+            results.push(element);
+        }
+        if (element.shadowRoot) {
+            stack.push(...element.shadowRoot.children);
+        }
+        if (element.children?.length) {
+            stack.push(...element.children);
+        }
     }
-    if (element?.shadowRoot) {
-        results = results.concat(Array.from(element?.shadowRoot.querySelectorAll(selector)));
-        element?.shadowRoot.querySelectorAll('*').forEach(child => {
-            results = results.concat(queryShadowRoot(child, selector));
-        });
-    }
-    element?.children && Array.from(element?.children).forEach(child => {
-        results = results.concat(queryShadowRoot(child, selector));
-    });
     return results;
 }
 
@@ -812,6 +816,7 @@ function queryShadowRoot(element, selector) {
 initSyncData();
 let initInterval = setInterval(function() {
     if (globalInit) {
+        clearInterval(initInterval);
         getSyncData();
         queueRefresh();
         mfNav();
@@ -829,7 +834,6 @@ let initInterval = setInterval(function() {
             setInterval(moveMouse, 60000);
             fixMouse();
             EE();
-            clearInterval(initInterval);
         }, 2000);
     }
 }, 500);

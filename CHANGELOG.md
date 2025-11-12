@@ -3,6 +3,7 @@
 ### Tweaks
 - Delay the execution of some functions to allow SF to load elements first.  
 - Add checks to ensure elements exist before trying to manipulate them.  
+- Improve overall performance of functions and extensions as a whole.  
 
 # 4.1.2
 
