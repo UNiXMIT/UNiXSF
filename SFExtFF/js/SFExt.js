@@ -390,7 +390,7 @@ function updateCustomURLs() {
 
 function initQMonitor() {
     let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
-    let caseTable = caseQueue?.querySelectorAll('tbody tr');
+    let caseTable = queryShadowRoot(caseQueue, 'tbody tr');
     if ( (caseQueue) && (caseTable) ) {
         caseTable.forEach(caseRow => {
             let caseNumber = caseRow.querySelector('th').innerText;
@@ -403,7 +403,7 @@ function initQMonitor() {
         let observer = new MutationObserver(mutations => {
             setTimeout(function() {
                 let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
-                let caseTable = caseQueue?.querySelectorAll('tbody tr');
+                let caseTable = queryShadowRoot(caseQueue, 'tbody tr');
                 if ( (caseQueue) && (caseTable) ) {
                     caseTable.forEach(caseRow => {
                         let caseNumber = caseRow.querySelector('th').innerText;
@@ -434,7 +434,7 @@ function qMonitor() {
 
 function qNotify() {
     let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
-    let caseTable = caseQueue?.querySelectorAll('tbody tr');
+    let caseTable = queryShadowRoot(caseQueue, 'tbody tr');
     if (caseTable) {
         caseTable.forEach(caseRow => {
             let caseNumber = caseRow.querySelector('th').innerText;
@@ -508,7 +508,7 @@ function qNotify() {
 
 function emptyArrays() {
     let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
-    let caseTable = caseQueue?.querySelectorAll('tbody tr');
+    let caseTable = queryShadowRoot(caseQueue, 'tbody tr');
     if ( (caseQueue) && !(caseTable) ) {
         oldCaseArray = [];
         newCaseArray = [];
