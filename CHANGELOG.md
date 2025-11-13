@@ -8,6 +8,9 @@
 ### Fixes
 - Fixed custom QuickLinks not getting added/removed correctly.  
 
+### Enhancements
+- When a case tab is open in Salesforce, the Jira QuickLink will now open the active case in Jira.  
+
 # 4.1.2
 
 ### Fixes

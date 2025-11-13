@@ -191,7 +191,20 @@ function mfDefect() {
 }
 
 function mfDefectEvent() {
-    window.open(globalDefectURL.replace(/\/$/, ""), '_blank');
+    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (caseCheck) {
+        let caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+        if (caseURL.includes("/Case")) {
+            const parts = caseURL.split('/');
+            const caseID = parts[parts.indexOf('Case') + 1];
+            let finalURL = globalDefectURL.replace(/\/$/, "") + '/secure/CustomerView.jspa#caseDetail/' + caseID;
+            window.open(finalURL, '_blank');
+        } else {
+            window.open(globalDefectURL.replace(/\/$/, ""), '_blank');
+        }
+    } else {
+        window.open(globalDefectURL.replace(/\/$/, ""), '_blank');
+    }
 }
 
 function mfDocumentation() {
