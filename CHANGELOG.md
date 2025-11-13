@@ -5,6 +5,9 @@
 - Add checks to ensure elements exist before trying to manipulate them.  
 - Improve overall performance of functions and extensions as a whole.  
 
+### Fixes
+- Fixed custom QuickLinks not getting added/removed correctly.  
+
 # 4.1.2
 
 ### Fixes

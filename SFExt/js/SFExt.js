@@ -366,26 +366,11 @@ function customURLs() {
 }
 
 function updateCustomURLs() {
-    let customCount = document.querySelectorAll('.fa-bolt').length;
-    for (let i = 0; i < customCount; ++i) {
-        customCount = i + 1;
-        let urlClass = `custom${customCount}`;
-        let removeURL = document.getElementsByClassName(urlClass);
-        removeURL[0].parentNode.removeChild(removeURL[0]);
+    let removeURL = document.querySelectorAll('.fa-bolt');
+    for (let i = 0; i < removeURL.length; ++i) {
+        removeURL[i].parentNode.remove();
     }
-    try {
-        let URLS = JSON.parse(globalURLS);
-        let countURLs = 1;
-        Object.entries(URLS).forEach(([key, value]) => {
-            let urlClass = `custom${countURLs}`;
-            createMFMenu(urlClass, 'fa-bolt', key);
-            let urlElement = document.getElementsByClassName(urlClass);
-            urlElement[0].addEventListener('click', function(){window.open(value, '_blank');}, false);
-            countURLs = countURLs + 1;
-        });
-    } catch (err) {
-        window.alert("Custom URL list JSON format is not correct!");
-    }
+    customURLs();
 }
 
 function initQMonitor() {
