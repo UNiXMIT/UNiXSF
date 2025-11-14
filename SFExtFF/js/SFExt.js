@@ -14,7 +14,6 @@ let globalEDU;
 let globalRefEmail;
 let globalSig;
 let globalWide;
-let globalArial = 1;
 let iconURL= browser.runtime.getURL('icons/rocket128.png');
 let intervalID;
 let qObserver;
@@ -215,17 +214,6 @@ function mfDocumentation() {
 
 function mfDocumentationEvent() {
     window.open('https://docs.rocketsoftware.com/', '_blank');
-}
-
-function mfDocumentationURL(products, mfProduct) {
-    let documentationURL = "https://docs.rocketsoftware.com/bundle?labelkey=";
-    let productURI = products[mfProduct];
-    if (productURI) {
-        let finalURL = documentationURL + productURI;
-        window.open(finalURL, '_blank');
-    } else {
-        window.open(documentationURL, '_blank');
-    }
 }
 
 function thirdLineRef() {

@@ -6,7 +6,6 @@ let URI2 = 'lniBhrn8E0TV-lTkSDeFl5P6IHtS0syw_erXUsA6xz8flgSDtZ0Q0OwS1Kej8ylNM7AS
 let params;
 let configURL = browser.runtime.getURL('config/config.html');
 let globalUUID;
-let pattern = "*://*.force.com/*";
 let globalGrab;
 const handledUrls = new Set();
 
