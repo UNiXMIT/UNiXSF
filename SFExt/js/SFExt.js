@@ -436,7 +436,8 @@ function qNotify() {
     if (caseTable) {
         caseTable.forEach(caseRow => {
             let caseNumber = caseRow.querySelector('th').innerText;
-            let caseSubject = caseRow.querySelector('[data-label="Subject"]').innerText.split('\n')[0];
+            let caseSubjectOuter = caseRow.querySelector('[data-label="Subject"]');
+            let caseSubject =  queryShadowRoot(caseSubjectOuter, 'a')[0].innerText;
             let caseURL = 'https://rocketsoftware.lightning.force.com/lightning/r/' + caseRow.getAttribute('data-row-key-value') + '/view';
             let notifyBody;
             if ( !(caseSubject) ) {
