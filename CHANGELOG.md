@@ -1,4 +1,4 @@
-### 4.1.4
+# 4.1.4
 
 ### Fixes
 - Sometimes the notification function would capture the case subject twice. Made the selector more specific.  
