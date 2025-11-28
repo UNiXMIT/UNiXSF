@@ -8,12 +8,10 @@ let configURL = browser.runtime.getURL('config/config.html');
 let globalUUID;
 let globalGrab;
 const handledUrls = new Set();
-// Configuration for the rate limit
-const MAX_CALLS = 5;
-const TIME_WINDOW_MS = 10000; // 5 seconds
-// State variables for the rate limiter
-let callQueue = []; // Stores the timestamps of recent successful calls
-let pendingQueue = []; // Stores arguments for notifications waiting to be sent
+const discordMaxRequests = 5;
+const discordMaxTime = 5000;
+let callQueue = []; 
+let pendingQueue = [];
 let isProcessing = false;
 
 function reloadSFTab() {
@@ -160,36 +158,19 @@ function processQueue() {
     if (isProcessing || pendingQueue.length === 0) {
         return;
     }
-
     isProcessing = true;
-
-    // 1. Clean up old timestamps from the call queue
     const now = Date.now();
-    callQueue = callQueue.filter(timestamp => now - timestamp < TIME_WINDOW_MS);
-
-    // 2. Check if we are within the limit
-    if (callQueue.length < MAX_CALLS) {
-        // We can send the notification!
+    callQueue = callQueue.filter(timestamp => now - timestamp < discordMaxTime);
+    if (callQueue.length < discordMaxRequests) {
         const args = pendingQueue.shift();
         const [requestURL, requestOptions] = args;
-
-        // Call the original function
         notifyDiscord(requestURL, requestOptions);
-
-        // Record the new call timestamp
         callQueue.push(Date.now());
-
-        // Immediately try to process the next item (to potentially fill up the slot)
         isProcessing = false;
         processQueue(); 
     } else {
-        // We have hit the rate limit. Calculate time until the oldest timestamp expires.
         const oldestCallTime = callQueue[0];
-        const waitTime = oldestCallTime + TIME_WINDOW_MS - now;
-        
-        console.log(`Rate limit reached. Waiting ${waitTime}ms before retrying.`);
-
-        // Set a timer to retry processing the queue after the necessary wait time
+        const waitTime = oldestCallTime + discordMaxTime - now;
         setTimeout(() => {
             isProcessing = false;
             processQueue();
@@ -198,10 +179,7 @@ function processQueue() {
 }
 
 function rateLimitedNotifyDiscord(requestURL, requestOptions) {
-    // Add the new request to the queue
     pendingQueue.push([requestURL, requestOptions]);
-    
-    // Attempt to process the queue immediately
     processQueue();
 }
 
