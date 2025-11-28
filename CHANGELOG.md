@@ -6,6 +6,9 @@
 ### Tweaks
 - Code clean-up.  
 
+### Enhancements
+- Rate limit Discord notifications so the webhook does not get blocked.  
+
 # 4.1.3
 
 ### Tweaks

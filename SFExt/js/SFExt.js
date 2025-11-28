@@ -662,12 +662,6 @@ function extLoaded() {
     observer.observe(document.body, {childList: true, subtree: true});
 }
 
-function keepAlive() {
-    chrome.runtime.sendMessage({
-        action: "keepAlive"
-    });
-}
-
 function moveMouse(){
 	var evt = new MouseEvent("mousemove", {
         view: window,
@@ -890,7 +884,6 @@ let initInterval = setInterval(function() {
             fullWidthCase();
             signatureButton();
             extLoaded();
-            setInterval(keepAlive, 20000);
             setInterval(moveMouse, 60000);
             fixMouse();
             EE();

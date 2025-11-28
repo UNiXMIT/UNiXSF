@@ -8,6 +8,13 @@ let configURL = browser.runtime.getURL('config/config.html');
 let globalUUID;
 let globalGrab;
 const handledUrls = new Set();
+// Configuration for the rate limit
+const MAX_CALLS = 5;
+const TIME_WINDOW_MS = 10000; // 5 seconds
+// State variables for the rate limiter
+let callQueue = []; // Stores the timestamps of recent successful calls
+let pendingQueue = []; // Stores arguments for notifications waiting to be sent
+let isProcessing = false;
 
 function reloadSFTab() {
     browser.runtime.onInstalled.addListener(function(){
@@ -99,14 +106,11 @@ function submitUser() {
 }
 
 function handleMessage(request, sender, sendResponse) {
+    browser.runtime.getPlatformInfo();
     const teamsWebhook = "https://*.webhook.office.com/webhookb2/";
     const slackWebhook = "https://hooks.slack.com/services/";
     const discordWebhook = "https://discord.com/api/webhooks/";
     const discordProxyWebhook = "https://webhook.lewisakura.moe/";
-    if (request.action === "keepAlive") {
-        browser.runtime.getPlatformInfo();
-        return;
-    }
     if (request.url.includes(teamsWebhook)) {
         if (request.action === "newCase") {
             params = {
@@ -137,7 +141,68 @@ function handleMessage(request, sender, sendResponse) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(params)
     };
-    fetch(request.url, requestOptions);
+    rateLimitedNotifyDiscord(request.url, requestOptions);
+}
+
+function notifyDiscord(requestURL, requestOptions) {
+    fetch(requestURL, requestOptions)
+    .then(response => {
+      if (!response.ok) {
+        console.error('Error sending Discord notification:', response.statusText);
+      }
+    })
+    .catch(error => {
+      console.error('Error sending Discord notification:', error);
+    });
+}
+
+function processQueue() {
+    if (isProcessing || pendingQueue.length === 0) {
+        return;
+    }
+
+    isProcessing = true;
+
+    // 1. Clean up old timestamps from the call queue
+    const now = Date.now();
+    callQueue = callQueue.filter(timestamp => now - timestamp < TIME_WINDOW_MS);
+
+    // 2. Check if we are within the limit
+    if (callQueue.length < MAX_CALLS) {
+        // We can send the notification!
+        const args = pendingQueue.shift();
+        const [requestURL, requestOptions] = args;
+
+        // Call the original function
+        notifyDiscord(requestURL, requestOptions);
+
+        // Record the new call timestamp
+        callQueue.push(Date.now());
+
+        // Immediately try to process the next item (to potentially fill up the slot)
+        isProcessing = false;
+        processQueue(); 
+    } else {
+        // We have hit the rate limit. Calculate time until the oldest timestamp expires.
+        const oldestCallTime = callQueue[0];
+        const waitTime = oldestCallTime + TIME_WINDOW_MS - now;
+        
+        console.log(`Rate limit reached. Waiting ${waitTime}ms before retrying.`);
+
+        // Set a timer to retry processing the queue after the necessary wait time
+        setTimeout(() => {
+            isProcessing = false;
+            processQueue();
+        }, waitTime);
+    }
+}
+
+function rateLimitedNotifyDiscord(requestURL, requestOptions) {
+    // Add the new request to the queue
+    pendingQueue.push([requestURL, requestOptions]);
+    
+    // Attempt to process the queue immediately
+    processQueue();
 }
 
 function getBrowserType() {
