@@ -14,7 +14,7 @@ MOVE SFExt-%VER%.zip updates\Chromium\%VER%\
 GOTO :END
 
 :SUBMIT
-web-ext sign --source-dir ./SFExtFF/ --channel unlisted
+CALL web-ext sign --source-dir ./SFExtFF/ --channel unlisted
 GOTO :END
 
 :END
