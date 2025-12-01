@@ -8,6 +8,9 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "{23d40d0a-b0f9-4516-8c5c-ac5951d517b5}",
+      "data_collection_permissions": {
+                "required": ["none"]
+            },
       "update_url": "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/FF/updates.json"
     }
   },
