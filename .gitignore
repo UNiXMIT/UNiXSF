@@ -2,6 +2,7 @@ sfext.json
 *.pem
 *.crx
 FFAPI.json
+/*.zip
 node_modules/
 package.json
 package-lock.json
