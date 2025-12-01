@@ -8,5 +8,4 @@ gh release create %VER% ^
     --repo "UNiXMIT/UNiXSF" ^
     --target "main" ^
     "updates\Chromium\%VER%\SFExt-%VER%.zip" ^
-    "updates\FF\%VER%\1aa420af9a0c4d9d8e9d-%VER%.xpi" ^
-    "*.md"
+    "updates\FF\%VER%\1aa420af9a0c4d9d8e9d-%VER%.xpi"
