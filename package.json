@@ -1,7 +1,9 @@
 {
   "name": "sfext",
   "scripts": {
+    "prebuild": "node prebuild.js",
     "build": "web-ext build --overwrite-dest --filename SFExt.zip --artifacts-dir . --source-dir ./SFExt/",
+    "postbuild": "node postbuild.js",
     "sign": "web-ext sign --source-dir ./SFExtFF/ --channel unlisted"
   },
   "devDependencies": {
