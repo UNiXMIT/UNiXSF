@@ -5,9 +5,10 @@
 
 ### Tweaks
 - Code clean-up.  
+- Add 64x64 pixel icon. 
 
 ### Enhancements
-- Rate limit Discord notifications so the webhook does not get blocked.  
+- Rate limit Discord notifications, so the webhook does not get blocked.  
 
 # 4.1.3
 
