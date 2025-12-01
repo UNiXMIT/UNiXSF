@@ -1,5 +1,7 @@
 sfext.json
 *.pem
 *.crx
-SFExt.zip
-SFExtFF.zip
+FFAPI.json
+node_modules/
+package.json
+package-lock.json
