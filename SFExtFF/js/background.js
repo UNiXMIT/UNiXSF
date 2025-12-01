@@ -109,6 +109,10 @@ function handleMessage(request, sender, sendResponse) {
     const slackWebhook = "https://hooks.slack.com/services/";
     const discordWebhook = "https://discord.com/api/webhooks/";
     const discordProxyWebhook = "https://webhook.lewisakura.moe/";
+    if (request.action === "dailyUsers") {
+        dailyUsers();
+        return true
+    }
     if (request.url.includes(teamsWebhook)) {
         if (request.action === "newCase") {
             params = {
@@ -144,14 +148,6 @@ function handleMessage(request, sender, sendResponse) {
 
 function notifyDiscord(requestURL, requestOptions) {
     fetch(requestURL, requestOptions)
-    .then(response => {
-      if (!response.ok) {
-        console.error('Error sending Discord notification:', response.statusText);
-      }
-    })
-    .catch(error => {
-      console.error('Error sending Discord notification:', error);
-    });
 }
 
 function processQueue() {
@@ -218,7 +214,7 @@ function getGrab() {
     }, function(result) {
       globalGrab = result.savedGrab;
     });
-  }
+}
 
 browser.webNavigation.onBeforeNavigate.addListener(
     redirect, { url: [{ hostContains: ".force.com" }] }
@@ -260,7 +256,6 @@ async function closeTab(tab) {
     });
 }
 
-dailyUsers();
 reloadSFTab();
 tabUpdates();
 browser.action.onClicked.addListener(handleClick);

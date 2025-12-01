@@ -108,6 +108,10 @@ function handleMessage(request, sender, sendResponse) {
           .then(data => sendResponse({ latestVer: data.latestVersion }) );
           return true;
     }
+    if (request.action === "dailyUsers") {
+        dailyUsers();
+        return true;
+    }
     if (request.url.includes(teamsWebhook)) {
         if (request.action === "newCase") {
             params = {
@@ -143,14 +147,6 @@ function handleMessage(request, sender, sendResponse) {
 
 function notifyDiscord(requestURL, requestOptions) {
     fetch(requestURL, requestOptions)
-    .then(response => {
-      if (!response.ok) {
-        console.error('Error sending Discord notification:', response.statusText);
-      }
-    })
-    .catch(error => {
-      console.error('Error sending Discord notification:', error);
-    });
 }
 
 function processQueue() {
@@ -260,7 +256,6 @@ async function closeTab(tab) {
   });
 }
 
-dailyUsers();
 reloadSFTab();
 tabUpdates();
 chrome.runtime.onMessage.addListener(handleMessage);

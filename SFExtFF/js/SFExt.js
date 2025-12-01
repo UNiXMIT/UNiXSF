@@ -667,6 +667,12 @@ function extLoaded() {
     observer.observe(document.body, {childList: true, subtree: true});
 }
 
+function dailyUsers() {
+    browser.runtime.sendMessage({
+        action: "dailyUsers"
+    });
+}
+
 function moveMouse(){
 	var evt = new MouseEvent("mousemove", {
         view: window,
@@ -811,6 +817,7 @@ let initInterval = setInterval(function() {
             fullWidthCase();
             signatureButton();
             extLoaded();
+            dailyUsers();
             setInterval(moveMouse, 60000);
             fixMouse();
             EE();
