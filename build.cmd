@@ -20,6 +20,7 @@ GOTO :END
 FOR /F "usebackq delims=" %%A IN (`jq -r ".AMO_KEY" FFAPI.json`) DO SET AMO_KEY=%%A
 FOR /F "usebackq delims=" %%B IN (`jq -r ".AMO_SECRET" FFAPI.json`) DO SET AMO_SECRET=%%B
 CALL web-ext sign --api-key %AMO_KEY% --api-secret %AMO_SECRET% --upload-source-code %SFExtFF% --channel unlisted
+DEL %SFExtFF%
 GOTO :END
 
 :END
