@@ -2,7 +2,7 @@
   "name": "sfext",
   "scripts": {
     "build": "web-ext build --overwrite-dest --filename SFExt.zip --artifacts-dir . --source-dir ./SFExt/",
-    "sign": "web-ext sign --upload-source-code ./SFExtFF/ --channel unlisted"
+    "sign": "web-ext sign --source-dir ./SFExtFF/ --channel unlisted"
   },
   "devDependencies": {
     "web-ext": "^9.2.0"
