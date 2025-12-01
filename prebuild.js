@@ -1,13 +1,13 @@
-#!/usr/bin/env node
-
 import fs from 'fs'
 import path from 'path';
 
-const manifest = require(path.join("SFExtFF", "manifest.json"));
-if (!fs.existsSync(path.join("SFExtFF", "manifest.json"))) {
-    console.error("manifest.json not found:", manifest);
+const manifestPath = path.join("SFExtFF", "manifest.json");
+if (!fs.existsSync(manifestPath)) {
+    console.error("manifest.json not found:", manifestPath);
     process.exit(1);
 }
+
+const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
 const version = manifest.version;
 
 function ensureDir(dir) {
