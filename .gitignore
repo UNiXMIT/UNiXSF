@@ -1,2 +1,5 @@
 sfext.json
 /*.zip
+/node_modules
+package-lock.json
+.amo-upload-uuid

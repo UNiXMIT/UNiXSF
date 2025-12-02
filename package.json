@@ -1,13 +1,23 @@
 {
   "name": "sfext",
   "type": "module",
+  "description": "Enhance Salesforce with new features.",
+  "author": "Martin Turner",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UNiXMIT/UNiXSF.git"
+  },
+  "version": "4.1.4",
   "scripts": {
     "prebuild": "node prebuild.js",
     "build": "web-ext build --overwrite-dest --filename SFExt.zip --artifacts-dir . --source-dir ./SFExt/",
     "postbuild": "node postbuild.js",
-    "sign": "web-ext sign --source-dir ./SFExtFF/ --channel unlisted"
+    "sign": "web-ext sign --artifacts-dir . --source-dir ./SFExtFF/ --channel unlisted",
+    "postsign": "node postsign.js",
+    "release": "node release.js"
   },
   "devDependencies": {
-    "web-ext": "^9.2.0"
+    "web-ext": "^9.2.0",
+    "@octokit/rest": "^20.0.0"
   }
 }
