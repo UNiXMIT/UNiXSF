@@ -31,7 +31,7 @@ async function createRelease() {
     const releaseId = release.data.id;
     const releaseFiles = [
         `updates/Chromium/${version}/SFExt-${version}.zip`,
-        `updates/FF/${version}/1aa420af9a0c4d9d8e9d-${version}.xpi`,
+        `updates/FF/${version}/1aa420af9a0c4d9d8e9d-${version}.xpi`
     ];
     for (const file of releaseFiles) {
         const fileData = fs.readFileSync(file);
@@ -54,3 +54,5 @@ createRelease().catch(err => {
     console.error(err);
     process.exit(1);
 });
+
+console.log(`\nRelease complete. Version ${version} has been released.\n`);

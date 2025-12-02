@@ -15,7 +15,7 @@ const xpiName = `1aa420af9a0c4d9d8e9d-${version}.xpi`;
 if (fs.existsSync(xpiName)) {
     fs.renameSync(xpiName, path.join(ffDir, xpiName));
 } else {
-    console.error("Build zip not found:", xpiName);
+    console.error("Signed xpi not found:", xpiName);
     process.exit(1);
 }
 
