@@ -1,6 +1,8 @@
 import fs from 'fs'
 import path from 'path';
 import { Octokit } from "@octokit/rest";
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 const manifestPath = path.join("SFExtFF", "manifest.json");
 if (!fs.existsSync(manifestPath)) {

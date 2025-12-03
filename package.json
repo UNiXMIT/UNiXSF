@@ -12,12 +12,14 @@
     "prebuild": "node prebuild.js",
     "build": "web-ext build --overwrite-dest --filename SFExt.zip --artifacts-dir . --source-dir ./SFExt/",
     "postbuild": "node postbuild.js",
-    "sign": "web-ext sign --artifacts-dir . --source-dir ./SFExtFF/ --channel unlisted",
+    "sign": "dotenv -- web-ext sign --artifacts-dir . --source-dir ./SFExtFF/ --channel unlisted",
     "postsign": "node postsign.js",
     "release": "node release.js"
   },
   "devDependencies": {
+    "@octokit/rest": "^20.0.0",
+    "dotenv": "^17.2.3",
     "web-ext": "^9.2.0",
-    "@octokit/rest": "^20.0.0"
+    "dotenv-cli": "^11.0.0"
   }
 }
