@@ -2,16 +2,15 @@ import fs from 'fs'
 import path from 'path';
 import { Octokit } from "@octokit/rest";
 import * as dotenv from 'dotenv'
-dotenv.config()
+dotenv.config({ quiet: true })
 
-const manifestPath = path.join("SFExtFF", "manifest.json");
-if (!fs.existsSync(manifestPath)) {
-    console.error("manifest.json not found:", manifestPath);
+const packagePath = path.join("package.json");
+if (!fs.existsSync(packagePath)) {
+    console.error("package.json not found:", packagePath);
     process.exit(1);
 }
 
-const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-const version = manifest.version;
+const version = JSON.parse(fs.readFileSync(packagePath, "utf8")).version;
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
