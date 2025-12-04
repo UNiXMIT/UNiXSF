@@ -744,40 +744,40 @@ function updateCheck() {
             let newVersion = compareVersions(installedVersion, latestVersion.toString());
             if ( (newVersion == 1) ) {
                 const updateURL = `https://github.com/UNiXMIT/UNiXSF/raw/main/updates/Chromium/${latestVersion}/SFExt-${latestVersion}.zip`;
-                (async() => {
-                    let updateMessage = `Version ${latestVersion}`;
-                    if (!window.Notification) {
-                        console.log('Browser does not support notifications.');
-                    } else {
-                        if (Notification.permission === 'granted') {
-                            const UpdateNofity = new Notification('SFExtension Update Available', {
-                                body: updateMessage,
-                                icon: iconURL
-                            });
-                            UpdateNofity.addEventListener('click', () => {
-                                window.open(updateURL, '_blank');
-                            });
-                        } else {
-                            Notification.requestPermission()
-                                .then(function(p) {
-                                    if (p === 'granted') {
-                                        const UpdateNofity = new Notification('SFExtension Update Available', {
-                                            body: updateMessage,
-                                            icon: iconURL
-                                        });
-                                        UpdateNofity.addEventListener('click', () => {
-                                            window.open(updateURL, '_blank');
-                                        });
-                                    } else {
-                                        console.log('User blocked notifications.');
-                                    }
-                                })
-                                .catch(function(err) {
-                                    console.error(err);
-                                });
-                        }
-                    }
-                })();
+                // (async() => {
+                //     let updateMessage = `Version ${latestVersion}`;
+                //     if (!window.Notification) {
+                //         console.log('Browser does not support notifications.');
+                //     } else {
+                //         if (Notification.permission === 'granted') {
+                //             const UpdateNofity = new Notification('SFExtension Update Available', {
+                //                 body: updateMessage,
+                //                 icon: iconURL
+                //             });
+                //             UpdateNofity.addEventListener('click', () => {
+                //                 window.open(updateURL, '_blank');
+                //             });
+                //         } else {
+                //             Notification.requestPermission()
+                //                 .then(function(p) {
+                //                     if (p === 'granted') {
+                //                         const UpdateNofity = new Notification('SFExtension Update Available', {
+                //                             body: updateMessage,
+                //                             icon: iconURL
+                //                         });
+                //                         UpdateNofity.addEventListener('click', () => {
+                //                             window.open(updateURL, '_blank');
+                //                         });
+                //                     } else {
+                //                         console.log('User blocked notifications.');
+                //                     }
+                //                 })
+                //                 .catch(function(err) {
+                //                     console.error(err);
+                //                 });
+                //         }
+                //     }
+                // })();
                 if ( !(initDropDown) ) {
                     let ul = document.querySelector('.mflist');
                     let li = ul.appendChild(document.createElement('li'));
