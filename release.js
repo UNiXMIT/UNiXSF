@@ -16,18 +16,22 @@ const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
 });
 
+const owner = "UNiXMIT";
+const repo = "UNiXSF";
+const branch = "main";
+
 async function createRelease() {
     const body = fs.readFileSync("LATEST.md", "utf8");
 
     const release = await octokit.repos.createRelease({
-        owner: "UNiXMIT",
-        repo: "UNiXSF",
+        owner: owner,
+        repo: repo,
         tag_name: version,
         name: version,
         body: body,
         draft: false,
         prerelease: false,
-        target_commitish: "main"
+        target_commitish: branch
     });
     const releaseId = release.data.id;
     const releaseFiles = [
@@ -38,8 +42,8 @@ async function createRelease() {
         const fileData = fs.readFileSync(file);
         const fileName = path.basename(file);
         await octokit.repos.uploadReleaseAsset({
-            owner: "UNiXMIT",
-            repo: "UNiXSF",
+            owner: owner,
+            repo: repo,
             release_id: releaseId,
             name: fileName,
             data: fileData,

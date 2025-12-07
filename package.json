@@ -9,11 +9,14 @@
   },
   "version": "4.1.5",
   "scripts": {
+    "prebuild": "node prebuild.js",
     "build": "web-ext build --overwrite-dest --filename SFExt.zip --artifacts-dir . --source-dir ./SFExt/",
     "postbuild": "node postbuild.js",
     "sign": "dotenv -- web-ext sign --artifacts-dir . --source-dir ./SFExtFF/ --channel unlisted",
     "postsign": "node postsign.js",
-    "release": "node release.js"
+    "prerelease": "node prerelease.js",
+    "release": "node release.js",
+    "all": "npm run prebuild && npm run build && npm run postbuild && npm run sign && npm run postsign && npm run prerelease && npm run release"
   },
   "devDependencies": {
     "@octokit/rest": "^20.0.0",

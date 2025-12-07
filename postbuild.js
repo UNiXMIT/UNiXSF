@@ -28,11 +28,6 @@ const chromiumVer = JSON.parse(fs.readFileSync(chromiumVerPath, 'utf8'));
 chromiumVer.latestVersion = version;
 fs.writeFileSync(chromiumVerPath, JSON.stringify(chromiumVer, null, 2));
 
-const chromiumManPath = path.join("SFExt", "manifest.json");
-const chromiumManVer = JSON.parse(fs.readFileSync(chromiumManPath, 'utf8'));
-chromiumManVer.version = version;
-fs.writeFileSync(chromiumManPath, JSON.stringify(chromiumManVer, null, 2));
-
 const ffVerPath = path.join("updates", "FF", "updates.json");
 const ffVer = JSON.parse(fs.readFileSync(ffVerPath, 'utf8'));
 const FFID = "{23d40d0a-b0f9-4516-8c5c-ac5951d517b5}";
@@ -43,10 +38,5 @@ const newEntry = {
 };
 ffVer.addons[FFID].updates.push(newEntry);
 fs.writeFileSync(ffVerPath, JSON.stringify(ffVer, null, 2));
-
-const FFManPath = path.join("SFExt", "manifest.json");
-const FFManVer = JSON.parse(fs.readFileSync(FFManPath, 'utf8'));
-FFManVer.version = version;
-fs.writeFileSync(FFManPath, JSON.stringify(FFManVer, null, 2));
 
 console.log(`\nBuild complete. Version ${version} is ready for signing.\n`);
