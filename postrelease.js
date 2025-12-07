@@ -33,3 +33,7 @@ prependLargeFileAndLine(
     'LATEST.md',
     'CHANGELOG.md'
 );
+
+fs.truncate('example.txt', 0, (err) => {
+  if (err) throw err;
+});
