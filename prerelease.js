@@ -21,6 +21,12 @@ function run(cmd) {
   });
 }
 
-await run("git add .");
-await run(`git commit -m ${version}`);
-await run("git push");
+const gitCommands = [
+  "git add .",
+  `git commit -m ${version}`,
+  "git push"
+];
+for (const cmd of gitCommands) {
+  console.log(cmd);
+  await run(cmd);
+}
