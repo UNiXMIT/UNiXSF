@@ -9,31 +9,23 @@ if (!fs.existsSync(packagePath)) {
 
 const version = JSON.parse(fs.readFileSync(packagePath, "utf8")).version;
 
-function prependLargeFileAndLine(line, sourcePath, targetPath) {
+function prependFile(sourcePath, targetPath) {
+  try {
+    const sourceContent = fs.readFileSync(sourcePath, "utf8");
+    const targetContent = fs.readFileSync(targetPath, "utf8");
     const tempPath = targetPath + '.tmp';
-    const output = fs.createWriteStream(tempPath);
-    output.write(line + '\n\n');
-    const sourceStream = fs.createReadStream(sourcePath);
-    sourceStream.pipe(output, { end: false });
-    sourceStream.on('end', () => {
-        output.write('\n\n');
-        const targetStream = fs.createReadStream(targetPath);
-        targetStream.pipe(output);
-        targetStream.on('end', () => {
-            output.end();
-            fs.rename(tempPath, targetPath, (err) => {
-                if (err) throw err;
-            });
-        });
-    });
+
+    fs.appendFileSync(tempPath, '# ' + version + '\n\n', "utf8");
+    fs.appendFileSync(tempPath, sourceContent, "utf8");
+    fs.appendFileSync(tempPath, '\n\n', "utf8");
+    fs.appendFileSync(tempPath, targetContent, "utf8");
+    fs.unlinkSync(targetPath);
+    fs.renameSync(tempPath, targetPath);
+    fs.truncateSync('LATEST.md', 0)
+
+  } catch (err) {
+    console.error('Error:', err);
+  }
 }
 
-prependLargeFileAndLine(
-    `# ${version}`,
-    'LATEST.md',
-    'CHANGELOG.md'
-);
-
-fs.truncate('example.txt', 0, (err) => {
-  if (err) throw err;
-});
+prependFile('LATEST.md', 'CHANGELOG.md');
