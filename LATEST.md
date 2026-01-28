@@ -1,2 +1,5 @@
+### Enhancements
+- Add 'Copy Breadcrumbs' button to the Rocket Documentation pages.  
+
 ### Tweaks
-- Only add update QuickLink when new version is available. Disable Windows notification.  
+- Disable extension update Windows notification in Chrome/Edge.  

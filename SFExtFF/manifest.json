@@ -1,7 +1,7 @@
 {
   "name": "Salesforce Extension",
   "short_name": "SFExt",
-  "version": "4.1.4",
+  "version": "4.1.5",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "manifest_version": 3,
@@ -9,8 +9,10 @@
     "gecko": {
       "id": "{23d40d0a-b0f9-4516-8c5c-ac5951d517b5}",
       "data_collection_permissions": {
-                "required": ["none"]
-            },
+        "required": [
+          "none"
+        ]
+      },
       "update_url": "https://raw.githubusercontent.com/UNiXMIT/UNiXSF/main/updates/FF/updates.json"
     }
   },
@@ -34,7 +36,8 @@
     "https://hooks.slack.com/services/*",
     "https://discord.com/api/webhooks/*",
     "https://webhook.lewisakura.moe/*",
-    "https://*.lightning.force.com/lightning/*"
+    "https://*.lightning.force.com/lightning/*",
+    "https://docs.rocketsoftware.com/*"
   ],
   "content_scripts": [
     {
@@ -42,18 +45,38 @@
         "*://*.force.com/*"
       ],
       "run_at": "document_end",
-      "js": ["js/SFExt.js"],
-      "css": ["css/style.css","css/all.css"]
+      "js": [
+        "js/SFExt.js"
+      ],
+      "css": [
+        "css/style.css",
+        "css/all.css"
+      ]
+    },
+    {
+      "matches": [
+        "https://docs.rocketsoftware.com/*"
+      ],
+      "run_at": "document_end",
+      "js": [
+        "js/docs.js"
+      ]
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": [ "*" ],
-      "matches": [ "*://*.force.com/*" ]
+      "resources": [
+        "*"
+      ],
+      "matches": [
+        "*://*.force.com/*"
+      ]
     }
   ],
   "background": {
-    "scripts": ["js/background.js"]
+    "scripts": [
+      "js/background.js"
+    ]
   },
   "action": {
     "default_icon": {
@@ -62,15 +85,18 @@
     },
     "default_title": "SFExt",
     "default_area": "navbar",
-    "theme_icons": [{
-      "light": "icons/rocket16.png",
-      "dark": "icons/rocket16.png",
-      "size": 16
-    }, {
-      "light": "icons/rocket32.png",
-      "dark": "icons/rocket32.png",
-      "size": 32
-    }]
+    "theme_icons": [
+      {
+        "light": "icons/rocket16.png",
+        "dark": "icons/rocket16.png",
+        "size": 16
+      },
+      {
+        "light": "icons/rocket32.png",
+        "dark": "icons/rocket32.png",
+        "size": 32
+      }
+    ]
   },
   "icons": {
     "16": "icons/rocket16.png",

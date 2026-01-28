@@ -10,6 +10,24 @@ if (!fs.existsSync(packagePath)) {
 
 const version = JSON.parse(fs.readFileSync(packagePath, "utf8")).version;
 
+function prependFile(sourcePath, targetPath) {
+  try {
+    const sourceContent = fs.readFileSync(sourcePath, "utf8");
+    const targetContent = fs.readFileSync(targetPath, "utf8");
+    const tempPath = targetPath + '.tmp';
+
+    fs.appendFileSync(tempPath, '# ' + version + '\n\n', "utf8");
+    fs.appendFileSync(tempPath, sourceContent, "utf8");
+    fs.appendFileSync(tempPath, '\n\n', "utf8");
+    fs.appendFileSync(tempPath, targetContent, "utf8");
+    fs.unlinkSync(targetPath);
+    fs.renameSync(tempPath, targetPath);
+
+  } catch (err) {
+    console.error('Error:', err);
+  }
+}
+
 function run(cmd) {
   return new Promise((resolve, reject) => {
     exec(cmd, (err, stdout, stderr) => {
@@ -20,6 +38,8 @@ function run(cmd) {
     });
   });
 }
+
+prependFile('LATEST.md', 'CHANGELOG.md');
 
 const gitCommands = [
   "git add .",

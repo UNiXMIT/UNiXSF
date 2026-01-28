@@ -14,7 +14,7 @@ const chromiumManVer = JSON.parse(fs.readFileSync(chromiumManPath, 'utf8'));
 chromiumManVer.version = version;
 fs.writeFileSync(chromiumManPath, JSON.stringify(chromiumManVer, null, 2));
 
-const FFManPath = path.join("SFExt", "manifest.json");
+const FFManPath = path.join("SFExtFF", "manifest.json");
 const FFManVer = JSON.parse(fs.readFileSync(FFManPath, 'utf8'));
 FFManVer.version = version;
 fs.writeFileSync(FFManPath, JSON.stringify(FFManVer, null, 2));

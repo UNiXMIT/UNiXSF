@@ -58,6 +58,9 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 - **Open 'Log in to Experience as User' in a new tab**  
   When you click on the 'Log in to Experience as User' button, it will now open in a new tab instead of the current tab.  
 
+- **Documentation 'Copy Breadcrumbs' Button**  
+  Add a button on the documentation page, next to the breadcrumbs, to copy the current breadcrumbs to clipboard.  
+
 ## Install
 
 ### Chromium  

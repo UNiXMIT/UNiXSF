@@ -19,7 +19,7 @@ const newZipName = `SFExt-${version}.zip`;
 if (fs.existsSync(oldZipName)) {
     fs.renameSync(oldZipName, path.join(chromiumDir, newZipName));
 } else {
-    console.error("Build zip not found:", zipName);
+    console.error("Build zip not found:", oldZipName);
     process.exit(1);
 }
 

@@ -17,7 +17,7 @@
     "prerelease": "node prerelease.js",
     "release": "node release.js",
     "postrelease": "node postrelease.js",
-    "all": "npm run prebuild && npm run build && npm run postbuild && npm run sign && npm run postsign && npm run prerelease && npm run release && npm run postrelease"
+    "all": "npm run build && npm run sign && npm run release"
   },
   "devDependencies": {
     "@octokit/rest": "^20.0.0",
