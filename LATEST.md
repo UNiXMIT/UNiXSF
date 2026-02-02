@@ -1,5 +1,5 @@
 ### Enhancements
-- Add 'Copy Breadcrumbs' button to the Rocket Documentation pages.  
+- Add 'Copy Link' button to the docs pages.  
 
 ### Tweaks
-- Disable extension update Windows notification in Chrome/Edge.  
+- Add the 'Copy Link' and 'Copy Breadcrumbs' buttons to the Docs Topic Actions menu instead.  

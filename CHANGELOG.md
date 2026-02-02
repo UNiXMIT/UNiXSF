@@ -1,3 +1,11 @@
+# 4.1.6
+
+### Enhancements
+- Add 'Copy Link' button to the docs pages.  
+
+### Tweaks
+- Add the 'Copy Link' and 'Copy Breadcrumbs' buttons to the Docs Topic Actions menu instead.  
+
 # 4.1.5
 
 ### Enhancements
