@@ -1,5 +1,2 @@
-### Enhancements
-- Add 'Copy Link' button to the docs pages.  
-
 ### Tweaks
-- Add the 'Copy Link' and 'Copy Breadcrumbs' buttons to the Docs Topic Actions menu instead.  
+- Improve Documentation page buttons to ensure they are also added to the nav bar that appears when scrolling.  

@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/UNiXMIT/UNiXSF.git"
   },
-  "version": "4.1.6",
+  "version": "4.1.7",
   "scripts": {
     "prebuild": "node prebuild.js",
     "build": "web-ext build --overwrite-dest --filename SFExt.zip --artifacts-dir . --source-dir ./SFExt/",

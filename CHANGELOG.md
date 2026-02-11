@@ -1,3 +1,8 @@
+# 4.1.7
+
+### Tweaks
+- Improve Documentation page buttons to ensure they are also added to the nav bar that appears when scrolling.  
+
 # 4.1.6
 
 ### Enhancements

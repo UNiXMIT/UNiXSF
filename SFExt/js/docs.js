@@ -158,9 +158,17 @@ function addCopyBreadcrumbsButtonInMenu(container) {
   share ? share.before(btn) : container.appendChild(btn);
 }
 
+function addButtonsToAllActionMenus() {
+  document.querySelectorAll(".zDocsTopicActions").forEach(actionsMenu => {
+    addCopyPageLinkAction(actionsMenu);
+    addCopyBreadcrumbsButtonInMenu(actionsMenu);
+  });
+}
+
+addButtonsToAllActionMenus();
+
 const observer = new MutationObserver(() => {
-  const actionsMenu = document.querySelector(".zDocsTopicPageHead .zDocsTopicActions");
-  if (actionsMenu) addCopyPageLinkAction(actionsMenu);
-  if (actionsMenu) addCopyBreadcrumbsButtonInMenu(actionsMenu);
+  addButtonsToAllActionMenus();
 });
+
 observer.observe(document.body, { childList: true, subtree: true });
