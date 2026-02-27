@@ -1,6 +1,6 @@
 {
   "name": "Salesforce Extension",
-  "version": "4.1.7",
+  "version": "4.2.0",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "manifest_version": 3,
@@ -12,7 +12,8 @@
     "downloads",
     "tabs",
     "webNavigation",
-    "scripting"
+    "scripting",
+    "contextMenus"
   ],
   "host_permissions": [
     "https://*.webhook.office.com/*",

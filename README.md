@@ -62,6 +62,9 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 - **Documentation 'Copy Link' and 'Copy Breadcrumbs' Buttons**  
   Add 'Copy Link' and 'Copy Breadcrumbs' button to the docs pages, in the current Docs Topic Actions menu.  
 
+- **Browser Context Menu**  
+  Search in Salesforce and Jira using the highlighted text.  
+
 ## Install
 
 ### Chromium  

@@ -1,7 +1,7 @@
 {
   "name": "Salesforce Extension",
   "short_name": "SFExt",
-  "version": "4.1.7",
+  "version": "4.2.0",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "manifest_version": 3,
@@ -29,7 +29,8 @@
     "tabs",
     "webRequest",
     "webNavigation",
-    "scripting"
+    "scripting",
+    "contextMenus"
   ],
   "host_permissions": [
     "https://*.webhook.office.com/*",
@@ -75,7 +76,8 @@
   ],
   "background": {
     "scripts": [
-      "js/background.js"
+      "js/background.js",
+      "js/context.js"
     ]
   },
   "action": {

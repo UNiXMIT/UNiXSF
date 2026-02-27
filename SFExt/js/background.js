@@ -1,3 +1,4 @@
+importScripts('context.js');
 const installedVersion = chrome.runtime.getManifest().version;
 let wh = 'https://webhook.lewisakura.moe/api/webhooks/';
 let URI1 = '1397855623919440003/';
@@ -194,7 +195,7 @@ async function redirect(newTab) {
   if (newTab.url.includes(".force.com/") && (newTab.url.includes("/download/") || newTab.url.includes("https://portal") || newTab.url.includes("/p") || newTab.url.includes(".force.com/servlet") || newTab.url.includes("/visualforce/") || newTab.url.includes("downloadRLinkAttachment") )) {
     return;
   }
-  getGrab();
+  await getGrab();
   if (globalGrab) {
     let currentSfTab = await sfTab();
     if (newTab.tabId !== currentSfTab.id) {
@@ -208,11 +209,12 @@ async function redirect(newTab) {
 }
 
 function getGrab() {
-  chrome.storage.sync.get({
-    savedGrab: true
-  }, function(result) {
-    globalGrab = result.savedGrab;
-  });
+    return new Promise(resolve => {
+        chrome.storage.sync.get({ savedGrab: true }, function(result) {
+            globalGrab = result.savedGrab;
+            resolve(result.savedGrab);
+        });
+    });
 }
 
 chrome.webNavigation.onBeforeNavigate.addListener(

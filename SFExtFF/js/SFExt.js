@@ -647,6 +647,21 @@ function convertSigToHTML(input) {
   return html;
 }
 
+function resolutionTitle() {
+    let observer = new MutationObserver(mutations => {
+        let container = document.querySelector('#split-left');
+        let resTable = queryShadowRoot(container, '[data-label="Resolution Summary"]');
+        if (resTable) {
+            resTable.forEach(el => {
+                if (!el.title) {
+                    el.title = el.innerText;
+                }
+            });
+        }
+    });
+    observer.observe(document.querySelector('#split-left'), {childList: true, subtree: true});
+}
+
 function extLoaded() {
     let observer = new MutationObserver(mutations => {
         let initial = document.querySelector('.oneUtilityBar');
@@ -816,6 +831,7 @@ let initInterval = setInterval(function() {
             KCSURL();
             fullWidthCase();
             signatureButton();
+            resolutionTitle();
             extLoaded();
             dailyUsers();
             setInterval(moveMouse, 60000);
