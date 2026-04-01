@@ -32,78 +32,78 @@ function createMenus() {
     contexts: ["selection"],
     enabled: !!globalDefect
   });
-  // chrome.contextMenus.create({
-  //   id: "SFExtDocs",
-  //   parentId: "SFExt",
-  //   title: "Search Documentation",
-  //   contexts: ["selection"],
-  // });
-  // chrome.contextMenus.create({
-  //   id: "SFExtCommunity",
-  //   parentId: "SFExt",
-  //   title: "Search Community",
-  //   contexts: ["selection"],
-  // });
-  // chrome.contextMenus.create({
-  //   id: "ALLDocs",
-  //   parentId: "SFExtDocs",
-  //   title: "All Documentation",
-  //   contexts: ["selection"],
-  // });
-  // chrome.contextMenus.create({
-  //   id: "EDDocs",
-  //   parentId: "SFExtDocs",
-  //   title: "Enterprise Developer",
-  //   contexts: ["selection"],
-  // });
-  // chrome.contextMenus.create({
-  //   id: "EADocs",
-  //   parentId: "SFExtDocs",
-  //   title: "Enterprise Analyzer",
-  //   contexts: ["selection"],
-  // });
-  // chrome.contextMenus.create({
-  //   id: "VCDocs",
-  //   parentId: "SFExtDocs",
-  //   title: "Visual COBOL",
-  //   contexts: ["selection"],
-  // });
-  // chrome.contextMenus.create({
-  //   id: "ACUDocs",
-  //   parentId: "SFExtDocs",
-  //   title: "AcuCOBOL",
-  //   contexts: ["selection"],
-  // });
-  // chrome.contextMenus.create({
-  //   id: "ALLCommunity",
-  //   parentId: "SFExtCommunity",
-  //   title: "All Community",
-  //   contexts: ["selection"],
-  // });
-  // chrome.contextMenus.create({
-  //   id: "ECommunity",
-  //   parentId: "SFExtCommunity",
-  //   title: "Enterprise",
-  //   contexts: ["selection"],
-  // });
-  // chrome.contextMenus.create({
-  //   id: "ESSCommunity",
-  //   parentId: "SFExtCommunity",
-  //   title: "Enterprise Suite Spot",
-  //   contexts: ["selection"],
-  // });
-  // chrome.contextMenus.create({
-  //   id: "VCCommunity",
-  //   parentId: "SFExtCommunity",
-  //   title: "Visual COBOL",
-  //   contexts: ["selection"],
-  // });
-  // chrome.contextMenus.create({
-  //   id: "ACUCommunity",
-  //   parentId: "SFExtCommunity",
-  //   title: "AcuCOBOL",
-  //   contexts: ["selection"],
-  // });
+  chrome.contextMenus.create({
+    id: "SFExtDocs",
+    parentId: "SFExt",
+    title: "Search Documentation",
+    contexts: ["selection"],
+  });
+  chrome.contextMenus.create({
+    id: "SFExtCommunity",
+    parentId: "SFExt",
+    title: "Search Community",
+    contexts: ["selection"],
+  });
+  chrome.contextMenus.create({
+    id: "ALLDocs",
+    parentId: "SFExtDocs",
+    title: "All Documentation",
+    contexts: ["selection"],
+  });
+  chrome.contextMenus.create({
+    id: "EDDocs",
+    parentId: "SFExtDocs",
+    title: "Enterprise Developer",
+    contexts: ["selection"],
+  });
+  chrome.contextMenus.create({
+    id: "EADocs",
+    parentId: "SFExtDocs",
+    title: "Enterprise Analyzer",
+    contexts: ["selection"],
+  });
+  chrome.contextMenus.create({
+    id: "VCDocs",
+    parentId: "SFExtDocs",
+    title: "Visual COBOL",
+    contexts: ["selection"],
+  });
+  chrome.contextMenus.create({
+    id: "ACUDocs",
+    parentId: "SFExtDocs",
+    title: "AcuCOBOL",
+    contexts: ["selection"],
+  });
+  chrome.contextMenus.create({
+    id: "ALLCommunity",
+    parentId: "SFExtCommunity",
+    title: "All Community",
+    contexts: ["selection"],
+  });
+  chrome.contextMenus.create({
+    id: "ECommunity",
+    parentId: "SFExtCommunity",
+    title: "Enterprise",
+    contexts: ["selection"],
+  });
+  chrome.contextMenus.create({
+    id: "ESSCommunity",
+    parentId: "SFExtCommunity",
+    title: "Enterprise Suite Spot",
+    contexts: ["selection"],
+  });
+  chrome.contextMenus.create({
+    id: "VCCommunity",
+    parentId: "SFExtCommunity",
+    title: "Visual COBOL",
+    contexts: ["selection"],
+  });
+  chrome.contextMenus.create({
+    id: "ACUCommunity",
+    parentId: "SFExtCommunity",
+    title: "AcuCOBOL",
+    contexts: ["selection"],
+  });
 }
 
 function updateJiraMenu() {
