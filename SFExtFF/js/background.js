@@ -109,9 +109,14 @@ function handleMessage(request, sender, sendResponse) {
     const slackWebhook = "https://hooks.slack.com/services/";
     const discordWebhook = "https://discord.com/api/webhooks/";
     const discordProxyWebhook = "https://webhook.lewisakura.moe/";
+    if (request.action === "keepAlive") {
+        sendResponse({ result: "Staying Alive" });
+        return true        
+    }
     if (request.action === "dailyUsers") {
         dailyUsers();
-        return true
+        sendResponse({ result: "Daily User Counted" });
+        return true        
     }
     if (request.url.includes(teamsWebhook)) {
         if (request.action === "newCase") {
@@ -193,7 +198,7 @@ function getBrowserType() {
 
 async function redirect(newTab) {
     if (newTab.url.includes(".force.com/") && (newTab.url.includes("/download/") || newTab.url.includes("https://portal") || newTab.url.includes("/p") || newTab.url.includes(".force.com/servlet") || newTab.url.includes("downloadRLinkAttachment") || newTab.url.includes("/x") )) {
-        return;
+        return true;
     }
     await getGrab();
     if (globalGrab) {

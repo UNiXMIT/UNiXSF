@@ -113,6 +113,7 @@ ul.mflist {
 
 .fa-caret-down:before {
     position: relative;
+    top: 10px;
     left: 5px;
     color: transparent;
     background-clip: text;
@@ -195,4 +196,8 @@ dialog::backdrop {
 
 .copyButton:hover {
     color: #005aca !important;
+}
+
+.fa-signature {
+    width: 2rem !important;
 }

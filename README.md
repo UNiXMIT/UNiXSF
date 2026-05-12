@@ -32,8 +32,8 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
     Gets the case number, subject and URL from the active, open case and opens a new window to create an Outlook Calendar event with reminder set.  
     By default, the calendar event start date is 3 days in the future, but this can be changed, by the user, in the new window.   
 
-  - 3rd Line Referral.  
-    Generates an email, using a set template and information from the case.     
+  - 3rd Line / FDS / Consulting Referral.  
+    Generates an email, using a set template and information from the case.   
 
   - Additional menu items for Support Portal, Education System and Huddle.  
 
@@ -129,7 +129,7 @@ Click on the toolbar extension menu and select Options.
 
 - The Huddle URL.   
 
-- The 3rd line referral email address (NOT the DL name).  
+- The 3rd line / FDS / Consulting referral email address (NOT the DL name).  
 
 - Enable/Disable Salesforce Link Grabber.  
 

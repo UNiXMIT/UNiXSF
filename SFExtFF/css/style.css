@@ -196,3 +196,7 @@ dialog::backdrop {
 .copyButton:hover {
     color: #005aca !important;
 }
+
+.fa-signature {
+    width: 2rem !important;
+}

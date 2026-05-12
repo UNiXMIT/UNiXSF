@@ -12,6 +12,7 @@ let globalDefectURL;
 let globalPP;
 let globalEDU;
 let globalRefEmail;
+let globalFdsRefEmail;
 let globalSig;
 let globalWide;
 let iconURL= chrome.runtime.getURL('icons/rocket128.png');
@@ -33,6 +34,7 @@ function initSyncData() {
         savedQNotifyWeb: false,
         savedWebhook: '',
         savedRefEmail: '',
+        savedFdsRefEmail: '',
         savedSig: '',
         savedURLS: `{"SFExt":"${configURL}"}`,
         savedWide: false
@@ -46,6 +48,7 @@ function initSyncData() {
         globalQNotifyWeb = result.savedQNotifyWeb;
         globalWebhook = result.savedWebhook;
         globalRefEmail = result.savedRefEmail;
+        globalFdsRefEmail = result.savedFdsRefEmail;
         globalSig = result.savedSig;
         globalURLS = result.savedURLS;
         globalWide = result.savedWide;
@@ -66,6 +69,7 @@ function getSyncData() {
                 savedQNotifyWeb: false,
                 savedWebhook: '',
                 savedRefEmail: '',
+                savedFdsRefEmail: '',
                 savedSig: '',
                 savedURLS: `{"SFExt":"${configURL}"}`,
                 savedWide: false
@@ -93,6 +97,7 @@ function getSyncData() {
                 globalQNotifyWeb = result.savedQNotifyWeb;
                 globalWebhook = result.savedWebhook;
                 globalRefEmail = result.savedRefEmail;
+                globalFdsRefEmail = result.savedFdsRefEmail;
                 globalSig = result.savedSig;
                 if (globalURLS != result.savedURLS) {
                     globalURLS = result.savedURLS;
@@ -133,6 +138,8 @@ function mfNav() {
                 mfDefect();
                 mfDocumentation();
                 thirdLineRef();
+                fdsRef();
+                consRef();
                 addReminder();
                 mfPP();
                 mfEDU();
@@ -223,53 +230,76 @@ function thirdLineRef() {
 }
 
 function thirdLineRefEvent() {
-    refEmail();
+    thirdRefEmail();
 }
 
-function refEmail() {
+function thirdRefEmail() {
     let caseURL;
     let caseNumber;
     let caseSubject;
-    let caseName;
+    let caseContact;
+    let caseContactURL;
     let caseAccount;
+    let caseAccountURL;
+    let caseSeverity;
     let caseProduct;
     let userQuery;
     let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
     if (caseCheck) {
         caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Case Number"] [name="outputField"]').innerText;
         caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]').innerText;
-        caseName = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Contact Name"] [name="outputField"] a').innerText;
+        caseContact = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Contact Name"] [name="outputField"] a').innerText;
+        caseContactURL = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Contact Name"] [name="outputField"] a').href;
         caseAccount = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Account Name"] [name="outputField"] a').innerText;
+        caseAccountURL = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Account Name"] [name="outputField"] a').href;
+        caseSeverity = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Severity"] [name="outputField"]').innerText;
         caseProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Product"] [name="outputField"] a').innerText;
         caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
     }
-    if ((caseNumber) && (caseSubject) && (caseName) && (caseAccount) && (caseURL) && (caseProduct)) {
+    if ((caseNumber) && (caseSubject) && (caseContact) && (caseAccount) && (caseURL) && (caseProduct)) {
         userQuery = {
         "to" : globalRefEmail,
-        "subject" : caseAccount + " - 3rd Line assistance request for Case - " + caseNumber,
-        "body" : "**When sending a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
-            + "PRODUCT: " + caseProduct + "\n\n"
-            + "CUSTOMER: " + caseName + " - " + caseAccount + "\n\n"
-            + "CASE SUMMARY: \n\n"
-            + "• Summary of the issue\n" 
-            + caseNumber + " - " + caseSubject + "\n" 
-            + caseURL + "\n\n"
-            + "• Summary of diagnostics\n\n"
-            + "• Hypothesis and other details\n\n"
-            + "• List Relevant Case Attachments\n\n"
+        "subject" : `3rd Line Referral for ${caseContact}@${caseAccount} RE: ${caseNumber} - ${caseSubject}`,
+        "body" : `
+PRODUCT: ${caseProduct}
+CUSTOMER: ${caseContact} - ${caseContactURL}
+ACCOUNT: ${caseAccount} - ${caseAccountURL}
+SF CASE: ${caseNumber} - ${caseSubject} - ${caseURL}
+SEVERITY: ${caseSeverity}
+
+CASE SUMMARY 
+• Issue Summary
+
+• Diagnostics Summary
+
+• Hypothesis & Additional Details
+
+• Relevant Case Attachments
+
+`
         };
     } else {
         userQuery = {
         "to" : globalRefEmail,
-        "subject" : "[Account Name]" + " - 3rd Line assistance request for Case - " + "[Case Number]",
-        "body" : "**When sending a request to 3rd Line for additional support, please fill in the information below where relevant**\n\n"
-            + "PRODUCT: \n\n"
-            + "CUSTOMER: " + "[Customer Name]" + " - " + "[Account Name]" + "\n\n"
-            + "CASE SUMMARY: \n\n"
-            + "• Summary of the issue\n\n" 
-            + "• Summary of diagnostics\n\n"
-            + "• Hypothesis and other details\n\n"
-            + "• List FTS Attachments\n\n"
+        "subject" : `3rd Line Referral for [Customer Name]@[Account Name] RE: [SF Case Number] - [SF Case Subject]`,
+        "body" : `
+PRODUCT: [Product Name]
+CUSTOMER: [Customer Name] - [Customer URL]
+ACCOUNT: [Account Name] - [Account URL]
+SF CASE: [SF Case Number] - [SF Case Subject] - [SF Case URL]
+SEVERITY: [Case Severity]
+
+CASE SUMMARY 
+
+• Issue Summary
+
+• Diagnostics Summary
+
+• Hypothesis & Additional Details
+
+• Relevant Case Attachments
+
+`
         };
     }
     let outlookURL = "https://outlook.office.com/mail/deeplink/compose";
@@ -279,6 +309,148 @@ function refEmail() {
     });
     let finalURL = outlookURL + (finalQuery.length ? '?' + finalQuery.join('&') : '');
     window.open(finalURL, '3rd Line Referral', 'width=1600,height=900');
+}
+
+function fdsRef() {
+    createMFMenu('fdsRef', 'fa-paper-plane', 'FDS Referral');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.fdsRef');
+    mfButtonNew.addEventListener('click', fdsRefEvent, false);
+}
+
+function fdsRefEvent() {
+    FDSrefEmail();
+}
+
+function FDSrefEmail() {
+    let caseURL;
+    let caseNumber;
+    let caseSubject;
+    let caseContact;
+    let caseContactURL;
+    let caseAccount;
+    let caseAccountURL;
+    let caseSeverity;
+    let caseProduct;
+    let userQuery;
+    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (caseCheck) {
+        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Case Number"] [name="outputField"]').innerText;
+        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]').innerText;
+        caseContact = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Contact Name"] [name="outputField"] a').innerText;
+        caseContactURL = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Contact Name"] [name="outputField"] a').href;
+        caseAccount = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Account Name"] [name="outputField"] a').innerText;
+        caseAccountURL = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Account Name"] [name="outputField"] a').href;
+        caseSeverity = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Severity"] [name="outputField"]').innerText;
+        caseProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Product"] [name="outputField"] a').innerText;
+        caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+    }
+    if ((caseNumber) && (caseSubject) && (caseContact) && (caseAccount) && (caseURL) && (caseProduct)) {
+        userQuery = {
+        "to" : globalFdsRefEmail,
+        "subject" : `FDS Referral for ${caseContact}@${caseAccount} RE: ${caseNumber} - ${caseSubject}`,
+        "body" : `
+PRODUCT: ${caseProduct}
+CUSTOMER: ${caseContact} - ${caseContactURL}
+ACCOUNT: ${caseAccount} - ${caseAccountURL}
+SF CASE: ${caseNumber} - ${caseSubject} - ${caseURL}
+SEVERITY: ${caseSeverity}
+FDS INVOLVED: [FDS Name and Version]
+FDS ERROR: [Clear description of the issue and steps to reproduce] 
+`
+        };
+    } else {
+        userQuery = {
+        "to" : globalFdsRefEmail,
+        "subject" : `FDS Referral for [Customer Name]@[Account Name] RE: [SF Case Number] - [SF Case Subject]`,
+        "body" : `
+PRODUCT: [Product Name]
+CUSTOMER: [Customer Name] - [Customer URL]
+ACCOUNT: [Account Name] - [Account URL]
+SF CASE: [SF Case Number] - [SF Case Subject] - [SF Case URL]
+SEVERITY: [Case Severity]
+FDS INVOLVED: [FDS Name and Version]
+FDS ERROR: [Clear description of the issue and steps to reproduce]
+`
+        };
+    }
+    let outlookURL = "https://outlook.office.com/mail/deeplink/compose";
+    let finalQuery = [];
+    Object.entries(userQuery).forEach(([key, value]) => {
+        finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+    });
+    let finalURL = outlookURL + (finalQuery.length ? '?' + finalQuery.join('&') : '');
+    window.open(finalURL, 'FDS Referral', 'width=1600,height=900');
+}
+
+function consRef() {
+    createMFMenu('consRef', 'fa-paper-plane', 'Consulting Referral');
+    let mfButtonNew = document.querySelector('#oneHeader').querySelector('.consRef');
+    mfButtonNew.addEventListener('click', consRefEvent, false);
+}
+
+function consRefEvent() {
+    consRefEmail();
+}
+
+function consRefEmail() {
+    let caseURL;
+    let caseNumber;
+    let caseSubject;
+    let caseContact;
+    let caseContactURL;
+    let caseAccount;
+    let caseAccountURL;
+    let caseSeverity;
+    let caseProduct;
+    let userQuery;
+    let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
+    if (caseCheck) {
+        caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Case Number"] [name="outputField"]').innerText;
+        caseSubject = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Subject"] [name="outputField"]').innerText;
+        caseContact = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Contact Name"] [name="outputField"] a').innerText;
+        caseContactURL = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Contact Name"] [name="outputField"] a').href;
+        caseAccount = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Account Name"] [name="outputField"] a').innerText;
+        caseAccountURL = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Account Name"] [name="outputField"] a').href;
+        caseSeverity = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Severity"] [name="outputField"]').innerText;
+        caseProduct = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Product"] [name="outputField"] a').innerText;
+        caseURL = document.querySelector('a.tabHeader[aria-selected="true"]').href;
+    }
+    if ((caseNumber) && (caseSubject) && (caseContact) && (caseAccount) && (caseURL) && (caseProduct)) {
+        userQuery = {
+        "to" : "[ACCOUNT MANAGER]",
+        "subject" : `Consulting Referral for ${caseContact}@${caseAccount} RE: ${caseNumber} - ${caseSubject}`,
+        "body" : `
+PRODUCT: ${caseProduct}
+CUSTOMER: ${caseContact} - ${caseContactURL}
+ACCOUNT: ${caseAccount} - ${caseAccountURL}
+SF CASE: ${caseNumber} - ${caseSubject} - ${caseURL}
+SEVERITY: ${caseSeverity}
+QUESTION OR ISSUE: [Detailed description of the question or issue encountered and steps to reproduce]
+REQUIRED FILES: [Links to relevant files, such as diagnostic collections, data files, JCL, logs, screenshots, or other supporting materials]
+`
+        };
+    } else {
+        userQuery = {
+        "to" : "",
+        "subject" : `Consulting Referral for [Customer Name]@[Account Name] RE: [SF Case Number] - [SF Case Subject]`,
+        "body" : `
+PRODUCT: [Product Name]
+CUSTOMER: [Customer Name] - [Customer URL]
+ACCOUNT: [Account Name] - [Account URL]
+SF CASE: [SF Case Number] - [SF Case Subject] - [SF Case URL]
+SEVERITY: [Case Severity]
+QUESTION OR ISSUE: [Detailed description of the question or issue encountered and steps to reproduce]
+REQUIRED FILES: [Links to relevant files, such as diagnostic collections, data files, JCL, logs, screenshots, or other supporting materials]
+`
+        };
+    }
+    let outlookURL = "https://outlook.office.com/mail/deeplink/compose";
+    let finalQuery = [];
+    Object.entries(userQuery).forEach(([key, value]) => {
+        finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+    });
+    let finalURL = outlookURL + (finalQuery.length ? '?' + finalQuery.join('&') : '');
+    window.open(finalURL, 'Consulting Referral', 'width=1600,height=900');
 }
 
 function addReminder() {
@@ -386,9 +558,14 @@ function initQMonitor() {
     } else if (caseQueue) {
         qMonitor();
     } else {
+        let handled = false;
         let observer = new MutationObserver(mutations => {
+            if (handled) return;
             setTimeout(function() {
                 let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
+                if (!caseQueue) return;
+                handled = true;
+                observer.disconnect();
                 let caseTable = queryShadowRoot(caseQueue, 'tbody tr');
                 if ( (caseQueue) && (caseTable) ) {
                     caseTable.forEach(caseRow => {
@@ -396,10 +573,7 @@ function initQMonitor() {
                         oldCaseArray.push(caseNumber);
                     });
                 }
-                if (caseQueue) {
-                    qMonitor();
-                    observer.disconnect();
-                }
+                qMonitor();
             }, 5000);
         });
         observer.observe(document.body, {childList: true, subtree: true});
@@ -408,8 +582,10 @@ function initQMonitor() {
 
 function qMonitor() {
     let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
+    if (!caseQueue) return;
     qObserver = new MutationObserver(mutations => {
-        if (caseQueue) {
+        let currentQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
+        if (currentQueue) {
             setTimeout(function() {
                 qNotify();
             }, 2000);
@@ -683,6 +859,12 @@ function dailyUsers() {
     });
 }
 
+function keepAlive() {
+    chrome.runtime.sendMessage({
+        action: "keepAlive"
+    });
+}
+
 function moveMouse(){
 	var evt = new MouseEvent("mousemove", {
         view: window,
@@ -897,6 +1079,15 @@ let initInterval = setInterval(function() {
         mfNav();
         setTimeout(function() {
             initQMonitor();
+            setInterval(function() {
+                let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
+                if (caseQueue && qObserver) {
+                    qObserver.disconnect();
+                    oldCaseArray = [];
+                    newCaseArray = [];
+                    initQMonitor();
+                }
+            }, 5 * 60 * 1000);
         }, 10000);
         setTimeout(function() {
             addCopyButton();
@@ -907,6 +1098,7 @@ let initInterval = setInterval(function() {
             resolutionTitle();
             extLoaded();
             dailyUsers();
+            setInterval(keepAlive, 30000);
             setInterval(moveMouse, 60000);
             fixMouse();
             EE();

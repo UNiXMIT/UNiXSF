@@ -11,6 +11,7 @@ function save_options() {
   let qnotifyweb = document.getElementById('qnotifyweb').checked;
   let webhook = document.getElementById('webhook').value;
   let refEmail = document.getElementById('refemail').value;
+  let fdsRefEmail = document.getElementById('fdsrefemail').value;
   let signature = document.getElementById('signature').value;
   let customurls = document.getElementById('customurls').value;
   let grabLink = document.getElementById('grabLink').checked;
@@ -25,6 +26,7 @@ function save_options() {
       savedQNotifyWeb: qnotifyweb,
       savedWebhook: webhook,
       savedRefEmail: refEmail,
+      savedFdsRefEmail: fdsRefEmail,
       savedSig: signature,
       savedURLS: customurls,
       savedGrab: grabLink,
@@ -39,7 +41,7 @@ function save_options() {
 }
 
 function reset_options() {
-  chrome.storage.sync.remove(["savedTimeout", "savedDefect", "savedPP", "savedEDU", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedRefEmail", "savedSig", "savedURLS", "savedGrab", "savedWide"], function() {
+  chrome.storage.sync.remove(["savedTimeout", "savedDefect", "savedPP", "savedEDU", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedRefEmail", "savedFdsRefEmail", "savedSig", "savedURLS", "savedGrab", "savedWide"], function() {
       let error = chrome.runtime.lastError;
       if (error) {
           console.error(error);
@@ -59,6 +61,7 @@ function restore_options() {
       savedQNotifyWeb: false,
       savedWebhook: '',
       savedRefEmail: '',
+      savedFdsRefEmail: '',
       savedSig: '',
       savedURLS: `{"SFExt":"${configURL}"}`,
       savedUUID: '',
@@ -74,6 +77,7 @@ function restore_options() {
       document.getElementById('qnotifyweb').checked = result.savedQNotifyWeb;
       document.getElementById('webhook').value = result.savedWebhook;
       document.getElementById('refemail').value = result.savedRefEmail;
+      document.getElementById('fdsrefemail').value = result.savedFdsRefEmail;
       document.getElementById('signature').value = result.savedSig;
       document.getElementById('customurls').value = result.savedURLS;
       document.getElementById('grabLink').checked = result.savedGrab;
@@ -99,6 +103,7 @@ function export_options() {
         savedQNotifyWeb: false,
         savedWebhook: '',
         savedRefEmail: '',
+        savedFdsRefEmail: '',
         savedSig: '',
         savedURLS: `{"SFExt":"${configURL}"}`,
         savedUUID: '',
@@ -151,6 +156,7 @@ function import_options() {
             savedQNotifyWeb: json.savedQNotifyWeb,
             savedWebhook: json.savedWebhook,
             savedRefEmail: json.savedRefEmail,
+            savedFdsRefEmail: json.savedFdsRefEmail,
             savedSig: json.savedSig,
             savedURLS: json.savedURLS,
             savedUUID: json.savedUUID,

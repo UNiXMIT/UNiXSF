@@ -1,7 +1,7 @@
 {
   "name": "Salesforce Extension",
   "short_name": "SFExt",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "description": "Enhance Salesforce with new features.",
   "author": "Martin Turner",
   "manifest_version": 3,
@@ -20,6 +20,10 @@
     "page": "config/config.html",
     "open_in_tab": true,
     "browser_style": false
+  },
+  "sidebar_action": {
+    "default_panel": "config/config.html",
+    "default_title": "SFExt Config"
   },
   "permissions": [
     "storage",
