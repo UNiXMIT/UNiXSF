@@ -2,6 +2,35 @@ const installedVersion = browser.runtime.getManifest().version;
 const configURL = browser.runtime.getURL('config.html');
 let globalUUID;
 
+function simpleFormatToJSON(simpleText) {
+  const lines = simpleText.trim().split('\n').filter(line => line.trim());
+  const urlsObj = {};
+  lines.forEach(line => {
+    const match = line.match(/^(.+?):\s*(.+)$/);
+    if (match) {
+      const name = match[1].trim();
+      const url = match[2].trim();
+      if (name && url) {
+        urlsObj[name] = url;
+      }
+    }
+  });
+  return JSON.stringify(urlsObj);
+}
+
+function jsonToSimpleFormat(jsonText) {
+  try {
+    const urlsObj = JSON.parse(jsonText);
+    const lines = [];
+    Object.entries(urlsObj).forEach(([name, url]) => {
+      lines.push(`${name}: ${url}`);
+    });
+    return lines.join('\n');
+  } catch (e) {
+    return '';
+  }
+}
+
 function save_options() {
   let refreshTimeout = document.getElementById('timeout').value;
   let defect = document.getElementById('defect').value;
@@ -17,6 +46,8 @@ function save_options() {
   let customurls = document.getElementById('customurls').value;
   let grabLink = document.getElementById('grabLink').checked;
   let wideCase = document.getElementById('wideCase').checked;
+  const customurlsJSON = simpleFormatToJSON(customurls);
+  
   browser.storage.sync.set({
       savedTimeout: refreshTimeout,
       savedDefect: defect,
@@ -29,7 +60,7 @@ function save_options() {
       savedRefEmail: refEmail,
       savedFdsRefEmail: fdsRefEmail,
       savedSig: signature,
-      savedURLS: customurls,
+      savedURLS: customurlsJSON,
       savedGrab: grabLink,
       savedWide: wideCase
   }, function() {
@@ -80,7 +111,7 @@ function restore_options() {
       document.getElementById('refemail').value = result.savedRefEmail;
       document.getElementById('fdsrefemail').value = result.savedFdsRefEmail;
       document.getElementById('signature').value = result.savedSig;
-      document.getElementById('customurls').value = result.savedURLS;
+      document.getElementById('customurls').value = jsonToSimpleFormat(result.savedURLS);
       document.getElementById('grabLink').checked = result.savedGrab;
       document.getElementById('wideCase').checked = result.savedWide;  
       if (!result.savedUUID) {

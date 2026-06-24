@@ -719,7 +719,19 @@ function addCopyButton() {
             }
         }
     });
-    observer.observe(document.querySelector('div.split-right'), {childList: true, subtree: true});
+    let splitRight = document.querySelector('div.split-right');
+    if (splitRight) {
+        observer.observe(splitRight, {childList: true, subtree: true});
+    } else {
+        let bodyObserver = new MutationObserver(() => {
+            let target = document.querySelector('div.split-right');
+            if (target) {
+                bodyObserver.disconnect();
+                observer.observe(target, {childList: true, subtree: true});
+            }
+        });
+        bodyObserver.observe(document.body, {childList: true, subtree: true});
+    }
 }
 
 function addCaseTitle() {
@@ -740,10 +752,23 @@ function addCaseTitle() {
         (async ()=>{
             observer.disconnect();
             await sleep(1000);
-            observer.observe(document.querySelector('div.split-right'), {childList: true, subtree: true});
+            let reconnectTarget = document.querySelector('div.split-right');
+            if (reconnectTarget) observer.observe(reconnectTarget, {childList: true, subtree: true});
         })();
     });
-    observer.observe(document.querySelector('div.split-right'), {childList: true, subtree: true});
+    let splitRight = document.querySelector('div.split-right');
+    if (splitRight) {
+        observer.observe(splitRight, {childList: true, subtree: true});
+    } else {
+        let bodyObserver = new MutationObserver(() => {
+            let target = document.querySelector('div.split-right');
+            if (target) {
+                bodyObserver.disconnect();
+                observer.observe(target, {childList: true, subtree: true});
+            }
+        });
+        bodyObserver.observe(document.body, {childList: true, subtree: true});
+    }
 }
 
 function KCSURL() {
@@ -775,7 +800,19 @@ function KCSURL() {
             }
         }  
     });
-    observer.observe(document.querySelector('div.split-right'), {childList: true, subtree: true});
+    let splitRight = document.querySelector('div.split-right');
+    if (splitRight) {
+        observer.observe(splitRight, {childList: true, subtree: true});
+    } else {
+        let bodyObserver = new MutationObserver(() => {
+            let target = document.querySelector('div.split-right');
+            if (target) {
+                bodyObserver.disconnect();
+                observer.observe(target, {childList: true, subtree: true});
+            }
+        });
+        bodyObserver.observe(document.body, {childList: true, subtree: true});
+    }
 }
 
 function fullWidthCase() {
@@ -785,7 +822,19 @@ function fullWidthCase() {
             caseView.classList.remove("slds-grid");
         }
     });
-    observer.observe(document.querySelector('div.split-right'), {childList: true, subtree: true});
+    let splitRight = document.querySelector('div.split-right');
+    if (splitRight) {
+        observer.observe(splitRight, {childList: true, subtree: true});
+    } else {
+        let bodyObserver = new MutationObserver(() => {
+            let target = document.querySelector('div.split-right');
+            if (target) {
+                bodyObserver.disconnect();
+                observer.observe(target, {childList: true, subtree: true});
+            }
+        });
+        bodyObserver.observe(document.body, {childList: true, subtree: true});
+    }
 }
 
 function signatureButton() {
@@ -801,7 +850,19 @@ function signatureButton() {
             }
         }
     });
-    observer.observe(document.querySelector('div.split-right'), {childList: true, subtree: true});
+    let splitRight = document.querySelector('div.split-right');
+    if (splitRight) {
+        observer.observe(splitRight, {childList: true, subtree: true});
+    } else {
+        let bodyObserver = new MutationObserver(() => {
+            let target = document.querySelector('div.split-right');
+            if (target) {
+                bodyObserver.disconnect();
+                observer.observe(target, {childList: true, subtree: true});
+            }
+        });
+        bodyObserver.observe(document.body, {childList: true, subtree: true});
+    }
 }
 
 function sigEvent() {
@@ -835,7 +896,19 @@ function resolutionTitle() {
             });
         }
     });
-    observer.observe(document.querySelector('#split-left'), {childList: true, subtree: true});
+    let splitLeft = document.querySelector('#split-left');
+    if (splitLeft) {
+        observer.observe(splitLeft, {childList: true, subtree: true});
+    } else {
+        let bodyObserver = new MutationObserver(() => {
+            let target = document.querySelector('#split-left');
+            if (target) {
+                bodyObserver.disconnect();
+                observer.observe(target, {childList: true, subtree: true});
+            }
+        });
+        bodyObserver.observe(document.body, {childList: true, subtree: true});
+    }
 }
 
 function extLoaded() {

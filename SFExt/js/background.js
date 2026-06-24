@@ -203,6 +203,9 @@ async function redirect(newTab) {
   await getGrab();
   if (globalGrab) {
     let currentSfTab = await sfTab();
+    if (!currentSfTab) {
+        return;
+    }
     if (newTab.tabId !== currentSfTab.id) {
         if (newTab.url == currentSfTab.url) { return closeTab(newTab.tabId); }
         loadURL(currentSfTab.id, newTab.url);
