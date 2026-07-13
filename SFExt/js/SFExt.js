@@ -91,6 +91,7 @@ function getSyncData() {
                     }
                     oldCaseArray = [];
                     newCaseArray = [];
+                    document.querySelector('.QMonActive')?.remove();
                     initQMonitor();
                 }
                 globalQNotify = result.savedQNotify;
@@ -547,6 +548,7 @@ function updateCustomURLs() {
 }
 
 function initQMonitor() {
+    if (!globalQueue) return;
     let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
     let caseTable = queryShadowRoot(caseQueue, 'tbody tr');
     if ( (caseQueue) && (caseTable) ) {
@@ -581,6 +583,7 @@ function initQMonitor() {
 }
 
 function qMonitor() {
+    QMonActive();
     let caseQueue = queryShadowRoot(activeQueueContains('span', `${globalQueue}`)[0]?.closest('lst-common-list-internal'), '.slds-grid.listDisplays')?.[0];
     if (!caseQueue) return;
     qObserver = new MutationObserver(mutations => {
@@ -924,6 +927,23 @@ function extLoaded() {
         }
     });
     observer.observe(document.body, {childList: true, subtree: true});
+}
+
+function QMonActive() {
+    let initial = document.querySelector('.oneUtilityBar');
+    let QMonActiveCheck = document.querySelector('.QMonActive');
+    if (QMonActiveCheck) {
+        QMonActiveCheck.remove();
+    }
+    if (initial) {
+        let footer = initial.querySelector('.utilitybar');
+        if (footer) {
+            let footera = document.createElement("h4");
+            footera.className = "QMonActive";
+            footera.innerText = `SFExt Queue Monitor is active for queue: ${globalQueue}`;
+            footer.appendChild(footera);
+        }
+    }
 }
 
 function dailyUsers() {

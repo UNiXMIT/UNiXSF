@@ -3,6 +3,7 @@ body {
     margin: 0 30px;
     padding: 0;
     overflow-x: hidden;
+    background: #0f1117;
 }
 #Main {
     width: 700px;
@@ -12,10 +13,11 @@ h1 {
     font-family: "Roboto", sans-serif;
     font-weight: 900;
     font-size: 40px;
+    color: #e8eaf0;
 }
 h1:after {
     width: 75px;
-    border-bottom: 4px solid #0570f6;
+    border-bottom: 4px solid #3d8ff8;
     display: block;
     content: "";
     margin-top: 10px;
@@ -26,10 +28,11 @@ h2 {
     font-weight: 600;
     font-size: 28px;
     margin-top: 20px;
+    color: #e8eaf0;
 }
 h2:after {
     width: 50px;
-    border-bottom: 4px solid #0570F6;
+    border-bottom: 4px solid #3d8ff8;
     display: block;
     content: '';
     margin-top: 10px;
@@ -40,10 +43,11 @@ h3 {
     font-weight: 600;
     font-size: 24px;
     margin-top: 40px;
+    color: #e8eaf0;
 }
 h3:after {
     width: 50px;
-    border-bottom: 4px solid #0570F6;
+    border-bottom: 4px solid #3d8ff8;
     display: block;
     content: '';
     margin-top: 10px;
@@ -56,15 +60,36 @@ label {
     margin-top: 15px;
     margin-bottom: 5px;
     display: block;
+    color: #e8eaf0;
 }
 input {
     font-family: "Source Code Pro", monospace;
     font-size: 12px;
+    color: #e8eaf0;
+    background: #1a1d27;
+    border: 2px solid #b3b3b3;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s;
+    padding: 5px;
+}
+input:focus {
+    border-color: #3d8ff8;
 }
 textarea {
     display: block;
     font-family: "Source Code Pro", monospace;
     font-size: 12px;
+    color: #e8eaf0;
+    background: #1a1d27;
+    border: 2px solid #b3b3b3;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s;
+    padding: 5px;
+}
+textarea:focus {
+    border-color: #3d8ff8;
 }
 #timeout {
     width: 100px;
@@ -103,7 +128,7 @@ textarea {
     font-weight: 700;
     font-size: 16px;
     margin: 10px 0;
-    color: red;
+    color: #e03030;
     height: 20px;
 }
 button {
@@ -112,20 +137,21 @@ button {
     font-weight: 600;
     line-height: 1rem;
     padding: 15px;
-    background: #0d0d0d;
-    color: #fff;
+    background: #e8eaf0;
+    color: #0f1117;
     margin: 20px 20px 0;
     display: inline;
     width: 8rem;
     text-align: center;
-    border: 1px solid #0d0d0d;
+    border: 1px solid #e8eaf0;
+    border-radius: 6px;
     transition: color 0.3s, background 0.3s;
     text-decoration: none;
+    cursor: pointer;
 }
 button:hover {
-    background: #fff;
-    color: #0d0d0d;
-    cursor: pointer;
+    background: #0f1117;
+    color: #e8eaf0;
 }
 
 body::-webkit-scrollbar {
@@ -133,11 +159,11 @@ body::-webkit-scrollbar {
 }
    
 body::-webkit-scrollbar-track {
-    background: #ddd;
+    background: #0f1117;
 }
    
 body::-webkit-scrollbar-thumb {
-    background-color: #f1f1f1;
+    background-color: #0f1117;
     border-radius: 20px;
 }
 
@@ -146,11 +172,11 @@ textarea::-webkit-scrollbar {
 }
    
 textarea::-webkit-scrollbar-track {
-    background: #ddd;
+    background: #0f1117;
 }
    
 textarea::-webkit-scrollbar-thumb {
-    background-color: #f1f1f1;
+    background-color: #0f1117;
     border-radius: 20px;
 }
 

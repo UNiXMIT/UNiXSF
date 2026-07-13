@@ -14,33 +14,29 @@ let callQueue = [];
 let pendingQueue = [];
 let isProcessing = false;
 
-function reloadSFTab() {
-    chrome.runtime.onInstalled.addListener(function(){
-        chrome.tabs.query({url: "*://*.lightning.force.com/*"}, function(results) {
-            for (const tab of results) {
-                chrome.tabs.reload(tab.id);
-            }
-        });
+chrome.runtime.onInstalled.addListener(function(){
+    chrome.tabs.query({url: "*://*.lightning.force.com/*"}, function(results) {
+        for (const tab of results) {
+            chrome.tabs.reload(tab.id);
+        }
     });
-}
+});
 
-function tabUpdates() {
-    chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-        if (changeInfo.url && 
-            changeInfo.url.includes('my.salesforce.com/servlet/servlet.su?') &&
-            !handledUrls.has(changeInfo.url)) {
-                handledUrls.add(changeInfo.url);
-                chrome.tabs.create({ url: changeInfo.url }).then(() => {
-                    return chrome.tabs.goBack(tabId);
-                }).then(() => {
-                    setTimeout(() => handledUrls.delete(changeInfo.url), 2000);
-                }).catch(error => {
-                    console.error("Error:", error);
-                    handledUrls.delete(changeInfo.url);
-                });
-            }
-    });
-}
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (changeInfo.url && 
+        changeInfo.url.includes('my.salesforce.com/servlet/servlet.su?') &&
+        !handledUrls.has(changeInfo.url)) {
+            handledUrls.add(changeInfo.url);
+            chrome.tabs.create({ url: changeInfo.url }).then(() => {
+                return chrome.tabs.goBack(tabId);
+            }).then(() => {
+                setTimeout(() => handledUrls.delete(changeInfo.url), 2000);
+            }).catch(error => {
+                console.error("Error:", error);
+                handledUrls.delete(changeInfo.url);
+            });
+        }
+});
 
 function dailyUsers() {
     const today = new Date();
@@ -266,6 +262,4 @@ async function closeTab(tab) {
   });
 }
 
-reloadSFTab();
-tabUpdates();
 chrome.runtime.onMessage.addListener(handleMessage);

@@ -59,8 +59,8 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 - **Open 'Log in to Experience as User' in a new tab**  
   When you click on the 'Log in to Experience as User' button, it will now open in a new tab instead of the current tab.  
 
-- **Documentation 'Copy Link' and 'Copy Breadcrumbs' Buttons**  
-  Add 'Copy Link' and 'Copy Breadcrumbs' button to the docs pages, in the current Docs Topic Actions menu.  
+- **Documentation 'Copy Link', 'Copy KCS Refernce' and 'Copy Breadcrumbs' Buttons**  
+  Add 'Copy Link', 'Copy KCS Refernce' and 'Copy Breadcrumbs' button to the docs pages, in the current Docs Topic Actions menu.  
 
 - **Browser Context Menu**  
   Search in Salesforce and Jira using the highlighted text.  

@@ -41,7 +41,7 @@ a.ExtLoaded {
     position: absolute !important;
     right: 0 !important;
     text-decoration: none !important;
-    margin-top: 12px !important;
+    margin-top: 4px !important;
     margin-right: 15px !important;
     font-weight: bold !important;
     color: black; 
@@ -57,6 +57,20 @@ a.ExtLoaded:hover {
     color: red 
 } 
 
+h4.QMonActive {
+    float: right !important;
+    width: auto !important;
+    display: flex !important;
+    position: absolute !important;
+    right: 0 !important;
+    text-decoration: none !important;
+    margin-top: 20px !important;
+    margin-right: 15px !important;
+    font-weight: normal !important;
+    color: black; 
+    font-family: "RobotoBold",sans-serif !important;
+}
+
 .dropbtn { 
     background-color: #fff; 
     width: 25px; 
@@ -68,7 +82,7 @@ a.ExtLoaded:hover {
 } 
 
 .mfdropdown { 
-    margin: 0 5px 0 10px; 
+    margin: 0 5px 0 5px; 
     position: relative; 
     display: inline-block; 
 } 
@@ -107,7 +121,7 @@ ul.mflist {
 
 .fa-caret-down { 
     opacity: 0.4; 
-    margin: 0 -5px 0 -20px;
+    margin: 0 -5px 0 -15px;
     color: #503eff;
 } 
 

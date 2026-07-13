@@ -14,33 +14,29 @@ let callQueue = [];
 let pendingQueue = [];
 let isProcessing = false;
 
-function reloadSFTab() {
-    browser.runtime.onInstalled.addListener(function(){
-        browser.tabs.query({url: "*://*.lightning.force.com/*"}, function(results) {
-            for (const tab of results) {
-                browser.tabs.reload(tab.id);
-            }
-        });
+browser.runtime.onInstalled.addListener(function(){
+    browser.tabs.query({url: "*://*.lightning.force.com/*"}, function(results) {
+        for (const tab of results) {
+            browser.tabs.reload(tab.id);
+        }
     });
-}
+});
 
-function tabUpdates() {
-    browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-        if (changeInfo.url && 
-            changeInfo.url.includes('my.salesforce.com/servlet/servlet.su?') &&
-            !handledUrls.has(changeInfo.url)) {
-                handledUrls.add(changeInfo.url);
-                browser.tabs.create({ url: changeInfo.url }).then(() => {
-                    return browser.tabs.goBack(tabId);
-                }).then(() => {
-                    setTimeout(() => handledUrls.delete(changeInfo.url), 2000);
-                }).catch(error => {
-                    console.error("Error:", error);
-                    handledUrls.delete(changeInfo.url);
-                });
-            }
-    });
-}
+browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (changeInfo.url && 
+        changeInfo.url.includes('my.salesforce.com/servlet/servlet.su?') &&
+        !handledUrls.has(changeInfo.url)) {
+            handledUrls.add(changeInfo.url);
+            browser.tabs.create({ url: changeInfo.url }).then(() => {
+                return browser.tabs.goBack(tabId);
+            }).then(() => {
+                setTimeout(() => handledUrls.delete(changeInfo.url), 2000);
+            }).catch(error => {
+                console.error("Error:", error);
+                handledUrls.delete(changeInfo.url);
+            });
+        }
+});
 
 function handleClick() {
     browser.tabs.create({
@@ -265,7 +261,5 @@ async function closeTab(tab) {
     });
 }
 
-reloadSFTab();
-tabUpdates();
 browser.action.onClicked.addListener(handleClick);
 browser.runtime.onMessage.addListener(handleMessage);
