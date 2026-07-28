@@ -236,27 +236,19 @@ function addCopyBreadcrumbsButtonInMenu(container) {
   share ? share.before(btn) : container.appendChild(btn);
 }
 
-function addButtonsToAllActionMenus() {
-  document.querySelectorAll(".zDocsTopicActions").forEach(actionsMenu => {
-    addCopyPageLinkAction(actionsMenu);
-    addKCSRefButton(actionsMenu);
-    addCopyBreadcrumbsButtonInMenu(actionsMenu);
-  });
-}
-
-function addCustomButton(container) {
-  if (container.querySelector(".copy-kcs-ref-btn")) return;
+function addSearchURLButton(container) {
+  if (container.querySelector(".copy-search-url-btn")) return;
 
   const h1 = document.querySelector(".zDocsTopicPageHead h1");
   if (!h1) return;
 
   const btn = document.createElement("span");
-  btn.className = "copy-kcs-ref-btn d-none d-lg-flex";
+  btn.className = "copy-search-url-btn d-none d-lg-flex";
   btn.setAttribute("role", "button");
   btn.setAttribute("tabindex", "0");
-  btn.setAttribute("aria-label", "Copy KCS Reference");
+  btn.setAttribute("aria-label", "Copy Topic Search URL");
   btn.setAttribute("data-tooltip-id", "zDocsTopicActionsTooltip");
-  btn.setAttribute("data-tooltip-content", "Copy KCS Reference");
+  btn.setAttribute("data-tooltip-content", "Copy Topic Search URL");
 
   btn.style.cssText = `
     cursor: pointer;
@@ -265,8 +257,8 @@ function addCustomButton(container) {
   `;
 
   btn.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 32 32" style="width: 22px; height: 22px; margin: 0 8px; fill: currentColor"
-      aria-hidden="true"><path fill="currentColor" d="M20 25h7v2h-7zm2 4h3v2h-3zm5-6h-2c0-1.1.4-2 1.2-2.8l.5-.5c.8-.8 1.3-2 1.3-3.2c0-2.5-2-4.5-4.5-4.5S19 14 19 16.5c0 1.2.5 2.3 1.3 3.2l.5.5c.8.8 1.2 1.7 1.2 2.8h-2c0-.5-.2-1-.6-1.4l-.5-.5c-1.2-1.2-1.9-2.9-1.9-4.6c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5c0 1.7-.7 3.4-1.9 4.6l-.5.5c-.4.4-.6.9-.6 1.4M6 22h8v2H6z"/><circle cx="12" cy="19" r="1" fill="currentColor"/><path fill="currentColor" d="M6 18h3v2H6zm0-4h7v2H6zm4-4h7v2h-7z"/><circle cx="7" cy="11" r="1" fill="currentColor"/><path fill="currentColor" d="M16 6h4v2h-4z"/><circle cx="13" cy="7" r="1" fill="currentColor"/><path fill="currentColor" d="M6 6h4v2H6z"/><path fill="currentColor" d="M18 28H4V4h18v4h2V4c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v24c0 1.1.9 2 2 2h14z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" style="width: 22px; height: 22px; margin: 0 8px; fill: currentColor"
+      aria-hidden="true"><title>bookmark-search-24-regular</title><path fill="currentColor" d="M19.107 9.168a4.5 4.5 0 1 1 1.06-1.06l2.613 2.612a.75.75 0 1 1-1.06 1.06zM19.5 5.5a3 3 0 1 0-6 0a3 3 0 0 0 6 0m-.5 4.976v10.769a.75.75 0 0 1-1.188.609l-5.81-4.181l-5.812 4.18a.75.75 0 0 1-1.188-.608V6.249a3.25 3.25 0 0 1 3.25-3.25H11.6c-.238.466-.412.97-.51 1.5H8.252a1.75 1.75 0 0 0-1.75 1.75v13.532l5.061-3.64a.75.75 0 0 1 .876 0l5.061 3.64V10.91a5.5 5.5 0 0 0 1.45-.484z"/></svg>
   `;
 
   btn.onmouseover = () => {
@@ -289,23 +281,23 @@ function addCustomButton(container) {
       if ("ClipboardItem" in window) {
         const item = new ClipboardItem({
           "text/plain": new Blob(
-            [`Refer to the topic '${title}' in ${baseUrl}`],
+            [`${title} - ${baseUrl}`],
             { type: "text/plain" }
           ),
           "text/html": new Blob(
-            [`Refer to the topic <a href="${baseUrl}">${title}</a>`],
+            [`<a href="${baseUrl}">${title}</a>`],
             { type: "text/html" }
           ),
         });
 
         await navigator.clipboard.write([item]);
       } else {
-        await navigator.clipboard.writeText(`Refer to the topic '${title}' in ${baseUrl}`);
+        await navigator.clipboard.writeText(`${title} - ${baseUrl}`);
       }
 
       btn.setAttribute("data-tooltip-content", "Copied!");
       setTimeout(
-        () => btn.setAttribute("data-tooltip-content", "Copy KCS Reference"),
+        () => btn.setAttribute("data-tooltip-content", "Copy Topic Search URL"),
         1200
       );
     } catch (e) {
@@ -323,6 +315,15 @@ function addCustomButton(container) {
 
   const share = container.querySelector(".zDocsTopicShare");
   share ? share.before(btn) : container.appendChild(btn);
+}
+
+function addButtonsToAllActionMenus() {
+  document.querySelectorAll(".zDocsTopicActions").forEach(actionsMenu => {
+    addCopyPageLinkAction(actionsMenu);
+    addKCSRefButton(actionsMenu);
+    addCopyBreadcrumbsButtonInMenu(actionsMenu);
+    addSearchURLButton(actionsMenu);
+  });
 }
 
 addButtonsToAllActionMenus();

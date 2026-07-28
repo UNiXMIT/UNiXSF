@@ -96,6 +96,7 @@ It works in Chrome, Brave, Edge (Chromium) and Firefox browsers.
 4. Click the reload icon in the Salesforce Extension tile.
 
 ### Firefox
+The Firefox extension can be set to automatically update or you can do it manually.  
 
 [How to update add-ons.](https://support.mozilla.org/en-US/kb/how-update-add-ons)
 
@@ -121,9 +122,15 @@ Click on the toolbar extension menu and select Options.
 
 - The Auto Refresh time can be configured (in seconds). _Default 60 seconds. Minimum is 30. Disabled < 30_
 
-- The name of the case queue to monitor and URL for the webhook notifications.  
-  Desktop and Web notifications can be enabled/disabled.  
-  For the case queue name, either enter the name of the case queue that you want to monitor or append the name of the case queue you want to monitor with 'NOTIFY'.  
+- The name of the case queue to monitor for refreshes and/or notifications.  
+  For the case queue name, either enter the name of the case queue that you want to monitor or append the name of the case queue you want to monitor with a suffix (for example, NOTIFY) and then add that suffix in this configuration field.  
+  If you want to monitor multiple queues for refreshes and/or notifications, append a common suffix (for example, NOTIFY) to each queue name, then enter only that common suffix in this configuration field.  
+  This is case-sensitive.   
+  ![06](images/multiQueues.png) 
+
+- Desktop and Web notifications can be enabled/disabled.  
+
+- The URL used for webhook notifications. 
 
 - The Education System URL.  
 
@@ -137,7 +144,11 @@ Click on the toolbar extension menu and select Options.
 
 - Case Post Signature.  
 
-- Custom links can be added to the QuickLink Menu. The format for the configuration is in JSON where the Key is the text of the link and the Value is the URL to load.  
+- Custom links can be added to the QuickLink Menu. The format for the configuration is 'Name: URL' for example:
+```
+Example: https://mysite.com
+Example2: https://mysite2.com
+```
 
 ### Save Options
 

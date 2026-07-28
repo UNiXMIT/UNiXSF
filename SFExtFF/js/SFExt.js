@@ -114,9 +114,12 @@ function queueRefresh() {
     if (globalTimeout >= 30) {
         let refreshInterval = globalTimeout * 1000;
         intervalID = setInterval(function() {
-            let refreshButton = document.querySelector('#split-left').querySelector('button[name="refreshButton"]');
-            if (refreshButton) {
-                refreshButton.click();
+            let queueCheck = activeQueueContains('span', `${globalQueue}`)[0];
+            if (queueCheck) {
+                let refreshButton = document.querySelector('#split-left').querySelector('button[name="refreshButton"]');
+                if (refreshButton) {
+                    refreshButton.click();
+                }
             }
         }, refreshInterval);
     }

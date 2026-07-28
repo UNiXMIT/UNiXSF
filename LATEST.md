@@ -1,8 +1,7 @@
 ### Enhancements
-- Improve config page style including switching to dark mode.  
-- Add visual label when Queue Monitor is active and for which queue.  
-- Add KCS Reference buttons to docs page.  
+- Add a button to toggle light/dark mode on the config page.  
+- Add button to the docs page to generate a documentation search topic URL.  
 
 ### Tweaks
-- Small tweaks to CSS.  
-- Improvements to Queue Monitor.  
+- Refresh only the configured queue instead of all queues.  
+- Update documentation.  

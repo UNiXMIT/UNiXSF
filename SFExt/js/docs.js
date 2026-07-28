@@ -317,11 +317,93 @@ function addCustomButton(container) {
   share ? share.before(btn) : container.appendChild(btn);
 }
 
+function addSearchURLButton(container) {
+  if (container.querySelector(".copy-search-url-btn")) return;
+
+  const h1 = document.querySelector(".zDocsTopicPageHead h1");
+  if (!h1) return;
+
+  const btn = document.createElement("span");
+  btn.className = "copy-search-url-btn d-none d-lg-flex";
+  btn.setAttribute("role", "button");
+  btn.setAttribute("tabindex", "0");
+  btn.setAttribute("aria-label", "Copy Topic Search URL");
+  btn.setAttribute("data-tooltip-id", "zDocsTopicActionsTooltip");
+  btn.setAttribute("data-tooltip-content", "Copy Topic Search URL");
+
+  btn.style.cssText = `
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  `;
+
+  btn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" style="width: 22px; height: 22px; margin: 0 8px; fill: currentColor"
+      aria-hidden="true"><title>bookmark-search-24-regular</title><path fill="currentColor" d="M19.107 9.168a4.5 4.5 0 1 1 1.06-1.06l2.613 2.612a.75.75 0 1 1-1.06 1.06zM19.5 5.5a3 3 0 1 0-6 0a3 3 0 0 0 6 0m-.5 4.976v10.769a.75.75 0 0 1-1.188.609l-5.81-4.181l-5.812 4.18a.75.75 0 0 1-1.188-.608V6.249a3.25 3.25 0 0 1 3.25-3.25H11.6c-.238.466-.412.97-.51 1.5H8.252a1.75 1.75 0 0 0-1.75 1.75v13.532l5.061-3.64a.75.75 0 0 1 .876 0l5.061 3.64V10.91a5.5 5.5 0 0 0 1.45-.484z"/></svg>
+  `;
+
+  btn.onmouseover = () => {
+    btn.style.backgroundColor = "#f4f4f4";
+    btn.querySelector("svg").style.fill = "#909";
+  };
+  btn.onmouseout = () => {
+    btn.style.backgroundColor = "transparent";
+    btn.querySelector("svg").style.fill = "#000";
+  };
+
+  const copy = async () => {
+    const title = h1.textContent.replace(/\s+/g, " ").trim();
+    const url = window.location.href;
+    const splitUrl = url.split("/page")[0];
+    const searchUrl = splitUrl.replace("/bundle/", "/search?bundle=");
+    const baseUrl = `${searchUrl}&q=${encodeURIComponent(title)}`;
+
+    try {
+      if ("ClipboardItem" in window) {
+        const item = new ClipboardItem({
+          "text/plain": new Blob(
+            [`${title} - ${baseUrl}`],
+            { type: "text/plain" }
+          ),
+          "text/html": new Blob(
+            [`<a href="${baseUrl}">${title}</a>`],
+            { type: "text/html" }
+          ),
+        });
+
+        await navigator.clipboard.write([item]);
+      } else {
+        await navigator.clipboard.writeText(`${title} - ${baseUrl}`);
+      }
+
+      btn.setAttribute("data-tooltip-content", "Copied!");
+      setTimeout(
+        () => btn.setAttribute("data-tooltip-content", "Copy Topic Search URL"),
+        1200
+      );
+    } catch (e) {
+      console.error("Copy failed", e);
+    }
+  };
+
+  btn.onclick = copy;
+  btn.onkeydown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      copy();
+    }
+  };
+
+  const share = container.querySelector(".zDocsTopicShare");
+  share ? share.before(btn) : container.appendChild(btn);
+}
+
 function addButtonsToAllActionMenus() {
   document.querySelectorAll(".zDocsTopicActions").forEach(actionsMenu => {
     addCopyPageLinkAction(actionsMenu);
     addKCSRefButton(actionsMenu);
     addCopyBreadcrumbsButtonInMenu(actionsMenu);
+    addSearchURLButton(actionsMenu);
   });
 }
 

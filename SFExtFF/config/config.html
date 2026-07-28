@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="../css/all.css" rel="stylesheet" />
     <link href="config.css" rel="stylesheet" />
     <title>Salesforce Extension Configuration</title>
 </head>
 <body>
     <div id="Main">
+        <div id="themeBar">
+            <button id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to light mode" title="Switch to light mode"><i id="themeIcon" class="fa-solid fa-sun" aria-hidden="true"></i></button>
+        </div>
         <h1>Salesforce Extension Configuration</h1>
         <h2 id="version"></h2>
 
         <h3>Config</h3>
         <label for="timeout">Auto Refresh Timeout (seconds). Minimum is 30. Disabled &lt; 30.</label>
         <input id="timeout" min="30" name="timeout" type="number" />
-        <label for="defect">Defect URL</label>
-        <input id="defect" name="defect"></input>
-        <label for="pp">Huddle URL</label>
-        <input id="pp" name="pp"></input>
-        <label for="edu">Education System URL</label>
-        <input id="edu" name="edu"></input>
-        <label for="queue">Name of Queue to Monitor for Notifications (case-sensitive)</label>
+        <label for="queue">Name of Queue to Monitor for Refresh and/or Notifications (case-sensitive)</label>
         <input id="queue" name="queue"></input>
         <label for="qnotify">Enable Queue Desktop Notifications</label>
         <input type="checkbox" id="qnotify" name="qnotify">
@@ -26,6 +24,12 @@
         <input type="checkbox" id="qnotifyweb" name="qnotifyweb">
         <label for="webhook">Webhook URL for Web Notifications (Supports Teams, Slack and Discord Webhooks)</label>
         <input id="webhook" name="webhook"></input>
+        <label for="defect">Defect URL</label>
+        <input id="defect" name="defect"></input>
+        <label for="pp">Huddle URL</label>
+        <input id="pp" name="pp"></input>
+        <label for="edu">Education System URL</label>
+        <input id="edu" name="edu"></input>
         <label for="refemail">3rd Line Referral email Address</label>
         <input id="refemail" name="refemail"></input>
         <label for="fdsrefemail">FDS Referral email Address</label>

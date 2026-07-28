@@ -1,6 +1,32 @@
 const installedVersion = browser.runtime.getManifest().version;
 const configURL = browser.runtime.getURL('config.html');
 let globalUUID;
+const themeStorageKey = 'savedTheme';
+
+function applyTheme(theme) {
+  const normalizedTheme = theme === 'light' ? 'light' : 'dark';
+  document.body.classList.toggle('light-theme', normalizedTheme === 'light');
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  if (themeToggle) {
+    const nextThemeLabel = normalizedTheme === 'light' ? 'dark' : 'light';
+    themeToggle.setAttribute('aria-label', `Switch to ${nextThemeLabel} mode`);
+    themeToggle.setAttribute('title', `Switch to ${nextThemeLabel} mode`);
+    themeToggle.setAttribute('aria-pressed', normalizedTheme === 'light' ? 'true' : 'false');
+  }
+  if (themeIcon) {
+    themeIcon.className = normalizedTheme === 'light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+  }
+  return normalizedTheme;
+}
+
+function toggleTheme() {
+  const nextTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
+  applyTheme(nextTheme);
+  browser.storage.sync.set({
+    [themeStorageKey]: nextTheme
+  });
+}
 
 function simpleFormatToJSON(simpleText) {
   const lines = simpleText.trim().split('\n').filter(line => line.trim());
@@ -47,6 +73,7 @@ function save_options() {
   let grabLink = document.getElementById('grabLink').checked;
   let wideCase = document.getElementById('wideCase').checked;
   const customurlsJSON = simpleFormatToJSON(customurls);
+  const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
   
   browser.storage.sync.set({
       savedTimeout: refreshTimeout,
@@ -62,7 +89,8 @@ function save_options() {
       savedSig: signature,
       savedURLS: customurlsJSON,
       savedGrab: grabLink,
-      savedWide: wideCase
+        savedWide: wideCase,
+        [themeStorageKey]: currentTheme
   }, function() {
       let status = document.getElementById('status');
       status.textContent = 'Options Saved';
@@ -73,7 +101,7 @@ function save_options() {
 }
 
 function reset_options() {
-  browser.storage.sync.remove(["savedTimeout", "savedDefect", "savedPP", "savedEDU", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedRefEmail", "savedFdsRefEmail", "savedSig", "savedURLS", "savedGrab", "savedWide"], function() {
+  browser.storage.sync.remove(["savedTimeout", "savedDefect", "savedPP", "savedEDU", "savedQueue", "savedQNotify", "savedQNotifyWeb", "savedWebhook", "savedRefEmail", "savedFdsRefEmail", "savedSig", "savedURLS", "savedGrab", "savedWide", themeStorageKey], function() {
       let error = browser.runtime.lastError;
       if (error) {
           console.error(error);
@@ -98,8 +126,10 @@ function restore_options() {
       savedURLS: `{"SFExt":"${configURL}"}`,
       savedUUID: '',
       savedGrab: false,
-      savedWide: false
+        savedWide: false,
+        savedTheme: 'dark'
   }, function(result) {
+        applyTheme(result.savedTheme);
       document.getElementById('timeout').value = result.savedTimeout;
       document.getElementById('defect').value = result.savedDefect;
       document.getElementById('pp').value = result.savedPP;
@@ -140,7 +170,8 @@ function export_options() {
         savedURLS: `{"SFExt":"${configURL}"}`,
         savedUUID: '',
         savedGrab: false,
-        savedWide: false
+        savedWide: false,
+        savedTheme: 'dark'
     }, function(result) {
         browser.downloads.onChanged.addListener(function(downloadDelta) {
             if (downloadDelta.state && downloadDelta.state.current === "complete") {
@@ -193,7 +224,8 @@ function import_options() {
             savedURLS: json.savedURLS,
             savedUUID: json.savedUUID,
             savedGrab: json.savedGrab,
-            savedWide: json.wideCase
+            savedWide: json.wideCase,
+            savedTheme: json.savedTheme || 'dark'
         }, function() {
             try {
                 let status = document.getElementById('status');
@@ -222,4 +254,5 @@ document.getElementById('save').addEventListener('click', save_options);
 document.getElementById('reset').addEventListener('click', reset_options);
 document.getElementById('export').addEventListener('click', export_options);
 document.getElementById('import').addEventListener('click', import_options);
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 document.getElementById('version').textContent = installedVersion;
