@@ -306,7 +306,7 @@ CASE SUMMARY
 `
         };
     }
-    let outlookURL = "https://outlook.office.com/mail/deeplink/compose";
+    let outlookURL = "https://outlook.office.com/mail/0/deeplink/compose";
     let finalQuery = [];
     Object.entries(userQuery).forEach(([key, value]) => {
         finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
@@ -377,7 +377,7 @@ FDS ERROR: [Clear description of the issue and steps to reproduce]
 `
         };
     }
-    let outlookURL = "https://outlook.office.com/mail/deeplink/compose";
+    let outlookURL = "https://outlook.office.com/mail/0/deeplink/compose";
     let finalQuery = [];
     Object.entries(userQuery).forEach(([key, value]) => {
         finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
@@ -448,7 +448,7 @@ REQUIRED FILES: [Links to relevant files, such as diagnostic collections, data f
 `
         };
     }
-    let outlookURL = "https://outlook.office.com/mail/deeplink/compose";
+    let outlookURL = "https://outlook.office.com/mail/0/deeplink/compose";
     let finalQuery = [];
     Object.entries(userQuery).forEach(([key, value]) => {
         finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
@@ -471,7 +471,11 @@ function addReminderEvent() {
     let caseSubject;
     let today = new Date();
     let future = today.setDate(today.getDate() + 3);
-    let reminderDate = new Date(future).toJSON();
+    let reminderStart = new Date(future);
+    let reminderEnd = new Date(reminderStart.getTime() + (30 * 60 * 1000));
+    // Outlook rejects the milliseconds that toJSON() emits
+    let startDate = reminderStart.toISOString().slice(0, 19) + 'Z';
+    let endDate = reminderEnd.toISOString().slice(0, 19) + 'Z';
     let caseCheck = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab');
     if (caseCheck) {
         caseNumber = document.querySelector('div.split-right > .tabContent.active.oneConsoleTab').querySelector('[field-label="Case Number"] [name="outputField"]').innerText;
@@ -492,12 +496,14 @@ function addReminderEvent() {
         }
     }
     let userQuery = {
+        "path" : "/calendar/action/compose",
         "rru" : "addevent",
-        "startdt" : reminderDate,
+        "startdt" : startDate,
+        "enddt" : endDate,
         "subject" : querySubject,
         "body" : caseLink
     };
-    let calendarURL = "https://outlook.office.com/calendar/deeplink/compose";
+    let calendarURL = "https://outlook.office.com/calendar/0/deeplink/compose";
     let finalQuery = [];
     Object.entries(userQuery).forEach(([key, value]) => {
         finalQuery.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));

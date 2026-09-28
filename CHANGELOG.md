@@ -1,3 +1,8 @@
+# 4.2.6
+
+### Fixes
+- Update Outlook URLs and improve reminder date handling.  
+
 # 4.2.5
 
 ### Enhancements

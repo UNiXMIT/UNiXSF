@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/UNiXMIT/UNiXSF.git"
   },
-  "version": "4.2.5",
+  "version": "4.2.6",
   "scripts": {
     "prebuild": "node prebuild.js",
     "build": "web-ext build --overwrite-dest --filename SFExt.zip --artifacts-dir . --source-dir ./SFExt/",
@@ -22,7 +22,7 @@
   "devDependencies": {
     "@octokit/rest": "^20.0.0",
     "dotenv": "^17.2.3",
-    "web-ext": "^9.2.0",
-    "dotenv-cli": "^11.0.0"
+    "dotenv-cli": "^11.0.0",
+    "web-ext": "^9.2.0"
   }
 }
